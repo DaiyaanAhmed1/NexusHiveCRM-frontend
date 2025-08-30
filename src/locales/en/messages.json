@@ -1,0 +1,31 @@
+{
+  "messages": {
+    "welcome": "Welcome",
+    "goodbye": "Goodbye",
+    "thankYou": "Thank you",
+    "pleaseWait": "Please wait",
+    "operationSuccessful": "Operation successful",
+    "operationFailed": "Operation failed",
+    "dataSaved": "Data saved successfully",
+    "dataDeleted": "Data deleted successfully",
+    "confirmDelete": "Are you sure you want to delete this item?",
+    "noDataFound": "No data found",
+    "loadingData": "Loading data...",
+    "savingData": "Saving data...",
+    "deletingData": "Deleting data...",
+    "processingRequest": "Processing request...",
+    "requestCompleted": "Request completed",
+    "requestFailed": "Request failed",
+    "connectionError": "Connection error",
+    "serverError": "Server error",
+    "sessionExpired": "Session expired",
+    "accessDenied": "Access denied",
+    "permissionRequired": "Permission required",
+    "invalidInput": "Invalid input",
+    "dataUpdated": "Data updated successfully",
+    "emailSent": "Email sent successfully",
+    "passwordChanged": "Password changed successfully",
+    "profileUpdated": "Profile updated successfully",
+    "settingsSaved": "Settings saved successfully"
+  }
+} 

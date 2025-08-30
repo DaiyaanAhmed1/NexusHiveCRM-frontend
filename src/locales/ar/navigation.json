@@ -1,0 +1,52 @@
+{
+  "navigation": {
+    "main": {
+      "dashboard": "لوحة التحكم",
+      "profile": "الملف الشخصي",
+      "settings": "الإعدادات",
+      "help": "المساعدة",
+      "support": "الدعم",
+      "logout": "تسجيل الخروج",
+      "login": "تسجيل الدخول",
+      "register": "التسجيل",
+      "forgotPassword": "نسيت كلمة المرور",
+      "resetPassword": "إعادة تعيين كلمة المرور"
+    },
+    "sidebar": {
+      "overview": "نظرة عامة",
+      "analytics": "التحليلات",
+      "reports": "التقارير",
+      "management": "الإدارة",
+      "administration": "الإدارة العامة",
+      "configuration": "الإعدادات",
+      "monitoring": "المراقبة",
+      "maintenance": "الصيانة",
+      "tools": "الأدوات",
+      "utilities": "المرافق"
+    },
+    "breadcrumbs": {
+      "home": "الرئيسية",
+      "dashboard": "لوحة التحكم",
+      "users": "المستخدمون",
+      "roles": "الأدوار",
+      "permissions": "الصلاحيات",
+      "settings": "الإعدادات",
+      "profile": "الملف الشخصي",
+      "account": "الحساب",
+      "security": "الأمان",
+      "preferences": "التفضيلات"
+    },
+    "tabs": {
+      "overview": "نظرة عامة",
+      "details": "التفاصيل",
+      "settings": "الإعدادات",
+      "history": "التاريخ",
+      "activity": "النشاط",
+      "files": "الملفات",
+      "comments": "التعليقات",
+      "attachments": "المرفقات",
+      "versions": "الإصدارات",
+      "logs": "السجلات"
+    }
+  }
+} 

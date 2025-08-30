@@ -1,0 +1,10 @@
+{
+  "errors": {
+    "generic": "حدث خطأ",
+    "network": "خطأ في الشبكة",
+    "server": "خطأ في الخادم",
+    "notFound": "غير موجود",
+    "unauthorized": "غير مصرح",
+    "forbidden": "محظور"
+  }
+} 

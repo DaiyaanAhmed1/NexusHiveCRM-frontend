@@ -1,0 +1,52 @@
+{
+  "navigation": {
+    "main": {
+      "dashboard": "Dashboard",
+      "profile": "Profile",
+      "settings": "Settings",
+      "help": "Help",
+      "support": "Support",
+      "logout": "Logout",
+      "login": "Login",
+      "register": "Register",
+      "forgotPassword": "Forgot Password",
+      "resetPassword": "Reset Password"
+    },
+    "sidebar": {
+      "overview": "Overview",
+      "analytics": "Analytics",
+      "reports": "Reports",
+      "management": "Management",
+      "administration": "Administration",
+      "configuration": "Configuration",
+      "monitoring": "Monitoring",
+      "maintenance": "Maintenance",
+      "tools": "Tools",
+      "utilities": "Utilities"
+    },
+    "breadcrumbs": {
+      "home": "Home",
+      "dashboard": "Dashboard",
+      "users": "Users",
+      "roles": "Roles",
+      "permissions": "Permissions",
+      "settings": "Settings",
+      "profile": "Profile",
+      "account": "Account",
+      "security": "Security",
+      "preferences": "Preferences"
+    },
+    "tabs": {
+      "overview": "Overview",
+      "details": "Details",
+      "settings": "Settings",
+      "history": "History",
+      "activity": "Activity",
+      "files": "Files",
+      "comments": "Comments",
+      "attachments": "Attachments",
+      "versions": "Versions",
+      "logs": "Logs"
+    }
+  }
+} 

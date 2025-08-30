@@ -1,0 +1,31 @@
+{
+  "messages": {
+    "welcome": "مرحباً",
+    "goodbye": "وداعاً",
+    "thankYou": "شكراً لك",
+    "pleaseWait": "يرجى الانتظار",
+    "operationSuccessful": "تمت العملية بنجاح",
+    "operationFailed": "فشلت العملية",
+    "dataSaved": "تم حفظ البيانات بنجاح",
+    "dataDeleted": "تم حذف البيانات بنجاح",
+    "confirmDelete": "هل أنت متأكد من حذف هذا العنصر؟",
+    "noDataFound": "لم يتم العثور على بيانات",
+    "loadingData": "جاري تحميل البيانات...",
+    "savingData": "جاري حفظ البيانات...",
+    "deletingData": "جاري حذف البيانات...",
+    "processingRequest": "جاري معالجة الطلب...",
+    "requestCompleted": "تم الطلب بنجاح",
+    "requestFailed": "فشل الطلب",
+    "connectionError": "خطأ في الاتصال",
+    "serverError": "خطأ في الخادم",
+    "sessionExpired": "انتهت صلاحية الجلسة",
+    "accessDenied": "تم رفض الوصول",
+    "permissionRequired": "صلاحية مطلوبة",
+    "invalidInput": "إدخال غير صحيح",
+    "dataUpdated": "تم تحديث البيانات بنجاح",
+    "emailSent": "تم إرسال البريد الإلكتروني بنجاح",
+    "passwordChanged": "تم تغيير كلمة المرور بنجاح",
+    "profileUpdated": "تم تحديث الملف الشخصي بنجاح",
+    "settingsSaved": "تم حفظ الإعدادات بنجاح"
+  }
+} 

@@ -98,11 +98,14 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DirectorLayout from './features/director/components/DirectorLayout';
 import DirectorWorkspace from './features/director/components/DirectorWorkspace';
 import DirectorSupport from './features/director/components/DirectorSupport';
+import { LocalizationProvider } from './hooks/useLocalization.jsx';
+import './utils/i18n'; // Initialize i18n
 
 export default function App() {
   return (
-    <Router basename="/NexusHiveCRM-frontend">
-      <Routes>
+    <LocalizationProvider>
+      <Router basename="/NexusHiveCRM-frontend">
+        <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/login" element={<LoginPage />} />
@@ -209,7 +212,8 @@ export default function App() {
         <Route path="/rbac/transport-head" element={<TransportHeadDashboard />} />
         <Route path="/unauthorized" element={<Unauthorized />} />
       </Routes>
-    </Router>
+      </Router>
+    </LocalizationProvider>
   );
 }
 
