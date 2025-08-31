@@ -442,6 +442,7 @@
   "communicationHub": {
     "title": "مركز الاتصالات",
     "subtitle": "مركز القيادة المركزي لجميع الاتصالات الداخلية والخارجية عالية المستوى.",
+    "loading": "جاري التحميل...",
     "broadcastMessages": "رسائل البث",
     "internalStakeholderCommunication": "التواصل مع أصحاب المصلحة الداخليين",
     "messageArchives": "أرشيف الرسائل",

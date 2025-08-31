@@ -1,17 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import Sidebar from "./Sidebar";
-import { directorFeatures } from '../../../components/directorFeatures';
 
 export default function DirectorCommunicationHub() {
-  const user = JSON.parse(localStorage.getItem('rbac_current_user'));
   const [selectedGroup, setSelectedGroup] = useState("all");
-  const [expanded, setExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedDepartment, setSelectedDepartment] = useState('all');
   const [selectedTimeframe, setSelectedTimeframe] = useState('week');
-  const { t, ready } = useTranslation('director');
+  const { t, ready, i18n } = useTranslation('director');
+
+  // Force re-render when language changes
+  const [languageVersion, setLanguageVersion] = useState(0);
+  
+  useEffect(() => {
+    const handleLanguageChange = () => {
+      console.log('Language changed to:', i18n.language);
+      setLanguageVersion(prev => prev + 1);
+    };
+    
+    i18n.on('languageChanged', handleLanguageChange);
+    
+    return () => {
+      i18n.off('languageChanged', handleLanguageChange);
+    };
+  }, [i18n]);
 
   // Show loading state if i18n is not ready
   if (!ready) {
@@ -19,7 +31,7 @@ export default function DirectorCommunicationHub() {
       <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
         <main className="flex-1 p-4 md:p-6 flex flex-col gap-8 overflow-x-auto">
           <div className="text-center">
-            <h1 className="text-xl font-bold text-gray-900 dark:text-white">Loading...</h1>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white">{t('communicationHub.loading')}</h1>
           </div>
         </main>
       </div>
@@ -105,14 +117,11 @@ export default function DirectorCommunicationHub() {
     },
   ];
 
-  const aiReplies = ["replies.thankYou", "replies.willComply", "replies.noted"];
+  const aiReplies = ["thankYou", "willComply", "noted"];
 
   return (
-    <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
-      <div className="sticky top-0 h-screen z-30">
-        <Sidebar features={directorFeatures} userLabel={user?.displayName || user?.role || "Director"} expanded={expanded} setExpanded={setExpanded} />
-      </div>
-      <main className="flex-1 p-4 md:p-6 flex flex-col gap-8 overflow-x-auto">
+    <div key={`${i18n.language}-${languageVersion}`} className="w-full">
+      <main className="w-full flex flex-col gap-8">
         {/* Header */}
         <div>
           <h1 className="text-xl font-bold text-gray-900 dark:text-white">
@@ -377,7 +386,7 @@ export default function DirectorCommunicationHub() {
               <div className="flex gap-2 mt-1">
                 {aiReplies.map((r, i) => (
                   <span key={i} className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full px-3 py-1 text-xs">
-                    {t(`communicationHub.aiAssistant.${r}`)}
+                    {t(`communicationHub.aiAssistant.replies.${r}`)}
                   </span>
                 ))}
               </div>

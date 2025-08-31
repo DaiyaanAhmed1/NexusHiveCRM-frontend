@@ -28,7 +28,7 @@ import DirectorStrategicPlanning from './features/director/components/DirectorSt
 import DirectorAuditCompliance from './features/director/components/DirectorAuditCompliance';
 import DirectorMeetingsCalendar from './features/director/components/DirectorMeetingsCalendar';
 import DirectorUserManagement from './features/director/components/DirectorUserManagement';
-import DirectorCommunicationHub from './components/DirectorCommunicationHub';
+import DirectorCommunicationHub from './features/director/components/DirectorCommunicationHub';
 import Unauthorized from "./components/Unauthorized";
 import MarketingHeadLeadsManagement from './features/marketing-head/components/MarketingHeadLeadsManagement';
 import MarketingHeadResourceManagement from './features/marketing-head/components/MarketingHeadResourceManagement';

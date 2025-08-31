@@ -10,7 +10,7 @@ import DirectorStrategicPlanning from '../features/director/components/DirectorS
 import DirectorAuditCompliance from '../features/director/components/DirectorAuditCompliance';
 import DirectorMeetingsCalendar from '../features/director/components/DirectorMeetingsCalendar';
 import DirectorUserManagement from '../features/director/components/DirectorUserManagement';
-import DirectorCommunicationHub from './DirectorCommunicationHub';
+import DirectorCommunicationHub from '../features/director/components/DirectorCommunicationHub';
 
 const features = [
   { label: "Dashboard", icon: "📊", route: "/rbac/director", description: "University Performance Overview, KPI Summary, Alerts & Notices" },

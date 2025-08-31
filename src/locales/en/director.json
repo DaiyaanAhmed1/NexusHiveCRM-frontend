@@ -442,6 +442,7 @@
   "communicationHub": {
     "title": "Communication Hub",
     "subtitle": "Centralized command center for all high-level internal and external communication.",
+    "loading": "Loading...",
     "broadcastMessages": "Broadcast Messages",
     "internalStakeholderCommunication": "Internal Stakeholder Communication",
     "messageArchives": "Message Archives",
