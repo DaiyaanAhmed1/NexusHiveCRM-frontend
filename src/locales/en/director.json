@@ -1,1 +1,1242 @@
-{"director": {"title": "Director Dashboard"}} 
+{
+  "title": "Director Dashboard",
+  "meetingsCalendar": {
+    "title": "Meetings & Calendar",
+    "subtitle": "View, schedule, and manage meetings and important events.",
+    "upcomingMeetings": "Upcoming Meetings",
+    "calendar": "Calendar",
+    "addEvent": "Add Event",
+    "tableHeaders": {
+      "date": "Date",
+      "time": "Time",
+      "title": "Title",
+      "participants": "Participants",
+      "status": "Status",
+      "agenda": "Agenda",
+      "event": "Event"
+    },
+    "meetingTitles": {
+      "boardMeeting": "Board Meeting",
+      "researchCommittee": "Research Committee",
+      "studentCouncil": "Student Council"
+    },
+    "participants": {
+      "director": "Director",
+      "deans": "Deans",
+      "hods": "HoDs",
+      "deanScience": "Dean Science",
+      "hodEEE": "HoD EEE",
+      "studentReps": "Student Reps"
+    },
+    "status": {
+      "scheduled": "Scheduled",
+      "completed": "Completed"
+    },
+    "agenda": {
+      "reviewQ1": "Review Q1 performance",
+      "approveResearch": "Approve new research proposals",
+      "studentFeedback": "Discuss student feedback"
+    },
+    "events": {
+      "ncaaaAudit": "NCAAA Audit"
+    }
+  },
+  "support": {
+    "title": "Help & Support",
+    "subtitle": "Find answers to common questions or contact support.",
+    "helpTopics": "Help Topics",
+    "faqs": "FAQs",
+    "contactSupport": "Contact Support",
+    "comingSoon": "(Coming Soon)",
+    "topics": {
+      "userManagement": {
+        "title": "User Management",
+        "description": "Add, remove, or update user roles and permissions."
+      },
+      "dataSecurity": {
+        "title": "Data Security",
+        "description": "Best practices for securing institutional data."
+      },
+      "compliance": {
+        "title": "Compliance",
+        "description": "Guidelines for NCAAA, ETEC, MoE, and SCFHS compliance."
+      }
+    },
+    "faqItems": {
+      "passwordReset": {
+        "question": "How do I reset my password?",
+        "answer": "Go to Settings > Security and click 'Reset Password'."
+      },
+      "itSupport": {
+        "question": "How to contact IT support?",
+        "answer": "Email support@univ.edu or call extension 1234."
+      },
+      "complianceReports": {
+        "question": "Where can I find compliance reports?",
+        "answer": "Navigate to Audit & Compliance > Reports."
+      }
+    },
+    "contact": {
+      "email": "Email",
+      "phone": "Phone",
+      "liveChat": "Live Chat"
+    }
+  },
+  "settings": {
+    "title": "Director Settings",
+    "subtitle": "Configure institution-wide settings and permissions.",
+    "categories": {
+      "institutional": "Institutional Settings",
+      "academic": "Academic Configuration",
+      "access": "Access Permissions",
+      "notifications": "Notifications",
+      "dataPrivacy": "Data & Privacy"
+    },
+    "institutionalSettings": {
+      "name": "Name",
+      "nameValue": "Nexus University",
+      "type": "Type",
+      "typeValue": "Private",
+      "accreditation": "Accreditation",
+      "accreditationValue": "NCAAA A+",
+      "academicYear": "Academic Year",
+      "academicYearValue": "2024-25"
+    },
+    "academicConfiguration": {
+      "semesterSystem": "Semester System",
+      "semesterSystemValue": "Enabled",
+      "creditTransfer": "Credit Transfer",
+      "creditTransferValue": "Allowed",
+      "attendancePolicy": "Attendance Policy",
+      "attendancePolicyValue": "75% Minimum"
+    },
+    "accessPermissions": {
+      "director": "Director",
+      "directorValue": "Full",
+      "dean": "Dean",
+      "deanValue": "Partial",
+      "hod": "HoD",
+      "hodValue": "Limited",
+      "faculty": "Faculty",
+      "facultyValue": "Restricted"
+    },
+    "notifications": {
+      "pushNotifications": "Push Notifications",
+      "pushNotificationsValue": "Enabled",
+      "emailAlerts": "Email Alerts",
+      "emailAlertsValue": "Enabled",
+      "smsAlerts": "SMS Alerts",
+      "smsAlertsValue": "Disabled"
+    },
+    "dataPrivacy": {
+      "dataRetention": "Data Retention",
+      "dataRetentionValue": "5 Years",
+      "encryption": "Encryption",
+      "encryptionValue": "AES-256",
+      "twoFactorAuth": "2FA",
+      "twoFactorAuthValue": "Enabled"
+    }
+  },
+  "workspace": {
+    "title": "Workspace",
+    "subtitle": "Unified dashboard for staff to manage development, compliance, HR, and daily operations.",
+    "sections": {
+      "trainingDevelopment": "Training & Development",
+      "complianceQuality": "Compliance & Quality",
+      "accountManagement": "Account Management"
+    },
+    "trainingDevelopment": {
+      "teamTraining": {
+        "title": "Team Training",
+        "items": {
+          "leadershipDevelopment": "Leadership Development Series",
+          "onboardingTraining": "Onboarding Training",
+          "digitalTeachingTools": "Digital Teaching Tools"
+        }
+      },
+      "knowledgeManagement": {
+        "title": "Knowledge Management",
+        "items": {
+          "publishResearch": "How to publish research papers",
+          "internationalStudents": "Handling international student onboarding",
+          "departmentSops": "Department-level SOPs"
+        }
+      }
+    },
+    "complianceQuality": {
+      "qualityAssurance": {
+        "title": "Quality Assurance",
+        "items": {
+          "semesterAssessment": "Semester-end Quality Self-Assessment",
+          "courseContentAnalysis": "Course Content Coverage Analysis",
+          "complianceUploads": "NCAAA/SCFHS Compliance Uploads"
+        }
+      },
+      "riskManagement": {
+        "title": "Risk Management",
+        "items": {
+          "delayedExamResults": "Delayed exam result publication",
+          "placementTargets": "Underperformance in placement targets",
+          "dropoutTrend": "Increased dropout trend"
+        }
+      }
+    },
+    "accountManagement": {
+      "myProfile": {
+        "title": "My Profile",
+        "description": "View and update your personal information, upload documents."
+      },
+      "myHrBoard": {
+        "title": "My HR Board",
+        "items": {
+          "salarySlip": "Monthly Salary Slip",
+          "leaveBalance": "Leave Balance Tracker",
+          "performanceReview": "Performance Review Form"
+        }
+      },
+      "myReferral": {
+        "title": "My Referral",
+        "items": {
+          "submitReferral": "Submit Referral",
+          "trackReferral": "Track Referral Status"
+        }
+      },
+      "taskBox": {
+        "title": "Task Box",
+        "items": {
+          "budgetProposal": "Submit departmental budget proposal",
+          "internalAudit": "Conduct internal audit for lab equipment",
+          "researchApplications": "Approve student research applications"
+        }
+      },
+      "events": {
+        "title": "Events",
+        "items": {
+          "techSymposium": "Annual Tech Symposium – Registration Open",
+          "fdpSchedule": "Internal FDP Schedule"
+        }
+      },
+      "attendance": {
+        "title": "Attendance",
+        "items": {
+          "summary": "Present: 16 days, Leave: 2 days, Absent: 1 day",
+          "correction": "Submit attendance correction for 14th March"
+        }
+      },
+      "recruitment": {
+        "title": "Recruitment",
+        "items": {
+          "deanOpening": "Internal Opening: Dean - School of Management",
+          "roleUpgrade": "Submit SOP for role upgrade"
+        }
+      },
+      "geoFencing": {
+        "title": "Geo-Fencing",
+        "items": {
+          "checkedIn": "Checked in from Main Campus @ 9:02 AM",
+          "outOfZoneAlert": "Alert: Out-of-zone attendance attempt"
+        }
+      }
+    },
+    "status": {
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "pending": "Pending",
+      "high": "High",
+      "medium": "Medium",
+      "alert": "Alert"
+    },
+    "buttons": {
+      "start": "Start",
+      "view": "View",
+      "upload": "Upload",
+      "download": "Download"
+    }
+  },
+  "riskManagement": {
+    "title": "Risk Management",
+    "subtitle": "Monitor and manage institutional risks",
+    "addRisk": "Add Risk",
+    "exportReport": "Export Report",
+    "activeRisks": "Active Risks",
+    "viewDetails": "View Details",
+    "metrics": {
+      "activeRisks": "Active Risks",
+      "highSeverity": "High Severity",
+      "mitigationRate": "Mitigation Rate",
+      "riskScore": "Risk Score"
+    },
+    "tableHeaders": {
+      "risk": "Risk",
+      "category": "Category",
+      "severity": "Severity",
+      "probability": "Probability",
+      "status": "Status",
+      "impact": "Impact",
+      "mitigation": "Mitigation",
+      "actions": "Actions"
+    },
+    "riskTypes": {
+      "dataSecurityBreach": "Data Security Breach",
+      "studentEnrollmentDecline": "Student Enrollment Decline",
+      "regulatoryCompliance": "Regulatory Compliance"
+    },
+    "categories": {
+      "it": "IT",
+      "academic": "Academic",
+      "legal": "Legal"
+    },
+    "severity": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "probability": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "status": {
+      "active": "Active",
+      "monitored": "Monitored",
+      "resolved": "Resolved"
+    },
+    "impact": {
+      "critical": "Critical",
+      "financial": "Financial",
+      "operational": "Operational",
+      "reputational": "Reputational"
+    },
+    "mitigation": {
+      "enhancedSecurity": "Enhanced security protocols",
+      "marketingCampaign": "Marketing campaign",
+      "regularAudits": "Regular audits",
+      "staffTraining": "Staff training",
+      "policyUpdate": "Policy update"
+    }
+  },
+  "auditCompliance": {
+    "title": "Audit & Compliance",
+    "subtitle": "Monitor audit logs, compliance status, and risk analytics for the institution.",
+    "complianceStatus": "Compliance Status",
+    "auditLogs": "Audit Logs",
+    "riskAnalytics": "Risk Analytics",
+    "filterPlaceholder": "Filter by user or action...",
+    "lastAudit": "Last Audit",
+    "mitigation": "Mitigation",
+    "complianceAreas": {
+      "ncaaa": "NCAAA",
+      "etec": "ETEC",
+      "moe": "MoE",
+      "scfhs": "SCFHS"
+    },
+    "complianceStatuses": {
+      "compliant": "Compliant",
+      "pending": "Pending",
+      "nonCompliant": "Non-Compliant"
+    },
+    "auditLogHeaders": {
+      "date": "Date",
+      "action": "Action",
+      "user": "User",
+      "status": "Status",
+      "details": "Details"
+    },
+    "auditActions": {
+      "userLogin": "User Login",
+      "dataExport": "Data Export",
+      "policyUpdate": "Policy Update",
+      "systemAccess": "System Access",
+      "roleChange": "Role Change",
+      "dataModification": "Data Modification"
+    },
+    "auditStatuses": {
+      "success": "Success",
+      "failed": "Failed",
+      "pending": "Pending"
+    },
+    "auditUsers": {
+      "director": "Director",
+      "deanScience": "Dean Science",
+      "hodEEE": "HoD EEE",
+      "admin": "Admin",
+      "system": "System"
+    },
+    "auditDetails": {
+      "ipAddress": "IP: 192.168.1.10",
+      "exportedStudentList": "Exported student list",
+      "insufficientPermissions": "Insufficient permissions",
+      "loginSuccess": "Login successful",
+      "loginFailed": "Login failed",
+      "accessDenied": "Access denied"
+    },
+    "riskTypes": {
+      "dataBreach": "Data Breach",
+      "nonCompliance": "Non-compliance",
+      "policyViolation": "Policy Violation",
+      "systemFailure": "System Failure",
+      "unauthorizedAccess": "Unauthorized Access"
+    },
+    "riskLevels": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "mitigationStrategies": {
+      "twoFactorAuth": "2FA, Encryption",
+      "quarterlyAudits": "Quarterly Audits",
+      "trainingMonitoring": "Training, Monitoring",
+      "systemUpdates": "System Updates",
+      "accessControl": "Access Control"
+    }
+  },
+  "userManagement": {
+    "title": "User Management",
+    "subtitle": "Manage users, roles, and access permissions.",
+    "addUser": "Add User",
+    "allRoles": "All Roles",
+    "searchPlaceholder": "Search by name or email...",
+    "edit": "Edit",
+    "metrics": {
+      "totalUsers": "Total Users",
+      "activeUsers": "Active Users",
+      "newUsers": "New Users",
+      "avgActivity": "Avg. Activity"
+    },
+    "tableHeaders": {
+      "name": "Name",
+      "role": "Role",
+      "department": "Department",
+      "status": "Status",
+      "email": "Email",
+      "actions": "Actions"
+    },
+    "roles": {
+      "director": "Director",
+      "dean": "Dean",
+      "hod": "HoD",
+      "faculty": "Faculty",
+      "student": "Student",
+      "admin": "Admin"
+    },
+    "departments": {
+      "science": "Science",
+      "eee": "EEE",
+      "math": "Math",
+      "engineering": "Engineering",
+      "business": "Business",
+      "medicine": "Medicine"
+    },
+    "userStatuses": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "pending": "Pending",
+      "suspended": "Suspended"
+    },
+    "demoUsers": {
+      "johnDoe": "John Doe",
+      "janeSmith": "Jane Smith",
+      "mikeJohnson": "Mike Johnson"
+    }
+  },
+  "communicationHub": {
+    "title": "Communication Hub",
+    "subtitle": "Centralized command center for all high-level internal and external communication.",
+    "broadcastMessages": "Broadcast Messages",
+    "internalStakeholderCommunication": "Internal Stakeholder Communication",
+    "messageArchives": "Message Archives",
+    "incomingCommunication": "Incoming Communication",
+    "reportsInsights": "Reports & Insights",
+    "secureMessaging": "Secure Messaging",
+    "aiPoweredAssistant": "AI-Powered Assistant",
+    "integration": "Integration",
+    "send": "Send",
+    "groups": {
+      "all": "All",
+      "deans": "Deans",
+      "hods": "HoDs",
+      "faculty": "Faculty",
+      "students": "Students",
+      "parents": "Parents",
+      "adminUnits": "Admin Units"
+    },
+    "stakeholders": {
+      "deansHods": "Deans/HoDs",
+      "faculty": "Faculty",
+      "students": "Students",
+      "parents": "Parents",
+      "adminUnits": "Admin Units"
+    },
+    "placeholders": {
+      "announcementSubject": "Announcement subject...",
+      "searchByTopic": "Search by topic..."
+    },
+    "notifications": {
+      "description": "Push, email, and in-app notifications will be sent to selected group(s)."
+    },
+    "thread": "Thread",
+    "messages": {
+      "directorAnnualReports": "[Director] Please submit annual department reports before 20th March.",
+      "deanResponse": "[Dean] Noted, will share by 15th March.",
+      "hodTemplate": "[HoD] Requesting template for report submission."
+    },
+    "archiveHeaders": {
+      "date": "Date",
+      "role": "Role",
+      "topic": "Topic",
+      "subject": "Subject",
+      "attachment": "Attachment"
+    },
+    "archiveData": {
+      "annualReport": {
+        "topic": "Annual Report",
+        "subject": "Submit annual reports by 20th March"
+      },
+      "feeUpdate": {
+        "topic": "Fee Update",
+        "subject": "Fee deadline extended for 3 departments"
+      },
+      "policy": {
+        "topic": "Policy",
+        "subject": "Revised attendance policy"
+      }
+    },
+    "attachments": {
+      "reportGuidelines": "Report_Guidelines.pdf",
+      "feeCircular": "Fee_Circular.pdf",
+      "attendancePolicy": "Attendance_Policy.pdf"
+    },
+    "incomingHeaders": {
+      "from": "From",
+      "subject": "Subject",
+      "status": "Status"
+    },
+    "incomingData": {
+      "researchCenter": {
+        "from": "Dean Science",
+        "subject": "Proposal: New Research Center"
+      },
+      "labEquipment": {
+        "from": "HoD EEE",
+        "subject": "Escalation: Lab Equipment"
+      },
+      "newElective": {
+        "from": "Faculty Math",
+        "subject": "Suggestion: New Elective"
+      }
+    },
+    "statuses": {
+      "awaiting": "Awaiting",
+      "responded": "Responded"
+    },
+    "analytics": {
+      "messagesSent": "Messages Sent",
+      "opened": "Opened",
+      "responded": "Responded"
+    },
+    "sentimentSummary": "Sentiment Summary",
+    "sentimentBreakdown": "70% Positive, 20% Neutral, 10% Negative",
+    "engagementHeatmap": "Engagement Heatmap",
+    "secureMessage": {
+      "confidential": "Confidential Message",
+      "visibleTo": "Visible only to: Director, Dean, HoD",
+      "readReceipt": "Read Receipt: Yes"
+    },
+    "aiAssistant": {
+      "draftAssistant": "Draft Assistant",
+      "draftSample": "Congratulations to the 2025 batch! We welcome all new students and parents to our university family.",
+      "toneAnalyzer": "Tone Analyzer",
+      "toneSample": "Positive, Warm",
+      "autoReplySuggestions": "Auto-Reply Suggestions",
+      "replies": {
+        "thankYou": "Thank you for the update!",
+        "willComply": "Will comply.",
+        "noted": "Noted."
+      }
+    },
+    "integrations": {
+      "academicCalendar": {
+        "name": "Academic Calendar",
+        "description": "Sync announcement dates with exams, holidays"
+      },
+      "approvalCenter": {
+        "name": "Approval Center",
+        "description": "Auto-notify departments about approvals/rejections"
+      },
+      "lmsErp": {
+        "name": "LMS/ERP",
+        "description": "Seamless student/staff ID-based targeting"
+      },
+      "smsGateway": {
+        "name": "SMS Gateway / Email APIs",
+        "description": "Broader reach beyond app users"
+      }
+    }
+  },
+  "analyticsReports": {
+    "title": "Analytics & Reports",
+    "subtitle": "Comprehensive insights and analytics dashboard",
+    "allDepartments": "All Departments",
+    "lastMonth": "Last Month",
+    "last3Months": "Last 3 Months",
+    "last6Months": "Last 6 Months",
+    "lastYear": "Last Year",
+    "tabs": {
+      "admissions": "Admissions",
+      "financial": "Financial",
+      "academic": "Academic",
+      "engagement": "Engagement",
+      "placement": "Placement",
+      "compliance": "Compliance"
+    },
+    "sections": {
+      "admissions": {
+        "admissionFunnel": "Admission Funnel",
+        "programEnrollment": "Program Enrollment",
+        "geographicDistribution": "Geographic Distribution",
+        "applicationConversionRate": "Application Conversion Rate by Program",
+        "enrollmentTrend": "Enrollment Trend",
+        "topSourceRegions": "Top Source Regions"
+      },
+      "financial": {
+        "revenueByDepartment": "Revenue by Department",
+        "costAnalysis": "Cost Analysis",
+        "monthlyTrends": "Monthly Trends",
+        "profitMarginByDepartment": "Profit Margin by Department",
+        "budgetUtilizationByDepartment": "Budget Utilization by Department",
+        "yearOverYearGrowth": "Year-over-Year Growth"
+      },
+      "academic": {
+        "coursePerformance": "Course Performance",
+        "facultyPerformance": "Faculty Performance",
+        "studentDemographics": "Student Demographics",
+        "averageGPAByDepartment": "Average GPA by Department",
+        "passRateTrend": "Pass Rate Trend",
+        "enrollmentByCourse": "Enrollment by Course"
+      },
+      "engagement": {
+        "eventParticipation": "Event Participation",
+        "feedbackMetrics": "Feedback Metrics",
+        "staffAnalytics": "Staff Analytics",
+        "eventParticipationRateOverTime": "Event Participation Rate Over Time",
+        "topRatedFacilities": "Top Rated Facilities",
+        "studentSatisfactionTrend": "Student Satisfaction Trend"
+      },
+      "placement": {
+        "programPlacement": "Program Placement",
+        "recruiterFeedback": "Recruiter Feedback",
+        "departmentPerformance": "Department Performance",
+        "placementRateByProgram": "Placement Rate by Program",
+        "averageSalaryTrend": "Average Salary Trend",
+        "topRecruitingCompanies": "Top Recruiting Companies"
+      },
+      "compliance": {
+        "accreditationStatus": "Accreditation Status",
+        "auditStatus": "Audit Status",
+        "complianceIssueTrends": "Compliance Issue Trends",
+        "upcomingReviews": "Upcoming Reviews",
+        "resolvedVsUnresolvedIssues": "Resolved vs Unresolved Issues",
+        "departmentComplianceScore": "Department Compliance Score"
+      }
+    },
+    "dataLabels": {
+      "departments": {
+        "academics": "Academics",
+        "hr": "HR",
+        "finance": "Finance",
+        "admissions": "Admissions",
+        "it": "IT",
+        "rd": "R&D"
+      },
+      "programs": {
+        "computerScience": "Computer Science",
+        "businessAdmin": "Business Admin",
+        "engineering": "Engineering",
+        "arts": "Arts",
+        "medicine": "Medicine"
+      },
+      "regions": {
+        "north": "North",
+        "south": "South",
+        "east": "East",
+        "west": "West"
+      },
+      "months": {
+        "jan": "Jan",
+        "feb": "Feb",
+        "mar": "Mar",
+        "apr": "Apr",
+        "may": "May",
+        "jun": "Jun"
+      },
+      "years": {
+        "2019": "2019",
+        "2020": "2020",
+        "2021": "2021",
+        "2022": "2022",
+        "2023": "2023",
+        "2024": "2024"
+      },
+      "stages": {
+        "inquiries": "Inquiries",
+        "applications": "Applications",
+        "interviews": "Interviews",
+        "offers": "Offers",
+        "enrollments": "Enrollments"
+      },
+      "categories": {
+        "infrastructure": "Infrastructure",
+        "faculty": "Faculty",
+        "admin": "Admin",
+        "research": "Research",
+        "studentServices": "Student Services"
+      },
+      "standards": {
+        "etec": "ETEC",
+        "moe": "MoE",
+        "scfhs": "SCFHS",
+        "tvtc": "TVTC"
+      },
+      "areas": {
+        "academic": "Academic",
+        "financial": "Financial",
+        "administrative": "Administrative",
+        "infrastructure": "Infrastructure"
+      },
+      "events": {
+        "techFest": "Tech Fest",
+        "culturalDay": "Cultural Day",
+        "sportsMeet": "Sports Meet",
+        "careerFair": "Career Fair",
+        "alumniMeet": "Alumni Meet"
+      },
+      "facilities": {
+        "cafeteria": "Cafeteria",
+        "library": "Library",
+        "sports": "Sports",
+        "transport": "Transport",
+        "hostel": "Hostel"
+      },
+      "companies": {
+        "techCorp": "Tech Corp",
+        "financeLtd": "Finance Ltd",
+        "healthInc": "Health Inc",
+        "eduGroup": "Edu Group",
+        "researchCo": "Research Co"
+      },
+      "courses": {
+        "dataScience": "Data Science",
+        "businessLaw": "Business Law",
+        "engineeringMath": "Engineering Math",
+        "literature": "Literature"
+      },
+      "faculty": {
+        "drSmith": "Dr. Smith",
+        "drJohnson": "Dr. Johnson",
+        "drWilliams": "Dr. Williams",
+        "drBrown": "Dr. Brown",
+        "drDavis": "Dr. Davis"
+      }
+    },
+    "metrics": {
+      "kpi": "KPI",
+      "budget": "Budget",
+      "revenue": "Revenue",
+      "tuition": "Tuition",
+      "grants": "Grants",
+      "other": "Other",
+      "cost": "Cost",
+      "perStudent": "Per Student",
+      "profit": "Profit",
+      "allocated": "Allocated",
+      "used": "Used",
+      "expenses": "Expenses",
+      "passRate": "Pass Rate",
+      "avgGPA": "Avg GPA",
+      "enrollment": "Enrollment",
+      "enrolled": "Enrolled",
+      "capacity": "Capacity",
+      "rating": "Rating",
+      "publications": "Publications",
+      "students": "Students",
+      "participants": "Participants",
+      "satisfaction": "Satisfaction",
+      "complaints": "Complaints",
+      "placement": "Placement",
+      "avgSalary": "Avg Salary",
+      "companies": "Companies",
+      "returnRate": "Return Rate",
+      "score": "Score",
+      "status": "Status",
+      "issues": "Issues",
+      "resolved": "Resolved",
+      "unresolved": "Unresolved",
+      "conversion": "Conversion",
+      "count": "Count",
+      "rate": "Rate",
+      "trend": "Trend",
+      "applications": "Applications",
+      "review": "Review"
+    },
+    "trends": {
+      "up": "up",
+      "down": "down",
+      "stable": "stable"
+    },
+    "statuses": {
+      "accredited": "Accredited",
+      "compliant": "Compliant"
+    }
+  },
+  "departments": {
+    "title": "Departments",
+    "subtitle": "Comprehensive department analytics and management",
+    "allDepartments": "All Departments",
+    "overview": "Overview",
+    "listView": "List View",
+    "listViewComingSoon": "List view coming soon...",
+    "sections": {
+      "academicHealthIndicators": "Academic Health Indicators",
+      "facultyStaffAnalytics": "Faculty & Staff Analytics",
+      "financialSummary": "Financial Summary",
+      "researchInnovation": "Research & Innovation Metrics",
+      "studentOutcomes": "Student Outcomes",
+      "departmentAchievements": "Department Achievements"
+    },
+    "metrics": {
+      "enrollments": "Enrollments",
+      "passRate": "Pass Rate",
+      "revenue": "Revenue",
+      "faculty": "Faculty",
+      "research": "Research",
+      "papers": "papers",
+      "gpa": "GPA",
+      "dropoutRate": "Dropout Rate",
+      "completionRate": "Completion Rate",
+      "satisfactionScore": "Satisfaction Score",
+      "facultyStudentRatio": "Faculty-Student Ratio",
+      "vacancies": "Vacancies",
+      "attritionRate": "Attrition Rate",
+      "budgetAllocated": "Budget Allocated",
+      "budgetSpent": "Budget Spent",
+      "costPerStudent": "Cost per Student",
+      "roiLabs": "ROI on Labs",
+      "publications": "Publications",
+      "grantsSecured": "Grants Secured",
+      "patentsFiled": "Patents Filed",
+      "collaborations": "Collaborations",
+      "placementRate": "Placement Rate",
+      "avgPackage": "Average Package",
+      "higherStudiesRate": "Higher Studies Rate",
+      "internships": "Internships",
+      "awards": "Awards Won",
+      "guestLectures": "Guest Lectures",
+      "industryMoUs": "Industry MoUs",
+      "outreachPrograms": "Outreach Programs"
+    },
+    "chartLabels": {
+      "passFailRate": "Pass/Fail Rate",
+      "studentSatisfaction": "Student Satisfaction",
+      "completionVsDropout": "Completion vs Dropout",
+      "facultyMetrics": "Faculty Metrics",
+      "facultyWorkloadDistribution": "Faculty Workload Distribution",
+      "budgetAllocationVsSpent": "Budget Allocation vs Spent",
+      "costRevenueAnalysis": "Cost & Revenue Analysis",
+      "researchOutput": "Research Output",
+      "grantsFunding": "Grants & Funding",
+      "placementHigherStudies": "Placement & Higher Studies",
+      "packageInternships": "Package & Internships",
+      "awardsRecognition": "Awards & Recognition"
+    },
+    "departmentNames": {
+      "computerScience": "Computer Science",
+      "electronicsCommunication": "Electronics & Communication",
+      "businessAdministration": "Business Administration"
+    }
+  },
+  "approvalCenter": {
+    "title": "Approval Center",
+    "subtitle": "Manage and process approval requests",
+    "categories": {
+      "allCategories": "All Categories",
+      "academic": "Academic",
+      "facultyHr": "Faculty & HR",
+      "financial": "Financial",
+      "administrative": "Administrative",
+      "complianceAudit": "Compliance & Audit"
+    },
+    "statuses": {
+      "allStatus": "All Status",
+      "pending": "Pending",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "escalated": "Escalated",
+      "revisionRequested": "Revision Requested",
+      "revision": "Revision"
+    },
+    "priorities": {
+      "allPriorities": "All Priorities",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "bulkActions": {
+      "requestsSelected": "requests selected",
+      "approveSelected": "Approve Selected",
+      "rejectSelected": "Reject Selected"
+    },
+    "requestTypes": {
+      "newCourseProposal": "New Course Proposal",
+      "curriculumRevision": "Curriculum Revision",
+      "facultyHiring": "Faculty Hiring",
+      "researchGrant": "Research Grant",
+      "eventApproval": "Event Approval",
+      "accreditationDocumentation": "Accreditation Documentation"
+    },
+    "requestDetails": {
+      "description": "Description",
+      "amount": "Amount",
+      "attachments": "Attachments",
+      "comments": "Comments",
+      "addComment": "Add Comment",
+      "commentPlaceholder": "Add your comment here...",
+      "requestedBy": "Requested by"
+    },
+    "actions": {
+      "requestRevision": "Request Revision",
+      "reject": "Reject",
+      "approve": "Approve",
+      "close": "Close"
+    },
+    "alerts": {
+      "revisionCommentRequired": "Please add a comment explaining what needs to be revised",
+      "rejectionCommentRequired": "Please add a comment explaining the rejection reason"
+    },
+    "demoData": {
+      "quantumComputing": "Introduction to Quantum Computing",
+      "aiSpecialization": "AI Specialization Update",
+      "dataScienceProfessor": "Senior Professor - Data Science",
+      "aiResearchProject": "AI Research Project Funding",
+      "techSymposium": "Tech Symposium 2024",
+      "etecReport": "ETEC Annual Report Submission"
+    },
+    "departments": {
+      "computerScience": "Computer Science",
+      "qualityAssurance": "Quality Assurance"
+    },
+    "faculty": {
+      "drNoura": "Dr. Noura Al-Zahra",
+      "drKhalid": "Dr. Khalid Al-Sayed",
+      "drLayla": "Dr. Layla Al-Mansour",
+      "drAbdullah": "Dr. Abdullah Al-Rashid",
+      "drAisha": "Dr. Aisha Al-Hassan",
+      "drOmar": "Dr. Omar Al-Mutairi"
+    },
+    "descriptions": {
+      "quantumComputing": "Proposal for a new undergraduate course in Quantum Computing",
+      "aiSpecialization": "Update to AI specialization curriculum to include latest advancements",
+      "dataScienceProfessor": "New faculty position for Data Science specialization",
+      "aiResearchProject": "Research grant request for AI ethics project",
+      "techSymposium": "Annual technical symposium with industry experts",
+      "etecReport": "Final approval for ETEC accreditation documentation"
+    },
+    "attachments": {
+      "courseProposal": "Course_Proposal.pdf",
+      "syllabusDraft": "Syllabus_Draft.pdf",
+      "curriculumChanges": "Curriculum_Changes.pdf",
+      "industryFeedback": "Industry_Feedback.pdf",
+      "jobDescription": "Job_Description.pdf",
+      "candidateProfile": "Candidate_Profile.pdf",
+      "projectProposal": "Project_Proposal.pdf",
+      "budgetBreakdown": "Budget_Breakdown.pdf",
+      "eventPlan": "Event_Plan.pdf",
+      "budgetProposal": "Budget_Proposal.pdf",
+      "etecReport": "ETEC_Report.pdf",
+      "supportingDocs": "Supporting_Docs.pdf"
+    },
+    "comments": {
+      "courseAligned": "Course aligned with industry demands",
+      "underReview": "Under review",
+      "updatedRequirements": "Updated based on industry requirements",
+      "positionReviewed": "Position requirements reviewed",
+      "budgetReview": "Budget review in progress",
+      "venueSpeakers": "Venue and speakers confirmed",
+      "documentsCompiled": "All required documents compiled"
+    },
+    "teams": {
+      "academicCommittee": "Academic Committee",
+      "hrTeam": "HR Team",
+      "financeTeam": "Finance Team",
+      "eventCommittee": "Event Committee",
+      "qaTeam": "QA Team"
+    }
+  },
+  "strategicPlanning": {
+    "title": "Strategic Planning",
+    "subtitle": "Strategic planning and analysis dashboard",
+    "filters": {
+      "allDepartments": "All Departments",
+      "departments": {
+        "computerScience": "Computer Science",
+        "eee": "EEE",
+        "mechanical": "Mechanical",
+        "business": "Business",
+        "biotech": "Biotech"
+      }
+    },
+    "sections": {
+      "keyPerformanceIndicators": "Key Performance Indicators",
+      "strategicGoalsRoadmap": "Strategic Goals & Roadmap",
+      "academicPlanningTools": "Academic Planning Tools",
+      "swotAnalysis": "SWOT Analysis",
+      "trendAnalysis": "Trend Analysis"
+    },
+    "kpis": {
+      "studentFacultyRatio": "Student-Faculty Ratio",
+      "publicationsFaculty": "Publications/Faculty",
+      "retentionRate": "Retention Rate",
+      "placementRate": "Placement Rate",
+      "target": "Target"
+    },
+    "strategicGoals": {
+      "goalProgressTracker": "Goal Progress Tracker",
+      "strategicRoadmapTimeline": "Strategic Roadmap Timeline",
+      "researchOutput": "Research Output",
+      "accreditationStatus": "Accreditation Status",
+      "placements": "Placements",
+      "facultyHiring": "Faculty Hiring"
+    },
+    "roadmap": {
+      "ncaaaPrep": "NCAAA Prep",
+      "newBscAiProgram": "New BSc AI Program",
+      "campusExpansion": "Campus Expansion",
+      "greenCampusInitiative": "Green Campus Initiative"
+    },
+    "academicPlanning": {
+      "curriculumDevelopmentMatrix": "Curriculum Development Matrix",
+      "programEvaluationCycle": "Program Evaluation Cycle",
+      "course": "Course",
+      "status": "Status",
+      "lead": "Lead",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "reviewIn": "Review in",
+      "last": "Last"
+    },
+    "curriculumStatus": {
+      "proposal": "Proposal",
+      "review": "Review",
+      "ongoing": "Ongoing",
+      "accredited": "Accredited"
+    },
+    "programs": {
+      "bscAi": "BSc AI",
+      "mbaFintech": "MBA FinTech",
+      "btechEee": "BTech EEE",
+      "mscDataSci": "MSc Data Sci",
+      "bbaMarketing": "BBA Marketing",
+      "bscCs": "BSc CS",
+      "mba": "MBA"
+    },
+    "faculty": {
+      "drChen": "Dr. Chen",
+      "drRao": "Dr. Rao",
+      "drSingh": "Dr. Singh",
+      "drPatel": "Dr. Patel",
+      "drMehra": "Dr. Mehra"
+    },
+    "swot": {
+      "strengths": "Strengths",
+      "weaknesses": "Weaknesses",
+      "opportunities": "Opportunities",
+      "threats": "Threats",
+      "items": {
+        "strongFacultyBase": "Strong faculty base",
+        "modernLabs": "Modern labs",
+        "highResearchOutput": "High research output",
+        "internationalPartnerships": "International partnerships",
+        "limitedHostelCapacity": "Limited hostel capacity",
+        "outdatedLibraryResources": "Outdated library resources",
+        "lowAlumniEngagement": "Low alumni engagement",
+        "aiMlProgramDemand": "AI/ML program demand",
+        "industryTieUps": "Industry tie-ups",
+        "governmentGrants": "Government grants",
+        "onlineCourseExpansion": "Online course expansion",
+        "risingCompetition": "Rising competition",
+        "changingRegulations": "Changing regulations",
+        "decliningEnrollment": "Declining enrollment in some programs",
+        "economicDownturn": "Economic downturn"
+      }
+    },
+    "trends": {
+      "enrollment": "Enrollment",
+      "placements": "Placements",
+      "researchFunding": "Research Funding ($K)",
+      "facultyPublications": "Faculty Publications",
+      "internationalCollaborations": "International Collaborations"
+    }
+  },
+  "dashboard": {
+    "title": "Director Dashboard",
+    "subtitle": "University Performance Overview & Analytics",
+    "features": {
+      "dashboard": "Dashboard",
+      "analyticsReports": "Analytics & Reports",
+      "departments": "Departments",
+      "approvalCenter": "Approval Center",
+      "strategicPlanning": "Strategic Planning",
+      "communication": "Communication",
+      "auditCompliance": "Audit & Compliance",
+      "meetingsCalendar": "Meetings & Calendar",
+      "userManagement": "User Management",
+      "settings": "Settings",
+      "helpSupport": "Help & Support",
+      "communicationHub": "Communication Hub",
+      "trainingDevelopment": "Training & Development",
+      "complianceQuality": "Compliance & Quality",
+      "accountManagement": "Account Management",
+      "supportTickets": "Support Tickets",
+      "helpDocumentation": "Help / Documentation"
+    },
+    "featureDescriptions": {
+      "dashboard": "University Performance Overview, KPI Summary, Alerts & Notices",
+      "analyticsReports": "Department-wise Reports, Statistics, Finance, Trends, HR Insights",
+      "departments": "Academic Affairs, HR, Finance, Admissions, IT, R&D",
+      "approvalCenter": "Budget, Policy, Recruitment, Procurement Approvals",
+      "strategicPlanning": "Annual Plans, Accreditation, Risk Management",
+      "communication": "Notices, Circulars, External Comms",
+      "auditCompliance": "Audit Reports, Accreditation, Legal Docs",
+      "meetingsCalendar": "Scheduler, Minutes, Events",
+      "userManagement": "Roles, Permissions, Admin Controls",
+      "settings": "Profile, Branding, Notifications",
+      "helpSupport": "Technical Support, Handbook",
+      "communicationHub": "Internal Communication Hub",
+      "trainingDevelopment": "Team Training, Knowledge Mgmt",
+      "complianceQuality": "Quality Assurance, Risk Mgmt",
+      "accountManagement": "Profile, HR Board, Tasks, Events, Attendance, Recruitment, HelpDesk, Geo-fencing",
+      "supportTickets": "My Tickets, Raise a Ticket",
+      "helpDocumentation": "Help, Documentation"
+    },
+    "summaryCards": {
+      "totalStudents": "Total Students",
+      "totalFacultyStaff": "Total Faculty/Staff",
+      "collegesDepartments": "Colleges/Departments",
+      "coursesOffered": "Courses Offered",
+      "vehiclesRunning": "Vehicles Running",
+      "upcomingEvents": "Upcoming Events",
+      "changeFromLastMonth": "% change from last month",
+      "vacancy": "Vacancy",
+      "newThisYear": "New this year",
+      "addedThisYear": "Added this year",
+      "routesActive": "Routes Active",
+      "next7Days": "Next 7 days"
+    },
+    "kpis": {
+      "admissions": "Admissions",
+      "finance": "Finance ($)",
+      "hr": "HR (Staff)",
+      "academics": "Academics (GPA)",
+      "attendance": "Attendance (%)"
+    },
+    "sections": {
+      "academicInsights": "Academic Insights",
+      "financialOverview": "Financial Overview",
+      "hrStaffAnalytics": "HR & Staff Analytics",
+      "alertsNotifications": "Alerts & Notifications",
+      "aiPoweredForecasts": "AI-Powered Forecasts",
+      "aiPoweredRevenue": "AI-Powered Revenue & Conversion Analytics"
+    },
+    "charts": {
+      "admissionsTrend": "Admissions Trend",
+      "financeOverview": "Finance Overview",
+      "departmentPerformance": "Department Performance",
+      "enrollmentGraduation": "Enrollment & Graduation (Last 5 Years)",
+      "topPerformingDepartments": "Top Performing Departments (Avg GPA)",
+      "monthlyFeeCollection": "Monthly Fee Collection ($)",
+      "budgetAllocationUsage": "Budget Allocation vs Usage ($)",
+      "staffStrengthByType": "Staff Strength by Type (Last 5 Years)",
+      "attritionRateTrend": "Attrition Rate Trend (%)"
+    },
+    "departments": {
+      "academics": "Academics",
+      "hr": "HR",
+      "finance": "Finance",
+      "admissions": "Admissions",
+      "it": "IT",
+      "rd": "R&D",
+      "engineering": "Engineering",
+      "science": "Science",
+      "business": "Business",
+      "arts": "Arts",
+      "law": "Law"
+    },
+    "aiWidgets": {
+      "predictiveAdmission": "Predictive Admission",
+      "dropoutRisk": "Dropout Risk",
+      "financialSurplusDeficit": "Financial Surplus/Deficit",
+      "leadConversion": "Lead Conversion",
+      "applicationFeeRevenue": "Application Fee Revenue",
+      "departmentRevenue": "Department Revenue",
+      "subjectProfitability": "Subject Profitability",
+      "studentDemographics": "Student Demographics",
+      "departmentRevenueRadar": "Department Revenue (Radar)",
+      "subjectProfitabilityRadar": "Subject Profitability (Radar)"
+    },
+    "aiLabels": {
+      "ai": "AI",
+      "nextSemesterIntake": "next semester intake expected",
+      "highestGrowth": "Highest growth",
+      "confidence": "Confidence",
+      "model": "Model",
+      "keyDrivers": "Key Drivers",
+      "whatIf": "What-if",
+      "lastUpdated": "Last updated",
+      "poweredByNexusAI": "Powered by NexusAI",
+      "clickToEnlarge": "Click to enlarge",
+      "interactiveBarChart": "Interactive Bar Chart",
+      "interactiveRadar": "Interactive Radar"
+    },
+    "alerts": {
+      "pendingBudgetApprovals": "Pending Budget Approvals: 3",
+      "complianceAlert": "Compliance Alert: NCAAA Report Due",
+      "upcomingExamDeadline": "Upcoming Exam Deadline: 15th July",
+      "newFeedbackStudents": "New Feedback from Students"
+    },
+    "modalContent": {
+      "undergraduates": "Undergraduates",
+      "postgraduates": "Postgraduates",
+      "international": "International",
+      "teaching": "Teaching",
+      "nonTeaching": "Non-Teaching",
+      "contractual": "Contractual",
+      "new": "New",
+      "largest": "Largest",
+      "smallest": "Smallest",
+      "ugCourses": "UG Courses",
+      "pgCourses": "PG Courses",
+      "phdResearch": "PhD/Research",
+      "buses": "Buses",
+      "vans": "Vans",
+      "ambulances": "Ambulances",
+      "convocation": "Convocation",
+      "sportsMeet": "Sports Meet",
+      "facultyWorkshop": "Faculty Workshop",
+      "daysLeft": "days left",
+      "applicationsThisMonth": "Applications this month",
+      "acceptanceRate": "Acceptance rate",
+      "topProgram": "Top program",
+      "feeCollectionYtd": "Fee Collection (YTD)",
+      "outstandingFees": "Outstanding Fees",
+      "scholarshipsGranted": "Scholarships Granted",
+      "avgGpaUg": "Avg GPA (UG)",
+      "avgGpaPg": "Avg GPA (PG)",
+      "topDepartment": "Top Department",
+      "studentAttendance": "Student Attendance",
+      "staffAttendance": "Staff Attendance",
+      "lowest": "Lowest",
+      "trend": "Trend",
+      "last6Periods": "Last 6 periods",
+      "stable": "Stable"
+    }
+  }
+} 

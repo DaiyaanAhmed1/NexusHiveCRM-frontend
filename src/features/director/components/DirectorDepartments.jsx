@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, LineChart, Line, Legend, AreaChart, Area,
@@ -110,11 +111,18 @@ const departments = [
 const COLORS = ["#6366f1", "#22c55e", "#f59e42", "#eab308", "#a3a3a3"];
 
 export default function DirectorDepartments() {
+  const { t, ready } = useTranslation('director');
   const [selectedDepartment, setSelectedDepartment] = useState("All");
   const [viewMode, setViewMode] = useState("overview");
   const [compareMode, setCompareMode] = useState(false);
   const [selectedDepts, setSelectedDepts] = useState([]);
   const user = JSON.parse(localStorage.getItem('rbac_current_user'));
+
+  if (!ready) {
+    return <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 items-center justify-center">
+      <div className="text-lg text-gray-600 dark:text-gray-300">Loading...</div>
+    </div>;
+  }
 
   const renderDepartmentOverview = () => (
     <div className="space-y-6">
@@ -130,24 +138,24 @@ export default function DirectorDepartments() {
             <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">{dept.name}</h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Enrollments</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{t('departments.metrics.enrollments')}</p>
                 <p className="text-lg font-semibold text-gray-900 dark:text-white">{dept.enrollments}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Pass Rate</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{t('departments.metrics.passRate')}</p>
                 <p className="text-lg font-semibold text-gray-900 dark:text-white">{dept.passRate}%</p>
               </div>
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Revenue</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{t('departments.metrics.revenue')}</p>
                 <p className="text-lg font-semibold text-gray-900 dark:text-white">${(dept.revenue / 1000000).toFixed(1)}M</p>
               </div>
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Faculty</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{t('departments.metrics.faculty')}</p>
                 <p className="text-lg font-semibold text-gray-900 dark:text-white">{dept.facultyStrength}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-600 dark:text-gray-300">Research</p>
-                <p className="text-lg font-semibold text-gray-900 dark:text-white">{dept.researchOutput} papers</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300">{t('departments.metrics.research')}</p>
+                <p className="text-lg font-semibold text-gray-900 dark:text-white">{dept.researchOutput} {t('departments.metrics.papers')}</p>
               </div>
             </div>
           </motion.div>
@@ -156,10 +164,10 @@ export default function DirectorDepartments() {
 
       {/* Academic Health Indicators */}
       <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-        <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Academic Health Indicators</h3>
+        <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">{t('departments.sections.academicHealthIndicators')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div>
-            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">Pass/Fail Rate</h4>
+            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">{t('departments.chartLabels.passFailRate')}</h4>
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={departments} margin={{ top: 10, right: 30, left: 30, bottom: 50 }}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -171,7 +179,7 @@ export default function DirectorDepartments() {
             </ResponsiveContainer>
           </div>
           <div>
-            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">Student Satisfaction</h4>
+            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">{t('departments.chartLabels.studentSatisfaction')}</h4>
             <ResponsiveContainer width="100%" height={240}>
               <RadarChart data={departments.map(dept => ({
                 name: dept.name,
@@ -189,7 +197,7 @@ export default function DirectorDepartments() {
             </ResponsiveContainer>
           </div>
           <div>
-            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">Completion vs Dropout</h4>
+            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">{t('departments.chartLabels.completionVsDropout')}</h4>
             <ResponsiveContainer width="100%" height={200}>
               <BarChart data={departments} margin={{ top: 10, right: 30, left: 30, bottom: 50 }}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -206,25 +214,25 @@ export default function DirectorDepartments() {
 
       {/* Faculty & Staff Analytics */}
       <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-        <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Faculty & Staff Analytics</h3>
+        <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">{t('departments.sections.facultyStaffAnalytics')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">Faculty Metrics</h4>
+            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">{t('departments.chartLabels.facultyMetrics')}</h4>
             <div className="grid grid-cols-2 gap-4">
               {departments.map((dept) => (
                 <div key={dept.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
                   <h5 className="text-sm font-medium text-gray-900 dark:text-white mb-2">{dept.name}</h5>
                   <div className="space-y-2">
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">Faculty-Student Ratio</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-300">{t('departments.metrics.facultyStudentRatio')}</p>
                       <p className="text-sm font-semibold text-gray-900 dark:text-white">1:{dept.facultyStudentRatio}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">Vacancies</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-300">{t('departments.metrics.vacancies')}</p>
                       <p className="text-sm font-semibold text-gray-900 dark:text-white">{dept.vacancies}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">Attrition Rate</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-300">{t('departments.metrics.attritionRate')}</p>
                       <p className="text-sm font-semibold text-gray-900 dark:text-white">{dept.attritionRate}%</p>
                     </div>
                   </div>
@@ -233,7 +241,7 @@ export default function DirectorDepartments() {
             </div>
           </div>
           <div>
-            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">Faculty Workload Distribution</h4>
+            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">{t('departments.chartLabels.facultyWorkloadDistribution')}</h4>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={departments} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -250,10 +258,10 @@ export default function DirectorDepartments() {
 
       {/* Financial Summary */}
       <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-        <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Financial Summary</h3>
+        <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">{t('departments.sections.financialSummary')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">Budget Allocation vs Spent</h4>
+            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">{t('departments.chartLabels.budgetAllocationVsSpent')}</h4>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={departments} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -266,22 +274,22 @@ export default function DirectorDepartments() {
             </ResponsiveContainer>
           </div>
           <div>
-            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">Cost & Revenue Analysis</h4>
+            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">{t('departments.chartLabels.costRevenueAnalysis')}</h4>
             <div className="grid grid-cols-2 gap-4">
               {departments.map((dept) => (
                 <div key={dept.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
                   <h5 className="text-sm font-medium text-gray-900 dark:text-white mb-2">{dept.name}</h5>
                   <div className="space-y-2">
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">Cost per Student</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-300">{t('departments.metrics.costPerStudent')}</p>
                       <p className="text-sm font-semibold text-gray-900 dark:text-white">${dept.costPerStudent}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">ROI on Labs</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-300">{t('departments.metrics.roiLabs')}</p>
                       <p className="text-sm font-semibold text-gray-900 dark:text-white">{dept.roiLabs}%</p>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">Revenue</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-300">{t('departments.metrics.revenue')}</p>
                       <p className="text-sm font-semibold text-gray-900 dark:text-white">${(dept.revenue / 1000000).toFixed(1)}M</p>
                     </div>
                   </div>
@@ -294,10 +302,10 @@ export default function DirectorDepartments() {
 
       {/* Research & Innovation */}
       <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-        <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Research & Innovation Metrics</h3>
+        <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">{t('departments.sections.researchInnovation')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">Research Output</h4>
+            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">{t('departments.chartLabels.researchOutput')}</h4>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={departments} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -311,22 +319,22 @@ export default function DirectorDepartments() {
             </ResponsiveContainer>
           </div>
           <div>
-            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">Grants & Funding</h4>
+            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">{t('departments.chartLabels.grantsFunding')}</h4>
             <div className="grid grid-cols-2 gap-4">
               {departments.map((dept) => (
                 <div key={dept.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
                   <h5 className="text-sm font-medium text-gray-900 dark:text-white mb-2">{dept.name}</h5>
                   <div className="space-y-2">
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">Grants Secured</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-300">{t('departments.metrics.grantsSecured')}</p>
                       <p className="text-sm font-semibold text-gray-900 dark:text-white">${(dept.grantsSecured / 1000000).toFixed(1)}M</p>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">Patents Filed</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-300">{t('departments.metrics.patentsFiled')}</p>
                       <p className="text-sm font-semibold text-gray-900 dark:text-white">{dept.patentsFiled}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">Collaborations</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-300">{t('departments.metrics.collaborations')}</p>
                       <p className="text-sm font-semibold text-gray-900 dark:text-white">{dept.collaborations}</p>
                     </div>
                   </div>
@@ -339,10 +347,10 @@ export default function DirectorDepartments() {
 
       {/* Student Outcomes */}
       <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-        <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Student Outcomes</h3>
+        <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">{t('departments.sections.studentOutcomes')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">Placement & Higher Studies</h4>
+            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">{t('departments.chartLabels.placementHigherStudies')}</h4>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={departments} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -355,18 +363,18 @@ export default function DirectorDepartments() {
             </ResponsiveContainer>
           </div>
           <div>
-            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">Package & Internships</h4>
+            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">{t('departments.chartLabels.packageInternships')}</h4>
             <div className="grid grid-cols-2 gap-4">
               {departments.map((dept) => (
                 <div key={dept.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
                   <h5 className="text-sm font-medium text-gray-900 dark:text-white mb-2">{dept.name}</h5>
                   <div className="space-y-2">
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">Average Package</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-300">{t('departments.metrics.avgPackage')}</p>
                       <p className="text-sm font-semibold text-gray-900 dark:text-white">${dept.avgPackage.toLocaleString()}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">Internships</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-300">{t('departments.metrics.internships')}</p>
                       <p className="text-sm font-semibold text-gray-900 dark:text-white">{dept.internships}</p>
                     </div>
                   </div>
@@ -379,29 +387,29 @@ export default function DirectorDepartments() {
 
       {/* Department Achievements */}
       <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg">
-        <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Department Achievements</h3>
+        <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">{t('departments.sections.departmentAchievements')}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">Awards & Recognition</h4>
+            <h4 className="text-sm font-medium mb-2 text-gray-600 dark:text-gray-300">{t('departments.chartLabels.awardsRecognition')}</h4>
             <div className="grid grid-cols-2 gap-4">
               {departments.map((dept) => (
                 <div key={dept.id} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
                   <h5 className="text-sm font-medium text-gray-900 dark:text-white mb-2">{dept.name}</h5>
                   <div className="space-y-2">
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">Awards Won</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-300">{t('departments.metrics.awards')}</p>
                       <p className="text-sm font-semibold text-gray-900 dark:text-white">{dept.awards}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">Guest Lectures</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-300">{t('departments.metrics.guestLectures')}</p>
                       <p className="text-sm font-semibold text-gray-900 dark:text-white">{dept.guestLectures}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">Industry MoUs</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-300">{t('departments.metrics.industryMoUs')}</p>
                       <p className="text-sm font-semibold text-gray-900 dark:text-white">{dept.industryMoUs}</p>
                     </div>
                     <div>
-                      <p className="text-xs text-gray-600 dark:text-gray-300">Outreach Programs</p>
+                      <p className="text-xs text-gray-600 dark:text-gray-300">{t('departments.metrics.outreachPrograms')}</p>
                       <p className="text-sm font-semibold text-gray-900 dark:text-white">{dept.outreachPrograms}</p>
                     </div>
                   </div>
@@ -416,7 +424,7 @@ export default function DirectorDepartments() {
 
   // Placeholder for list view (not implemented in demo)
   const renderDepartmentList = () => (
-    <div className="text-gray-500 dark:text-gray-300 text-center py-12">List view coming soon...</div>
+    <div className="text-gray-500 dark:text-gray-300 text-center py-12">{t('departments.listViewComingSoon')}</div>
   );
 
   return (
@@ -425,8 +433,8 @@ export default function DirectorDepartments() {
         {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <h1 className="text-xl font-bold text-gray-900 dark:text-white">Departments</h1>
-            <p className="text-sm text-gray-600 dark:text-gray-300">Comprehensive department analytics and management</p>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white">{t('departments.title')}</h1>
+            <p className="text-sm text-gray-600 dark:text-gray-300">{t('departments.subtitle')}</p>
           </div>
           <div className="flex flex-wrap gap-2">
             <select
@@ -434,7 +442,7 @@ export default function DirectorDepartments() {
               onChange={(e) => setSelectedDepartment(e.target.value)}
               className="px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
             >
-              <option value="All">All Departments</option>
+              <option value="All">{t('departments.allDepartments')}</option>
               {departments.map((dept) => (
                 <option key={dept.id} value={dept.name}>
                   {dept.name}
@@ -446,8 +454,8 @@ export default function DirectorDepartments() {
               onChange={(e) => setViewMode(e.target.value)}
               className="px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
             >
-              <option value="overview">Overview</option>
-              <option value="list">List View</option>
+              <option value="overview">{t('departments.overview')}</option>
+              <option value="list">{t('departments.listView')}</option>
             </select>
           </div>
         </div>

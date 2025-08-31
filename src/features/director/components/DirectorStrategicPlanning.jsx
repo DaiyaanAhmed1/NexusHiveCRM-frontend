@@ -1,92 +1,109 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { directorFeatures } from '../../../components/directorFeatures';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-// Demo data for filters
-const departments = ["All Departments", "Computer Science", "EEE", "Mechanical", "Business", "Biotech"];
+// Demo data for filters - will be generated dynamically with translations
 const years = ["2024", "2025", "2026", "2027", "2028"];
 
-// Demo data for KPIs
-const kpis = [
-  { label: "Student-Faculty Ratio", value: 18, target: 15, unit: ":1" },
-  { label: "Publications/Faculty", value: 2.8, target: 3.5 },
-  { label: "Retention Rate", value: 92, target: 95, unit: "%" },
-  { label: "Placement Rate", value: 81, target: 90, unit: "%" },
-];
+// Demo data for KPIs - will be generated dynamically with translations
 
-// Demo data for progress bars
-const goals = [
-  { label: "Research Output", progress: 70 },
-  { label: "Accreditation Status", progress: 85 },
-  { label: "Placements", progress: 81 },
-  { label: "Faculty Hiring", progress: 60 },
-];
+// Demo data for progress bars - will be generated dynamically with translations
 
-// Demo data for Gantt chart (strategic roadmap)
-const roadmap = [
-  { name: "NCAAA Prep", start: "2024", end: "2025" },
-  { name: "New BSc AI Program", start: "2025", end: "2026" },
-  { name: "Campus Expansion", start: "2026", end: "2028" },
-  { name: "Green Campus Initiative", start: "2024", end: "2027" },
-];
+// Demo data for Gantt chart (strategic roadmap) - will be generated dynamically with translations
 
-// Enhanced Academic Planning Tools data
-const curriculumMatrix = [
-  { course: "BSc AI", status: "Proposal", lead: "Dr. Chen", start: "2024-06", end: "2025-05" },
-  { course: "MBA FinTech", status: "Review", lead: "Dr. Rao", start: "2023-09", end: "2024-08" },
-  { course: "BTech EEE", status: "Ongoing", lead: "Dr. Singh", start: "2022-07", end: "2025-06" },
-  { course: "MSc Data Sci", status: "Proposal", lead: "Dr. Patel", start: "2024-01", end: "2025-12" },
-  { course: "BBA Marketing", status: "Accredited", lead: "Dr. Mehra", start: "2021-08", end: "2024-07" },
-];
-const programEvaluation = [
-  { program: "BSc CS", next: "2025", last: "2020" },
-  { program: "MBA", next: "2026", last: "2021" },
-  { program: "BTech EEE", next: "2027", last: "2022" },
-  { program: "MSc Data Sci", next: "2028", last: "New" },
-  { program: "BBA Marketing", next: "2024", last: "2019" },
-];
+// Enhanced Academic Planning Tools data - will be generated dynamically with translations
 
-// Enhanced SWOT
-const swot = {
-  Strengths: [
-    "Strong faculty base",
-    "Modern labs",
-    "High research output",
-    "International partnerships"
-  ],
-  Weaknesses: [
-    "Limited hostel capacity",
-    "Outdated library resources",
-    "Low alumni engagement"
-  ],
-  Opportunities: [
-    "AI/ML program demand",
-    "Industry tie-ups",
-    "Government grants",
-    "Online course expansion"
-  ],
-  Threats: [
-    "Rising competition",
-    "Changing regulations",
-    "Declining enrollment in some programs",
-    "Economic downturn"
-  ],
-};
+// Enhanced SWOT - will be generated dynamically with translations
 
-// Enhanced Trend Analysis
-const trends = [
-  { label: "Enrollment", values: [1200, 1300, 1400, 1550, 1700], years: ["2020","2021","2022","2023","2024"] },
-  { label: "Placements", values: [800, 900, 950, 1100, 1200], years: ["2020","2021","2022","2023","2024"] },
-  { label: "Research Funding ($K)", values: [200, 250, 300, 350, 400], years: ["2020","2021","2022","2023","2024"] },
-  { label: "Faculty Publications", values: [50, 60, 70, 85, 90], years: ["2020","2021","2022","2023","2024"] },
-  { label: "International Collaborations", values: [2, 3, 4, 6, 8], years: ["2020","2021","2022","2023","2024"] },
-];
+// Enhanced Trend Analysis - will be generated dynamically with translations
 
 export default function DirectorStrategicPlanning() {
+  const { t, ready } = useTranslation('director');
   const user = JSON.parse(localStorage.getItem('rbac_current_user'));
   const [selectedDept, setSelectedDept] = useState("All Departments");
   const [selectedYear, setSelectedYear] = useState("2024");
+
+  if (!ready) {
+    return <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 items-center justify-center">
+      <div className="text-lg text-gray-600 dark:text-gray-300">Loading...</div>
+    </div>;
+  }
+
+  // Generate translated data
+  const departments = [t('strategicPlanning.filters.allDepartments'), t('strategicPlanning.filters.departments.computerScience'), t('strategicPlanning.filters.departments.eee'), t('strategicPlanning.filters.departments.mechanical'), t('strategicPlanning.filters.departments.business'), t('strategicPlanning.filters.departments.biotech')];
+  
+  const kpis = [
+    { label: t('strategicPlanning.kpis.studentFacultyRatio'), value: 18, target: 15, unit: ":1" },
+    { label: t('strategicPlanning.kpis.publicationsFaculty'), value: 2.8, target: 3.5 },
+    { label: t('strategicPlanning.kpis.retentionRate'), value: 92, target: 95, unit: "%" },
+    { label: t('strategicPlanning.kpis.placementRate'), value: 81, target: 90, unit: "%" },
+  ];
+
+  const goals = [
+    { label: t('strategicPlanning.strategicGoals.researchOutput'), progress: 70 },
+    { label: t('strategicPlanning.strategicGoals.accreditationStatus'), progress: 85 },
+    { label: t('strategicPlanning.strategicGoals.placements'), progress: 81 },
+    { label: t('strategicPlanning.strategicGoals.facultyHiring'), progress: 60 },
+  ];
+
+  const roadmap = [
+    { name: t('strategicPlanning.roadmap.ncaaaPrep'), start: "2024", end: "2025" },
+    { name: t('strategicPlanning.roadmap.newBscAiProgram'), start: "2025", end: "2026" },
+    { name: t('strategicPlanning.roadmap.campusExpansion'), start: "2026", end: "2028" },
+    { name: t('strategicPlanning.roadmap.greenCampusInitiative'), start: "2024", end: "2027" },
+  ];
+
+  const curriculumMatrix = [
+    { course: t('strategicPlanning.programs.bscAi'), status: t('strategicPlanning.curriculumStatus.proposal'), lead: t('strategicPlanning.faculty.drChen'), start: "2024-06", end: "2025-05" },
+    { course: t('strategicPlanning.programs.mbaFintech'), status: t('strategicPlanning.curriculumStatus.review'), lead: t('strategicPlanning.faculty.drRao'), start: "2023-09", end: "2024-08" },
+    { course: t('strategicPlanning.programs.btechEee'), status: t('strategicPlanning.curriculumStatus.ongoing'), lead: t('strategicPlanning.faculty.drSingh'), start: "2022-07", end: "2025-06" },
+    { course: t('strategicPlanning.programs.mscDataSci'), status: t('strategicPlanning.curriculumStatus.proposal'), lead: t('strategicPlanning.faculty.drPatel'), start: "2024-01", end: "2025-12" },
+    { course: t('strategicPlanning.programs.bbaMarketing'), status: t('strategicPlanning.curriculumStatus.accredited'), lead: t('strategicPlanning.faculty.drMehra'), start: "2021-08", end: "2024-07" },
+  ];
+
+  const programEvaluation = [
+    { program: t('strategicPlanning.programs.bscCs'), next: "2025", last: "2020" },
+    { program: t('strategicPlanning.programs.mba'), next: "2026", last: "2021" },
+    { program: t('strategicPlanning.programs.btechEee'), next: "2027", last: "2022" },
+    { program: t('strategicPlanning.programs.mscDataSci'), next: "2028", last: "New" },
+    { program: t('strategicPlanning.programs.bbaMarketing'), next: "2024", last: "2019" },
+  ];
+
+  const swot = {
+    [t('strategicPlanning.swot.strengths')]: [
+      t('strategicPlanning.swot.items.strongFacultyBase'),
+      t('strategicPlanning.swot.items.modernLabs'),
+      t('strategicPlanning.swot.items.highResearchOutput'),
+      t('strategicPlanning.swot.items.internationalPartnerships')
+    ],
+    [t('strategicPlanning.swot.weaknesses')]: [
+      t('strategicPlanning.swot.items.limitedHostelCapacity'),
+      t('strategicPlanning.swot.items.outdatedLibraryResources'),
+      t('strategicPlanning.swot.items.lowAlumniEngagement')
+    ],
+    [t('strategicPlanning.swot.opportunities')]: [
+      t('strategicPlanning.swot.items.aiMlProgramDemand'),
+      t('strategicPlanning.swot.items.industryTieUps'),
+      t('strategicPlanning.swot.items.governmentGrants'),
+      t('strategicPlanning.swot.items.onlineCourseExpansion')
+    ],
+    [t('strategicPlanning.swot.threats')]: [
+      t('strategicPlanning.swot.items.risingCompetition'),
+      t('strategicPlanning.swot.items.changingRegulations'),
+      t('strategicPlanning.swot.items.decliningEnrollment'),
+      t('strategicPlanning.swot.items.economicDownturn')
+    ],
+  };
+
+  const trends = [
+    { label: t('strategicPlanning.trends.enrollment'), values: [1200, 1300, 1400, 1550, 1700], years: ["2020","2021","2022","2023","2024"] },
+    { label: t('strategicPlanning.trends.placements'), values: [800, 900, 950, 1100, 1200], years: ["2020","2021","2022","2023","2024"] },
+    { label: t('strategicPlanning.trends.researchFunding'), values: [200, 250, 300, 350, 400], years: ["2020","2021","2022","2023","2024"] },
+    { label: t('strategicPlanning.trends.facultyPublications'), values: [50, 60, 70, 85, 90], years: ["2020","2021","2022","2023","2024"] },
+    { label: t('strategicPlanning.trends.internationalCollaborations'), values: [2, 3, 4, 6, 8], years: ["2020","2021","2022","2023","2024"] },
+  ];
 
   return (
     <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
@@ -103,7 +120,7 @@ export default function DirectorStrategicPlanning() {
 
         {/* 1. Key Performance Indicators */}
         <section>
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Key Performance Indicators</h2>
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{t('strategicPlanning.sections.keyPerformanceIndicators')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {kpis.map((kpi, i) => (
               <motion.div
@@ -121,7 +138,7 @@ export default function DirectorStrategicPlanning() {
                   <span className={`ml-2 text-sm font-medium ${
                     kpi.value >= kpi.target ? 'text-green-600' : 'text-red-600'
                   }`}>
-                    Target: {kpi.target}{kpi.unit || ""}
+                    {t('strategicPlanning.kpis.target')}: {kpi.target}{kpi.unit || ""}
                   </span>
                 </div>
               </motion.div>
@@ -131,10 +148,10 @@ export default function DirectorStrategicPlanning() {
 
         {/* 2. Strategic Goals & Roadmap */}
         <section>
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Strategic Goals & Roadmap</h2>
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{t('strategicPlanning.sections.strategicGoalsRoadmap')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow">
-              <h3 className="font-semibold mb-2">Goal Progress Tracker</h3>
+              <h3 className="font-semibold mb-2">{t('strategicPlanning.strategicGoals.goalProgressTracker')}</h3>
               {goals.map(goal => (
                 <div key={goal.label} className="mb-2">
                   <div className="flex justify-between text-xs mb-1">
@@ -148,7 +165,7 @@ export default function DirectorStrategicPlanning() {
               ))}
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow">
-              <h3 className="font-semibold mb-2">Strategic Roadmap Timeline</h3>
+              <h3 className="font-semibold mb-2">{t('strategicPlanning.strategicGoals.strategicRoadmapTimeline')}</h3>
               <div className="flex flex-col gap-2">
                 {roadmap.map(item => (
                   <div key={item.name} className="flex items-center gap-2 text-xs">
@@ -166,14 +183,14 @@ export default function DirectorStrategicPlanning() {
 
         {/* 3. Academic Planning Tools */}
         <section>
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Academic Planning Tools</h2>
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{t('strategicPlanning.sections.academicPlanningTools')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow">
-              <h3 className="font-semibold mb-2">Curriculum Development Matrix</h3>
+              <h3 className="font-semibold mb-2">{t('strategicPlanning.academicPlanning.curriculumDevelopmentMatrix')}</h3>
               <table className="w-full text-xs">
                 <thead>
                   <tr className="text-left">
-                    <th>Course</th><th>Status</th><th>Lead</th><th>Start Date</th><th>End Date</th>
+                    <th>{t('strategicPlanning.academicPlanning.course')}</th><th>{t('strategicPlanning.academicPlanning.status')}</th><th>{t('strategicPlanning.academicPlanning.lead')}</th><th>{t('strategicPlanning.academicPlanning.startDate')}</th><th>{t('strategicPlanning.academicPlanning.endDate')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -190,10 +207,10 @@ export default function DirectorStrategicPlanning() {
               </table>
             </div>
             <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow">
-              <h3 className="font-semibold mb-2">Program Evaluation Cycle</h3>
+              <h3 className="font-semibold mb-2">{t('strategicPlanning.academicPlanning.programEvaluationCycle')}</h3>
               <ul className="text-xs list-disc ml-4">
                 {programEvaluation.map((prog, i) => (
-                  <li key={i}>{prog.program}: Review in {prog.next} (Last: {prog.last})</li>
+                  <li key={i}>{prog.program}: {t('strategicPlanning.academicPlanning.reviewIn')} {prog.next} ({t('strategicPlanning.academicPlanning.last')}: {prog.last})</li>
                 ))}
               </ul>
             </div>
@@ -202,7 +219,7 @@ export default function DirectorStrategicPlanning() {
 
         {/* 4. SWOT Analysis */}
         <section>
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">SWOT Analysis</h2>
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{t('strategicPlanning.sections.swotAnalysis')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {Object.entries(swot).map(([category, items]) => (
               <div key={category} className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow">
@@ -222,7 +239,7 @@ export default function DirectorStrategicPlanning() {
 
         {/* 5. Trend Analysis */}
         <section>
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Trend Analysis</h2>
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{t('strategicPlanning.sections.trendAnalysis')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {trends.map((trend, i) => {
               const data = trend.values.map((value, idx) => ({

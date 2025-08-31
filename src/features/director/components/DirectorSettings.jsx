@@ -1,62 +1,75 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { directorFeatures } from '../../../components/directorFeatures';
-
-const settingsCategories = [
-  {
-    name: "Institutional Settings",
-    options: [
-      { label: "Name", value: "Nexus University" },
-      { label: "Type", value: "Private" },
-      { label: "Accreditation", value: "NCAAA A+" },
-      { label: "Academic Year", value: "2024-25" },
-    ],
-  },
-  {
-    name: "Academic Configuration",
-    options: [
-      { label: "Semester System", value: "Enabled" },
-      { label: "Credit Transfer", value: "Allowed" },
-      { label: "Attendance Policy", value: "75% Minimum" },
-    ],
-  },
-  {
-    name: "Access Permissions",
-    options: [
-      { label: "Director", value: "Full" },
-      { label: "Dean", value: "Partial" },
-      { label: "HoD", value: "Limited" },
-      { label: "Faculty", value: "Restricted" },
-    ],
-  },
-  {
-    name: "Notifications",
-    options: [
-      { label: "Push Notifications", value: "Enabled" },
-      { label: "Email Alerts", value: "Enabled" },
-      { label: "SMS Alerts", value: "Disabled" },
-    ],
-  },
-  {
-    name: "Data & Privacy",
-    options: [
-      { label: "Data Retention", value: "5 Years" },
-      { label: "Encryption", value: "AES-256" },
-      { label: "2FA", value: "Enabled" },
-    ],
-  },
-];
 
 export default function DirectorSettings() {
   const user = JSON.parse(localStorage.getItem('rbac_current_user'));
+  const { t } = useTranslation('director');
+  
+  // Settings categories using translation keys
+  const settingsCategories = [
+    {
+      nameKey: "categories.institutional",
+      name: "institutional",
+      options: [
+        { labelKey: "institutionalSettings.name", valueKey: "institutionalSettings.nameValue" },
+        { labelKey: "institutionalSettings.type", valueKey: "institutionalSettings.typeValue" },
+        { labelKey: "institutionalSettings.accreditation", valueKey: "institutionalSettings.accreditationValue" },
+        { labelKey: "institutionalSettings.academicYear", valueKey: "institutionalSettings.academicYearValue" },
+      ],
+    },
+    {
+      nameKey: "categories.academic",
+      name: "academic",
+      options: [
+        { labelKey: "academicConfiguration.semesterSystem", valueKey: "academicConfiguration.semesterSystemValue" },
+        { labelKey: "academicConfiguration.creditTransfer", valueKey: "academicConfiguration.creditTransferValue" },
+        { labelKey: "academicConfiguration.attendancePolicy", valueKey: "academicConfiguration.attendancePolicyValue" },
+      ],
+    },
+    {
+      nameKey: "categories.access",
+      name: "access",
+      options: [
+        { labelKey: "accessPermissions.director", valueKey: "accessPermissions.directorValue" },
+        { labelKey: "accessPermissions.dean", valueKey: "accessPermissions.deanValue" },
+        { labelKey: "accessPermissions.hod", valueKey: "accessPermissions.hodValue" },
+        { labelKey: "accessPermissions.faculty", valueKey: "accessPermissions.facultyValue" },
+      ],
+    },
+    {
+      nameKey: "categories.notifications",
+      name: "notifications",
+      options: [
+        { labelKey: "notifications.pushNotifications", valueKey: "notifications.pushNotificationsValue" },
+        { labelKey: "notifications.emailAlerts", valueKey: "notifications.emailAlertsValue" },
+        { labelKey: "notifications.smsAlerts", valueKey: "notifications.smsAlertsValue" },
+      ],
+    },
+    {
+      nameKey: "categories.dataPrivacy",
+      name: "dataPrivacy",
+      options: [
+        { labelKey: "dataPrivacy.dataRetention", valueKey: "dataPrivacy.dataRetentionValue" },
+        { labelKey: "dataPrivacy.encryption", valueKey: "dataPrivacy.encryptionValue" },
+        { labelKey: "dataPrivacy.twoFactorAuth", valueKey: "dataPrivacy.twoFactorAuthValue" },
+      ],
+    },
+  ];
+
   const [activeCategory, setActiveCategory] = useState(settingsCategories[0].name);
 
   return (
     <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
       <main className="flex-1 p-4 md:p-6 flex flex-col gap-8 overflow-x-auto">
         <div>
-          <h1 className="text-xl font-bold text-gray-900 dark:text-white">Director Settings</h1>
-          <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">Configure institution-wide settings and permissions.</p>
+          <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+            {t('settings.title')}
+          </h1>
+          <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+            {t('settings.subtitle')}
+          </p>
         </div>
 
         {/* Settings Categories */}
@@ -72,7 +85,7 @@ export default function DirectorSettings() {
                     : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200"
                 }`}
               >
-                {cat.name}
+                {t(`settings.${cat.nameKey}`)}
               </button>
             ))}
           </div>
@@ -83,8 +96,12 @@ export default function DirectorSettings() {
           <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow mb-4">
             {settingsCategories.find(cat => cat.name === activeCategory).options.map((opt, idx) => (
               <div key={idx} className="flex justify-between items-center py-2 border-b border-gray-100 dark:border-gray-700 last:border-b-0">
-                <span className="text-sm text-gray-900 dark:text-white font-medium">{opt.label}</span>
-                <span className="text-sm text-gray-600 dark:text-gray-300">{opt.value}</span>
+                <span className="text-sm text-gray-900 dark:text-white font-medium">
+                  {t(`settings.${opt.labelKey}`)}
+                </span>
+                <span className="text-sm text-gray-600 dark:text-gray-300">
+                  {t(`settings.${opt.valueKey}`)}
+                </span>
               </div>
             ))}
           </div>

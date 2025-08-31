@@ -1,1 +1,1242 @@
-{"director": {"title": "لوحة تحكم المدير"}} 
+{
+  "title": "لوحة المدير",
+  "meetingsCalendar": {
+    "title": "الاجتماعات والتقويم",
+    "subtitle": "عرض وجدولة وإدارة الاجتماعات والأحداث المهمة.",
+    "upcomingMeetings": "الاجتماعات القادمة",
+    "calendar": "التقويم",
+    "addEvent": "إضافة حدث",
+    "tableHeaders": {
+      "date": "التاريخ",
+      "time": "الوقت",
+      "title": "العنوان",
+      "participants": "المشاركون",
+      "status": "الحالة",
+      "agenda": "الأجندة",
+      "event": "الحدث"
+    },
+    "meetingTitles": {
+      "boardMeeting": "اجتماع المجلس",
+      "researchCommittee": "لجنة البحث",
+      "studentCouncil": "مجلس الطلاب"
+    },
+    "participants": {
+      "director": "المدير",
+      "deans": "العمداء",
+      "hods": "رؤساء الأقسام",
+      "deanScience": "عميد العلوم",
+      "hodEEE": "رئيس قسم الهندسة الكهربائية",
+      "studentReps": "ممثلو الطلاب"
+    },
+    "status": {
+      "scheduled": "مجدول",
+      "completed": "مكتمل"
+    },
+    "agenda": {
+      "reviewQ1": "مراجعة أداء الربع الأول",
+      "approveResearch": "الموافقة على مقترحات البحث الجديدة",
+      "studentFeedback": "مناقشة ملاحظات الطلاب"
+    },
+    "events": {
+      "ncaaaAudit": "تدقيق الهيئة الوطنية"
+    }
+  },
+  "support": {
+    "title": "المساعدة والدعم",
+    "subtitle": "ابحث عن إجابات للأسئلة الشائعة أو اتصل بالدعم.",
+    "helpTopics": "مواضيع المساعدة",
+    "faqs": "الأسئلة الشائعة",
+    "contactSupport": "اتصل بالدعم",
+    "comingSoon": "(قريباً)",
+    "topics": {
+      "userManagement": {
+        "title": "إدارة المستخدمين",
+        "description": "إضافة أو إزالة أو تحديث أدوار المستخدمين والصلاحيات."
+      },
+      "dataSecurity": {
+        "title": "أمان البيانات",
+        "description": "أفضل الممارسات لتأمين البيانات المؤسسية."
+      },
+      "compliance": {
+        "title": "الامتثال",
+        "description": "إرشادات الامتثال للهيئة الوطنية والتعليم التقني والتعليم العالي والصحة."
+      }
+    },
+    "faqItems": {
+      "passwordReset": {
+        "question": "كيف أعيد تعيين كلمة المرور؟",
+        "answer": "اذهب إلى الإعدادات > الأمان واضغط على 'إعادة تعيين كلمة المرور'."
+      },
+      "itSupport": {
+        "question": "كيف أتواصل مع دعم تكنولوجيا المعلومات؟",
+        "answer": "راسل support@univ.edu أو اتصل بالرقم الداخلي 1234."
+      },
+      "complianceReports": {
+        "question": "أين يمكنني العثور على تقارير الامتثال؟",
+        "answer": "انتقل إلى التدقيق والامتثال > التقارير."
+      }
+    },
+    "contact": {
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "liveChat": "الدردشة المباشرة"
+    }
+  },
+  "settings": {
+    "title": "إعدادات المدير",
+    "subtitle": "تكوين الإعدادات والصلاحيات المؤسسية.",
+    "categories": {
+      "institutional": "الإعدادات المؤسسية",
+      "academic": "التكوين الأكاديمي",
+      "access": "صلاحيات الوصول",
+      "notifications": "الإشعارات",
+      "dataPrivacy": "البيانات والخصوصية"
+    },
+    "institutionalSettings": {
+      "name": "الاسم",
+      "nameValue": "جامعة نكسس",
+      "type": "النوع",
+      "typeValue": "خاصة",
+      "accreditation": "الاعتماد",
+      "accreditationValue": "الهيئة الوطنية أ+",
+      "academicYear": "السنة الأكاديمية",
+      "academicYearValue": "2024-25"
+    },
+    "academicConfiguration": {
+      "semesterSystem": "نظام الفصول الدراسية",
+      "semesterSystemValue": "مفعل",
+      "creditTransfer": "نقل الاعتمادات",
+      "creditTransferValue": "مسموح",
+      "attendancePolicy": "سياسة الحضور",
+      "attendancePolicyValue": "75% كحد أدنى"
+    },
+    "accessPermissions": {
+      "director": "المدير",
+      "directorValue": "كامل",
+      "dean": "العميد",
+      "deanValue": "جزئي",
+      "hod": "رئيس القسم",
+      "hodValue": "محدود",
+      "faculty": "أعضاء هيئة التدريس",
+      "facultyValue": "مقيد"
+    },
+    "notifications": {
+      "pushNotifications": "الإشعارات الفورية",
+      "pushNotificationsValue": "مفعلة",
+      "emailAlerts": "تنبيهات البريد الإلكتروني",
+      "emailAlertsValue": "مفعلة",
+      "smsAlerts": "تنبيهات الرسائل النصية",
+      "smsAlertsValue": "معطلة"
+    },
+    "dataPrivacy": {
+      "dataRetention": "الاحتفاظ بالبيانات",
+      "dataRetentionValue": "5 سنوات",
+      "encryption": "التشفير",
+      "encryptionValue": "AES-256",
+      "twoFactorAuth": "المصادقة الثنائية",
+      "twoFactorAuthValue": "مفعلة"
+    }
+  },
+  "workspace": {
+    "title": "مساحة العمل",
+    "subtitle": "لوحة موحدة للموظفين لإدارة التطوير والامتثال والموارد البشرية والعمليات اليومية.",
+    "sections": {
+      "trainingDevelopment": "التدريب والتطوير",
+      "complianceQuality": "الامتثال والجودة",
+      "accountManagement": "إدارة الحساب"
+    },
+    "trainingDevelopment": {
+      "teamTraining": {
+        "title": "تدريب الفريق",
+        "items": {
+          "leadershipDevelopment": "سلسلة تطوير القيادة",
+          "onboardingTraining": "تدريب الاندماج",
+          "digitalTeachingTools": "أدوات التدريس الرقمية"
+        }
+      },
+      "knowledgeManagement": {
+        "title": "إدارة المعرفة",
+        "items": {
+          "publishResearch": "كيفية نشر أوراق البحث",
+          "internationalStudents": "التعامل مع اندماج الطلاب الدوليين",
+          "departmentSops": "إجراءات العمل المعيارية على مستوى القسم"
+        }
+      }
+    },
+    "complianceQuality": {
+      "qualityAssurance": {
+        "title": "ضمان الجودة",
+        "items": {
+          "semesterAssessment": "تقييم الجودة الذاتي لنهاية الفصل الدراسي",
+          "courseContentAnalysis": "تحليل تغطية محتوى المقرر",
+          "complianceUploads": "رفع ملفات الامتثال للهيئة الوطنية والصحة"
+        }
+      },
+      "riskManagement": {
+        "title": "إدارة المخاطر",
+        "items": {
+          "delayedExamResults": "تأخر نشر نتائج الامتحانات",
+          "placementTargets": "ضعف الأداء في أهداف التوظيف",
+          "dropoutTrend": "زيادة اتجاه الانسحاب"
+        }
+      }
+    },
+    "accountManagement": {
+      "myProfile": {
+        "title": "ملفي الشخصي",
+        "description": "عرض وتحديث معلوماتك الشخصية، رفع المستندات."
+      },
+      "myHrBoard": {
+        "title": "لوحة الموارد البشرية",
+        "items": {
+          "salarySlip": "مسير الراتب الشهري",
+          "leaveBalance": "متتبع رصيد الإجازات",
+          "performanceReview": "نموذج مراجعة الأداء"
+        }
+      },
+      "myReferral": {
+        "title": "إحالتي",
+        "items": {
+          "submitReferral": "إرسال الإحالة",
+          "trackReferral": "تتبع حالة الإحالة"
+        }
+      },
+      "taskBox": {
+        "title": "صندوق المهام",
+        "items": {
+          "budgetProposal": "إرسال اقتراح الميزانية القسمية",
+          "internalAudit": "إجراء تدقيق داخلي للمعدات المخبرية",
+          "researchApplications": "الموافقة على طلبات البحث الطلابية"
+        }
+      },
+      "events": {
+        "title": "الأحداث",
+        "items": {
+          "techSymposium": "الندوة التقنية السنوية – التسجيل مفتوح",
+          "fdpSchedule": "جدول التطوير المهني الداخلي"
+        }
+      },
+      "attendance": {
+        "title": "الحضور",
+        "items": {
+          "summary": "حاضر: 16 يوم، إجازة: 2 يوم، غائب: 1 يوم",
+          "correction": "إرسال تصحيح الحضور ليوم 14 مارس"
+        }
+      },
+      "recruitment": {
+        "title": "التوظيف",
+        "items": {
+          "deanOpening": "فرصة داخلية: عميد - كلية الإدارة",
+          "roleUpgrade": "إرسال إجراءات العمل المعيارية لترقية الدور"
+        }
+      },
+      "geoFencing": {
+        "title": "الحدود الجغرافية",
+        "items": {
+          "checkedIn": "تم تسجيل الدخول من الحرم الرئيسي @ 9:02 صباحاً",
+          "outOfZoneAlert": "تنبيه: محاولة حضور خارج المنطقة"
+        }
+      }
+    },
+    "status": {
+      "inProgress": "قيد التنفيذ",
+      "completed": "مكتمل",
+      "pending": "معلق",
+      "high": "عالي",
+      "medium": "متوسط",
+      "alert": "تنبيه"
+    },
+    "buttons": {
+      "start": "ابدأ",
+      "view": "عرض",
+      "upload": "رفع",
+      "download": "تحميل"
+    }
+  },
+  "riskManagement": {
+    "title": "إدارة المخاطر",
+    "subtitle": "مراقبة وإدارة المخاطر المؤسسية",
+    "addRisk": "إضافة مخاطرة",
+    "exportReport": "تصدير التقرير",
+    "activeRisks": "المخاطر النشطة",
+    "viewDetails": "عرض التفاصيل",
+    "metrics": {
+      "activeRisks": "المخاطر النشطة",
+      "highSeverity": "خطورة عالية",
+      "mitigationRate": "معدل التخفيف",
+      "riskScore": "درجة المخاطرة"
+    },
+    "tableHeaders": {
+      "risk": "المخاطرة",
+      "category": "الفئة",
+      "severity": "الخطورة",
+      "probability": "الاحتمالية",
+      "status": "الحالة",
+      "impact": "التأثير",
+      "mitigation": "التخفيف",
+      "actions": "الإجراءات"
+    },
+    "riskTypes": {
+      "dataSecurityBreach": "خرق أمان البيانات",
+      "studentEnrollmentDecline": "انخفاض تسجيل الطلاب",
+      "regulatoryCompliance": "الامتثال التنظيمي"
+    },
+    "categories": {
+      "it": "تكنولوجيا المعلومات",
+      "academic": "أكاديمي",
+      "legal": "قانوني"
+    },
+    "severity": {
+      "high": "عالي",
+      "medium": "متوسط",
+      "low": "منخفض"
+    },
+    "probability": {
+      "high": "عالي",
+      "medium": "متوسط",
+      "low": "منخفض"
+    },
+    "status": {
+      "active": "نشط",
+      "monitored": "مراقب",
+      "resolved": "محلول"
+    },
+    "impact": {
+      "critical": "حرج",
+      "financial": "مالي",
+      "operational": "تشغيلي",
+      "reputational": "سمعة"
+    },
+    "mitigation": {
+      "enhancedSecurity": "بروتوكولات أمان محسنة",
+      "marketingCampaign": "حملة تسويقية",
+      "regularAudits": "تدقيقات منتظمة",
+      "staffTraining": "تدريب الموظفين",
+      "policyUpdate": "تحديث السياسة"
+    }
+  },
+  "auditCompliance": {
+    "title": "التدقيق والامتثال",
+    "subtitle": "مراقبة سجلات التدقيق وحالة الامتثال والتحليلات المخاطر للمؤسسة.",
+    "complianceStatus": "حالة الامتثال",
+    "auditLogs": "سجلات التدقيق",
+    "riskAnalytics": "تحليلات المخاطر",
+    "filterPlaceholder": "تصفية حسب المستخدم أو الإجراء...",
+    "lastAudit": "آخر تدقيق",
+    "mitigation": "التخفيف",
+    "complianceAreas": {
+      "ncaaa": "الهيئة الوطنية",
+      "etec": "التعليم التقني",
+      "moe": "التعليم العالي",
+      "scfhs": "الصحة"
+    },
+    "complianceStatuses": {
+      "compliant": "متوافق",
+      "pending": "معلق",
+      "nonCompliant": "غير متوافق"
+    },
+    "auditLogHeaders": {
+      "date": "التاريخ",
+      "action": "الإجراء",
+      "user": "المستخدم",
+      "status": "الحالة",
+      "details": "التفاصيل"
+    },
+    "auditActions": {
+      "userLogin": "تسجيل دخول المستخدم",
+      "dataExport": "تصدير البيانات",
+      "policyUpdate": "تحديث السياسة",
+      "systemAccess": "الوصول للنظام",
+      "roleChange": "تغيير الدور",
+      "dataModification": "تعديل البيانات"
+    },
+    "auditStatuses": {
+      "success": "نجح",
+      "failed": "فشل",
+      "pending": "معلق"
+    },
+    "auditUsers": {
+      "director": "المدير",
+      "deanScience": "عميد العلوم",
+      "hodEEE": "رئيس قسم الهندسة الكهربائية",
+      "admin": "المدير",
+      "system": "النظام"
+    },
+    "auditDetails": {
+      "ipAddress": "IP: 192.168.1.10",
+      "exportedStudentList": "تم تصدير قائمة الطلاب",
+      "insufficientPermissions": "صلاحيات غير كافية",
+      "loginSuccess": "تم تسجيل الدخول بنجاح",
+      "loginFailed": "فشل تسجيل الدخول",
+      "accessDenied": "تم رفض الوصول"
+    },
+    "riskTypes": {
+      "dataBreach": "خرق البيانات",
+      "nonCompliance": "عدم الامتثال",
+      "policyViolation": "انتهاك السياسة",
+      "systemFailure": "فشل النظام",
+      "unauthorizedAccess": "وصول غير مصرح"
+    },
+    "riskLevels": {
+      "high": "عالي",
+      "medium": "متوسط",
+      "low": "منخفض"
+    },
+    "mitigationStrategies": {
+      "twoFactorAuth": "المصادقة الثنائية، التشفير",
+      "quarterlyAudits": "تدقيقات ربع سنوية",
+      "trainingMonitoring": "تدريب، مراقبة",
+      "systemUpdates": "تحديثات النظام",
+      "accessControl": "التحكم في الوصول"
+    }
+  },
+  "userManagement": {
+    "title": "إدارة المستخدمين",
+    "subtitle": "إدارة المستخدمين والأدوار وصلاحيات الوصول.",
+    "addUser": "إضافة مستخدم",
+    "allRoles": "جميع الأدوار",
+    "searchPlaceholder": "البحث بالاسم أو البريد الإلكتروني...",
+    "edit": "تعديل",
+    "metrics": {
+      "totalUsers": "إجمالي المستخدمين",
+      "activeUsers": "المستخدمون النشطون",
+      "newUsers": "مستخدمون جدد",
+      "avgActivity": "متوسط النشاط"
+    },
+    "tableHeaders": {
+      "name": "الاسم",
+      "role": "الدور",
+      "department": "القسم",
+      "status": "الحالة",
+      "email": "البريد الإلكتروني",
+      "actions": "الإجراءات"
+    },
+    "roles": {
+      "director": "المدير",
+      "dean": "العميد",
+      "hod": "رئيس القسم",
+      "faculty": "أعضاء هيئة التدريس",
+      "student": "طالب",
+      "admin": "مدير"
+    },
+    "departments": {
+      "science": "العلوم",
+      "eee": "الهندسة الكهربائية",
+      "math": "الرياضيات",
+      "engineering": "الهندسة",
+      "business": "الأعمال",
+      "medicine": "الطب"
+    },
+    "userStatuses": {
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "pending": "معلق",
+      "suspended": "معلق"
+    },
+    "demoUsers": {
+      "johnDoe": "جون دو",
+      "janeSmith": "جين سميث",
+      "mikeJohnson": "مايك جونسون"
+    }
+  },
+  "communicationHub": {
+    "title": "مركز الاتصالات",
+    "subtitle": "مركز القيادة المركزي لجميع الاتصالات الداخلية والخارجية عالية المستوى.",
+    "broadcastMessages": "رسائل البث",
+    "internalStakeholderCommunication": "التواصل مع أصحاب المصلحة الداخليين",
+    "messageArchives": "أرشيف الرسائل",
+    "incomingCommunication": "الاتصالات الواردة",
+    "reportsInsights": "التقارير والرؤى",
+    "secureMessaging": "الرسائل الآمنة",
+    "aiPoweredAssistant": "المساعد المدعوم بالذكاء الاصطناعي",
+    "integration": "التكامل",
+    "send": "إرسال",
+    "groups": {
+      "all": "الجميع",
+      "deans": "العمداء",
+      "hods": "رؤساء الأقسام",
+      "faculty": "أعضاء هيئة التدريس",
+      "students": "الطلاب",
+      "parents": "الآباء",
+      "adminUnits": "الوحدات الإدارية"
+    },
+    "stakeholders": {
+      "deansHods": "العمداء/رؤساء الأقسام",
+      "faculty": "أعضاء هيئة التدريس",
+      "students": "الطلاب",
+      "parents": "الآباء",
+      "adminUnits": "الوحدات الإدارية"
+    },
+    "placeholders": {
+      "announcementSubject": "موضوع الإعلان...",
+      "searchByTopic": "البحث حسب الموضوع..."
+    },
+    "notifications": {
+      "description": "سيتم إرسال الإشعارات الفورية والبريد الإلكتروني وفي التطبيق للمجموعة (المجموعات) المحددة."
+    },
+    "thread": "المحادثة",
+    "messages": {
+      "directorAnnualReports": "[المدير] يرجى إرسال التقارير السنوية للأقسام قبل 20 مارس.",
+      "deanResponse": "[العميد] ملاحظة، سأشارك بحلول 15 مارس.",
+      "hodTemplate": "[رئيس القسم] طلب قالب لإرسال التقرير."
+    },
+    "archiveHeaders": {
+      "date": "التاريخ",
+      "role": "الدور",
+      "topic": "الموضوع",
+      "subject": "العنوان",
+      "attachment": "المرفق"
+    },
+    "archiveData": {
+      "annualReport": {
+        "topic": "التقرير السنوي",
+        "subject": "إرسال التقارير السنوية بحلول 20 مارس"
+      },
+      "feeUpdate": {
+        "topic": "تحديث الرسوم",
+        "subject": "تم تمديد موعد الرسوم لـ 3 أقسام"
+      },
+      "policy": {
+        "topic": "السياسة",
+        "subject": "سياسة الحضور المنقحة"
+      }
+    },
+    "attachments": {
+      "reportGuidelines": "إرشادات_التقرير.pdf",
+      "feeCircular": "نشرة_الرسوم.pdf",
+      "attendancePolicy": "سياسة_الحضور.pdf"
+    },
+    "incomingHeaders": {
+      "from": "من",
+      "subject": "الموضوع",
+      "status": "الحالة"
+    },
+    "incomingData": {
+      "researchCenter": {
+        "from": "عميد العلوم",
+        "subject": "اقتراح: مركز بحث جديد"
+      },
+      "labEquipment": {
+        "from": "رئيس قسم الهندسة الكهربائية",
+        "subject": "تصعيد: معدات المختبر"
+      },
+      "newElective": {
+        "from": "أعضاء هيئة التدريس الرياضيات",
+        "subject": "اقتراح: اختياري جديد"
+      }
+    },
+    "statuses": {
+      "awaiting": "في الانتظار",
+      "responded": "تم الرد"
+    },
+    "analytics": {
+      "messagesSent": "الرسائل المرسلة",
+      "opened": "المفتوحة",
+      "responded": "المرد عليها"
+    },
+    "sentimentSummary": "ملخص المشاعر",
+    "sentimentBreakdown": "70% إيجابية، 20% محايدة، 10% سلبية",
+    "engagementHeatmap": "خريطة حرارية للتفاعل",
+    "secureMessage": {
+      "confidential": "رسالة سرية",
+      "visibleTo": "مرئية فقط لـ: المدير، العميد، رئيس القسم",
+      "readReceipt": "إيصال القراءة: نعم"
+    },
+    "aiAssistant": {
+      "draftAssistant": "مساعد المسودة",
+      "draftSample": "تهانينا لدفعة 2025! نرحب بجميع الطلاب والآباء الجدد في عائلة جامعتنا.",
+      "toneAnalyzer": "محلل النبرة",
+      "toneSample": "إيجابية، دافئة",
+      "autoReplySuggestions": "اقتراحات الرد التلقائي",
+      "replies": {
+        "thankYou": "شكراً لك على التحديث!",
+        "willComply": "سأمتثل.",
+        "noted": "ملاحظة."
+      }
+    },
+    "integrations": {
+      "academicCalendar": {
+        "name": "التقويم الأكاديمي",
+        "description": "مزامنة تواريخ الإعلانات مع الامتحانات والعطلات"
+      },
+      "approvalCenter": {
+        "name": "مركز الموافقة",
+        "description": "إشعار تلقائي للأقسام حول الموافقات/الرفض"
+      },
+      "lmsErp": {
+        "name": "نظام إدارة التعلم/المؤسسة",
+        "description": "استهداف سلس بناءً على هوية الطالب/الموظف"
+      },
+      "smsGateway": {
+        "name": "بوابة الرسائل النصية / واجهات برمجة البريد الإلكتروني",
+        "description": "وصول أوسع يتجاوز مستخدمي التطبيق"
+      }
+    }
+  },
+  "analyticsReports": {
+    "title": "التحليلات والتقارير",
+    "subtitle": "لوحة رؤى وتحليلات شاملة",
+    "allDepartments": "جميع الأقسام",
+    "lastMonth": "الشهر الماضي",
+    "last3Months": "آخر 3 أشهر",
+    "last6Months": "آخر 6 أشهر",
+    "lastYear": "السنة الماضية",
+    "tabs": {
+      "admissions": "القبول",
+      "financial": "المالية",
+      "academic": "الأكاديمي",
+      "engagement": "التفاعل",
+      "placement": "التوظيف",
+      "compliance": "الامتثال"
+    },
+    "sections": {
+      "admissions": {
+        "admissionFunnel": "قناة القبول",
+        "programEnrollment": "تسجيل البرامج",
+        "geographicDistribution": "التوزيع الجغرافي",
+        "applicationConversionRate": "معدل تحويل الطلبات حسب البرنامج",
+        "enrollmentTrend": "اتجاه التسجيل",
+        "topSourceRegions": "أفضل المناطق المصدر"
+      },
+      "financial": {
+        "revenueByDepartment": "الإيرادات حسب القسم",
+        "costAnalysis": "تحليل التكاليف",
+        "monthlyTrends": "الاتجاهات الشهرية",
+        "profitMarginByDepartment": "هامش الربح حسب القسم",
+        "budgetUtilizationByDepartment": "استخدام الميزانية حسب القسم",
+        "yearOverYearGrowth": "النمو السنوي"
+      },
+      "academic": {
+        "coursePerformance": "أداء المقررات",
+        "facultyPerformance": "أداء أعضاء هيئة التدريس",
+        "studentDemographics": "ديموغرافية الطلاب",
+        "averageGPAByDepartment": "متوسط المعدل التراكمي حسب القسم",
+        "passRateTrend": "اتجاه معدل النجاح",
+        "enrollmentByCourse": "التسجيل حسب المقرر"
+      },
+      "engagement": {
+        "eventParticipation": "مشاركة الأحداث",
+        "feedbackMetrics": "مقاييس التغذية الراجعة",
+        "staffAnalytics": "تحليلات الموظفين",
+        "eventParticipationRateOverTime": "معدل مشاركة الأحداث مع مرور الوقت",
+        "topRatedFacilities": "أفضل المرافق تقييماً",
+        "studentSatisfactionTrend": "اتجاه رضا الطلاب"
+      },
+      "placement": {
+        "programPlacement": "توظيف البرامج",
+        "recruiterFeedback": "تغذية راجعة من المجندين",
+        "departmentPerformance": "أداء الأقسام",
+        "placementRateByProgram": "معدل التوظيف حسب البرنامج",
+        "averageSalaryTrend": "اتجاه متوسط الراتب",
+        "topRecruitingCompanies": "أفضل شركات التوظيف"
+      },
+      "compliance": {
+        "accreditationStatus": "حالة الاعتماد",
+        "auditStatus": "حالة التدقيق",
+        "complianceIssueTrends": "اتجاهات قضايا الامتثال",
+        "upcomingReviews": "المراجعات القادمة",
+        "resolvedVsUnresolvedIssues": "القضايا المحلولة مقابل غير المحلولة",
+        "departmentComplianceScore": "درجة امتثال القسم"
+      }
+    },
+    "dataLabels": {
+      "departments": {
+        "academics": "الأكاديمية",
+        "hr": "الموارد البشرية",
+        "finance": "المالية",
+        "admissions": "القبول",
+        "it": "تكنولوجيا المعلومات",
+        "rd": "البحث والتطوير"
+      },
+      "programs": {
+        "computerScience": "علوم الحاسوب",
+        "businessAdmin": "إدارة الأعمال",
+        "engineering": "الهندسة",
+        "arts": "الفنون",
+        "medicine": "الطب"
+      },
+      "regions": {
+        "north": "الشمال",
+        "south": "الجنوب",
+        "east": "الشرق",
+        "west": "الغرب"
+      },
+      "months": {
+        "jan": "يناير",
+        "feb": "فبراير",
+        "mar": "مارس",
+        "apr": "أبريل",
+        "may": "مايو",
+        "jun": "يونيو"
+      },
+      "years": {
+        "2019": "2019",
+        "2020": "2020",
+        "2021": "2021",
+        "2022": "2022",
+        "2023": "2023",
+        "2024": "2024"
+      },
+      "stages": {
+        "inquiries": "الاستفسارات",
+        "applications": "الطلبات",
+        "interviews": "المقابلات",
+        "offers": "العروض",
+        "enrollments": "التسجيلات"
+      },
+      "categories": {
+        "infrastructure": "البنية التحتية",
+        "faculty": "أعضاء هيئة التدريس",
+        "admin": "الإدارة",
+        "research": "البحث",
+        "studentServices": "خدمات الطلاب"
+      },
+      "standards": {
+        "etec": "التعليم التقني",
+        "moe": "التعليم العالي",
+        "scfhs": "الصحة",
+        "tvtc": "التدريب التقني"
+      },
+      "areas": {
+        "academic": "أكاديمي",
+        "financial": "مالي",
+        "administrative": "إداري",
+        "infrastructure": "بنية تحتية"
+      },
+      "events": {
+        "techFest": "المهرجان التقني",
+        "culturalDay": "اليوم الثقافي",
+        "sportsMeet": "اللقاء الرياضي",
+        "careerFair": "معرض الوظائف",
+        "alumniMeet": "لقاء الخريجين"
+      },
+      "facilities": {
+        "cafeteria": "المطعم",
+        "library": "المكتبة",
+        "sports": "الرياضة",
+        "transport": "النقل",
+        "hostel": "السكن الطلابي"
+      },
+      "companies": {
+        "techCorp": "شركة التقنية",
+        "financeLtd": "شركة المالية المحدودة",
+        "healthInc": "شركة الصحة",
+        "eduGroup": "مجموعة التعليم",
+        "researchCo": "شركة البحث"
+      },
+      "courses": {
+        "dataScience": "علوم البيانات",
+        "businessLaw": "قانون الأعمال",
+        "engineeringMath": "رياضيات الهندسة",
+        "literature": "الأدب"
+      },
+      "faculty": {
+        "drSmith": "د. سميث",
+        "drJohnson": "د. جونسون",
+        "drWilliams": "د. ويليامز",
+        "drBrown": "د. براون",
+        "drDavis": "د. ديفيس"
+      }
+    },
+    "metrics": {
+      "kpi": "مؤشر الأداء الرئيسي",
+      "budget": "الميزانية",
+      "revenue": "الإيرادات",
+      "tuition": "الرسوم الدراسية",
+      "grants": "المنح",
+      "other": "أخرى",
+      "cost": "التكلفة",
+      "perStudent": "لكل طالب",
+      "profit": "الربح",
+      "allocated": "المخصصة",
+      "used": "المستخدمة",
+      "expenses": "المصروفات",
+      "passRate": "معدل النجاح",
+      "avgGPA": "متوسط المعدل التراكمي",
+      "enrollment": "التسجيل",
+      "enrolled": "المسجلون",
+      "capacity": "السعة",
+      "rating": "التقييم",
+      "publications": "المنشورات",
+      "students": "الطلاب",
+      "participants": "المشاركون",
+      "satisfaction": "الرضا",
+      "complaints": "الشكاوى",
+      "placement": "التوظيف",
+      "avgSalary": "متوسط الراتب",
+      "companies": "الشركات",
+      "returnRate": "معدل العودة",
+      "score": "الدرجة",
+      "status": "الحالة",
+      "issues": "القضايا",
+      "resolved": "محلولة",
+      "unresolved": "غير محلولة",
+      "conversion": "التحويل",
+      "count": "العدد",
+      "rate": "المعدل",
+      "trend": "الاتجاه",
+      "applications": "الطلبات",
+      "review": "المراجعة"
+    },
+    "trends": {
+      "up": "صاعد",
+      "down": "هابط",
+      "stable": "مستقر"
+    },
+    "statuses": {
+      "accredited": "معتمد",
+      "compliant": "متوافق"
+    }
+  },
+  "departments": {
+    "title": "الأقسام",
+    "subtitle": "تحليلات وإدارة شاملة للأقسام",
+    "allDepartments": "جميع الأقسام",
+    "overview": "نظرة عامة",
+    "listView": "عرض القائمة",
+    "listViewComingSoon": "عرض القائمة قريباً...",
+    "sections": {
+      "academicHealthIndicators": "مؤشرات الصحة الأكاديمية",
+      "facultyStaffAnalytics": "تحليلات أعضاء هيئة التدريس والموظفين",
+      "financialSummary": "الملخص المالي",
+      "researchInnovation": "مقاييس البحث والابتكار",
+      "studentOutcomes": "نتائج الطلاب",
+      "departmentAchievements": "إنجازات الأقسام"
+    },
+    "metrics": {
+      "enrollments": "التسجيلات",
+      "passRate": "معدل النجاح",
+      "revenue": "الإيرادات",
+      "faculty": "أعضاء هيئة التدريس",
+      "research": "البحث",
+      "papers": "أوراق بحثية",
+      "gpa": "المعدل التراكمي",
+      "dropoutRate": "معدل الانسحاب",
+      "completionRate": "معدل الإكمال",
+      "satisfactionScore": "درجة الرضا",
+      "facultyStudentRatio": "نسبة أعضاء هيئة التدريس للطلاب",
+      "vacancies": "الوظائف الشاغرة",
+      "attritionRate": "معدل الاستنزاف",
+      "budgetAllocated": "الميزانية المخصصة",
+      "budgetSpent": "الميزانية المنفقة",
+      "costPerStudent": "التكلفة لكل طالب",
+      "roiLabs": "العائد على الاستثمار في المختبرات",
+      "publications": "المنشورات",
+      "grantsSecured": "المنح المحصلة",
+      "patentsFiled": "براءات الاختراع المقدمة",
+      "collaborations": "التعاونات",
+      "placementRate": "معدل التوظيف",
+      "avgPackage": "متوسط الراتب",
+      "higherStudiesRate": "معدل الدراسات العليا",
+      "internships": "التدريبات",
+      "awards": "الجوائز المحققة",
+      "guestLectures": "المحاضرات الضيفية",
+      "industryMoUs": "مذكرات التفاهم مع الصناعة",
+      "outreachPrograms": "برامج التوعية"
+    },
+    "chartLabels": {
+      "passFailRate": "معدل النجاح/الرسوب",
+      "studentSatisfaction": "رضا الطلاب",
+      "completionVsDropout": "الإكمال مقابل الانسحاب",
+      "facultyMetrics": "مقاييس أعضاء هيئة التدريس",
+      "facultyWorkloadDistribution": "توزيع عبء العمل على أعضاء هيئة التدريس",
+      "budgetAllocationVsSpent": "تخصيص الميزانية مقابل الإنفاق",
+      "costRevenueAnalysis": "تحليل التكلفة والإيرادات",
+      "researchOutput": "المخرجات البحثية",
+      "grantsFunding": "المنح والتمويل",
+      "placementHigherStudies": "التوظيف والدراسات العليا",
+      "packageInternships": "الراتب والتدريبات",
+      "awardsRecognition": "الجوائز والاعتراف"
+    },
+    "departmentNames": {
+      "computerScience": "علوم الحاسوب",
+      "electronicsCommunication": "الإلكترونيات والاتصالات",
+      "businessAdministration": "إدارة الأعمال"
+    }
+  },
+  "approvalCenter": {
+    "title": "مركز الموافقة",
+    "subtitle": "إدارة ومعالجة طلبات الموافقة",
+    "categories": {
+      "allCategories": "جميع الفئات",
+      "academic": "أكاديمي",
+      "facultyHr": "أعضاء هيئة التدريس والموارد البشرية",
+      "financial": "مالي",
+      "administrative": "إداري",
+      "complianceAudit": "الامتثال والتدقيق"
+    },
+    "statuses": {
+      "allStatus": "جميع الحالات",
+      "pending": "معلق",
+      "approved": "موافق عليه",
+      "rejected": "مرفوض",
+      "escalated": "متصاعد",
+      "revisionRequested": "تم طلب المراجعة",
+      "revision": "مراجعة"
+    },
+    "priorities": {
+      "allPriorities": "جميع الأولويات",
+      "high": "عالي",
+      "medium": "متوسط",
+      "low": "منخفض"
+    },
+    "bulkActions": {
+      "requestsSelected": "طلب محدد",
+      "approveSelected": "الموافقة على المحدد",
+      "rejectSelected": "رفض المحدد"
+    },
+    "requestTypes": {
+      "newCourseProposal": "اقتراح مقرر جديد",
+      "curriculumRevision": "مراجعة المناهج",
+      "facultyHiring": "توظيف أعضاء هيئة التدريس",
+      "researchGrant": "منحة بحثية",
+      "eventApproval": "موافقة على حدث",
+      "accreditationDocumentation": "توثيق الاعتماد"
+    },
+    "requestDetails": {
+      "description": "الوصف",
+      "amount": "المبلغ",
+      "attachments": "المرفقات",
+      "comments": "التعليقات",
+      "addComment": "إضافة تعليق",
+      "commentPlaceholder": "أضف تعليقك هنا...",
+      "requestedBy": "طلب بواسطة"
+    },
+    "actions": {
+      "requestRevision": "طلب مراجعة",
+      "reject": "رفض",
+      "approve": "موافقة",
+      "close": "إغلاق"
+    },
+    "alerts": {
+      "revisionCommentRequired": "يرجى إضافة تعليق يوضح ما يحتاج إلى مراجعة",
+      "rejectionCommentRequired": "يرجى إضافة تعليق يوضح سبب الرفض"
+    },
+    "demoData": {
+      "quantumComputing": "مقدمة في الحوسبة الكمية",
+      "aiSpecialization": "تحديث التخصص في الذكاء الاصطناعي",
+      "dataScienceProfessor": "أستاذ أول - علوم البيانات",
+      "aiResearchProject": "تمويل مشروع بحث الذكاء الاصطناعي",
+      "techSymposium": "الندوة التقنية 2024",
+      "etecReport": "تقديم التقرير السنوي للتعليم التقني"
+    },
+    "departments": {
+      "computerScience": "علوم الحاسوب",
+      "qualityAssurance": "ضمان الجودة"
+    },
+    "faculty": {
+      "drNoura": "د. نورة الزهراء",
+      "drKhalid": "د. خالد السيد",
+      "drLayla": "د. ليلى المنصور",
+      "drAbdullah": "د. عبدالله الرشيد",
+      "drAisha": "د. عائشة الحسن",
+      "drOmar": "د. عمر المطيري"
+    },
+    "descriptions": {
+      "quantumComputing": "اقتراح لمقرر جامعي جديد في الحوسبة الكمية",
+      "aiSpecialization": "تحديث مناهج التخصص في الذكاء الاصطناعي لتشمل أحدث التطورات",
+      "dataScienceProfessor": "منصب جديد لأعضاء هيئة التدريس في تخصص علوم البيانات",
+      "aiResearchProject": "طلب منحة بحثية لمشروع أخلاقيات الذكاء الاصطناعي",
+      "techSymposium": "ندوة تقنية سنوية مع خبراء الصناعة",
+      "etecReport": "الموافقة النهائية على توثيق اعتماد التعليم التقني"
+    },
+    "attachments": {
+      "courseProposal": "اقتراح_المقرر.pdf",
+      "syllabusDraft": "مسودة_المنهج.pdf",
+      "curriculumChanges": "تغييرات_المناهج.pdf",
+      "industryFeedback": "تغذية_راجعة_الصناعة.pdf",
+      "jobDescription": "وصف_الوظيفة.pdf",
+      "candidateProfile": "ملف_المرشح.pdf",
+      "projectProposal": "اقتراح_المشروع.pdf",
+      "budgetBreakdown": "تفصيل_الميزانية.pdf",
+      "eventPlan": "خطة_الحدث.pdf",
+      "budgetProposal": "اقتراح_الميزانية.pdf",
+      "etecReport": "تقرير_التعليم_التقني.pdf",
+      "supportingDocs": "الوثائق_الداعمة.pdf"
+    },
+    "comments": {
+      "courseAligned": "المقرر متوافق مع متطلبات الصناعة",
+      "underReview": "قيد المراجعة",
+      "updatedRequirements": "تم التحديث بناءً على متطلبات الصناعة",
+      "positionReviewed": "تم مراجعة متطلبات المنصب",
+      "budgetReview": "مراجعة الميزانية قيد التنفيذ",
+      "venueSpeakers": "تم تأكيد المكان والمتحدثين",
+      "documentsCompiled": "تم تجميع جميع الوثائق المطلوبة"
+    },
+    "teams": {
+      "academicCommittee": "اللجنة الأكاديمية",
+      "hrTeam": "فريق الموارد البشرية",
+      "financeTeam": "فريق المالية",
+      "eventCommittee": "لجنة الحدث",
+      "qaTeam": "فريق ضمان الجودة"
+    }
+  },
+  "strategicPlanning": {
+    "title": "التخطيط الاستراتيجي",
+    "subtitle": "لوحة التخطيط والتحليل الاستراتيجي",
+    "filters": {
+      "allDepartments": "جميع الأقسام",
+      "departments": {
+        "computerScience": "علوم الحاسوب",
+        "eee": "الهندسة الكهربائية والإلكترونية",
+        "mechanical": "الهندسة الميكانيكية",
+        "business": "إدارة الأعمال",
+        "biotech": "التكنولوجيا الحيوية"
+      }
+    },
+    "sections": {
+      "keyPerformanceIndicators": "مؤشرات الأداء الرئيسية",
+      "strategicGoalsRoadmap": "الأهداف الاستراتيجية والخطة",
+      "academicPlanningTools": "أدوات التخطيط الأكاديمي",
+      "swotAnalysis": "تحليل سوات",
+      "trendAnalysis": "تحليل الاتجاهات"
+    },
+    "kpis": {
+      "studentFacultyRatio": "نسبة الطلاب لأعضاء هيئة التدريس",
+      "publicationsFaculty": "المنشورات/عضو هيئة التدريس",
+      "retentionRate": "معدل الاحتفاظ",
+      "placementRate": "معدل التوظيف",
+      "target": "الهدف"
+    },
+    "strategicGoals": {
+      "goalProgressTracker": "متتبع تقدم الأهداف",
+      "strategicRoadmapTimeline": "الجدول الزمني للخطة الاستراتيجية",
+      "researchOutput": "المخرجات البحثية",
+      "accreditationStatus": "حالة الاعتماد",
+      "placements": "التوظيف",
+      "facultyHiring": "توظيف أعضاء هيئة التدريس"
+    },
+    "roadmap": {
+      "ncaaaPrep": "التحضير لاعتماد الهيئة الوطنية",
+      "newBscAiProgram": "برنامج بكالوريوس الذكاء الاصطناعي الجديد",
+      "campusExpansion": "توسيع الحرم الجامعي",
+      "greenCampusInitiative": "مبادرة الحرم الجامعي الأخضر"
+    },
+    "academicPlanning": {
+      "curriculumDevelopmentMatrix": "مصفوفة تطوير المناهج",
+      "programEvaluationCycle": "دورة تقييم البرامج",
+      "course": "المقرر",
+      "status": "الحالة",
+      "lead": "المشرف",
+      "startDate": "تاريخ البدء",
+      "endDate": "تاريخ الانتهاء",
+      "reviewIn": "مراجعة في",
+      "last": "آخر"
+    },
+    "curriculumStatus": {
+      "proposal": "اقتراح",
+      "review": "مراجعة",
+      "ongoing": "قيد التنفيذ",
+      "accredited": "معتمد"
+    },
+    "programs": {
+      "bscAi": "بكالوريوس الذكاء الاصطناعي",
+      "mbaFintech": "ماجستير التكنولوجيا المالية",
+      "btechEee": "بكالوريوس الهندسة الكهربائية",
+      "mscDataSci": "ماجستير علوم البيانات",
+      "bbaMarketing": "بكالوريوس التسويق",
+      "bscCs": "بكالوريوس علوم الحاسوب",
+      "mba": "ماجستير إدارة الأعمال"
+    },
+    "faculty": {
+      "drChen": "د. تشين",
+      "drRao": "د. راو",
+      "drSingh": "د. سينغ",
+      "drPatel": "د. باتيل",
+      "drMehra": "د. مهرا"
+    },
+    "swot": {
+      "strengths": "نقاط القوة",
+      "weaknesses": "نقاط الضعف",
+      "opportunities": "الفرص",
+      "threats": "التهديدات",
+      "items": {
+        "strongFacultyBase": "قاعدة قوية من أعضاء هيئة التدريس",
+        "modernLabs": "مختبرات حديثة",
+        "highResearchOutput": "مخرجات بحثية عالية",
+        "internationalPartnerships": "شراكات دولية",
+        "limitedHostelCapacity": "سعة محدودة للسكن الطلابي",
+        "outdatedLibraryResources": "موارد مكتبة قديمة",
+        "lowAlumniEngagement": "انخراط منخفض للخريجين",
+        "aiMlProgramDemand": "طلب على برامج الذكاء الاصطناعي",
+        "industryTieUps": "روابط مع الصناعة",
+        "governmentGrants": "منح حكومية",
+        "onlineCourseExpansion": "توسيع المقررات عبر الإنترنت",
+        "risingCompetition": "منافسة متزايدة",
+        "changingRegulations": "لوائح متغيرة",
+        "decliningEnrollment": "انخفاض التسجيل في بعض البرامج",
+        "economicDownturn": "انكماش اقتصادي"
+      }
+    },
+    "trends": {
+      "enrollment": "التسجيل",
+      "placements": "التوظيف",
+      "researchFunding": "تمويل البحث (ألف دولار)",
+      "facultyPublications": "منشورات أعضاء هيئة التدريس",
+      "internationalCollaborations": "التعاونات الدولية"
+    }
+  },
+  "dashboard": {
+    "title": "لوحة المدير",
+    "subtitle": "نظرة عامة على أداء الجامعة والتحليلات",
+    "features": {
+      "dashboard": "لوحة التحكم",
+      "analyticsReports": "التحليلات والتقارير",
+      "departments": "الأقسام",
+      "approvalCenter": "مركز الموافقة",
+      "strategicPlanning": "التخطيط الاستراتيجي",
+      "communication": "الاتصالات",
+      "auditCompliance": "التدقيق والامتثال",
+      "meetingsCalendar": "الاجتماعات والتقويم",
+      "userManagement": "إدارة المستخدمين",
+      "settings": "الإعدادات",
+      "helpSupport": "المساعدة والدعم",
+      "communicationHub": "مركز الاتصالات",
+      "trainingDevelopment": "التدريب والتطوير",
+      "complianceQuality": "الامتثال والجودة",
+      "accountManagement": "إدارة الحساب",
+      "supportTickets": "تذاكر الدعم",
+      "helpDocumentation": "المساعدة/الوثائق"
+    },
+    "featureDescriptions": {
+      "dashboard": "نظرة عامة على أداء الجامعة، ملخص مؤشرات الأداء، التنبيهات والإشعارات",
+      "analyticsReports": "تقارير حسب الأقسام، إحصائيات، مالية، اتجاهات، رؤى الموارد البشرية",
+      "departments": "الشؤون الأكاديمية، الموارد البشرية، المالية، القبول، تكنولوجيا المعلومات، البحث والتطوير",
+      "approvalCenter": "الموافقات على الميزانية، السياسات، التوظيف، المشتريات",
+      "strategicPlanning": "الخطط السنوية، الاعتماد، إدارة المخاطر",
+      "communication": "الإشعارات، المنشورات الدورية، الاتصالات الخارجية",
+      "auditCompliance": "تقارير التدقيق، الاعتماد، الوثائق القانونية",
+      "meetingsCalendar": "المجدول، المحاضر، الأحداث",
+      "userManagement": "الأدوار، الأذونات، ضوابط الإدارة",
+      "settings": "الملف الشخصي، العلامة التجارية، الإشعارات",
+      "helpSupport": "الدعم التقني، الدليل",
+      "communicationHub": "مركز الاتصالات الداخلية",
+      "trainingDevelopment": "تدريب الفريق، إدارة المعرفة",
+      "complianceQuality": "ضمان الجودة، إدارة المخاطر",
+      "accountManagement": "الملف الشخصي، لوحة الموارد البشرية، المهام، الأحداث، الحضور، التوظيف، مكتب المساعدة، تحديد المواقع الجغرافية",
+      "supportTickets": "تذاكري، إنشاء تذكرة",
+      "helpDocumentation": "المساعدة، الوثائق"
+    },
+    "summaryCards": {
+      "totalStudents": "إجمالي الطلاب",
+      "totalFacultyStaff": "إجمالي أعضاء هيئة التدريس/الموظفين",
+      "collegesDepartments": "الكليات/الأقسام",
+      "coursesOffered": "المقررات المقدمة",
+      "vehiclesRunning": "المركبات العاملة",
+      "upcomingEvents": "الأحداث القادمة",
+      "changeFromLastMonth": "% التغيير من الشهر الماضي",
+      "vacancy": "الشواغر",
+      "newThisYear": "جديد هذا العام",
+      "addedThisYear": "تمت إضافته هذا العام",
+      "routesActive": "الطرق النشطة",
+      "next7Days": "الـ 7 أيام القادمة"
+    },
+    "kpis": {
+      "admissions": "القبول",
+      "finance": "المالية ($)",
+      "hr": "الموارد البشرية (الموظفين)",
+      "academics": "الأكاديمية (المعدل التراكمي)",
+      "attendance": "الحضور (%)"
+    },
+    "sections": {
+      "academicInsights": "الرؤى الأكاديمية",
+      "financialOverview": "نظرة عامة مالية",
+      "hrStaffAnalytics": "تحليلات الموارد البشرية والموظفين",
+      "alertsNotifications": "التنبيهات والإشعارات",
+      "aiPoweredForecasts": "التوقعات المدعومة بالذكاء الاصطناعي",
+      "aiPoweredRevenue": "تحليلات الإيرادات والتحويل المدعومة بالذكاء الاصطناعي"
+    },
+    "charts": {
+      "admissionsTrend": "اتجاه القبول",
+      "financeOverview": "نظرة عامة مالية",
+      "departmentPerformance": "أداء الأقسام",
+      "enrollmentGraduation": "التسجيل والتخرج (آخر 5 سنوات)",
+      "topPerformingDepartments": "أفضل الأقسام أداءً (متوسط المعدل التراكمي)",
+      "monthlyFeeCollection": "تحصيل الرسوم الشهرية ($)",
+      "budgetAllocationUsage": "تخصيص الميزانية مقابل الاستخدام ($)",
+      "staffStrengthByType": "قوة الموظفين حسب النوع (آخر 5 سنوات)",
+      "attritionRateTrend": "اتجاه معدل الاستنزاف (%)"
+    },
+    "departments": {
+      "academics": "الأكاديمية",
+      "hr": "الموارد البشرية",
+      "finance": "المالية",
+      "admissions": "القبول",
+      "it": "تكنولوجيا المعلومات",
+      "rd": "البحث والتطوير",
+      "engineering": "الهندسة",
+      "science": "العلوم",
+      "business": "إدارة الأعمال",
+      "arts": "الفنون",
+      "law": "القانون"
+    },
+    "aiWidgets": {
+      "predictiveAdmission": "التنبؤ بالقبول",
+      "dropoutRisk": "مخاطر الانسحاب",
+      "financialSurplusDeficit": "الفائض/العجز المالي",
+      "leadConversion": "تحويل العملاء المحتملين",
+      "applicationFeeRevenue": "إيرادات رسوم الطلب",
+      "departmentRevenue": "إيرادات الأقسام",
+      "subjectProfitability": "ربحية المواد",
+      "studentDemographics": "ديموغرافية الطلاب",
+      "departmentRevenueRadar": "إيرادات الأقسام (رادار)",
+      "subjectProfitabilityRadar": "ربحية المواد (رادار)"
+    },
+    "aiLabels": {
+      "ai": "الذكاء الاصطناعي",
+      "nextSemesterIntake": "المتوقع للفصل الدراسي القادم",
+      "highestGrowth": "أعلى نمو",
+      "confidence": "الثقة",
+      "model": "النموذج",
+      "keyDrivers": "المحركات الرئيسية",
+      "whatIf": "ماذا لو",
+      "lastUpdated": "آخر تحديث",
+      "poweredByNexusAI": "مدعوم بـ NexusAI",
+      "clickToEnlarge": "انقر للتكبير",
+      "interactiveBarChart": "رسم بياني تفاعلي",
+      "interactiveRadar": "رادار تفاعلي"
+    },
+    "alerts": {
+      "pendingBudgetApprovals": "موافقات الميزانية المعلقة: 3",
+      "complianceAlert": "تنبيه الامتثال: تقرير الهيئة الوطنية مستحق",
+      "upcomingExamDeadline": "موعد الامتحان القادم: 15 يوليو",
+      "newFeedbackStudents": "تعليقات جديدة من الطلاب"
+    },
+    "modalContent": {
+      "undergraduates": "طلاب البكالوريوس",
+      "postgraduates": "طلاب الدراسات العليا",
+      "international": "الدوليين",
+      "teaching": "التدريس",
+      "nonTeaching": "غير التدريس",
+      "contractual": "العقود",
+      "new": "جديد",
+      "largest": "الأكبر",
+      "smallest": "الأصغر",
+      "ugCourses": "مقررات البكالوريوس",
+      "pgCourses": "مقررات الدراسات العليا",
+      "phdResearch": "الدكتوراه/البحث",
+      "buses": "الحافلات",
+      "vans": "الشاحنات الصغيرة",
+      "ambulances": "الإسعافات",
+      "convocation": "حفل التخرج",
+      "sportsMeet": "اللقاء الرياضي",
+      "facultyWorkshop": "ورشة عمل أعضاء هيئة التدريس",
+      "daysLeft": "أيام متبقية",
+      "applicationsThisMonth": "الطلبات هذا الشهر",
+      "acceptanceRate": "معدل القبول",
+      "topProgram": "أفضل برنامج",
+      "feeCollectionYtd": "تحصيل الرسوم (من بداية العام)",
+      "outstandingFees": "الرسوم المستحقة",
+      "scholarshipsGranted": "المنح الممنوحة",
+      "avgGpaUg": "متوسط المعدل التراكمي (البكالوريوس)",
+      "avgGpaPg": "متوسط المعدل التراكمي (الدراسات العليا)",
+      "topDepartment": "أفضل قسم",
+      "studentAttendance": "حضور الطلاب",
+      "staffAttendance": "حضور الموظفين",
+      "lowest": "الأدنى",
+      "trend": "الاتجاه",
+      "last6Periods": "آخر 6 فترات",
+      "stable": "مستقر"
+    }
+  }
+} 

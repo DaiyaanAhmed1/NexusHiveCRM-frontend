@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, BarChart, Bar, Legend, AreaChart, Area,
@@ -285,10 +286,17 @@ const complianceMetrics = {
 const COLORS = ["#6366f1", "#22c55e", "#f59e42", "#eab308", "#a3a3a3"];
 
 export default function DirectorAnalyticsReports() {
+  const { t, ready } = useTranslation('director');
   const [selectedDepartment, setSelectedDepartment] = useState("All");
   const [timeRange, setTimeRange] = useState("6M");
   const [activeTab, setActiveTab] = useState("admissions");
   const user = JSON.parse(localStorage.getItem('rbac_current_user'));
+
+  if (!ready) {
+    return <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 items-center justify-center">
+      <div className="text-lg text-gray-600 dark:text-gray-300">Loading...</div>
+    </div>;
+  }
 
   const renderAdmissionsSection = () => (
     <>
@@ -299,7 +307,7 @@ export default function DirectorAnalyticsReports() {
           animate={{ opacity: 1, y: 0 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Admission Funnel</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.admissions.admissionFunnel')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={admissionMetrics.conversionFunnel} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -318,7 +326,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.1 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Program Enrollment</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.admissions.programEnrollment')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <ComposedChart data={admissionMetrics.programEnrollment} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -338,7 +346,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.2 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Geographic Distribution</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.admissions.geographicDistribution')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <PieChart>
               <Pie
@@ -368,7 +376,7 @@ export default function DirectorAnalyticsReports() {
           animate={{ opacity: 1, y: 0 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Application Conversion Rate by Program</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.admissions.applicationConversionRate')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={admissionMetrics.conversionRateByProgram} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -386,7 +394,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.1 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Enrollment Trend</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.admissions.enrollmentTrend')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={admissionMetrics.enrollmentTrend} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -404,7 +412,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.2 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Top Source Regions</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.admissions.topSourceRegions')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={admissionMetrics.topSourceRegions} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -428,7 +436,7 @@ export default function DirectorAnalyticsReports() {
           animate={{ opacity: 1, y: 0 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Revenue by Department</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.financial.revenueByDepartment')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={financialMetrics.revenueByDepartment} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -449,7 +457,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.1 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Cost Analysis</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.financial.costAnalysis')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={financialMetrics.costAnalysis} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -469,7 +477,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.2 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Monthly Trends</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.financial.monthlyTrends')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={monthlyTrends} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -491,7 +499,7 @@ export default function DirectorAnalyticsReports() {
           animate={{ opacity: 1, y: 0 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Profit Margin by Department</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.financial.profitMarginByDepartment')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={financialMetrics.revenueByDepartment.map(dep => ({
               department: dep.department,
@@ -512,7 +520,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.1 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Budget Utilization by Department</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.financial.budgetUtilizationByDepartment')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={financialMetrics.budgetUtilization} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -531,7 +539,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.2 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Year-over-Year Growth</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.financial.yearOverYearGrowth')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={financialMetrics.yearOverYear} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -556,7 +564,7 @@ export default function DirectorAnalyticsReports() {
           animate={{ opacity: 1, y: 0 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Course Performance</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.academic.coursePerformance')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={academicMetrics.coursePerformance} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -575,7 +583,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.1 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Faculty Performance</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.academic.facultyPerformance')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={academicMetrics.facultyPerformance} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -594,7 +602,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.2 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Student Demographics</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.academic.studentDemographics')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <PieChart>
               <Pie
@@ -624,7 +632,7 @@ export default function DirectorAnalyticsReports() {
           animate={{ opacity: 1, y: 0 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Average GPA by Department</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.academic.averageGPAByDepartment')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={academicMetrics.avgGPAByDept} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -642,7 +650,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.1 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Pass Rate Trend</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.academic.passRateTrend')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={academicMetrics.passRateTrend} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -660,7 +668,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.2 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Enrollment by Course</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.academic.enrollmentByCourse')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={academicMetrics.enrollmentByCourse} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -684,7 +692,7 @@ export default function DirectorAnalyticsReports() {
           animate={{ opacity: 1, y: 0 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Event Participation</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.engagement.eventParticipation')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={studentEngagement.eventParticipation} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -703,7 +711,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.1 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Feedback Metrics</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.engagement.feedbackMetrics')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={studentEngagement.feedbackMetrics} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -722,7 +730,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.2 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Staff Analytics</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.engagement.staffAnalytics')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={staffAnalytics} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -744,7 +752,7 @@ export default function DirectorAnalyticsReports() {
           animate={{ opacity: 1, y: 0 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Event Participation Rate Over Time</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.engagement.eventParticipationRateOverTime')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={studentEngagement.participationRateTrend} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -762,7 +770,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.1 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Top Rated Facilities</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.engagement.topRatedFacilities')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={studentEngagement.topRatedFacilities} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -780,7 +788,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.2 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Student Satisfaction Trend</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.engagement.studentSatisfactionTrend')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={studentEngagement.satisfactionTrend} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -804,7 +812,7 @@ export default function DirectorAnalyticsReports() {
           animate={{ opacity: 1, y: 0 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Program Placement</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.placement.programPlacement')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={placementMetrics.programPlacement} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -823,7 +831,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.1 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Recruiter Feedback</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.placement.recruiterFeedback')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={placementMetrics.recruiterFeedback} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -842,7 +850,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.2 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Department Performance</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.placement.departmentPerformance')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={departmentPerformance} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -864,7 +872,7 @@ export default function DirectorAnalyticsReports() {
           animate={{ opacity: 1, y: 0 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Placement Rate by Program</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.placement.placementRateByProgram')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={placementMetrics.placementRateByProgram} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -882,7 +890,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.1 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Average Salary Trend</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.placement.averageSalaryTrend')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={placementMetrics.avgSalaryTrend} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -900,7 +908,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.2 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Top Recruiting Companies</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.placement.topRecruitingCompanies')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={placementMetrics.topRecruitingCompanies} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -924,7 +932,7 @@ export default function DirectorAnalyticsReports() {
           animate={{ opacity: 1, y: 0 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Accreditation Status</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.compliance.accreditationStatus')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={complianceMetrics.accreditationStatus} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -942,7 +950,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.1 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Audit Status</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.compliance.auditStatus')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={complianceMetrics.auditStatus} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -961,7 +969,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.2 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Compliance Issue Trends</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.compliance.complianceIssueTrends')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <LineChart data={complianceMetrics.issueTrends} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -982,7 +990,7 @@ export default function DirectorAnalyticsReports() {
           animate={{ opacity: 1, y: 0 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Upcoming Reviews</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.compliance.upcomingReviews')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={complianceMetrics.upcomingReviews} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -1000,7 +1008,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.1 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Resolved vs Unresolved Issues</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.compliance.resolvedVsUnresolvedIssues')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={complianceMetrics.resolvedVsUnresolved} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -1019,7 +1027,7 @@ export default function DirectorAnalyticsReports() {
           transition={{ delay: 0.2 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
         >
-          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">Department Compliance Score</h3>
+          <h3 className="text-sm font-semibold mb-2 text-gray-900 dark:text-white">{t('analyticsReports.sections.compliance.departmentComplianceScore')}</h3>
           <ResponsiveContainer width="100%" height={200}>
             <BarChart data={complianceMetrics.complianceScore} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -1040,8 +1048,8 @@ export default function DirectorAnalyticsReports() {
         {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Analytics & Reports</h1>
-            <p className="text-sm text-gray-600 dark:text-gray-300">Comprehensive insights and analytics dashboard</p>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('analyticsReports.title')}</h1>
+            <p className="text-sm text-gray-600 dark:text-gray-300">{t('analyticsReports.subtitle')}</p>
           </div>
           <div className="flex flex-wrap gap-2">
             <select
@@ -1049,7 +1057,7 @@ export default function DirectorAnalyticsReports() {
               onChange={(e) => setSelectedDepartment(e.target.value)}
               className="px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
             >
-              <option value="All">All Departments</option>
+              <option value="All">{t('analyticsReports.allDepartments')}</option>
               {admissionMetrics.programEnrollment.map((dept) => (
                 <option key={dept.program} value={dept.program}>
                   {dept.program}
@@ -1061,10 +1069,10 @@ export default function DirectorAnalyticsReports() {
               onChange={(e) => setTimeRange(e.target.value)}
               className="px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
             >
-              <option value="1M">Last Month</option>
-              <option value="3M">Last 3 Months</option>
-              <option value="6M">Last 6 Months</option>
-              <option value="1Y">Last Year</option>
+              <option value="1M">{t('analyticsReports.lastMonth')}</option>
+              <option value="3M">{t('analyticsReports.last3Months')}</option>
+              <option value="6M">{t('analyticsReports.last6Months')}</option>
+              <option value="1Y">{t('analyticsReports.lastYear')}</option>
             </select>
           </div>
         </div>
@@ -1081,7 +1089,7 @@ export default function DirectorAnalyticsReports() {
                   : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-blue-50 dark:hover:bg-blue-900"
               }`}
             >
-              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              {t(`analyticsReports.tabs.${tab}`)}
             </button>
           ))}
         </div>

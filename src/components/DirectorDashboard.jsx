@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar, Legend, AreaChart, Area, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from "recharts";
 import { directorFeatures } from './directorFeatures';
 import DirectorAnalyticsReports from '../features/director/components/DirectorAnalyticsReports';
@@ -31,14 +32,7 @@ const features = [
   { label: "Help / Documentation", icon: "📖", route: "/rbac/director/help", description: "Help, Documentation" },
 ];
 
-// Demo data for KPI cards
-const kpis = [
-  { label: "Admissions", value: 1240, icon: "🎓", color: "bg-blue-100 text-blue-700" },
-  { label: "Finance ($)", value: 98500, icon: "💰", color: "bg-green-100 text-green-700" },
-  { label: "HR (Staff)", value: 210, icon: "👥", color: "bg-purple-100 text-purple-700" },
-  { label: "Academics (GPA)", value: 8.2, icon: "📚", color: "bg-yellow-100 text-yellow-700" },
-  { label: "Attendance (%)", value: 92, icon: "📅", color: "bg-pink-100 text-pink-700" },
-];
+// Demo data for KPI cards - will be generated dynamically with translations
 
 // Demo data for charts
 const admissionsTrend = [
@@ -66,75 +60,7 @@ const deptPerformance = [
   { dept: "R&D", KPI: 88 },
 ];
 
-// Slim, colorful summary cards data
-const summaryCards = [
-  {
-    label: "Total Students",
-    value: 12400,
-    icon: "👨‍🎓",
-    color: "from-blue-400 to-blue-600",
-    trend: "+2.5%",
-    trendColor: "text-green-500",
-    sub: "% change from last month",
-    spark: [11000, 11200, 11500, 12000, 12200, 12400],
-    sparkColor: { light: "#3b82f6", dark: "#fff" }
-  },
-  {
-    label: "Total Faculty/Staff",
-    value: 890,
-    icon: "👩‍🏫",
-    color: "from-purple-400 to-purple-600",
-    trend: "+1.2%",
-    trendColor: "text-green-500",
-    sub: "Vacancy: 12",
-    spark: [850, 860, 870, 880, 885, 890],
-    sparkColor: { light: "#a78bfa", dark: "#fff" }
-  },
-  {
-    label: "Colleges/Departments",
-    value: 18,
-    icon: "🏫",
-    color: "from-pink-400 to-pink-600",
-    trend: "+1",
-    trendColor: "text-green-500",
-    sub: "New this year",
-    spark: [15, 15, 16, 16, 17, 18],
-    sparkColor: { light: "#ec4899", dark: "#fff" }
-  },
-  {
-    label: "Courses Offered",
-    value: 320,
-    icon: "📚",
-    color: "from-yellow-400 to-yellow-600",
-    trend: "+8",
-    trendColor: "text-green-500",
-    sub: "Added this year",
-    spark: [290, 295, 300, 310, 315, 320],
-    sparkColor: { light: "#facc15", dark: "#fff" }
-  },
-  {
-    label: "Vehicles Running",
-    value: 42,
-    icon: "🚌",
-    color: "from-green-400 to-green-600",
-    trend: "-1",
-    trendColor: "text-red-500",
-    sub: "Routes Active",
-    spark: [40, 41, 43, 44, 43, 42],
-    sparkColor: { light: "#22c55e", dark: "#fff" }
-  },
-  {
-    label: "Upcoming Events",
-    value: 7,
-    icon: "📅",
-    color: "from-orange-400 to-orange-600",
-    trend: "",
-    trendColor: "",
-    sub: "Next 7 days",
-    spark: [3, 4, 5, 6, 7, 7],
-    sparkColor: { light: "#fb923c", dark: "#fff" }
-  },
-];
+// Slim, colorful summary cards data - will be generated dynamically with translations
 
 // Academic Insights demo data
 const academicTrends = [
@@ -181,13 +107,7 @@ const attritionTrend = [
   { year: '2022', Attrition: 3.8 },
   { year: '2023', Attrition: 3.5 },
 ];
-// Alerts & Notifications demo data
-const alerts = [
-  { icon: '🚨', text: 'Pending Budget Approvals: 3', color: 'text-red-500' },
-  { icon: '⚠️', text: 'Compliance Alert: NCAAA Report Due', color: 'text-yellow-500' },
-  { icon: '⏳', text: 'Upcoming Exam Deadline: 15th July', color: 'text-blue-500' },
-  { icon: '💬', text: 'New Feedback from Students', color: 'text-green-500' },
-];
+// Alerts & Notifications demo data - will be generated dynamically with translations
 
 // Predictive Admission Forecast demo data
 const forecastData = [
@@ -270,9 +190,124 @@ const studentDemographicsData = {
 };
 
 export default function DirectorDashboard() {
+  const { t, ready } = useTranslation('director');
   const user = JSON.parse(localStorage.getItem('rbac_current_user'));
   const [modalCard, setModalCard] = useState(null);
   const [modalChart, setModalChart] = useState(null);
+
+  if (!ready) {
+    return <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 items-center justify-center">
+      <div className="text-lg text-gray-600 dark:text-gray-300">Loading...</div>
+    </div>;
+  }
+
+  // Generate translated features array
+  const features = [
+    { label: t('dashboard.features.dashboard'), icon: "📊", route: "/rbac/director", description: t('dashboard.featureDescriptions.dashboard') },
+    { label: t('dashboard.features.analyticsReports'), icon: "📈", route: "/rbac/director/analytics", description: t('dashboard.featureDescriptions.analyticsReports') },
+    { label: t('dashboard.features.departments'), icon: "🏢", route: "/rbac/director/departments", description: t('dashboard.featureDescriptions.departments') },
+    { label: t('dashboard.features.approvalCenter'), icon: "✅", route: "/rbac/director/approvals", description: t('dashboard.featureDescriptions.approvalCenter') },
+    { label: t('dashboard.features.strategicPlanning'), icon: "🗺️", route: "/rbac/director/strategic-planning", description: t('dashboard.featureDescriptions.strategicPlanning') },
+    { label: t('dashboard.features.communication'), icon: "📢", route: "/rbac/director/communication", description: t('dashboard.featureDescriptions.communication') },
+    { label: t('dashboard.features.auditCompliance'), icon: "🕵️", route: "/rbac/director/audit", description: t('dashboard.featureDescriptions.auditCompliance') },
+    { label: t('dashboard.features.meetingsCalendar'), icon: "🗓️", route: "/rbac/director/calendar", description: t('dashboard.featureDescriptions.meetingsCalendar') },
+    { label: t('dashboard.features.userManagement'), icon: "👥", route: "/rbac/director/users", description: t('dashboard.featureDescriptions.userManagement') },
+    { label: t('dashboard.features.settings'), icon: "⚙️", route: "/rbac/director/settings", description: t('dashboard.featureDescriptions.settings') },
+    { label: t('dashboard.features.helpSupport'), icon: "🆘", route: "/rbac/director/support", description: t('dashboard.featureDescriptions.helpSupport') },
+    { label: t('dashboard.features.communicationHub'), icon: "💬", route: "/rbac/director/comm-hub", description: t('dashboard.featureDescriptions.communicationHub') },
+    { label: t('dashboard.features.trainingDevelopment'), icon: "🎓", route: "/rbac/director/training", description: t('dashboard.featureDescriptions.trainingDevelopment') },
+    { label: t('dashboard.features.complianceQuality'), icon: "🏅", route: "/rbac/director/compliance", description: t('dashboard.featureDescriptions.complianceQuality') },
+    { label: t('dashboard.features.accountManagement'), icon: "👤", route: "/rbac/director/account", description: t('dashboard.featureDescriptions.accountManagement') },
+    { label: t('dashboard.features.supportTickets'), icon: "🎫", route: "/rbac/director/tickets", description: t('dashboard.featureDescriptions.supportTickets') },
+    { label: t('dashboard.features.helpDocumentation'), icon: "📖", route: "/rbac/director/help", description: t('dashboard.featureDescriptions.helpDocumentation') },
+  ];
+
+  // Generate translated KPI cards
+  const kpis = [
+    { label: t('dashboard.kpis.admissions'), value: 1240, icon: "🎓", color: "bg-blue-100 text-blue-700" },
+    { label: t('dashboard.kpis.finance'), value: 98500, icon: "💰", color: "bg-green-100 text-green-700" },
+    { label: t('dashboard.kpis.hr'), value: 210, icon: "👥", color: "bg-purple-100 text-purple-700" },
+    { label: t('dashboard.kpis.academics'), value: 8.2, icon: "📚", color: "bg-yellow-100 text-yellow-700" },
+    { label: t('dashboard.kpis.attendance'), value: 92, icon: "📅", color: "bg-pink-100 text-pink-700" },
+  ];
+
+  // Generate translated summary cards
+  const summaryCards = [
+    {
+      label: t('dashboard.summaryCards.totalStudents'),
+      value: 12400,
+      icon: "👨‍🎓",
+      color: "from-blue-400 to-blue-600",
+      trend: "+2.5%",
+      trendColor: "text-green-500",
+      sub: t('dashboard.summaryCards.changeFromLastMonth'),
+      spark: [11000, 11200, 11500, 12000, 12200, 12400],
+      sparkColor: { light: "#3b82f6", dark: "#fff" }
+    },
+    {
+      label: t('dashboard.summaryCards.totalFacultyStaff'),
+      value: 890,
+      icon: "👩‍🏫",
+      color: "from-purple-400 to-purple-600",
+      trend: "+1.2%",
+      trendColor: "text-green-500",
+      sub: `${t('dashboard.summaryCards.vacancy')}: 12`,
+      spark: [850, 860, 870, 880, 885, 890],
+      sparkColor: { light: "#a78bfa", dark: "#fff" }
+    },
+    {
+      label: t('dashboard.summaryCards.collegesDepartments'),
+      value: 18,
+      icon: "🏫",
+      color: "from-pink-400 to-pink-600",
+      trend: "+1",
+      trendColor: "text-green-500",
+      sub: t('dashboard.summaryCards.newThisYear'),
+      spark: [15, 15, 16, 16, 17, 18],
+      sparkColor: { light: "#ec4899", dark: "#fff" }
+    },
+    {
+      label: t('dashboard.summaryCards.coursesOffered'),
+      value: 320,
+      icon: "📚",
+      color: "from-yellow-400 to-yellow-600",
+      trend: "+8",
+      trendColor: "text-green-500",
+      sub: t('dashboard.summaryCards.addedThisYear'),
+      spark: [290, 295, 300, 310, 315, 320],
+      sparkColor: { light: "#facc15", dark: "#fff" }
+    },
+    {
+      label: t('dashboard.summaryCards.vehiclesRunning'),
+      value: 42,
+      icon: "🚌",
+      color: "from-green-400 to-green-600",
+      trend: "-1",
+      trendColor: "text-red-500",
+      sub: t('dashboard.summaryCards.routesActive'),
+      spark: [40, 41, 43, 44, 43, 42],
+      sparkColor: { light: "#22c55e", dark: "#fff" }
+    },
+    {
+      label: t('dashboard.summaryCards.upcomingEvents'),
+      value: 7,
+      icon: "📅",
+      color: "from-orange-400 to-orange-600",
+      trend: "",
+      trendColor: "",
+      sub: t('dashboard.summaryCards.next7Days'),
+      spark: [3, 4, 5, 6, 7, 7],
+      sparkColor: { light: "#fb923c", dark: "#fff" }
+    },
+  ];
+
+  // Generate translated alerts
+  const alerts = [
+    { icon: '🚨', text: t('dashboard.alerts.pendingBudgetApprovals'), color: 'text-red-500' },
+    { icon: '⚠️', text: t('dashboard.alerts.complianceAlert'), color: 'text-yellow-500' },
+    { icon: '⏳', text: t('dashboard.alerts.upcomingExamDeadline'), color: 'text-blue-500' },
+    { icon: '💬', text: t('dashboard.alerts.newFeedbackStudents'), color: 'text-green-500' },
+  ];
 
   // Modal content generator
   const renderModalContent = (card) => {
@@ -616,7 +651,7 @@ export default function DirectorDashboard() {
     } else if (chartId === 'leadConversion') {
       content = (
         <div className="w-[90vw] max-w-3xl h-[60vh] bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 gap-4 items-stretch min-h-[260px] border border-gray-100 dark:border-gray-800">
-          <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('leadConversion')} title="Click to enlarge">
+          <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('leadConversion')} title={t('dashboard.aiLabels.clickToEnlarge')}>
             <ResponsiveContainer width="100%" height={140}>
               <LineChart data={leadConversionData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -626,25 +661,25 @@ export default function DirectorDashboard() {
                 <Line type="monotone" dataKey="Rate" stroke="#6366f1" strokeWidth={2.5} dot={{ r: 4 }} />
               </LineChart>
             </ResponsiveContainer>
-            <span className="hidden group-hover:block absolute text-xs text-blue-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">Click to enlarge</span>
+            <span className="hidden group-hover:block absolute text-xs text-blue-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">{t('dashboard.aiLabels.clickToEnlarge')}</span>
           </div>
           <div className="flex-1 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="font-bold text-blue-700 dark:text-blue-300">Lead Conversion</span>
-                <span className="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900 text-xs text-blue-700 dark:text-blue-200 font-semibold">AI</span>
+                <span className="font-bold text-blue-700 dark:text-blue-300">{t('dashboard.aiWidgets.leadConversion')}</span>
+                <span className="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900 text-xs text-blue-700 dark:text-blue-200 font-semibold">{t('dashboard.aiLabels.ai')}</span>
               </div>
               <div className="text-sm text-gray-700 dark:text-gray-200 mb-1">
-                <span className="font-bold text-green-600 dark:text-green-400">1,320</span> next semester intake expected <span className="text-xs">(+8%)</span>.<br />
-                Highest growth: <span className="font-semibold">Engineering, Business</span>.
+                <span className="font-bold text-green-600 dark:text-green-400">1,320</span> {t('dashboard.aiLabels.nextSemesterIntake')} <span className="text-xs">(+8%)</span>.<br />
+                {t('dashboard.aiLabels.highestGrowth')}: <span className="font-semibold">Engineering, Business</span>.
               </div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Confidence: <span className="font-bold text-green-500">92%</span> | Model: v2.1</div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Key Drivers: <span className="font-medium">Marketing Spend, Placement Rate, Fee Waivers</span></div>
-              <div className="text-xs text-blue-600 dark:text-blue-300 mb-1">What-if: +10% marketing budget → +3% admissions</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.confidence')}: <span className="font-bold text-green-500">92%</span> | {t('dashboard.aiLabels.model')}: v2.1</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.keyDrivers')}: <span className="font-medium">Marketing Spend, Placement Rate, Fee Waivers</span></div>
+              <div className="text-xs text-blue-600 dark:text-blue-300 mb-1">{t('dashboard.aiLabels.whatIf')}: +10% marketing budget → +3% admissions</div>
             </div>
             <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
-              <span>Last updated: 2h ago</span>
-              <span className="italic">Powered by NexusAI</span>
+              <span>{t('dashboard.aiLabels.lastUpdated')}: 2h ago</span>
+              <span className="italic">{t('dashboard.aiLabels.poweredByNexusAI')}</span>
             </div>
           </div>
         </div>
@@ -652,7 +687,7 @@ export default function DirectorDashboard() {
     } else if (chartId === 'applicationFee') {
       content = (
         <div className="w-[90vw] max-w-3xl h-[60vh] bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 gap-4 items-stretch min-h-[260px] border border-gray-100 dark:border-gray-800">
-          <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('applicationFee')} title="Click to enlarge">
+          <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('applicationFee')} title={t('dashboard.aiLabels.clickToEnlarge')}>
             <ResponsiveContainer width="100%" height={140}>
               <BarChart data={applicationFeeData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -663,25 +698,25 @@ export default function DirectorDashboard() {
                 <Bar dataKey="Waivers" fill="#ef4444" radius={[8, 8, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
-            <span className="hidden group-hover:block absolute text-xs text-green-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">Click to enlarge</span>
+            <span className="hidden group-hover:block absolute text-xs text-green-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">{t('dashboard.aiLabels.clickToEnlarge')}</span>
           </div>
           <div className="flex-1 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="font-bold text-green-700 dark:text-green-300">Application Fee Revenue</span>
-                <span className="px-2 py-0.5 rounded bg-green-100 dark:bg-green-900 text-xs text-green-700 dark:text-green-200 font-semibold">AI</span>
+                <span className="font-bold text-green-700 dark:text-green-300">{t('dashboard.aiWidgets.applicationFeeRevenue')}</span>
+                <span className="px-2 py-0.5 rounded bg-green-100 dark:bg-green-900 text-xs text-green-700 dark:text-green-200 font-semibold">{t('dashboard.aiLabels.ai')}</span>
               </div>
               <div className="text-sm text-gray-700 dark:text-gray-200 mb-1">
                 Expected revenue: <span className="font-bold text-blue-600 dark:text-blue-400">$180,000</span> (+5%).<br />
                 Waivers impact: <span className="font-semibold">10% of revenue</span>.
               </div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Confidence: <span className="font-bold text-green-500">89%</span> | Model: v2.1</div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Key Drivers: <span className="font-medium">Applications, Fee Structure, Waivers</span></div>
-              <div className="text-xs text-green-600 dark:text-green-300 mb-1">What-if: +15% fee waivers → -$25k revenue</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.confidence')}: <span className="font-bold text-green-500">89%</span> | {t('dashboard.aiLabels.model')}: v2.1</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.keyDrivers')}: <span className="font-medium">Applications, Fee Structure, Waivers</span></div>
+              <div className="text-xs text-green-600 dark:text-green-300 mb-1">{t('dashboard.aiLabels.whatIf')}: +15% fee waivers → -$25k revenue</div>
             </div>
             <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
-              <span>Last updated: 2h ago</span>
-              <span className="italic">Powered by NexusAI</span>
+              <span>{t('dashboard.aiLabels.lastUpdated')}: 2h ago</span>
+              <span className="italic">{t('dashboard.aiLabels.poweredByNexusAI')}</span>
             </div>
           </div>
         </div>
@@ -689,7 +724,7 @@ export default function DirectorDashboard() {
     } else if (chartId === 'deptRevenue') {
       content = (
         <div className="w-[90vw] max-w-3xl h-[60vh] bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 gap-4 items-stretch min-h-[260px] border border-gray-100 dark:border-gray-800">
-          <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('deptRevenue')} title="Click to enlarge">
+          <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('deptRevenue')} title={t('dashboard.aiLabels.clickToEnlarge')}>
             <ResponsiveContainer width="100%" height={140}>
               <BarChart data={deptRevenueData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -700,25 +735,25 @@ export default function DirectorDashboard() {
                 <Bar dataKey="Projected" fill="#22c55e" radius={[8, 8, 0, 0]} fillOpacity={0.7} />
               </BarChart>
             </ResponsiveContainer>
-            <span className="hidden group-hover:block absolute text-xs text-indigo-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">Click to enlarge</span>
+            <span className="hidden group-hover:block absolute text-xs text-indigo-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">{t('dashboard.aiLabels.clickToEnlarge')}</span>
           </div>
           <div className="flex-1 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="font-bold text-indigo-700 dark:text-indigo-300">Department Revenue</span>
-                <span className="px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900 text-xs text-indigo-700 dark:text-indigo-200 font-semibold">AI</span>
+                <span className="font-bold text-indigo-700 dark:text-indigo-300">{t('dashboard.aiWidgets.departmentRevenue')}</span>
+                <span className="px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900 text-xs text-indigo-700 dark:text-indigo-200 font-semibold">{t('dashboard.aiLabels.ai')}</span>
               </div>
               <div className="text-sm text-gray-700 dark:text-gray-200 mb-1">
                 Total projected: <span className="font-bold text-green-600 dark:text-green-400">$17.05M</span> (+10%).<br />
                 Underperforming: <span className="font-semibold">Law, Arts</span>.
               </div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Confidence: <span className="font-bold text-green-500">92%</span> | Model: v2.1</div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Key Drivers: <span className="font-medium">Enrollment, Tuition, Grants</span></div>
-              <div className="text-xs text-indigo-600 dark:text-indigo-300 mb-1">What-if: +20% scholarships → -$1.2M revenue</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.confidence')}: <span className="font-bold text-green-500">92%</span> | {t('dashboard.aiLabels.model')}: v2.1</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.keyDrivers')}: <span className="font-medium">Enrollment, Tuition, Grants</span></div>
+              <div className="text-xs text-indigo-600 dark:text-indigo-300 mb-1">{t('dashboard.aiLabels.whatIf')}: +20% scholarships → -$1.2M revenue</div>
             </div>
             <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
-              <span>Last updated: 3h ago</span>
-              <span className="italic">Powered by NexusAI</span>
+              <span>{t('dashboard.aiLabels.lastUpdated')}: 3h ago</span>
+              <span className="italic">{t('dashboard.aiLabels.poweredByNexusAI')}</span>
             </div>
           </div>
         </div>
@@ -726,7 +761,7 @@ export default function DirectorDashboard() {
     } else if (chartId === 'subjectProfit') {
       content = (
         <div className="w-[90vw] max-w-3xl h-[60vh] bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 gap-4 items-stretch min-h-[260px] border border-gray-100 dark:border-gray-800">
-          <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('subjectProfit')} title="Click to enlarge">
+          <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('subjectProfit')} title={t('dashboard.aiLabels.clickToEnlarge')}>
             <ResponsiveContainer width="100%" height={140}>
               <BarChart data={subjectProfitData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -736,32 +771,32 @@ export default function DirectorDashboard() {
                 <Bar dataKey="Profit" fill="#22c55e" radius={[8, 8, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
-            <span className="hidden group-hover:block absolute text-xs text-green-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">Click to enlarge</span>
+            <span className="hidden group-hover:block absolute text-xs text-green-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">{t('dashboard.aiLabels.clickToEnlarge')}</span>
           </div>
           <div className="flex-1 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="font-bold text-green-700 dark:text-green-300">Subject Profitability</span>
-                <span className="px-2 py-0.5 rounded bg-green-100 dark:bg-green-900 text-xs text-green-700 dark:text-green-200 font-semibold">AI</span>
+                <span className="font-bold text-green-700 dark:text-green-300">{t('dashboard.aiWidgets.subjectProfitability')}</span>
+                <span className="px-2 py-0.5 rounded bg-green-100 dark:bg-green-900 text-xs text-green-700 dark:text-green-200 font-semibold">{t('dashboard.aiLabels.ai')}</span>
               </div>
               <div className="text-sm text-gray-700 dark:text-gray-200 mb-1">
                 Visualizes profit margins for each subject.<br />
                 Instantly spot most/least profitable subjects.
               </div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Confidence: <span className="font-bold text-green-500">94%</span> | Model: v2.1</div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Key Drivers: <span className="font-medium">Enrollment, Tuition, Operating Costs</span></div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.confidence')}: <span className="font-bold text-green-500">94%</span> | {t('dashboard.aiLabels.model')}: v2.1</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.keyDrivers')}: <span className="font-medium">Enrollment, Tuition, Operating Costs</span></div>
             </div>
-            <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
-              <span>Interactive Bar Chart</span>
-              <span className="italic">Powered by NexusAI</span>
-            </div>
+                            <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
+                  <span>{t('dashboard.aiLabels.interactiveBarChart')}</span>
+                  <span className="italic">{t('dashboard.aiLabels.poweredByNexusAI')}</span>
+                </div>
           </div>
         </div>
       );
     } else if (chartId === 'demographics') {
       content = (
         <div className="w-[90vw] max-w-3xl h-[60vh] bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 gap-4 items-stretch min-h-[260px] border border-gray-100 dark:border-gray-800">
-          <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('demographics')} title="Click to enlarge">
+          <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('demographics')} title={t('dashboard.aiLabels.clickToEnlarge')}>
             <ResponsiveContainer width="100%" height={140}>
               <PieChart>
                 <Pie data={studentDemographicsData.regions} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={40} label>
@@ -777,20 +812,20 @@ export default function DirectorDashboard() {
           <div className="flex-1 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="font-bold text-blue-700 dark:text-blue-300">Student Demographics</span>
-                <span className="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900 text-xs text-blue-700 dark:text-blue-200 font-semibold">AI</span>
+                <span className="font-bold text-blue-700 dark:text-blue-300">{t('dashboard.aiWidgets.studentDemographics')}</span>
+                <span className="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900 text-xs text-blue-700 dark:text-blue-200 font-semibold">{t('dashboard.aiLabels.ai')}</span>
               </div>
               <div className="text-sm text-gray-700 dark:text-gray-200 mb-1">
                 Top region: <span className="font-bold text-green-600 dark:text-green-400">North (35%)</span>.<br />
                 Age group: <span className="font-semibold">18-20 (45%)</span>.
               </div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Confidence: <span className="font-bold text-green-500">96%</span> | Model: v2.1</div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Key Drivers: <span className="font-medium">Region, Age, Gender, Education</span></div>
-              <div className="text-xs text-blue-600 dark:text-blue-300 mb-1">What-if: Target East region → +15% applications</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.confidence')}: <span className="font-bold text-green-500">96%</span> | {t('dashboard.aiLabels.model')}: v2.1</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.keyDrivers')}: <span className="font-medium">Region, Age, Gender, Education</span></div>
+              <div className="text-xs text-blue-600 dark:text-blue-300 mb-1">{t('dashboard.aiLabels.whatIf')}: Target East region → +15% applications</div>
             </div>
             <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
-              <span>Last updated: 1h ago</span>
-              <span className="italic">Powered by NexusAI</span>
+              <span>{t('dashboard.aiLabels.lastUpdated')}: 1h ago</span>
+              <span className="italic">{t('dashboard.aiLabels.poweredByNexusAI')}</span>
             </div>
           </div>
         </div>
@@ -798,7 +833,7 @@ export default function DirectorDashboard() {
     } else if (chartId === 'deptRevenueRadar') {
       content = (
         <div className="w-[90vw] max-w-3xl h-[60vh] bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 gap-4 items-stretch min-h-[260px] border border-gray-100 dark:border-gray-800">
-          <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('deptRevenueRadar')} title="Click to enlarge">
+          <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('deptRevenueRadar')} title={t('dashboard.aiLabels.clickToEnlarge')}>
             <ResponsiveContainer width="100%" height={140}>
               <RadarChart cx="50%" cy="50%" outerRadius={50} data={deptRevenueData.map(d => ({ dept: d.dept, Revenue: d.Revenue, Projected: d.Projected }))}>
                 <PolarGrid />
@@ -814,19 +849,19 @@ export default function DirectorDashboard() {
           <div className="flex-1 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="font-bold text-indigo-700 dark:text-indigo-300">Department Revenue (Radar)</span>
-                <span className="px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900 text-xs text-indigo-700 dark:text-indigo-200 font-semibold">AI</span>
+                <span className="font-bold text-indigo-700 dark:text-indigo-300">{t('dashboard.aiWidgets.departmentRevenueRadar')}</span>
+                <span className="px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900 text-xs text-indigo-700 dark:text-indigo-200 font-semibold">{t('dashboard.aiLabels.ai')}</span>
               </div>
               <div className="text-sm text-gray-700 dark:text-gray-200 mb-1">
                 Visualizes current vs projected revenue for each department.<br />
                 Instantly spot outliers and growth areas.
               </div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Confidence: <span className="font-bold text-green-500">92%</span> | Model: v2.1</div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Key Drivers: <span className="font-medium">Enrollment, Tuition, Grants</span></div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.confidence')}: <span className="font-bold text-green-500">92%</span> | {t('dashboard.aiLabels.model')}: v2.1</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.keyDrivers')}: <span className="font-medium">Enrollment, Tuition, Grants</span></div>
             </div>
             <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
-              <span>Interactive Radar</span>
-              <span className="italic">Powered by NexusAI</span>
+              <span>{t('dashboard.aiLabels.interactiveRadar')}</span>
+              <span className="italic">{t('dashboard.aiLabels.poweredByNexusAI')}</span>
             </div>
           </div>
         </div>
@@ -834,7 +869,7 @@ export default function DirectorDashboard() {
     } else if (chartId === 'subjectProfitRadar') {
       content = (
         <div className="w-[90vw] max-w-3xl h-[60vh] bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 gap-4 items-stretch min-h-[260px] border border-gray-100 dark:border-gray-800">
-          <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('subjectProfitRadar')} title="Click to enlarge">
+          <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('subjectProfitRadar')} title={t('dashboard.aiLabels.clickToEnlarge')}>
             <ResponsiveContainer width="100%" height={140}>
               <RadarChart cx="50%" cy="50%" outerRadius={50} data={subjectProfitData.map(s => ({ subject: s.subject, Profit: s.Profit }))}>
                 <PolarGrid />
@@ -849,19 +884,19 @@ export default function DirectorDashboard() {
           <div className="flex-1 flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <span className="font-bold text-green-700 dark:text-green-300">Subject Profitability (Radar)</span>
-                <span className="px-2 py-0.5 rounded bg-green-100 dark:bg-green-900 text-xs text-green-700 dark:text-green-200 font-semibold">AI</span>
+                <span className="font-bold text-green-700 dark:text-green-300">{t('dashboard.aiWidgets.subjectProfitabilityRadar')}</span>
+                <span className="px-2 py-0.5 rounded bg-green-100 dark:bg-green-900 text-xs text-green-700 dark:text-green-200 font-semibold">{t('dashboard.aiLabels.ai')}</span>
               </div>
               <div className="text-sm text-gray-700 dark:text-gray-200 mb-1">
                 Visualizes profit margins for each subject.<br />
                 Instantly spot most/least profitable subjects.
               </div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Confidence: <span className="font-bold text-green-500">94%</span> | Model: v2.1</div>
-              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Key Drivers: <span className="font-medium">Enrollment, Tuition, Operating Costs</span></div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.confidence')}: <span className="font-bold text-green-500">94%</span> | {t('dashboard.aiLabels.model')}: v2.1</div>
+              <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.keyDrivers')}: <span className="font-medium">Enrollment, Tuition, Operating Costs</span></div>
             </div>
             <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
-              <span>Interactive Radar</span>
-              <span className="italic">Powered by NexusAI</span>
+              <span>{t('dashboard.aiLabels.interactiveRadar')}</span>
+              <span className="italic">{t('dashboard.aiLabels.poweredByNexusAI')}</span>
             </div>
           </div>
         </div>
@@ -990,7 +1025,7 @@ export default function DirectorDashboard() {
             transition={{ delay: 0.3 }}
             className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-6"
           >
-            <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">Admissions Trend</h3>
+            <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">{t('dashboard.charts.admissionsTrend')}</h3>
             <ResponsiveContainer width="100%" height={220}>
               <LineChart data={admissionsTrend} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -1011,7 +1046,7 @@ export default function DirectorDashboard() {
             transition={{ delay: 0.4 }}
             className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-6"
           >
-            <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">Finance Overview</h3>
+            <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">{t('dashboard.charts.financeOverview')}</h3>
             <ResponsiveContainer width="100%" height={220}>
               <PieChart>
                 <Pie data={financeData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={70} fill="#8884d8" label>
@@ -1033,7 +1068,7 @@ export default function DirectorDashboard() {
           transition={{ delay: 0.5 }}
           className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-6"
         >
-          <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">Department Performance</h3>
+          <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-gray-100">{t('dashboard.charts.departmentPerformance')}</h3>
           <ResponsiveContainer width="100%" height={220}>
             <BarChart data={deptPerformance} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
@@ -1050,12 +1085,12 @@ export default function DirectorDashboard() {
         <section className="mt-8">
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xl">🧪</span>
-            <h2 className="text-lg font-bold tracking-wide">Academic Insights</h2>
+            <h2 className="text-lg font-bold tracking-wide">{t('dashboard.sections.academicInsights')}</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Multi-year Enrollment/Graduation Chart */}
             <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-6 col-span-2">
-              <h3 className="text-base font-semibold mb-2 text-gray-900 dark:text-gray-100">Enrollment & Graduation (Last 5 Years)</h3>
+              <h3 className="text-base font-semibold mb-2 text-gray-900 dark:text-gray-100">{t('dashboard.charts.enrollmentGraduation')}</h3>
               <ResponsiveContainer width="100%" height={180}>
                 <LineChart data={academicTrends} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -1070,7 +1105,7 @@ export default function DirectorDashboard() {
             </div>
             {/* Department Leaderboard */}
             <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-6 flex flex-col">
-              <h3 className="text-base font-semibold mb-2 text-gray-900 dark:text-gray-100">Top Performing Departments (Avg GPA)</h3>
+              <h3 className="text-base font-semibold mb-2 text-gray-900 dark:text-gray-100">{t('dashboard.charts.topPerformingDepartments')}</h3>
               <ul className="flex-1 flex flex-col gap-2 mt-2">
                 {deptLeaderboard.map((d, idx) => (
                   <li key={d.dept} className="flex items-center gap-2">
@@ -1088,12 +1123,12 @@ export default function DirectorDashboard() {
         <section className="mt-8">
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xl">💸</span>
-            <h2 className="text-lg font-bold tracking-wide">Financial Overview</h2>
+            <h2 className="text-lg font-bold tracking-wide">{t('dashboard.sections.financialOverview')}</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Monthly Fee Collection Bar Chart */}
             <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-6 col-span-2">
-              <h3 className="text-base font-semibold mb-2 text-gray-900 dark:text-gray-100">Monthly Fee Collection ($)</h3>
+              <h3 className="text-base font-semibold mb-2 text-gray-900 dark:text-gray-100">{t('dashboard.charts.monthlyFeeCollection')}</h3>
               <ResponsiveContainer width="100%" height={180}>
                 <BarChart data={monthlyFees} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -1106,7 +1141,7 @@ export default function DirectorDashboard() {
             </div>
             {/* Budget vs Usage Progress Bars */}
             <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-6 flex flex-col">
-              <h3 className="text-base font-semibold mb-2 text-gray-900 dark:text-gray-100">Budget Allocation vs Usage ($)</h3>
+              <h3 className="text-base font-semibold mb-2 text-gray-900 dark:text-gray-100">{t('dashboard.charts.budgetAllocationUsage')}</h3>
               <ul className="flex-1 flex flex-col gap-3 mt-2">
                 {budgetUsage.map((b) => (
                   <li key={b.dept} className="flex flex-col gap-1">
@@ -1131,12 +1166,12 @@ export default function DirectorDashboard() {
         <section className="mt-8">
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xl">🧑‍💼</span>
-            <h2 className="text-lg font-bold tracking-wide">HR & Staff Analytics</h2>
+            <h2 className="text-lg font-bold tracking-wide">{t('dashboard.sections.hrStaffAnalytics')}</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Staff Types Stacked Bar */}
             <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-6 col-span-2">
-              <h3 className="text-base font-semibold mb-2 text-gray-900 dark:text-gray-100">Staff Strength by Type (Last 5 Years)</h3>
+              <h3 className="text-base font-semibold mb-2 text-gray-900 dark:text-gray-100">{t('dashboard.charts.staffStrengthByType')}</h3>
               <ResponsiveContainer width="100%" height={180}>
                 <BarChart data={staffTypes} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -1152,7 +1187,7 @@ export default function DirectorDashboard() {
             </div>
             {/* Attrition Trend Line */}
             <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-6 flex flex-col">
-              <h3 className="text-base font-semibold mb-2 text-gray-900 dark:text-gray-100">Attrition Rate Trend (%)</h3>
+              <h3 className="text-base font-semibold mb-2 text-gray-900 dark:text-gray-100">{t('dashboard.charts.attritionRateTrend')}</h3>
               <ResponsiveContainer width="100%" height={180}>
                 <LineChart data={attritionTrend} margin={{ top: 10, right: 20, left: 0, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -1170,7 +1205,7 @@ export default function DirectorDashboard() {
         <section className="mt-8">
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xl">🔔</span>
-            <h2 className="text-lg font-bold tracking-wide">Alerts & Notifications</h2>
+            <h2 className="text-lg font-bold tracking-wide">{t('dashboard.sections.alertsNotifications')}</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="bg-gradient-to-r from-blue-100 to-blue-50 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-lg p-6 flex flex-col gap-3 animate-pulse">
@@ -1189,14 +1224,14 @@ export default function DirectorDashboard() {
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xl">🤖</span>
             <h2 className="text-lg font-bold tracking-wide flex items-center gap-2">
-              AI-Powered Forecasts
-              <span className="ml-2 px-2 py-0.5 rounded bg-gradient-to-r from-blue-500 to-purple-500 text-xs text-white font-semibold uppercase">AI</span>
+              {t('dashboard.sections.aiPoweredForecasts')}
+              <span className="ml-2 px-2 py-0.5 rounded bg-gradient-to-r from-blue-500 to-purple-500 text-xs text-white font-semibold uppercase">{t('dashboard.aiLabels.ai')}</span>
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Predictive Admission Forecast */}
             <div className="flex flex-col md:flex-row bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 gap-4 items-stretch min-h-[260px] border border-gray-100 dark:border-gray-800">
-              <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('admission')} title="Click to enlarge">
+              <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('admission')} title={t('dashboard.aiLabels.clickToEnlarge')}>
                 <ResponsiveContainer width="100%" height={140}>
                   <LineChart data={forecastData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" />
@@ -1207,31 +1242,31 @@ export default function DirectorDashboard() {
                     <Line type="monotone" dataKey="Forecast" stroke="#22c55e" strokeDasharray="5 5" strokeWidth={2.5} dot={{ r: 4 }} />
                   </LineChart>
                 </ResponsiveContainer>
-                <span className="hidden group-hover:block absolute text-xs text-blue-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">Click to enlarge</span>
+                <span className="hidden group-hover:block absolute text-xs text-blue-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">{t('dashboard.aiLabels.clickToEnlarge')}</span>
               </div>
               <div className="flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-bold text-blue-700 dark:text-blue-300">Predictive Admission</span>
-                    <span className="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900 text-xs text-blue-700 dark:text-blue-200 font-semibold">AI</span>
+                    <span className="font-bold text-blue-700 dark:text-blue-300">{t('dashboard.aiWidgets.predictiveAdmission')}</span>
+                    <span className="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900 text-xs text-blue-700 dark:text-blue-200 font-semibold">{t('dashboard.aiLabels.ai')}</span>
                   </div>
                   <div className="text-sm text-gray-700 dark:text-gray-200 mb-1">
-                    <span className="font-bold text-green-600 dark:text-green-400">1,320</span> next semester intake expected <span className="text-xs">(+8%)</span>.<br />
-                    Highest growth: <span className="font-semibold">Engineering, Business</span>.
+                    <span className="font-bold text-green-600 dark:text-green-400">1,320</span> {t('dashboard.aiLabels.nextSemesterIntake')} <span className="text-xs">(+8%)</span>.<br />
+                    {t('dashboard.aiLabels.highestGrowth')}: <span className="font-semibold">Engineering, Business</span>.
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Confidence: <span className="font-bold text-green-500">92%</span> | Model: v2.1</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Key Drivers: <span className="font-medium">Marketing Spend, Placement Rate, Fee Waivers</span></div>
-                  <div className="text-xs text-blue-600 dark:text-blue-300 mb-1">What-if: +10% marketing budget → +3% admissions</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.confidence')}: <span className="font-bold text-green-500">92%</span> | {t('dashboard.aiLabels.model')}: v2.1</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.keyDrivers')}: <span className="font-medium">Marketing Spend, Placement Rate, Fee Waivers</span></div>
+                  <div className="text-xs text-blue-600 dark:text-blue-300 mb-1">{t('dashboard.aiLabels.whatIf')}: +10% marketing budget → +3% admissions</div>
                 </div>
                 <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
-                  <span>Last updated: 2h ago</span>
-                  <span className="italic">Powered by NexusAI</span>
+                  <span>{t('dashboard.aiLabels.lastUpdated')}: 2h ago</span>
+                  <span className="italic">{t('dashboard.aiLabels.poweredByNexusAI')}</span>
                 </div>
               </div>
             </div>
             {/* Dropout Risk Forecast */}
             <div className="flex flex-col md:flex-row bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 gap-4 items-stretch min-h-[260px] border border-gray-100 dark:border-gray-800">
-              <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('dropout')} title="Click to enlarge">
+              <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('dropout')} title={t('dashboard.aiLabels.clickToEnlarge')}>
                 <ResponsiveContainer width="100%" height={140}>
                   <LineChart data={dropoutForecast} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" />
@@ -1242,31 +1277,31 @@ export default function DirectorDashboard() {
                     <Line type="monotone" dataKey="Forecast" stroke="#f472b6" strokeDasharray="5 5" strokeWidth={2.5} dot={{ r: 4 }} />
                   </LineChart>
                 </ResponsiveContainer>
-                <span className="hidden group-hover:block absolute text-xs text-pink-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">Click to enlarge</span>
+                <span className="hidden group-hover:block absolute text-xs text-pink-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">{t('dashboard.aiLabels.clickToEnlarge')}</span>
               </div>
               <div className="flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-bold text-pink-700 dark:text-pink-300">Dropout Risk</span>
-                    <span className="px-2 py-0.5 rounded bg-pink-100 dark:bg-pink-900 text-xs text-pink-700 dark:text-pink-200 font-semibold">AI</span>
+                    <span className="font-bold text-pink-700 dark:text-pink-300">{t('dashboard.aiWidgets.dropoutRisk')}</span>
+                    <span className="px-2 py-0.5 rounded bg-pink-100 dark:bg-pink-900 text-xs text-pink-700 dark:text-pink-200 font-semibold">{t('dashboard.aiLabels.ai')}</span>
                   </div>
                   <div className="text-sm text-gray-700 dark:text-gray-200 mb-1">
                     Dropout rate expected to decrease to <span className="font-bold text-red-600 dark:text-red-400">3.1%</span> next semester.<br />
                     Highest risk: <span className="font-semibold">Law Dept</span>.
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Confidence: <span className="font-bold text-green-500">88%</span> | Model: v2.1</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Key Drivers: <span className="font-medium">Attendance, Academic Stress, Financial Aid</span></div>
-                  <div className="text-xs text-pink-600 dark:text-pink-300 mb-1">What-if: -5% attendance → +0.7% dropout risk</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.confidence')}: <span className="font-bold text-green-500">88%</span> | {t('dashboard.aiLabels.model')}: v2.1</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.keyDrivers')}: <span className="font-medium">Attendance, Academic Stress, Financial Aid</span></div>
+                  <div className="text-xs text-pink-600 dark:text-pink-300 mb-1">{t('dashboard.aiLabels.whatIf')}: -5% attendance → +0.7% dropout risk</div>
                 </div>
                 <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
-                  <span>Last updated: 2h ago</span>
-                  <span className="italic">Powered by NexusAI</span>
+                  <span>{t('dashboard.aiLabels.lastUpdated')}: 2h ago</span>
+                  <span className="italic">{t('dashboard.aiLabels.poweredByNexusAI')}</span>
                 </div>
               </div>
             </div>
             {/* Financial Surplus/Deficit Forecast */}
             <div className="flex flex-col md:flex-row bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 gap-4 items-stretch min-h-[260px] border border-gray-100 dark:border-gray-800">
-              <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('surplus')} title="Click to enlarge">
+              <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('surplus')} title={t('dashboard.aiLabels.clickToEnlarge')}>
                 <ResponsiveContainer width="100%" height={140}>
                   <BarChart data={surplusForecast} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" />
@@ -1277,25 +1312,25 @@ export default function DirectorDashboard() {
                     <Bar dataKey="Forecast" fill="#6366f1" radius={[8, 8, 0, 0]} fillOpacity={0.7} />
                   </BarChart>
                 </ResponsiveContainer>
-                <span className="hidden group-hover:block absolute text-xs text-green-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">Click to enlarge</span>
+                <span className="hidden group-hover:block absolute text-xs text-green-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">{t('dashboard.aiLabels.clickToEnlarge')}</span>
               </div>
               <div className="flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-bold text-green-700 dark:text-green-300">Financial Surplus/Deficit</span>
-                    <span className="px-2 py-0.5 rounded bg-green-100 dark:bg-green-900 text-xs text-green-700 dark:text-green-200 font-semibold">AI</span>
+                    <span className="font-bold text-green-700 dark:text-green-300">{t('dashboard.aiWidgets.financialSurplusDeficit')}</span>
+                    <span className="px-2 py-0.5 rounded bg-green-100 dark:bg-green-900 text-xs text-green-700 dark:text-green-200 font-semibold">{t('dashboard.aiLabels.ai')}</span>
                   </div>
                   <div className="text-sm text-gray-700 dark:text-gray-200 mb-1">
                     Surplus expected to peak in <span className="font-bold text-blue-600 dark:text-blue-400">May</span>, then stabilize.<br />
                     Monitor <span className="font-semibold">IT, R&D</span> spending.
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Confidence: <span className="font-bold text-green-500">90%</span> | Model: v2.1</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Key Drivers: <span className="font-medium">Fee Collection, Grants, Infra Spend</span></div>
-                  <div className="text-xs text-green-600 dark:text-green-300 mb-1">What-if: +$10k infra spend → -$7k surplus</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.confidence')}: <span className="font-bold text-green-500">90%</span> | {t('dashboard.aiLabels.model')}: v2.1</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.keyDrivers')}: <span className="font-medium">Fee Collection, Grants, Infra Spend</span></div>
+                  <div className="text-xs text-green-600 dark:text-green-300 mb-1">{t('dashboard.aiLabels.whatIf')}: +$10k infra spend → -$7k surplus</div>
                 </div>
                 <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
-                  <span>Last updated: 2h ago</span>
-                  <span className="italic">Powered by NexusAI</span>
+                  <span>{t('dashboard.aiLabels.lastUpdated')}: 2h ago</span>
+                  <span className="italic">{t('dashboard.aiLabels.poweredByNexusAI')}</span>
                 </div>
               </div>
             </div>
@@ -1304,7 +1339,7 @@ export default function DirectorDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
             {/* Lead Conversion Forecast */}
             <div className="flex flex-col md:flex-row bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 gap-4 items-stretch min-h-[260px] border border-gray-100 dark:border-gray-800">
-              <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('leadConversion')} title="Click to enlarge">
+              <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('leadConversion')} title={t('dashboard.aiLabels.clickToEnlarge')}>
                 <ResponsiveContainer width="100%" height={140}>
                   <LineChart data={leadConversionData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" />
@@ -1314,31 +1349,31 @@ export default function DirectorDashboard() {
                     <Line type="monotone" dataKey="Rate" stroke="#6366f1" strokeWidth={2.5} dot={{ r: 4 }} />
                   </LineChart>
                 </ResponsiveContainer>
-                <span className="hidden group-hover:block absolute text-xs text-blue-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">Click to enlarge</span>
+                <span className="hidden group-hover:block absolute text-xs text-blue-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">{t('dashboard.aiLabels.clickToEnlarge')}</span>
               </div>
               <div className="flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-bold text-blue-700 dark:text-blue-300">Lead Conversion</span>
-                    <span className="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900 text-xs text-blue-700 dark:text-blue-200 font-semibold">AI</span>
+                    <span className="font-bold text-blue-700 dark:text-blue-300">{t('dashboard.aiWidgets.leadConversion')}</span>
+                    <span className="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900 text-xs text-blue-700 dark:text-blue-200 font-semibold">{t('dashboard.aiLabels.ai')}</span>
                   </div>
                   <div className="text-sm text-gray-700 dark:text-gray-200 mb-1">
                     Conversion rate expected to reach <span className="font-bold text-green-600 dark:text-green-400">26%</span> (+2%).<br />
-                    Highest growth: <span className="font-semibold">Engineering, Business</span>.
+                    {t('dashboard.aiLabels.highestGrowth')}: <span className="font-semibold">Engineering, Business</span>.
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Confidence: <span className="font-bold text-green-500">91%</span> | Model: v2.1</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Key Drivers: <span className="font-medium">Follow-up Response, Lead Quality, Marketing</span></div>
-                  <div className="text-xs text-blue-600 dark:text-blue-300 mb-1">What-if: +10% follow-up budget → +1.5% conversion rate</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.confidence')}: <span className="font-bold text-green-500">91%</span> | {t('dashboard.aiLabels.model')}: v2.1</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.keyDrivers')}: <span className="font-medium">Follow-up Response, Lead Quality, Marketing</span></div>
+                  <div className="text-xs text-blue-600 dark:text-blue-300 mb-1">{t('dashboard.aiLabels.whatIf')}: +10% follow-up budget → +1.5% conversion rate</div>
                 </div>
                 <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
-                  <span>Last updated: 1h ago</span>
-                  <span className="italic">Powered by NexusAI</span>
+                  <span>{t('dashboard.aiLabels.lastUpdated')}: 1h ago</span>
+                  <span className="italic">{t('dashboard.aiLabels.poweredByNexusAI')}</span>
                 </div>
               </div>
             </div>
             {/* Application Fee Revenue Forecast */}
             <div className="flex flex-col md:flex-row bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 gap-4 items-stretch min-h-[260px] border border-gray-100 dark:border-gray-800">
-              <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('applicationFee')} title="Click to enlarge">
+              <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('applicationFee')} title={t('dashboard.aiLabels.clickToEnlarge')}>
                 <ResponsiveContainer width="100%" height={140}>
                   <BarChart data={applicationFeeData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" />
@@ -1349,25 +1384,25 @@ export default function DirectorDashboard() {
                     <Bar dataKey="Waivers" fill="#ef4444" radius={[8, 8, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
-                <span className="hidden group-hover:block absolute text-xs text-green-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">Click to enlarge</span>
+                <span className="hidden group-hover:block absolute text-xs text-green-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">{t('dashboard.aiLabels.clickToEnlarge')}</span>
               </div>
               <div className="flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-bold text-green-700 dark:text-green-300">Application Fee Revenue</span>
-                    <span className="px-2 py-0.5 rounded bg-green-100 dark:bg-green-900 text-xs text-green-700 dark:text-green-200 font-semibold">AI</span>
+                    <span className="font-bold text-green-700 dark:text-green-300">{t('dashboard.aiWidgets.applicationFeeRevenue')}</span>
+                    <span className="px-2 py-0.5 rounded bg-green-100 dark:bg-green-900 text-xs text-green-700 dark:text-green-200 font-semibold">{t('dashboard.aiLabels.ai')}</span>
                   </div>
                   <div className="text-sm text-gray-700 dark:text-gray-200 mb-1">
                     Expected revenue: <span className="font-bold text-blue-600 dark:text-blue-400">$180,000</span> (+5%).<br />
                     Waivers impact: <span className="font-semibold">10% of revenue</span>.
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Confidence: <span className="font-bold text-green-500">89%</span> | Model: v2.1</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Key Drivers: <span className="font-medium">Applications, Fee Structure, Waivers</span></div>
-                  <div className="text-xs text-green-600 dark:text-green-300 mb-1">What-if: +15% fee waivers → -$25k revenue</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.confidence')}: <span className="font-bold text-green-500">89%</span> | {t('dashboard.aiLabels.model')}: v2.1</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.keyDrivers')}: <span className="font-medium">Applications, Fee Structure, Waivers</span></div>
+                  <div className="text-xs text-green-600 dark:text-green-300 mb-1">{t('dashboard.aiLabels.whatIf')}: +15% fee waivers → -$25k revenue</div>
                 </div>
                 <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
-                  <span>Last updated: 2h ago</span>
-                  <span className="italic">Powered by NexusAI</span>
+                  <span>{t('dashboard.aiLabels.lastUpdated')}: 2h ago</span>
+                  <span className="italic">{t('dashboard.aiLabels.poweredByNexusAI')}</span>
                 </div>
               </div>
             </div>
@@ -1378,7 +1413,7 @@ export default function DirectorDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
           {/* Department Revenue Breakdown */}
           <div className="flex flex-col md:flex-row bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 gap-4 items-stretch min-h-[260px] border border-gray-100 dark:border-gray-800">
-            <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('deptRevenue')} title="Click to enlarge">
+            <div className="flex-1 min-w-[140px] flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('deptRevenue')} title={t('dashboard.aiLabels.clickToEnlarge')}>
               <ResponsiveContainer width="100%" height={140}>
                 <BarChart data={deptRevenueData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -1389,25 +1424,25 @@ export default function DirectorDashboard() {
                   <Bar dataKey="Projected" fill="#22c55e" radius={[8, 8, 0, 0]} fillOpacity={0.7} />
                 </BarChart>
               </ResponsiveContainer>
-              <span className="hidden group-hover:block absolute text-xs text-indigo-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">Click to enlarge</span>
+              <span className="hidden group-hover:block absolute text-xs text-indigo-500 bg-white dark:bg-gray-900 px-2 py-1 rounded shadow top-2 left-2">{t('dashboard.aiLabels.clickToEnlarge')}</span>
             </div>
             <div className="flex-1 flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="font-bold text-indigo-700 dark:text-indigo-300">Department Revenue</span>
-                  <span className="px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900 text-xs text-indigo-700 dark:text-indigo-200 font-semibold">AI</span>
+                  <span className="font-bold text-indigo-700 dark:text-indigo-300">{t('dashboard.aiWidgets.departmentRevenue')}</span>
+                  <span className="px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900 text-xs text-indigo-700 dark:text-indigo-200 font-semibold">{t('dashboard.aiLabels.ai')}</span>
                 </div>
                 <div className="text-sm text-gray-700 dark:text-gray-200 mb-1">
                   Total projected: <span className="font-bold text-green-600 dark:text-green-400">$17.05M</span> (+10%).<br />
                   Underperforming: <span className="font-semibold">Law, Arts</span>.
                 </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Confidence: <span className="font-bold text-green-500">92%</span> | Model: v2.1</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Key Drivers: <span className="font-medium">Enrollment, Tuition, Grants</span></div>
-                <div className="text-xs text-indigo-600 dark:text-indigo-300 mb-1">What-if: +20% scholarships → -$1.2M revenue</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.confidence')}: <span className="font-bold text-green-500">92%</span> | {t('dashboard.aiLabels.model')}: v2.1</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.keyDrivers')}: <span className="font-medium">Enrollment, Tuition, Grants</span></div>
+                <div className="text-xs text-indigo-600 dark:text-indigo-300 mb-1">{t('dashboard.aiLabels.whatIf')}: +20% scholarships → -$1.2M revenue</div>
               </div>
               <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
-                <span>Last updated: 3h ago</span>
-                <span className="italic">Powered by NexusAI</span>
+                <span>{t('dashboard.aiLabels.lastUpdated')}: 3h ago</span>
+                <span className="italic">{t('dashboard.aiLabels.poweredByNexusAI')}</span>
               </div>
             </div>
           </div>
@@ -1418,14 +1453,14 @@ export default function DirectorDashboard() {
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xl">📈</span>
             <h2 className="text-lg font-bold tracking-wide flex items-center gap-2">
-              AI-Powered Revenue & Conversion Analytics
-              <span className="ml-2 px-2 py-0.5 rounded bg-gradient-to-r from-green-500 to-blue-500 text-xs text-white font-semibold uppercase">AI</span>
+              {t('dashboard.sections.aiPoweredRevenue')}
+              <span className="ml-2 px-2 py-0.5 rounded bg-gradient-to-r from-green-500 to-blue-500 text-xs text-white font-semibold uppercase">{t('dashboard.aiLabels.ai')}</span>
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Lead Conversion Forecast */}
             <div className="flex flex-col bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 gap-4 min-h-[260px] border border-gray-100 dark:border-gray-800">
-              <div className="flex-1 flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('leadConversion')} title="Click to enlarge">
+              <div className="flex-1 flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('leadConversion')} title={t('dashboard.aiLabels.clickToEnlarge')}>
                 <ResponsiveContainer width="100%" height={120}>
                   <LineChart data={leadConversionData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" />
@@ -1439,27 +1474,27 @@ export default function DirectorDashboard() {
               <div className="flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-bold text-blue-700 dark:text-blue-300">Lead Conversion</span>
-                    <span className="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900 text-xs text-blue-700 dark:text-blue-200 font-semibold">AI</span>
+                    <span className="font-bold text-blue-700 dark:text-blue-300">{t('dashboard.aiWidgets.leadConversion')}</span>
+                    <span className="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900 text-xs text-blue-700 dark:text-blue-200 font-semibold">{t('dashboard.aiLabels.ai')}</span>
                   </div>
                   <div className="text-sm text-gray-700 dark:text-gray-200 mb-1">
                     Conversion rate expected to reach <span className="font-bold text-green-600 dark:text-green-400">26%</span> (+2%).<br />
-                    Highest growth: <span className="font-semibold">Engineering, Business</span>.
+                    {t('dashboard.aiLabels.highestGrowth')}: <span className="font-semibold">Engineering, Business</span>.
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Confidence: <span className="font-bold text-green-500">91%</span> | Model: v2.1</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Key Drivers: <span className="font-medium">Follow-up Response, Lead Quality, Marketing</span></div>
-                  <div className="text-xs text-blue-600 dark:text-blue-300 mb-1">What-if: +10% follow-up budget → +1.5% conversion rate</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.confidence')}: <span className="font-bold text-green-500">91%</span> | {t('dashboard.aiLabels.model')}: v2.1</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.keyDrivers')}: <span className="font-medium">Follow-up Response, Lead Quality, Marketing</span></div>
+                  <div className="text-xs text-blue-600 dark:text-blue-300 mb-1">{t('dashboard.aiLabels.whatIf')}: +10% follow-up budget → +1.5% conversion rate</div>
                 </div>
                 <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
-                  <span>Last updated: 1h ago</span>
-                  <span className="italic">Powered by NexusAI</span>
+                  <span>{t('dashboard.aiLabels.lastUpdated')}: 1h ago</span>
+                  <span className="italic">{t('dashboard.aiLabels.poweredByNexusAI')}</span>
                 </div>
               </div>
             </div>
 
             {/* Application Fee Revenue Forecast */}
             <div className="flex flex-col bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 gap-4 min-h-[260px] border border-gray-100 dark:border-gray-800">
-              <div className="flex-1 flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('applicationFee')} title="Click to enlarge">
+              <div className="flex-1 flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('applicationFee')} title={t('dashboard.aiLabels.clickToEnlarge')}>
                 <ResponsiveContainer width="100%" height={120}>
                   <BarChart data={applicationFeeData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" />
@@ -1474,27 +1509,27 @@ export default function DirectorDashboard() {
               <div className="flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-bold text-green-700 dark:text-green-300">Application Fee Revenue</span>
-                    <span className="px-2 py-0.5 rounded bg-green-100 dark:bg-green-900 text-xs text-green-700 dark:text-green-200 font-semibold">AI</span>
+                    <span className="font-bold text-green-700 dark:text-green-300">{t('dashboard.aiWidgets.applicationFeeRevenue')}</span>
+                    <span className="px-2 py-0.5 rounded bg-green-100 dark:bg-green-900 text-xs text-green-700 dark:text-green-200 font-semibold">{t('dashboard.aiLabels.ai')}</span>
                   </div>
                   <div className="text-sm text-gray-700 dark:text-gray-200 mb-1">
                     Expected revenue: <span className="font-bold text-blue-600 dark:text-blue-400">$180,000</span> (+5%).<br />
                     Waivers impact: <span className="font-semibold">10% of revenue</span>.
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Confidence: <span className="font-bold text-green-500">89%</span> | Model: v2.1</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Key Drivers: <span className="font-medium">Applications, Fee Structure, Waivers</span></div>
-                  <div className="text-xs text-green-600 dark:text-green-300 mb-1">What-if: +15% fee waivers → -$25k revenue</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.confidence')}: <span className="font-bold text-green-500">89%</span> | {t('dashboard.aiLabels.model')}: v2.1</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.keyDrivers')}: <span className="font-medium">Applications, Fee Structure, Waivers</span></div>
+                  <div className="text-xs text-green-600 dark:text-green-300 mb-1">{t('dashboard.aiLabels.whatIf')}: +15% fee waivers → -$25k revenue</div>
                 </div>
                 <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
-                  <span>Last updated: 2h ago</span>
-                  <span className="italic">Powered by NexusAI</span>
+                  <span>{t('dashboard.aiLabels.lastUpdated')}: 2h ago</span>
+                  <span className="italic">{t('dashboard.aiLabels.poweredByNexusAI')}</span>
                 </div>
               </div>
             </div>
 
             {/* Department Revenue Radar Chart */}
             <div className="flex flex-col bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 gap-4 min-h-[260px] border border-gray-100 dark:border-gray-800">
-              <div className="flex-1 flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('deptRevenueRadar')} title="Click to enlarge">
+              <div className="flex-1 flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('deptRevenueRadar')} title={t('dashboard.aiLabels.clickToEnlarge')}>
                 <ResponsiveContainer width="100%" height={120}>
                   <RadarChart cx="50%" cy="50%" outerRadius={50} data={deptRevenueData.map(d => ({ dept: d.dept, Revenue: d.Revenue, Projected: d.Projected }))}>
                     <PolarGrid />
@@ -1510,26 +1545,26 @@ export default function DirectorDashboard() {
               <div className="flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-bold text-indigo-700 dark:text-indigo-300">Department Revenue (Radar)</span>
-                    <span className="px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900 text-xs text-indigo-700 dark:text-indigo-200 font-semibold">AI</span>
+                    <span className="font-bold text-indigo-700 dark:text-indigo-300">{t('dashboard.aiWidgets.departmentRevenueRadar')}</span>
+                    <span className="px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900 text-xs text-indigo-700 dark:text-indigo-200 font-semibold">{t('dashboard.aiLabels.ai')}</span>
                   </div>
                   <div className="text-sm text-gray-700 dark:text-gray-200 mb-1">
                     Visualizes current vs projected revenue for each department.<br />
                     Instantly spot outliers and growth areas.
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Confidence: <span className="font-bold text-green-500">92%</span> | Model: v2.1</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Key Drivers: <span className="font-medium">Enrollment, Tuition, Grants</span></div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.confidence')}: <span className="font-bold text-green-500">92%</span> | {t('dashboard.aiLabels.model')}: v2.1</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.keyDrivers')}: <span className="font-medium">Enrollment, Tuition, Grants</span></div>
                 </div>
                 <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
-                  <span>Interactive Radar</span>
-                  <span className="italic">Powered by NexusAI</span>
+                  <span>{t('dashboard.aiLabels.interactiveRadar')}</span>
+                  <span className="italic">{t('dashboard.aiLabels.poweredByNexusAI')}</span>
                 </div>
               </div>
             </div>
 
             {/* Subject Profitability Radar Chart */}
             <div className="flex flex-col bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 gap-4 min-h-[260px] border border-gray-100 dark:border-gray-800">
-              <div className="flex-1 flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('subjectProfitRadar')} title="Click to enlarge">
+              <div className="flex-1 flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('subjectProfitRadar')} title={t('dashboard.aiLabels.clickToEnlarge')}>
                 <ResponsiveContainer width="100%" height={120}>
                   <RadarChart cx="50%" cy="50%" outerRadius={50} data={subjectProfitData.map(s => ({ subject: s.subject, Profit: s.Profit }))}>
                     <PolarGrid />
@@ -1544,26 +1579,26 @@ export default function DirectorDashboard() {
               <div className="flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-bold text-green-700 dark:text-green-300">Subject Profitability (Radar)</span>
-                    <span className="px-2 py-0.5 rounded bg-green-100 dark:bg-green-900 text-xs text-green-700 dark:text-green-200 font-semibold">AI</span>
+                    <span className="font-bold text-green-700 dark:text-green-300">{t('dashboard.aiWidgets.subjectProfitabilityRadar')}</span>
+                    <span className="px-2 py-0.5 rounded bg-green-100 dark:bg-green-900 text-xs text-green-700 dark:text-green-200 font-semibold">{t('dashboard.aiLabels.ai')}</span>
                   </div>
                   <div className="text-sm text-gray-700 dark:text-gray-200 mb-1">
                     Visualizes profit margins for each subject.<br />
                     Instantly spot most/least profitable subjects.
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Confidence: <span className="font-bold text-green-500">94%</span> | Model: v2.1</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Key Drivers: <span className="font-medium">Enrollment, Tuition, Operating Costs</span></div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.confidence')}: <span className="font-bold text-green-500">94%</span> | {t('dashboard.aiLabels.model')}: v2.1</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.keyDrivers')}: <span className="font-medium">Enrollment, Tuition, Operating Costs</span></div>
                 </div>
                 <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
-                  <span>Interactive Radar</span>
-                  <span className="italic">Powered by NexusAI</span>
+                  <span>{t('dashboard.aiLabels.interactiveRadar')}</span>
+                  <span className="italic">{t('dashboard.aiLabels.poweredByNexusAI')}</span>
                 </div>
               </div>
             </div>
 
             {/* Department Revenue Bar Chart */}
             <div className="flex flex-col bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 gap-4 min-h-[260px] border border-gray-100 dark:border-gray-800">
-              <div className="flex-1 flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('deptRevenue')} title="Click to enlarge">
+              <div className="flex-1 flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('deptRevenue')} title={t('dashboard.aiLabels.clickToEnlarge')}>
                 <ResponsiveContainer width="100%" height={120}>
                   <BarChart data={deptRevenueData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
                     <CartesianGrid strokeDasharray="3 3" />
@@ -1578,27 +1613,27 @@ export default function DirectorDashboard() {
               <div className="flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-bold text-indigo-700 dark:text-indigo-300">Department Revenue</span>
-                    <span className="px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900 text-xs text-indigo-700 dark:text-indigo-200 font-semibold">AI</span>
+                    <span className="font-bold text-indigo-700 dark:text-indigo-300">{t('dashboard.aiWidgets.departmentRevenue')}</span>
+                    <span className="px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900 text-xs text-indigo-700 dark:text-indigo-200 font-semibold">{t('dashboard.aiLabels.ai')}</span>
                   </div>
                   <div className="text-sm text-gray-700 dark:text-gray-200 mb-1">
                     Total projected: <span className="font-bold text-green-600 dark:text-green-400">$17.05M</span> (+10%).<br />
                     Underperforming: <span className="font-semibold">Law, Arts</span>.
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Confidence: <span className="font-bold text-green-500">92%</span> | Model: v2.1</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Key Drivers: <span className="font-medium">Enrollment, Tuition, Grants</span></div>
-                  <div className="text-xs text-indigo-600 dark:text-indigo-300 mb-1">What-if: +20% scholarships → -$1.2M revenue</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.confidence')}: <span className="font-bold text-green-500">92%</span> | {t('dashboard.aiLabels.model')}: v2.1</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.keyDrivers')}: <span className="font-medium">Enrollment, Tuition, Grants</span></div>
+                  <div className="text-xs text-indigo-600 dark:text-indigo-300 mb-1">{t('dashboard.aiLabels.whatIf')}: +20% scholarships → -$1.2M revenue</div>
                 </div>
                 <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
-                  <span>Last updated: 3h ago</span>
-                  <span className="italic">Powered by NexusAI</span>
+                  <span>{t('dashboard.aiLabels.lastUpdated')}: 3h ago</span>
+                  <span className="italic">{t('dashboard.aiLabels.poweredByNexusAI')}</span>
                 </div>
               </div>
             </div>
 
             {/* Student Demographics Analytics */}
             <div className="flex flex-col bg-white dark:bg-gray-900 rounded-2xl shadow-lg p-4 gap-4 min-h-[260px] border border-gray-100 dark:border-gray-800">
-              <div className="flex-1 flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('demographics')} title="Click to enlarge">
+              <div className="flex-1 flex items-center justify-center cursor-pointer group" onClick={() => setModalChart('demographics')} title={t('dashboard.aiLabels.clickToEnlarge')}>
                 <ResponsiveContainer width="100%" height={120}>
                   <PieChart>
                     <Pie data={studentDemographicsData.regions} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={40} label>
@@ -1614,20 +1649,20 @@ export default function DirectorDashboard() {
               <div className="flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-bold text-blue-700 dark:text-blue-300">Student Demographics</span>
-                    <span className="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900 text-xs text-blue-700 dark:text-blue-200 font-semibold">AI</span>
+                    <span className="font-bold text-blue-700 dark:text-blue-300">{t('dashboard.aiWidgets.studentDemographics')}</span>
+                    <span className="px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900 text-xs text-blue-700 dark:text-blue-200 font-semibold">{t('dashboard.aiLabels.ai')}</span>
                   </div>
                   <div className="text-sm text-gray-700 dark:text-gray-200 mb-1">
                     Top region: <span className="font-bold text-green-600 dark:text-green-400">North (35%)</span>.<br />
                     Age group: <span className="font-semibold">18-20 (45%)</span>.
                   </div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Confidence: <span className="font-bold text-green-500">96%</span> | Model: v2.1</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">Key Drivers: <span className="font-medium">Region, Age, Gender, Education</span></div>
-                  <div className="text-xs text-blue-600 dark:text-blue-300 mb-1">What-if: Target East region → +15% applications</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.confidence')}: <span className="font-bold text-green-500">96%</span> | {t('dashboard.aiLabels.model')}: v2.1</div>
+                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">{t('dashboard.aiLabels.keyDrivers')}: <span className="font-medium">Region, Age, Gender, Education</span></div>
+                  <div className="text-xs text-blue-600 dark:text-blue-300 mb-1">{t('dashboard.aiLabels.whatIf')}: Target East region → +15% applications</div>
                 </div>
                 <div className="flex items-center justify-between text-xs text-gray-400 dark:text-gray-500 mt-2">
-                  <span>Last updated: 1h ago</span>
-                  <span className="italic">Powered by NexusAI</span>
+                  <span>{t('dashboard.aiLabels.lastUpdated')}: 1h ago</span>
+                  <span className="italic">{t('dashboard.aiLabels.poweredByNexusAI')}</span>
                 </div>
               </div>
             </div>

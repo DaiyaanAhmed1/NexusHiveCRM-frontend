@@ -197,7 +197,19 @@
     "compliance": "Compliance",
     "quality": "Quality",
     "training": "Training",
-    "development": "Development"
+    "development": "Development",
+    "dashboard": "Dashboard",
+    "analyticsReports": "Analytics & Reports",
+    "departments": "Departments",
+    "approvalCenter": "Approval Center",
+    "strategicPlanning": "Strategic Planning",
+    "communication": "Communication",
+    "auditCompliance": "Audit & Compliance",
+    "meetingsCalendar": "Meetings & Calendar",
+    "userManagement": "User Management",
+    "settings": "Settings",
+    "workspace": "Workspace",
+    "helpSupport": "Help & Support"
   },
   "marketingHead": {
     "dashboard": "Dashboard",
@@ -208,7 +220,7 @@
     "reportingAnalytics": "Reporting & Analytics",
     "communicationHub": "Communication Hub",
     "trainingDevelopment": "Training & Development",
-    "workspace": "Workspace",
+        "workspace": "Workspace",
     "helpSupport": "Help & Support"
   }
 } 
