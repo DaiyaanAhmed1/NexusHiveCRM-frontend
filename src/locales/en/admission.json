@@ -603,6 +603,169 @@
       }
     }
   },
+  "communication": {
+    "title": "Communication & Logs",
+    "dashboard": {
+      "thisWeek": "This Week",
+      "thisMonth": "This Month",
+      "emailsSent": "Emails Sent",
+      "smsSent": "SMS Sent",
+      "whatsapp": "WhatsApp",
+      "callsLogged": "Calls Logged",
+      "pendingReplies": "Pending Replies",
+      "unread": "Unread"
+    },
+    "tabs": {
+      "outgoing": "Outgoing",
+      "incoming": "Incoming",
+      "templates": "Templates",
+      "notes": "Notes",
+      "calls": "Calls",
+      "audit": "Audit"
+    },
+    "status": {
+      "delivered": "Delivered",
+      "sent": "Sent",
+      "read": "Read",
+      "needsFollowup": "Needs Follow-up",
+      "escalated": "Escalated",
+      "replied": "Replied"
+    },
+    "types": {
+      "email": "Email",
+      "sms": "SMS",
+      "whatsapp": "WhatsApp"
+    },
+    "actions": {
+      "compose": "Compose",
+      "send": "Send",
+      "edit": "Edit",
+      "delete": "Delete",
+      "share": "Share",
+      "download": "Download"
+    },
+    "sections": {
+      "outgoingCommunications": "Outgoing Communications",
+      "incomingMessagesLogs": "Incoming Messages / Logs",
+      "bulkCommunicationTools": "Bulk Communication Tools",
+      "templatesManager": "Templates Manager",
+      "internalNotesLogbook": "Internal Notes / Logbook",
+      "callLogsVoiceNotes": "Call Logs & Voice Notes",
+      "integrationChannels": "Integration & Channels",
+      "aiPoweredFeatures": "AI-Powered Features",
+      "auditHistory": "Audit & History"
+    },
+    "table": {
+      "headers": {
+        "recipient": "Recipient",
+        "sender": "Sender",
+        "type": "Type",
+        "subject": "Subject",
+        "dateTime": "Date/Time",
+        "sentBy": "Sent By",
+        "status": "Status",
+        "action": "Action",
+        "tags": "Tags"
+      }
+    },
+    "buttons": {
+      "bulkSend": "Bulk Send",
+      "addNote": "Add Note",
+      "newCampaign": "New Campaign",
+      "sendNow": "Send Now",
+      "schedule": "Schedule",
+      "resend": "Resend",
+      "viewFull": "View Full",
+      "followUp": "Follow-up",
+      "reply": "Reply",
+      "escalate": "Escalate",
+      "assign": "Assign",
+      "compose": "Compose",
+      "send": "Send",
+      "edit": "Edit",
+      "delete": "Delete",
+      "share": "Share",
+      "download": "Download"
+    },
+    "bulkTools": {
+      "target": "Target",
+      "mode": "Mode",
+      "template": "Template",
+      "personalization": "Personalization",
+      "allLeads": "All Leads",
+      "email": "Email",
+      "applicationReminder": "Application Reminder",
+      "openRate": "Open Rate",
+      "clickRate": "Click Rate",
+      "deliveryRate": "Delivery Rate"
+    },
+    "templates": {
+      "title": "Templates Manager",
+      "newTemplate": "New Template",
+      "headers": {
+        "name": "Name",
+        "type": "Type",
+        "content": "Content",
+        "language": "Language",
+        "approved": "Approved",
+        "action": "Action"
+      },
+      "actions": {
+        "edit": "Edit",
+        "delete": "Delete"
+      }
+    },
+    "notes": {
+      "title": "Internal Notes / Logbook",
+      "addNote": "Add Note",
+      "private": "Private",
+      "team": "Team"
+    },
+    "calls": {
+      "title": "Call Logs & Voice Notes",
+      "logCall": "Log Call",
+      "completed": "Completed",
+      "aiSummary": "AI Summary"
+    },
+    "integrations": {
+      "title": "Integration & Channels",
+      "on": "ON",
+      "off": "OFF"
+    },
+    "aiFeatures": {
+      "title": "AI-Powered Features",
+      "urgencyDetection": "Urgency Detection",
+      "flagged": "flagged",
+      "replySuggestion": "Reply Suggestion",
+      "smartReminder": "Smart Reminder",
+      "followUpsSuggested": "follow-ups suggested",
+      "sentiment": "Sentiment",
+      "parentFrustrated": "Parent is frustrated about delay",
+      "botLog": "Bot Log",
+      "chatbotInteractions": "chatbot interactions",
+      "urgencyDetector": "Urgency Detector",
+      "aiPrioritization": "AI Prioritization",
+      "dropOffDetector": "Drop-off Detector",
+      "messageQualityAnalyzer": "Message Quality Analyzer",
+      "aiResponseSuggestions": "AI Response Suggestions",
+      "toneOptimizer": "Tone Optimizer",
+      "engagementTracker": "Engagement Tracker",
+      "aiSummarization": "AI Summarization",
+      "smartFileSuggestions": "Smart File Suggestions",
+      "sendTimeOptimization": "Send Time Optimization",
+      "subjectLinePredictor": "Subject Line Predictor",
+      "abTestingInsights": "A/B Testing Insights",
+      "vendorPerformanceSummary": "Vendor Performance Summary",
+      "followUpNudges": "Follow-up Nudges",
+      "smartScheduling": "Smart Scheduling",
+      "missedOpportunityAlerts": "Missed Opportunity Alerts"
+    },
+    "audit": {
+      "title": "Audit & History",
+      "export": "Export",
+      "description": "Full communication audit trail per applicant. Data retention: 2 years. Exportable for compliance."
+    }
+  },
   "documents": {
     "title": "Documents",
     "dashboard": {
