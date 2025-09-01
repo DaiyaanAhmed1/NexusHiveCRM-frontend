@@ -564,6 +564,36 @@
       "teamHeatmaps": "خرائط الحرارة للفريق"
     },
     "dashboard": {
+      "title": "نظرة عامة",
+      "welcome": "مرحباً بعودتك، رئيس عمليات التسويق",
+      "newCampaignLaunch": "إطلاق حملة جديدة",
+      "exportReport": "تصدير التقرير",
+      "kpis": {
+        "totalQualifiedLeads": "إجمالي العملاء المحتملين المؤهلين",
+        "conversionRate": "معدل التحويل",
+        "activeCampaigns": "الحملات النشطة",
+        "teamMembers": "أعضاء الفريق",
+        "roi": "العائد على الاستثمار"
+      },
+      "charts": {
+        "leadGenerationActionable": "توليد العملاء المحتملين القابل للتنفيذ",
+        "marketingChannelPerformance": "أداء قنوات التسويق"
+      },
+      "activityLog": {
+        "title": "سجل النشاط",
+        "newLeadAdded": "تم إضافة عميل محتمل جديد",
+        "marketingInitiativeDeployed": "تم نشر مبادرة تسويقية",
+        "performanceReportCreated": "تم إنشاء تقرير الأداء",
+        "timeAgo": "منذ {{time}}",
+        "byUser": "بواسطة {{user}}"
+      },
+      "upcomingFollowUps": {
+        "title": "المتابعات الرئيسية القادمة",
+        "evaluateMidYearMarketing": "تقييم اتجاه التسويق منتصف العام",
+        "teamPerformanceReview": "مراجعة أداء الفريق",
+        "budgetPlanningMeeting": "اجتماع تخطيط الميزانية",
+        "dueDate": "{{date}}"
+      },
       "upcomingSessions": "الجلسات القادمة",
       "certificationStatus": "حالة الشهادة",
       "teamMember": "عضو الفريق",

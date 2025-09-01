@@ -1222,5 +1222,37 @@
       "pending": "Pending",
       "completed": "Completed"
     }
+  },
+  "dashboard": {
+    "title": "Overview",
+    "welcome": "Welcome back, Head of Marketing Operations",
+    "newCampaignLaunch": "New Campaign Launch",
+    "exportReport": "Export Report",
+    "kpis": {
+      "totalQualifiedLeads": "Total Qualified Leads",
+      "conversionRate": "Conversion Rate",
+      "activeCampaigns": "Active Campaigns",
+      "teamMembers": "Team Members",
+      "roi": "ROI"
+    },
+    "charts": {
+      "leadGenerationActionable": "Lead Generation Actionable",
+      "marketingChannelPerformance": "Marketing Channel Performance"
+    },
+    "activityLog": {
+      "title": "Activity Log",
+      "newLeadAdded": "New lead added",
+      "marketingInitiativeDeployed": "Marketing Initiative Deployed",
+      "performanceReportCreated": "Performance Report Created",
+      "timeAgo": "{{time}} ago",
+      "byUser": "by {{user}}"
+    },
+    "upcomingFollowUps": {
+      "title": "Upcoming Key Follow-ups",
+      "evaluateMidYearMarketing": "Evaluate Mid-Year Marketing Direction",
+      "teamPerformanceReview": "Team Performance Review",
+      "budgetPlanningMeeting": "Budget Planning Meeting",
+      "dueDate": "{{date}}"
+    }
   }
 } 

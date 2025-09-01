@@ -11,7 +11,7 @@ import RBACTemplates from "./components/RBACTemplates";
 import RBACLogs from "./components/RBACLogs";
 import RBACSettings from "./components/RBACSettings";
 import MarketingHeadLayout from "./features/marketing-head/pages/MarketingHeadLayout";
-import MarketingHeadDashboard from "./components/MarketingHeadDashboard";
+import MarketingHeadDashboard from "./features/marketing-head/pages/MarketingHeadDashboard";
 import MarketingHeadTeamManagement from './features/marketing-head/components/MarketingHeadTeamManagement';
 import MarketingHeadCampaignManagement from './features/marketing-head/components/MarketingHeadCampaignManagement';
 import MarketingManagerDashboard from "./components/MarketingManagerDashboard";

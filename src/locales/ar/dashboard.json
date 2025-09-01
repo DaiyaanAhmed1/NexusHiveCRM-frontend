@@ -1,10 +1,111 @@
 {
-  "dashboard": {
-    "title": "لوحة التحكم",
-    "welcome": "مرحباً بك في لوحة التحكم",
-    "stats": "الإحصائيات",
-    "overview": "نظرة عامة",
+  "title": "لوحة التحكم",
+  "welcome": "مرحباً بك في لوحة التحكم",
+  "stats": "الإحصائيات",
+  "overview": "نظرة عامة",
+  "recentActivity": "النشاط الأخير",
+  "quickActions": "الإجراءات السريعة",
+  "newCampaignLaunch": "إطلاق حملة جديدة",
+  "exportReport": "تصدير التقرير",
+  "kpis": {
+    "totalQualifiedLeads": "إجمالي العملاء المحتملين المؤهلين",
+    "conversionRate": "معدل التحويل",
+    "activeCampaigns": "الحملات النشطة",
+    "teamMembers": "أعضاء الفريق",
+    "roi": "العائد على الاستثمار",
+    "totalLeads": "إجمالي العملاء المحتملين",
+    "campaignROI": "عائد الاستثمار للحملة",
+    "followers": "المتابعون"
+  },
+  "charts": {
+    "leadGenerationActionable": "توليد العملاء المحتملين القابل للتنفيذ",
+    "marketingChannelPerformance": "أداء قنوات التسويق",
+    "leads": "العملاء المحتملين",
+    "conversions": "التحويلات",
+    "socialMedia": "وسائل التواصل الاجتماعي",
+    "email": "البريد الإلكتروني",
+    "events": "الفعاليات",
+    "directOutreach": "الوصول المباشر",
+    "other": "أخرى"
+  },
+  "activityLog": {
+    "title": "سجل النشاط",
+    "newLeadAdded": "تم إضافة عميل محتمل جديد",
+    "marketingInitiativeDeployed": "تم نشر مبادرة تسويقية",
+    "performanceReportCreated": "تم إنشاء تقرير الأداء",
+    "timeAgo": "منذ {{time}}",
+    "byUser": "بواسطة {{user}}",
+    "twoHoursAgo": "منذ ساعتين",
+    "fiveHoursAgo": "منذ 5 ساعات",
+    "oneDayAgo": "منذ يوم واحد"
+  },
+  "upcomingFollowUps": {
+    "title": "المتابعات الرئيسية القادمة",
+    "evaluateMidYearMarketing": "تقييم اتجاه التسويق منتصف العام",
+    "teamPerformanceReview": "مراجعة أداء الفريق",
+    "budgetPlanningMeeting": "اجتماع تخطيط الميزانية",
+    "dueDate": "{{date}}",
+    "june15": "15 يونيو 2025",
+    "june16": "16 يونيو 2025",
+    "june17": "17 يونيو 2025"
+  },
+  "user": {
+    "welcome": "مرحباً بعودتك،",
+    "role": "الدور"
+  },
+  "searchPlaceholder": "البحث في لوحة التحكم...",
+  "dateRange": "آخر 30 يوم",
+  "dateRanges": {
+    "last7Days": "آخر 7 أيام",
+    "last30Days": "آخر 30 يوم",
+    "last90Days": "آخر 90 يوم",
+    "custom": "نطاق مخصص"
+  },
+  "calendar": "التقويم",
+  "notifications": "الإشعارات",
+  "buttons": {
+    "exportDashboard": "تصدير لوحة التحكم",
+    "viewDetails": "عرض التفاصيل",
+    "exportFunnelData": "تصدير بيانات القمع",
+    "export": "تصدير",
+    "drillDown": "التعمق"
+  },
+  "sections": {
     "recentActivity": "النشاط الأخير",
-    "quickActions": "الإجراءات السريعة"
+    "leadFunnel": "قمع العملاء المحتملين",
+    "predictiveAnalytics": "التحليلات التنبؤية"
+  },
+  "activity": {
+    "newLeadAdded": "تم إضافة عميل محتمل جديد",
+    "campaignLaunched": "تم إطلاق الحملة",
+    "reportGenerated": "تم إنشاء التقرير",
+    "budgetRequestApproved": "تم الموافقة على طلب الميزانية"
+  },
+  "notifications": {
+    "newLead": "عميل محتمل جديد",
+    "hotLead": "عميل محتمل ساخن",
+    "overdue": "متأخر",
+    "messages": {
+      "newLeads": "تم استلام 5 عملاء محتملين جدد",
+      "hotLeads": "3 عملاء محتملين ساخنين يحتاجون اهتمام",
+      "overdueLeads": "2 عميل محتمل متأخر للمتابعة"
+    }
+  },
+  "modal": {
+    "close": "إغلاق"
+  },
+  "users": {
+    "saraKhalid": "سارة خالد",
+    "janeSmith": "جين سميث",
+    "mikeJohnson": "مايك جونسون"
+  },
+  "loading": "جاري التحميل...",
+  "months": {
+    "jan": "ينا",
+    "feb": "فبر",
+    "mar": "مار",
+    "apr": "أبر",
+    "may": "ماي",
+    "jun": "يون"
   }
 } 

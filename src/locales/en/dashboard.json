@@ -1,10 +1,111 @@
 {
-  "dashboard": {
-    "title": "Dashboard",
-    "welcome": "Welcome to your dashboard",
-    "stats": "Statistics",
-    "overview": "Overview",
+  "title": "Dashboard",
+  "welcome": "Welcome to your dashboard",
+  "stats": "Statistics",
+  "overview": "Overview",
+  "recentActivity": "Recent Activity",
+  "quickActions": "Quick Actions",
+  "newCampaignLaunch": "New Campaign Launch",
+  "exportReport": "Export Report",
+  "kpis": {
+    "totalQualifiedLeads": "Total Qualified Leads",
+    "conversionRate": "Conversion Rate",
+    "activeCampaigns": "Active Campaigns",
+    "teamMembers": "Team Members",
+    "roi": "ROI",
+    "totalLeads": "Total Leads",
+    "campaignROI": "Campaign ROI",
+    "followers": "Followers"
+  },
+  "charts": {
+    "leadGenerationActionable": "Lead Generation Actionable",
+    "marketingChannelPerformance": "Marketing Channel Performance",
+    "leads": "Leads",
+    "conversions": "Conversions",
+    "socialMedia": "Social Media",
+    "email": "Email",
+    "events": "Events",
+    "directOutreach": "Direct Outreach",
+    "other": "Other"
+  },
+  "activityLog": {
+    "title": "Activity Log",
+    "newLeadAdded": "New lead added",
+    "marketingInitiativeDeployed": "Marketing Initiative Deployed",
+    "performanceReportCreated": "Performance Report Created",
+    "timeAgo": "{{time}} ago",
+    "byUser": "by {{user}}",
+    "twoHoursAgo": "2 hours ago",
+    "fiveHoursAgo": "5 hours ago",
+    "oneDayAgo": "1 day ago"
+  },
+  "upcomingFollowUps": {
+    "title": "Upcoming Key Follow-ups",
+    "evaluateMidYearMarketing": "Evaluate Mid-Year Marketing Direction",
+    "teamPerformanceReview": "Team Performance Review",
+    "budgetPlanningMeeting": "Budget Planning Meeting",
+    "dueDate": "{{date}}",
+    "june15": "June 15, 2025",
+    "june16": "June 16, 2025",
+    "june17": "June 17, 2025"
+  },
+  "user": {
+    "welcome": "Welcome back,",
+    "role": "Role"
+  },
+  "searchPlaceholder": "Search dashboard...",
+  "dateRange": "Last 30 Days",
+  "dateRanges": {
+    "last7Days": "Last 7 Days",
+    "last30Days": "Last 30 Days",
+    "last90Days": "Last 90 Days",
+    "custom": "Custom Range"
+  },
+  "calendar": "Calendar",
+  "notifications": "Notifications",
+  "buttons": {
+    "exportDashboard": "Export Dashboard",
+    "viewDetails": "View Details",
+    "exportFunnelData": "Export Funnel Data",
+    "export": "Export",
+    "drillDown": "Drill Down"
+  },
+  "sections": {
     "recentActivity": "Recent Activity",
-    "quickActions": "Quick Actions"
+    "leadFunnel": "Lead Funnel",
+    "predictiveAnalytics": "Predictive Analytics"
+  },
+  "activity": {
+    "newLeadAdded": "New lead added",
+    "campaignLaunched": "Campaign launched",
+    "reportGenerated": "Report generated",
+    "budgetRequestApproved": "Budget request approved"
+  },
+  "notifications": {
+    "newLead": "New Lead",
+    "hotLead": "Hot Lead",
+    "overdue": "Overdue",
+    "messages": {
+      "newLeads": "5 new leads received",
+      "hotLeads": "3 hot leads need attention",
+      "overdueLeads": "2 leads overdue for follow-up"
+    }
+  },
+  "modal": {
+    "close": "Close"
+  },
+  "users": {
+    "saraKhalid": "Sara Khalid",
+    "janeSmith": "Jane Smith",
+    "mikeJohnson": "Mike Johnson"
+  },
+  "loading": "Loading...",
+  "months": {
+    "jan": "Jan",
+    "feb": "Feb",
+    "mar": "Mar",
+    "apr": "Apr",
+    "may": "May",
+    "jun": "Jun"
   }
 } 
