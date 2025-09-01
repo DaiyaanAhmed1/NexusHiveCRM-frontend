@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { FiUpload, FiUser, FiFilter, FiRefreshCw, FiMail, FiPhone, FiMessageCircle, FiUsers, FiStar, FiBarChart2, FiFileText, FiZap, FiEdit2, FiTrash2, FiMoreVertical, FiSearch, FiDownload, FiPlus, FiX, FiChevronRight, FiClock, FiTrendingUp, FiTrendingDown, FiDollarSign, FiCalendar, FiPaperclip, FiSend } from 'react-icons/fi';
 import Papa from 'papaparse';
 import * as XLSX from 'xlsx';
+import { useTranslation } from 'react-i18next';
 
 // Demo data for leads
 const leads = [
@@ -344,6 +345,17 @@ export function CommunicationModal({
 }
 
 export default function MarketingHeadLeadsManagement() {
+  const { t, ready, i18n } = useTranslation('marketing');
+  const [languageVersion, setLanguageVersion] = useState(0);
+  
+  useEffect(() => {
+    setLanguageVersion(prev => prev + 1);
+  }, [i18n.language]);
+
+  if (!ready) {
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+  }
+
   const user = JSON.parse(localStorage.getItem('rbac_current_user'));
   const [expanded, setExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
@@ -385,14 +397,14 @@ export default function MarketingHeadLeadsManagement() {
   const [importError, setImportError] = useState('');
   const [exportFormat, setExportFormat] = useState('CSV');
   const allExportFields = [
-    { key: 'name', label: 'Name' },
-    { key: 'email', label: 'Email' },
-    { key: 'phone', label: 'Phone' },
-    { key: 'source', label: 'Source' },
-    { key: 'status', label: 'Status' },
-    { key: 'assignedTo', label: 'Assigned To' },
-    { key: 'lastContact', label: 'Last Contact' },
-    { key: 'notes', label: 'Notes' },
+    { key: 'name', label: t('leads.exportFields.name') },
+    { key: 'email', label: t('leads.exportFields.email') },
+    { key: 'phone', label: t('leads.exportFields.phone') },
+    { key: 'source', label: t('leads.exportFields.source') },
+    { key: 'status', label: t('leads.exportFields.status') },
+    { key: 'assignedTo', label: t('leads.exportFields.assignedTo') },
+    { key: 'lastContact', label: t('leads.exportFields.lastContact') },
+    { key: 'notes', label: t('leads.exportFields.notes') },
   ];
   const [selectedExportFields, setSelectedExportFields] = useState(allExportFields.map(f => f.key));
 
@@ -605,12 +617,12 @@ export default function MarketingHeadLeadsManagement() {
             <FiX size={24} />
           </button>
 
-          <h2 className="text-2xl font-bold mb-6">Detailed Analytics</h2>
+          <h2 className="text-2xl font-bold mb-6">{t('leads.modals.analytics.title')}</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Lead Quality Distribution */}
             <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <h3 className="font-semibold mb-4">Lead Quality Distribution</h3>
+              <h3 className="font-semibold mb-4">{t('leads.modals.analytics.leadQualityDistribution')}</h3>
               <div className="space-y-4">
                 {detailedMetrics.leadQuality.distribution.map((item, index) => (
                   <div key={index} className="flex items-center justify-between">
@@ -620,7 +632,7 @@ export default function MarketingHeadLeadsManagement() {
                         item.quality === "High" ? "bg-green-100 text-green-700" :
                         "bg-yellow-100 text-yellow-700"
                       }`}>
-                        {item.quality}
+                        {t(`leads.sections.analyticsInsights.quality.${item.quality.toLowerCase()}`)}
                       </span>
                       <span>{item.count}</span>
                     </div>
@@ -631,11 +643,11 @@ export default function MarketingHeadLeadsManagement() {
 
             {/* Conversion Funnel */}
             <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <h3 className="font-semibold mb-4">Conversion Funnel</h3>
+              <h3 className="font-semibold mb-4">{t('leads.modals.analytics.conversionFunnel')}</h3>
               <div className="space-y-4">
                 {detailedMetrics.conversionFunnel.stages.map((stage, index) => (
                   <div key={index} className="flex items-center justify-between">
-                    <span>{stage.stage}</span>
+                    <span>{t(`leads.sections.analyticsInsights.funnelStages.${stage.stage.toLowerCase().replace(/\s+/g, '')}`)}</span>
                     <div className="flex items-center gap-2">
                       <span>{stage.count}</span>
                       <span className="text-gray-500">({stage.conversion})</span>
@@ -647,7 +659,7 @@ export default function MarketingHeadLeadsManagement() {
 
             {/* Campaign Performance */}
             <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <h3 className="font-semibold mb-4">Campaign Performance</h3>
+              <h3 className="font-semibold mb-4">{t('leads.modals.analytics.campaignPerformance')}</h3>
               <div className="space-y-4">
                 {detailedMetrics.campaignPerformance.byChannel.map((channel, index) => (
                   <div key={index} className="flex items-center justify-between">
@@ -664,7 +676,7 @@ export default function MarketingHeadLeadsManagement() {
 
             {/* Counselor Performance */}
             <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <h3 className="font-semibold mb-4">Counselor Performance</h3>
+              <h3 className="font-semibold mb-4">{t('leads.modals.analytics.counselorPerformance')}</h3>
               <div className="space-y-4">
                 {detailedMetrics.counselorMetrics.performance.map((metric, index) => (
                   <div key={index} className="flex items-center justify-between">
@@ -894,16 +906,16 @@ export default function MarketingHeadLeadsManagement() {
   };
 
   return (
-    <div className="flex flex-col gap-10 animate-fade-in">
+    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-10 animate-fade-in">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-gray-200 dark:border-gray-700">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">Leads <FiUsers className="text-blue-500" /></h1>
-          <p className="text-sm text-gray-600 dark:text-gray-300">Manage the entire lead lifecycle with AI-powered insights.</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">{t('leads.title')} <FiUsers className="text-blue-500" /></h1>
+          <p className="text-sm text-gray-600 dark:text-gray-300">{t('leads.subtitle')}</p>
         </div>
         <div className="flex gap-3">
-          <button className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2" onClick={handleOpenImportModal}><FiUpload /> Import Leads</button>
-          <button className="px-4 py-2 text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600" onClick={() => setShowExportModal(true)}>Export Leads</button>
+          <button className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2" onClick={handleOpenImportModal}><FiUpload /> {t('leads.importLeads')}</button>
+          <button className="px-4 py-2 text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600" onClick={() => setShowExportModal(true)}>{t('leads.exportLeads')}</button>
         </div>
       </div>
 
@@ -916,7 +928,7 @@ export default function MarketingHeadLeadsManagement() {
                 <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm" />
                 <input
                   type="text"
-                  placeholder="Search leads..."
+                  placeholder={t('leads.searchPlaceholder')}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-8 pr-2 py-1 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
@@ -927,15 +939,15 @@ export default function MarketingHeadLeadsManagement() {
                 onChange={(e) => setFilter(e.target.value)}
                 className="px-2 py-1 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white text-sm"
               >
-                <option value="All">All Status</option>
+                <option value="All">{t('leads.allStatus')}</option>
                 {LEAD_STATUSES.map(s => (
-                  <option key={s.value} value={s.value}>{s.label}</option>
+                  <option key={s.value} value={s.value}>{t(`leads.status.${s.value.toLowerCase()}`)}</option>
                 ))}
               </select>
             </div>
             <div className="flex items-center gap-1">
-              <button className="px-3 py-1 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-1" onClick={openAddModal}><FiPlus /> Add Lead</button>
-              <button className="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center gap-1" onClick={handleDirectExport}><FiDownload /> Export</button>
+              <button className="px-3 py-1 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-1" onClick={openAddModal}><FiPlus /> {t('leads.addLead')}</button>
+              <button className="px-3 py-1 text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center gap-1" onClick={handleDirectExport}><FiDownload /> {t('leads.export')}</button>
             </div>
           </div>
         </div>
@@ -945,17 +957,17 @@ export default function MarketingHeadLeadsManagement() {
           <div className="px-6 py-3 bg-blue-50 dark:bg-blue-900/20 border-b border-blue-100 dark:border-blue-800">
             <div className="flex items-center justify-between">
               <span className="text-sm text-blue-700 dark:text-blue-300">
-                {selectedLeads.length} leads selected
+                {t('leads.selectedLeads', { count: selectedLeads.length })}
               </span>
               <div className="flex items-center gap-2">
                 <button className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700">
-                  Assign
+                  {t('leads.assign')}
                 </button>
                 <button className="px-3 py-1 text-sm bg-blue-600 text-white rounded hover:bg-blue-700">
-                  Change Status
+                  {t('leads.changeStatus')}
                 </button>
                 <button className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700">
-                  Delete
+                  {t('leads.delete')}
                 </button>
               </div>
             </div>
@@ -976,17 +988,17 @@ export default function MarketingHeadLeadsManagement() {
                   />
                 </th>
                 <th className="px-3 py-2 text-left cursor-pointer" onClick={() => handleSort('name')}>
-                  <div className="flex items-center gap-1">Lead{sortField === 'name' && (<span>{sortDirection === 'asc' ? '↑' : '↓'}</span>)}</div>
+                  <div className="flex items-center gap-1">{t('leads.table.lead')}{sortField === 'name' && (<span>{sortDirection === 'asc' ? '↑' : '↓'}</span>)}</div>
                 </th>
                 <th className="px-3 py-2 text-left cursor-pointer" onClick={() => handleSort('source')}>
-                  <div className="flex items-center gap-1">Source{sortField === 'source' && (<span>{sortDirection === 'asc' ? '↑' : '↓'}</span>)}</div>
+                  <div className="flex items-center gap-1">{t('leads.table.source')}{sortField === 'source' && (<span>{sortDirection === 'asc' ? '↑' : '↓'}</span>)}</div>
                 </th>
                 <th className="px-3 py-2 text-left cursor-pointer" onClick={() => handleSort('status')}>
-                  <div className="flex items-center gap-1">Status{sortField === 'status' && (<span>{sortDirection === 'asc' ? '↑' : '↓'}</span>)}</div>
+                  <div className="flex items-center gap-1">{t('leads.table.status')}{sortField === 'status' && (<span>{sortDirection === 'asc' ? '↑' : '↓'}</span>)}</div>
                 </th>
-                <th className="px-3 py-2 text-left">Assigned To</th>
-                <th className="px-3 py-2 text-left">Last Contact</th>
-                <th className="px-3 py-2 text-left">Actions</th>
+                <th className="px-3 py-2 text-left">{t('leads.table.assignedTo')}</th>
+                <th className="px-3 py-2 text-left">{t('leads.table.lastContact')}</th>
+                <th className="px-3 py-2 text-left">{t('leads.table.actions')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-200 dark:divide-gray-700 text-sm">
@@ -1015,7 +1027,7 @@ export default function MarketingHeadLeadsManagement() {
                     <span className="px-2 py-0.5 text-xs font-medium bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-full">{lead.source}</span>
                   </td>
                   <td className="px-3 py-2">
-                    <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${LEAD_STATUSES.find(s => s.value === lead.status)?.color || 'bg-gray-100 text-gray-700'}`}>{lead.status}</span>
+                    <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${LEAD_STATUSES.find(s => s.value === lead.status)?.color || 'bg-gray-100 text-gray-700'}`}>{t(`leads.status.${lead.status.toLowerCase()}`)}</span>
                   </td>
                   <td className="px-3 py-2">
                     <div className="flex items-center gap-1">
@@ -1031,7 +1043,7 @@ export default function MarketingHeadLeadsManagement() {
                       <button
                         onClick={() => handleSendEmail(lead)}
                         className="p-1 rounded-full text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900"
-                        title="Send Email"
+                        title={t('leads.actions.sendEmail')}
                         style={{ border: 'none', background: 'none' }}
                       >
                         <FiMail />
@@ -1039,15 +1051,15 @@ export default function MarketingHeadLeadsManagement() {
                       <button
                         onClick={() => handleSendSMS(lead)}
                         className="p-1 rounded-full text-green-500 hover:bg-green-50 dark:hover:bg-green-900"
-                        title="Send SMS"
+                        title={t('leads.actions.sendSMS')}
                         style={{ border: 'none', background: 'none' }}
                       >
                         <FiMessageCircle />
                       </button>
                       <span className="mx-1 text-gray-300">|</span>
-                      <button onClick={() => handleLeadClick(lead)} className="p-1 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300" title="View Details"><FiUser /></button>
-                      <button onClick={() => openEditModal(lead)} className="p-1 text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300" title="Edit"><FiEdit2 /></button>
-                      <button onClick={() => handleDeleteLead(lead.id)} className="p-1 text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300" title="Delete"><FiTrash2 /></button>
+                      <button onClick={() => handleLeadClick(lead)} className="p-1 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300" title={t('leads.actions.viewDetails')}><FiUser /></button>
+                      <button onClick={() => openEditModal(lead)} className="p-1 text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300" title={t('leads.actions.edit')}><FiEdit2 /></button>
+                      <button onClick={() => handleDeleteLead(lead.id)} className="p-1 text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300" title={t('leads.actions.delete')}><FiTrash2 /></button>
                     </div>
                   </td>
                 </tr>
@@ -1060,7 +1072,7 @@ export default function MarketingHeadLeadsManagement() {
         <div className="px-6 py-4 border-t border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between">
             <div className="text-sm text-gray-500 dark:text-gray-400">
-              {`Showing ${totalLeads === 0 ? 0 : startIdx + 1} to ${endIdx} of ${totalLeads} leads`}
+              {t('leads.pagination.showing', { start: totalLeads === 0 ? 0 : startIdx + 1, end: endIdx, total: totalLeads })}
             </div>
             <div className="flex items-center gap-2">
               <button
@@ -1068,15 +1080,15 @@ export default function MarketingHeadLeadsManagement() {
                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
               >
-                Previous
+                {t('leads.pagination.previous')}
               </button>
-              <span className="text-xs text-gray-500">Page {currentPage} of {totalPages}</span>
+              <span className="text-xs text-gray-500">{t('leads.pagination.page', { current: currentPage, total: totalPages })}</span>
               <button
                 className="px-3 py-1 text-sm border border-gray-300 dark:border-gray-600 rounded hover:bg-gray-50 dark:hover:bg-gray-700 disabled:opacity-50"
                 onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                 disabled={currentPage === totalPages || totalLeads === 0}
               >
-                Next
+                {t('leads.pagination.next')}
               </button>
             </div>
           </div>
@@ -1087,18 +1099,18 @@ export default function MarketingHeadLeadsManagement() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiUpload className="text-blue-500" />
-          <h2 className="text-lg font-semibold">Lead Capture & Import</h2>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">AI Quality Scoring</span>
+          <h2 className="text-lg font-semibold">{t('leads.sections.leadCaptureImport.title')}</h2>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('leads.sections.leadCaptureImport.aiQualityScoring')}</span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Date</th>
-                <th className="pb-3 font-medium">Source</th>
-                <th className="pb-3 font-medium">Count</th>
-                <th className="pb-3 font-medium">Quality</th>
-                <th className="pb-3 font-medium">Status</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadCaptureImport.date')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadCaptureImport.source')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadCaptureImport.count')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadCaptureImport.quality')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadCaptureImport.status')}</th>
               </tr>
             </thead>
             <tbody>
@@ -1112,11 +1124,11 @@ export default function MarketingHeadLeadsManagement() {
                       item.quality === "High" ? "bg-green-100 text-green-700" :
                       "bg-yellow-100 text-yellow-700"
                     }`}>
-                      {item.quality}
+                      {t(`leads.sections.leadCaptureImport.quality.${item.quality.toLowerCase()}`)}
                     </span>
                   </td>
                   <td className="py-3">
-                    <span className="text-green-600">{item.status}</span>
+                    <span className="text-green-600">{t(`leads.sections.leadCaptureImport.status.${item.status.toLowerCase()}`)}</span>
                   </td>
                 </tr>
               ))}
@@ -1129,18 +1141,18 @@ export default function MarketingHeadLeadsManagement() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiFilter className="text-purple-500" />
-          <h2 className="text-lg font-semibold">Lead Segmentation & Filters</h2>
-          <span className="ml-2 text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded animate-pulse">AI Segment Suggestion</span>
+          <h2 className="text-lg font-semibold">{t('leads.sections.leadSegmentation.title')}</h2>
+          <span className="ml-2 text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded animate-pulse">{t('leads.sections.leadSegmentation.aiSegmentSuggestion')}</span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Segment Name</th>
-                <th className="pb-3 font-medium">Count</th>
-                <th className="pb-3 font-medium">Conversion</th>
-                <th className="pb-3 font-medium">Source</th>
-                <th className="pb-3 font-medium">Last Updated</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadSegmentation.segmentName')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadSegmentation.count')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadSegmentation.conversion')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadSegmentation.source')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadSegmentation.lastUpdated')}</th>
               </tr>
             </thead>
             <tbody>
@@ -1162,18 +1174,18 @@ export default function MarketingHeadLeadsManagement() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiRefreshCw className="text-yellow-500" />
-          <h2 className="text-lg font-semibold">Lead Nurturing & Workflow Automation</h2>
-          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">AI Drip Recommendation</span>
+          <h2 className="text-lg font-semibold">{t('leads.sections.leadNurturing.title')}</h2>
+          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">{t('leads.sections.leadNurturing.aiDripRecommendation')}</span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Campaign Name</th>
-                <th className="pb-3 font-medium">Status</th>
-                <th className="pb-3 font-medium">Leads</th>
-                <th className="pb-3 font-medium">Open Rate</th>
-                <th className="pb-3 font-medium">Response Rate</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadNurturing.campaignName')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadNurturing.status')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadNurturing.leads')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadNurturing.openRate')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadNurturing.responseRate')}</th>
               </tr>
             </thead>
             <tbody>
@@ -1186,7 +1198,7 @@ export default function MarketingHeadLeadsManagement() {
                       campaign.status === "Scheduled" ? "bg-blue-100 text-blue-700" :
                       "bg-gray-100 text-gray-700"
                     }`}>
-                      {campaign.status}
+                      {t(`leads.sections.leadNurturing.statusOptions.${campaign.status.toLowerCase()}`)}
                     </span>
                   </td>
                   <td className="py-3">{campaign.leads}</td>
@@ -1203,18 +1215,18 @@ export default function MarketingHeadLeadsManagement() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiMail className="text-blue-400" />
-          <h2 className="text-lg font-semibold">Communication Center</h2>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">AI Sentiment</span>
+          <h2 className="text-lg font-semibold">{t('leads.sections.communicationCenter.title')}</h2>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('leads.sections.communicationCenter.aiSentiment')}</span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Lead</th>
-                <th className="pb-3 font-medium">Type</th>
-                <th className="pb-3 font-medium">Date</th>
-                <th className="pb-3 font-medium">Status</th>
-                <th className="pb-3 font-medium">Response</th>
+                <th className="pb-3 font-medium">{t('leads.sections.communicationCenter.lead')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.communicationCenter.type')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.communicationCenter.date')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.communicationCenter.status')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.communicationCenter.response')}</th>
               </tr>
             </thead>
             <tbody>
@@ -1229,7 +1241,7 @@ export default function MarketingHeadLeadsManagement() {
                       comm.status === "Sent" ? "bg-blue-100 text-blue-700" :
                       "bg-yellow-100 text-yellow-700"
                     }`}>
-                      {comm.status}
+                      {t(`leads.sections.communicationCenter.statusOptions.${comm.status.toLowerCase()}`)}
                     </span>
                   </td>
                   <td className="py-3">
@@ -1238,7 +1250,7 @@ export default function MarketingHeadLeadsManagement() {
                       comm.response === "Neutral" ? "bg-yellow-100 text-yellow-700" :
                       "bg-gray-100 text-gray-700"
                     }`}>
-                      {comm.response}
+                      {t(`leads.sections.communicationCenter.responseOptions.${comm.response.toLowerCase()}`)}
                     </span>
                   </td>
                 </tr>
@@ -1252,18 +1264,18 @@ export default function MarketingHeadLeadsManagement() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiUsers className="text-green-500" />
-          <h2 className="text-lg font-semibold">Lead Assignment & Routing</h2>
-          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">AI Routing Engine</span>
+          <h2 className="text-lg font-semibold">{t('leads.sections.leadAssignment.title')}</h2>
+          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('leads.sections.leadAssignment.aiRoutingEngine')}</span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Counselor</th>
-                <th className="pb-3 font-medium">Assigned</th>
-                <th className="pb-3 font-medium">Converted</th>
-                <th className="pb-3 font-medium">Conversion Rate</th>
-                <th className="pb-3 font-medium">Avg Response</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadAssignment.counselor')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadAssignment.assigned')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadAssignment.converted')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadAssignment.conversionRate')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadAssignment.avgResponse')}</th>
               </tr>
             </thead>
             <tbody>
@@ -1285,17 +1297,17 @@ export default function MarketingHeadLeadsManagement() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiStar className="text-pink-500" />
-          <h2 className="text-lg font-semibold">Lead Scoring</h2>
-          <span className="ml-2 text-xs bg-pink-100 text-pink-700 px-2 py-1 rounded animate-pulse">AI Dynamic Scoring</span>
+          <h2 className="text-lg font-semibold">{t('leads.sections.leadScoring.title')}</h2>
+          <span className="ml-2 text-xs bg-pink-100 text-pink-700 px-2 py-1 rounded animate-pulse">{t('leads.sections.leadScoring.aiDynamicScoring')}</span>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Lead</th>
-                <th className="pb-3 font-medium">Score</th>
-                <th className="pb-3 font-medium">Factors</th>
-                <th className="pb-3 font-medium">Trend</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadScoring.lead')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadScoring.score')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadScoring.factors')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.leadScoring.trend')}</th>
               </tr>
             </thead>
             <tbody>
@@ -1326,7 +1338,7 @@ export default function MarketingHeadLeadsManagement() {
                       score.trend === "Down" ? "bg-red-100 text-red-700" :
                       "bg-gray-100 text-gray-700"
                     }`}>
-                      {score.trend}
+                      {t(`leads.sections.leadScoring.trendOptions.${score.trend.toLowerCase()}`)}
                     </span>
                   </td>
                 </tr>
@@ -1341,21 +1353,21 @@ export default function MarketingHeadLeadsManagement() {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <FiBarChart2 className="text-blue-500" />
-            <h2 className="text-lg font-semibold">Analytics & Insights</h2>
-            <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">AI Predictions</span>
+            <h2 className="text-lg font-semibold">{t('leads.sections.analyticsInsights.title')}</h2>
+            <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('leads.sections.analyticsInsights.aiPredictions')}</span>
           </div>
           <button 
             onClick={() => handleOpenModal('analytics')}
             className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700"
           >
-            View Detailed Analytics
+            {t('leads.sections.analyticsInsights.viewDetailedAnalytics')}
           </button>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {analyticsData.map((metric) => (
             <div key={metric.id} className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">{metric.metric}</h3>
+              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">{t(`leads.sections.analyticsInsights.metrics.${metric.metric.toLowerCase().replace(/\s+/g, '')}`)}</h3>
               <div className="mt-2 flex items-baseline justify-between">
                 <p className="text-2xl font-semibold">{metric.value}</p>
                 <p className={`text-sm ${
@@ -1371,36 +1383,36 @@ export default function MarketingHeadLeadsManagement() {
         {/* Additional Metrics Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
           <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <h3 className="font-medium mb-2">Lead Quality Distribution</h3>
+            <h3 className="font-medium mb-2">{t('leads.sections.analyticsInsights.leadQualityDistribution')}</h3>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="w-3 h-3 bg-green-500 rounded-full"></span>
-                <span>High</span>
+                <span>{t('leads.sections.analyticsInsights.quality.high')}</span>
               </div>
               <span>{detailedMetrics.leadQuality.high}%</span>
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="w-3 h-3 bg-yellow-500 rounded-full"></span>
-                <span>Medium</span>
+                <span>{t('leads.sections.analyticsInsights.quality.medium')}</span>
               </div>
               <span>{detailedMetrics.leadQuality.medium}%</span>
             </div>
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="w-3 h-3 bg-red-500 rounded-full"></span>
-                <span>Low</span>
+                <span>{t('leads.sections.analyticsInsights.quality.low')}</span>
               </div>
               <span>{detailedMetrics.leadQuality.low}%</span>
             </div>
           </div>
 
           <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <h3 className="font-medium mb-2">Conversion Funnel</h3>
+            <h3 className="font-medium mb-2">{t('leads.sections.analyticsInsights.conversionFunnel')}</h3>
             <div className="space-y-2">
               {detailedMetrics.conversionFunnel.stages.map((stage, index) => (
                 <div key={index} className="flex items-center justify-between">
-                  <span>{stage.stage}</span>
+                  <span>{t(`leads.sections.analyticsInsights.funnelStages.${stage.stage.toLowerCase().replace(/\s+/g, '')}`)}</span>
                   <div className="flex items-center gap-2">
                     <span>{stage.count}</span>
                     <span className="text-gray-500">({stage.conversion})</span>
@@ -1416,16 +1428,16 @@ export default function MarketingHeadLeadsManagement() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiFileText className="text-purple-500" />
-          <h2 className="text-lg font-semibold">Documentation & Application Tracking</h2>
+          <h2 className="text-lg font-semibold">{t('leads.sections.documentationTracking.title')}</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Lead</th>
-                <th className="pb-3 font-medium">Document Type</th>
-                <th className="pb-3 font-medium">Status</th>
-                <th className="pb-3 font-medium">Date</th>
+                <th className="pb-3 font-medium">{t('leads.sections.documentationTracking.lead')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.documentationTracking.documentType')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.documentationTracking.status')}</th>
+                <th className="pb-3 font-medium">{t('leads.sections.documentationTracking.date')}</th>
               </tr>
             </thead>
             <tbody>
@@ -1439,7 +1451,7 @@ export default function MarketingHeadLeadsManagement() {
                       doc.status === "Pending" ? "bg-yellow-100 text-yellow-700" :
                       "bg-red-100 text-red-700"
                     }`}>
-                      {doc.status}
+                      {t(`leads.sections.documentationTracking.statusOptions.${doc.status.toLowerCase()}`)}
                     </span>
                   </td>
                   <td className="py-3">{doc.date}</td>
@@ -1454,40 +1466,40 @@ export default function MarketingHeadLeadsManagement() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiZap className="text-yellow-500 animate-pulse" />
-          <h2 className="text-lg font-semibold">AI optimized decision panel</h2>
+          <h2 className="text-lg font-semibold">{t('leads.sections.aiCopilotPanel.title')}</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <h3 className="font-medium mb-2">Quick Insights</h3>
+            <h3 className="font-medium mb-2">{t('leads.sections.aiCopilotPanel.quickInsights')}</h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
-                MBA leads showing 45% higher engagement
+                {t('leads.sections.aiCopilotPanel.insights.mbaLeads')}
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-yellow-500 rounded-full"></span>
-                3 counselors need follow-up assistance
+                {t('leads.sections.aiCopilotPanel.insights.counselorsNeedFollowUp')}
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-red-500 rounded-full"></span>
-                Engineering program leads dropping off
+                {t('leads.sections.aiCopilotPanel.insights.engineeringLeadsDropping')}
               </li>
             </ul>
           </div>
           <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <h3 className="font-medium mb-2">Recommended Actions</h3>
+            <h3 className="font-medium mb-2">{t('leads.sections.aiCopilotPanel.recommendedActions')}</h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                Schedule follow-up for 12 high-potential leads
+                {t('leads.sections.aiCopilotPanel.actions.scheduleFollowUp')}
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                Adjust campaign targeting for Engineering program
+                {t('leads.sections.aiCopilotPanel.actions.adjustCampaignTargeting')}
               </li>
               <li className="flex items-center gap-2">
                 <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                Review and update lead scoring criteria
+                {t('leads.sections.aiCopilotPanel.actions.reviewLeadScoring')}
               </li>
             </ul>
           </div>
@@ -1514,16 +1526,16 @@ export default function MarketingHeadLeadsManagement() {
             <button onClick={() => setShowExportModal(false)} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
               <FiX size={24} />
             </button>
-            <h2 className="text-xl font-bold mb-4">Export Leads</h2>
+            <h2 className="text-xl font-bold mb-4">{t('leads.modals.export.title')}</h2>
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-2">Export Format</label>
+              <label className="block text-sm font-medium mb-2">{t('leads.modals.export.exportFormat')}</label>
               <select className="w-full px-3 py-2 border rounded" value={exportFormat} onChange={e => setExportFormat(e.target.value)}>
                 <option value="CSV">CSV</option>
                 <option value="XLSX">XLSX</option>
               </select>
             </div>
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-2">Fields to Export</label>
+              <label className="block text-sm font-medium mb-2">{t('leads.modals.export.fieldsToExport')}</label>
               <div className="flex flex-wrap gap-2">
                 {allExportFields.map(f => (
                   <label key={f.key} className="flex items-center gap-1">
@@ -1542,7 +1554,7 @@ export default function MarketingHeadLeadsManagement() {
                 ))}
               </div>
             </div>
-            <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 w-full" onClick={handleExportLeads}>Export</button>
+            <button className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 w-full" onClick={handleExportLeads}>{t('leads.modals.export.export')}</button>
           </div>
         </div>
       )}
@@ -1553,44 +1565,44 @@ export default function MarketingHeadLeadsManagement() {
             <button type="button" onClick={closeAddEditModal} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
               <FiX size={24} />
             </button>
-            <h2 className="text-xl font-bold mb-4">{editMode ? 'Edit Lead' : 'Add Lead'}</h2>
+            <h2 className="text-xl font-bold mb-4">{editMode ? t('leads.modals.addEdit.editTitle') : t('leads.modals.addEdit.addTitle')}</h2>
             <div className="mb-3">
-              <label className="block text-sm font-medium mb-1">Name</label>
+              <label className="block text-sm font-medium mb-1">{t('leads.modals.addEdit.name')}</label>
               <input name="name" value={leadForm.name} onChange={handleLeadFormChange} required className="w-full px-3 py-2 border rounded" />
             </div>
             <div className="mb-3">
-              <label className="block text-sm font-medium mb-1">Email</label>
+              <label className="block text-sm font-medium mb-1">{t('leads.modals.addEdit.email')}</label>
               <input name="email" value={leadForm.email} onChange={handleLeadFormChange} required className="w-full px-3 py-2 border rounded" />
             </div>
             <div className="mb-3">
-              <label className="block text-sm font-medium mb-1">Phone</label>
+              <label className="block text-sm font-medium mb-1">{t('leads.modals.addEdit.phone')}</label>
               <input name="phone" value={leadForm.phone} onChange={handleLeadFormChange} required className="w-full px-3 py-2 border rounded" />
             </div>
             <div className="mb-3">
-              <label className="block text-sm font-medium mb-1">Source</label>
+              <label className="block text-sm font-medium mb-1">{t('leads.modals.addEdit.source')}</label>
               <input name="source" value={leadForm.source} onChange={handleLeadFormChange} className="w-full px-3 py-2 border rounded" />
             </div>
             <div className="mb-3">
-              <label className="block text-sm font-medium mb-1">Status</label>
+              <label className="block text-sm font-medium mb-1">{t('leads.modals.addEdit.status')}</label>
               <select name="status" value={leadForm.status} onChange={handleLeadFormChange} className="w-full px-3 py-2 border rounded">
                 {LEAD_STATUSES.map(s => (
-                  <option key={s.value} value={s.value}>{s.label}</option>
+                  <option key={s.value} value={s.value}>{t(`leads.status.${s.value.toLowerCase()}`)}</option>
                 ))}
               </select>
             </div>
             <div className="mb-3">
-              <label className="block text-sm font-medium mb-1">Assigned To</label>
+              <label className="block text-sm font-medium mb-1">{t('leads.modals.addEdit.assignedTo')}</label>
               <input name="assignedTo" value={leadForm.assignedTo} onChange={handleLeadFormChange} className="w-full px-3 py-2 border rounded" />
             </div>
             <div className="mb-3">
-              <label className="block text-sm font-medium mb-1">Last Contact</label>
+              <label className="block text-sm font-medium mb-1">{t('leads.modals.addEdit.lastContact')}</label>
               <input name="lastContact" value={leadForm.lastContact} onChange={handleLeadFormChange} className="w-full px-3 py-2 border rounded" />
             </div>
             <div className="mb-3">
-              <label className="block text-sm font-medium mb-1">Notes</label>
+              <label className="block text-sm font-medium mb-1">{t('leads.modals.addEdit.notes')}</label>
               <textarea name="notes" value={leadForm.notes} onChange={handleLeadFormChange} className="w-full px-3 py-2 border rounded" />
             </div>
-            <button type="submit" className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">{editMode ? 'Update Lead' : 'Add Lead'}</button>
+            <button type="submit" className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">{editMode ? t('leads.modals.addEdit.updateLead') : t('leads.modals.addEdit.addLead')}</button>
           </form>
         </div>
       )}
@@ -1602,17 +1614,17 @@ export default function MarketingHeadLeadsManagement() {
             <button type="button" onClick={handleCloseImportModal} className="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
               <FiX size={24} />
             </button>
-            <h2 className="text-xl font-bold mb-4">Import Leads</h2>
+            <h2 className="text-xl font-bold mb-4">{t('leads.modals.import.title')}</h2>
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-2">Select CSV or XLSX file</label>
+              <label className="block text-sm font-medium mb-2">{t('leads.modals.import.selectFile')}</label>
               <input type="file" accept=".csv,.xlsx" onChange={handleImportFileChange} className="w-full" />
             </div>
             <div className="mb-4 text-xs text-gray-500 dark:text-gray-400">
-              <p>Accepted columns: <b>Name, Email, Phone, Source, Status, Assigned To, Last Contact, Notes</b></p>
-              <p>Download a <a href={sampleCsvUrl} download="sample-leads.csv" className="text-blue-600 underline">sample template</a>.</p>
+              <p><b>{t('leads.modals.import.acceptedColumns')}</b> <b>Name, Email, Phone, Source, Status, Assigned To, Last Contact, Notes</b></p>
+              <p>{t('leads.modals.import.downloadTemplate')} <a href={sampleCsvUrl} download="sample-leads.csv" className="text-blue-600 underline">{t('leads.modals.import.sampleTemplate')}</a>.</p>
             </div>
             {importError && <div className="mb-4 text-red-600 text-xs">{importError}</div>}
-            <button type="submit" className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Import</button>
+            <button type="submit" className="w-full px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">{t('leads.modals.import.import')}</button>
           </form>
         </div>
       )}

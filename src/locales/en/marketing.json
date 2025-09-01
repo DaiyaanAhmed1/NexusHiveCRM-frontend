@@ -1,1 +1,1226 @@
-{"marketing": {"title": "Marketing Management"}} 
+{
+  "title": "Marketing Management",
+  "support": {
+    "title": "🆘 Help & Support",
+    "subtitle": "Raise issues, track resolutions, and communicate with support teams across departments.",
+    "buttons": {
+      "newTicket": "New Ticket",
+      "contactSupport": "Contact Support"
+    },
+    "tabs": {
+      "tickets": "Support Tickets",
+      "knowledge": "Knowledge Base"
+    },
+    "tickets": {
+      "title": "Support Tickets",
+      "table": {
+        "title": "Title",
+        "category": "Category",
+        "priority": "Priority",
+        "status": "Status",
+        "assignedTo": "Assigned To",
+        "lastUpdated": "Last Updated",
+        "actions": "Actions"
+      },
+      "status": {
+        "open": "Open",
+        "inProgress": "In Progress",
+        "resolved": "Resolved",
+        "pending": "Pending"
+      },
+      "priority": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+        "urgent": "Urgent"
+      },
+      "actions": {
+        "viewDetails": "View Details"
+      }
+    },
+    "knowledge": {
+      "title": "Knowledge Base",
+      "category": "Category",
+      "views": "views",
+      "updated": "Updated"
+    },
+    "modal": {
+      "ticketDetails": "Ticket Details",
+      "close": "Close",
+      "updateStatus": "Update Status",
+      "addComment": "Add Comment",
+      "submitTicket": "Submit Ticket",
+      "cancel": "Cancel",
+      "send": "Send",
+      "closeAndRate": "Close & Rate",
+      "subject": "Subject",
+      "expectedResolution": "Expected Resolution",
+      "comments": "Comments",
+      "createNewTicket": "Create New Ticket"
+    },
+    "form": {
+      "category": "Category",
+      "subcategory": "Subcategory",
+      "location": "Location",
+      "priority": "Priority",
+      "description": "Description",
+      "attachment": "Attachment (optional)",
+      "selectCategory": "Select Category",
+      "selectSubcategory": "Select Subcategory",
+      "selectPriority": "Select Priority",
+      "addComment": "Add a comment...",
+      "feedback": "Feedback / Rating",
+      "feedbackPlaceholder": "How was your support experience?"
+    },
+    "categories": {
+      "IT": "IT",
+      "Electrical": "Electrical",
+      "Furniture": "Furniture / Infrastructure",
+      "Housekeeping": "Housekeeping / Sanitation",
+      "Transport": "Transportation",
+      "Hostel": "Hostel or Accommodation",
+      "Examination": "Examination Portal",
+      "ERP": "ERP / CRM"
+    },
+    "subcategories": {
+      "internetNotWorking": "Internet not working",
+      "systemIssue": "System issue",
+      "emailIssue": "Email issue",
+      "printerIssue": "Printer issue",
+      "powerOutage": "Power outage",
+      "lightsNotWorking": "Lights not working",
+      "acNotWorking": "AC not working",
+      "chairBroken": "Chair broken",
+      "tableReplacement": "Table replacement",
+      "whiteboardIssue": "Whiteboard issue",
+      "cleaningRequired": "Cleaning required",
+      "sanitization": "Sanitization",
+      "garbagePickup": "Garbage pickup",
+      "busDelay": "Bus delay",
+      "routeChange": "Route change",
+      "driverIssue": "Driver issue",
+      "roomIssue": "Room issue",
+      "waterSupply": "Water supply",
+      "maintenance": "Maintenance",
+      "portalAccess": "Portal access",
+      "resultIssue": "Result issue",
+      "examSchedule": "Exam schedule",
+      "loginIssue": "Login issue",
+      "dataError": "Data error",
+      "featureRequest": "Feature request"
+    },
+    "demoData": {
+      "tickets": [
+        {
+          "subject": "WiFi not working on 2nd floor, Main Campus",
+          "description": "No internet connectivity in the Computer Science lab."
+        },
+        {
+          "subject": "AC not working in classroom A302",
+          "description": "AC is not cooling properly."
+        }
+      ],
+      "knowledgeArticles": [
+        {
+          "title": "How to Create a New Campaign",
+          "category": "Campaigns"
+        },
+        {
+          "title": "Understanding Marketing Analytics",
+          "category": "Analytics"
+        },
+        {
+          "title": "Team Collaboration Guidelines",
+          "category": "Team"
+        }
+      ]
+    },
+    "messages": {
+      "ticketSubmitted": "Ticket submitted successfully!",
+      "created": "Created",
+      "loading": "Loading..."
+    }
+  },
+  "workspace": {
+    "title": "Workspace",
+    "subtitle": "Unified dashboard for marketing team to manage campaigns, assets, compliance, and daily operations.",
+    "sections": {
+      "trainingDevelopment": "🎓 Training & Development",
+      "complianceQuality": "✅ Compliance & Quality",
+      "assetCampaignManagement": "📁 Asset & Campaign Management"
+    },
+    "trainingDevelopment": {
+      "title": "Marketing Training",
+      "digitalMarketingBootcamp": "Digital Marketing Bootcamp",
+      "brandManagementWorkshop": "Brand Management Workshop",
+      "contentStrategySeminar": "Content Strategy Seminar",
+      "knowledgeBase": {
+        "title": "Knowledge Base",
+        "launchCampaign": "How to launch a campaign",
+        "socialMediaBestPractices": "Social media best practices",
+        "complianceChecklist": "Marketing compliance checklist"
+      }
+    },
+    "complianceQuality": {
+      "campaignCompliance": {
+        "title": "Campaign Compliance",
+        "adContentReview": "Ad content review",
+        "brandGuidelineAdherence": "Brand guideline adherence",
+        "gdprPrivacyCompliance": "GDPR/Privacy compliance"
+      },
+      "riskManagement": {
+        "title": "Risk Management",
+        "negativeCampaignFeedback": "Negative campaign feedback",
+        "missedCampaignDeadlines": "Missed campaign deadlines",
+        "budgetOverrunAlert": "Budget overrun alert"
+      },
+      "actions": {
+        "review": "Review",
+        "check": "Check",
+        "audit": "Audit"
+      },
+      "riskLevels": {
+        "high": "High",
+        "medium": "Medium",
+        "alert": "Alert"
+      }
+    },
+    "assetCampaignManagement": {
+      "myCampaigns": {
+        "title": "My Campaigns",
+        "q2MarketingStrategy": "Q2 Marketing Strategy",
+        "summerCampaign": "Summer Campaign",
+        "brandAwarenessDrive": "Brand Awareness Drive"
+      },
+      "assetLibrary": {
+        "title": "Asset Library",
+        "summerCampaignAssets": "Summer Campaign Assets",
+        "brandGuidelines": "Brand Guidelines",
+        "socialMediaTemplates": "Social Media Templates"
+      },
+      "taskBox": {
+        "title": "Task Box",
+        "submitCampaignReport": "Submit campaign report",
+        "reviewAdCreatives": "Review ad creatives",
+        "approveInfluencerContracts": "Approve influencer contracts"
+      },
+      "events": {
+        "title": "Events",
+        "annualMarketingSummit": "Annual Marketing Summit – Registration Open",
+        "internalTrainingSchedule": "Internal Training Schedule"
+      },
+      "analytics": {
+        "title": "Analytics",
+        "campaignPerformanceDashboard": "Campaign Performance Dashboard",
+        "leadGenerationTrends": "Lead Generation Trends",
+        "roiAnalysis": "ROI Analysis"
+      },
+      "status": {
+        "inProgress": "In Progress",
+        "completed": "Completed",
+        "pending": "Pending",
+        "active": "Active",
+        "planning": "Planning"
+      }
+    }
+  },
+  "analytics": {
+    "title": "Reporting & Analytics",
+    "subtitle": "Real-time, actionable insights on campaigns, leads, spend, team, and ROI.",
+    "sections": {
+      "leadFunnelAnalytics": "Lead Funnel Analytics",
+      "marketingSpendVsRoi": "Marketing Spend vs ROI",
+      "campaignPerformanceReports": "Campaign Performance Reports",
+      "audienceEngagementAnalytics": "Audience & Engagement Analytics",
+      "contentEffectiveness": "Content Effectiveness",
+      "teamProductivityReports": "Team Productivity Reports",
+      "performanceDashboards": "Performance Dashboards",
+      "customReportBuilder": "Custom Report Builder"
+    },
+    "aiFeatures": {
+      "aiConversionScore": "AI Conversion Score",
+      "funnelOptimization": "Funnel Optimization",
+      "aiRoiEstimator": "AI ROI Estimator",
+      "overspendAlerts": "Overspend Alerts",
+      "aiBestTimePredictor": "AI Best Time Predictor",
+      "autoRanking": "Auto Ranking",
+      "aiGeoTargeting": "AI Geo-targeting",
+      "demographicModeling": "Demographic Modeling",
+      "aiContentRecommendation": "AI Content Recommendation",
+      "repurposeSuggestion": "Repurpose Suggestion",
+      "aiProductivityInsights": "AI Productivity Insights",
+      "followUpDelayPrediction": "Follow-up Delay Prediction",
+      "aiGeneratedReports": "AI-Generated Reports"
+    },
+    "leadFunnel": {
+      "inquiries": "Inquiries",
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "monthly": "Monthly",
+      "leadToApp": "Lead→App",
+      "appToAdmission": "App→Admission",
+      "dropOffPoints": "Drop-off Points",
+      "inquiry": "Inquiry",
+      "application": "Application",
+      "admission": "Admission",
+      "source": "Source",
+      "leads": "Leads",
+      "conversion": "Conversion",
+      "aiPredictiveLeadConversionScore": "AI Predictive Lead Conversion Score",
+      "aiFunnelOptimizationSuggestion": "AI Funnel Optimization Suggestion"
+    },
+    "marketingSpend": {
+      "campaign": "Campaign",
+      "budgeted": "Budgeted ($)",
+      "actual": "Actual ($)",
+      "cpa": "CPA ($)",
+      "roi": "ROI",
+      "revenue": "Revenue ($)",
+      "cpl": "CPL ($)",
+      "cac": "CAC ($)",
+      "aiAlert": "AI Alert",
+      "overspend": "Overspend",
+      "highRoi": "High ROI",
+      "aiPoweredRoiEstimator": "AI-powered ROI Estimator"
+    },
+    "campaignPerformance": {
+      "campaign": "Campaign",
+      "type": "Type",
+      "openCtr": "Open/CTR",
+      "imprSent": "Impr./Sent",
+      "cpcCpl": "CPC/CPL",
+      "bestTime": "Best Time",
+      "rank": "Rank",
+      "aiCampaignInsights": "AI Campaign Insights"
+    },
+    "audienceEngagement": {
+      "group": "Group",
+      "engagement": "Engagement",
+      "device": "Device",
+      "interest": "Interest",
+      "hot": "Hot",
+      "warm": "Warm",
+      "cold": "Cold",
+      "aiGeoDemographicInsights": "AI Geo/Demographic Insights"
+    },
+    "contentEffectiveness": {
+      "type": "Type",
+      "views": "Views",
+      "downloads": "Downloads",
+      "engagement": "Engagement",
+      "conversions": "Conversions",
+      "aiContentRecommendation": "AI Content Recommendation",
+      "aiRepurposeSuggestion": "AI Repurpose Suggestion"
+    },
+    "teamProductivity": {
+      "member": "Member",
+      "calls": "Calls",
+      "emails": "Emails",
+      "meetings": "Meetings",
+      "followUp": "Follow-up %",
+      "responseTime": "Response Time",
+      "timeline": "Timeline",
+      "aiAlert": "AI Alert",
+      "delayRisk": "Delay Risk",
+      "onTrack": "On Track",
+      "aiProductivityInsights": "AI Productivity Insights"
+    },
+    "performanceDashboards": {
+      "leadsToday": "Leads Today",
+      "activeCampaigns": "Active Campaigns",
+      "roiTrend": "ROI Trend",
+      "dropOffs": "Drop-offs",
+      "leadSummaryChart": "Lead Summary Chart",
+      "roiTrendChart": "ROI Trend Chart",
+      "leadsOverLast7Days": "Leads over the last 7 days",
+      "roiTrendOverLast7Days": "ROI trend over the last 7 days"
+    },
+    "customReportBuilder": {
+      "dateRange": "Date Range",
+      "campaign": "Campaign",
+      "leadStage": "Lead Stage",
+      "channel": "Channel",
+      "all": "All",
+      "generate": "Generate",
+      "export": "Export",
+      "schedule": "Schedule",
+      "aiGeneratedNarrativeReport": "AI-Generated Narrative Report"
+    },
+    "demoData": {
+      "googleAds": "Google Ads",
+      "facebook": "Facebook",
+      "linkedIn": "LinkedIn",
+      "events": "Events",
+      "referrals": "Referrals",
+      "springEmailBlast": "Spring Email Blast",
+      "summerGoogleAds": "Summer Google Ads",
+      "campusEvent": "Campus Event",
+      "email": "Email",
+      "paidAds": "Paid Ads",
+      "event": "Event",
+      "brochure": "Brochure",
+      "programVideo": "Program Video",
+      "testimonial": "Testimonial",
+      "mobile": "Mobile",
+      "desktop": "Desktop",
+      "inquiry": "Inquiry",
+      "application": "Application",
+      "admission": "Admission"
+    }
+  },
+  "communication": {
+    "title": "Communication Hub",
+    "subtitle": "Centralize and streamline all marketing communications with AI-powered insights.",
+    "sections": {
+      "leadCommunicationPanel": "Lead Communication Panel",
+      "teamCollaborationChannel": "Team Collaboration Channel",
+      "campaignMessagingCenter": "Campaign Messaging Center",
+      "vendorPartnerComms": "Vendor & Partner Comms",
+      "integratedCommunicationCalendar": "Integrated Communication Calendar",
+      "notificationAlertCenter": "Notification & Alert Center",
+      "communicationLogsAnalytics": "Communication Logs & Analytics",
+      "aiCommunicationAssistant": "AI Communication Assistant"
+    },
+    "aiFeatures": {
+      "aiResponseSuggestions": "AI Response Suggestions",
+      "toneOptimizer": "Tone Optimizer",
+      "engagementTracker": "Engagement Tracker",
+      "aiSummarization": "AI Summarization",
+      "smartFileSuggestions": "Smart File Suggestions",
+      "sendTimeOptimization": "Send-Time Optimization",
+      "subjectLinePredictor": "Subject Line Predictor",
+      "abTestingInsights": "A/B Testing Insights",
+      "vendorPerformanceSummary": "Vendor Performance Summary",
+      "followUpNudges": "Follow-up Nudges",
+      "smartScheduling": "Smart Scheduling",
+      "missedOpportunityAlerts": "Missed Opportunity Alerts",
+      "urgencyDetector": "Urgency Detector",
+      "aiPrioritization": "AI Prioritization",
+      "dropOffDetector": "Drop-Off Detector",
+      "messageQualityAnalyzer": "Message Quality Analyzer"
+    },
+    "leadCommunication": {
+      "lead": "Lead",
+      "channel": "Channel",
+      "lastMessage": "Last Message",
+      "date": "Date",
+      "engagement": "Engagement",
+      "aiResponseSuggestion": "AI Response Suggestion",
+      "aiToneOptimizer": "AI Tone Optimizer"
+    },
+    "teamCollaboration": {
+      "chatRooms": "Chat Rooms",
+      "announcements": "Announcements",
+      "new": "new",
+      "aiAutoSummarization": "AI Auto-Summarization",
+      "aiSmartFileSuggestion": "AI Smart File Suggestion"
+    },
+    "campaignMessaging": {
+      "type": "Type",
+      "name": "Name",
+      "status": "Status",
+      "segment": "Segment",
+      "sendTime": "Send Time",
+      "aiSendTimeOptimization": "AI Send-Time Optimization",
+      "aiSubjectLinePredictor": "AI Subject Line Predictor",
+      "aiAbTestingInsights": "AI A/B Testing Insights"
+    },
+    "vendorPartner": {
+      "vendor": "Vendor",
+      "type": "Type",
+      "lastMessage": "Last Message",
+      "date": "Date",
+      "performance": "Performance",
+      "aiVendorPerformanceSummary": "AI Vendor Performance Summary",
+      "aiFollowUpNudge": "AI Follow-up Nudge"
+    },
+    "communicationCalendar": {
+      "event": "Event",
+      "type": "Type",
+      "date": "Date",
+      "time": "Time",
+      "aiSmartScheduling": "AI Smart Scheduling",
+      "aiMissedOpportunityAlert": "AI Missed Opportunity Alert"
+    },
+    "notificationAlert": {
+      "type": "Type",
+      "message": "Message",
+      "date": "Date",
+      "urgent": "Urgent",
+      "urgentLabel": "Urgent",
+      "normal": "Normal",
+      "aiUrgencyDetector": "AI Urgency Detector",
+      "aiPrioritization": "AI Prioritization"
+    },
+    "communicationLogs": {
+      "name": "Name",
+      "channel": "Channel",
+      "outcome": "Outcome",
+      "date": "Date",
+      "aiDropOffDetector": "AI Drop-Off Detector",
+      "aiMessageQualityAnalyzer": "AI Message Quality Analyzer"
+    },
+    "aiAssistant": {
+      "composeSmartResponse": "Compose Smart Response",
+      "recommendMessageTemplate": "Recommend Message Template",
+      "generateDripCampaign": "Generate Drip Campaign",
+      "summarizeThread": "Summarize Thread"
+    },
+    "modal": {
+      "channelDetails": "Channel Details",
+      "participants": "Participants",
+      "status": "Status",
+      "recentMessages": "Recent Messages",
+      "typeYourMessage": "Type your message...",
+      "sendMessage": "Send Message",
+      "close": "Close"
+    },
+    "status": {
+      "active": "Active",
+      "scheduled": "Scheduled",
+      "sent": "Sent",
+      "draft": "Draft",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "demoData": {
+      "teamAnnouncements": "Team Announcements",
+      "campaignUpdates": "Campaign Updates",
+      "clientCommunications": "Client Communications",
+      "internal": "Internal",
+      "project": "Project",
+      "external": "External",
+      "q2MarketingStrategyMeeting": "Q2 Marketing Strategy Meeting - Tomorrow at 10 AM",
+      "summerCampaignAssets": "Summer Campaign assets are ready for review",
+      "newClientOnboarding": "New client onboarding scheduled for next week",
+      "pleaseReviewMetrics": "Please review the latest campaign metrics",
+      "teamMeetingAgenda": "Team meeting agenda has been updated",
+      "newClientPresentation": "New client presentation is ready",
+      "interestedInMbaProgram": "Interested in MBA program",
+      "requestedBrochure": "Requested brochure",
+      "sentApplicationLink": "Sent application link",
+      "mbaCampaign": "MBA Campaign",
+      "socialMedia": "Social Media",
+      "events": "Events",
+      "designReadyForReview": "Design ready for review",
+      "scheduledNextPost": "Scheduled next post",
+      "venueConfirmed": "Venue confirmed",
+      "mbaCampaignKickoff": "MBA campaign kickoff meeting at 3pm.",
+      "socialMediaCalendarUpdated": "Social media calendar updated.",
+      "springBlast": "Spring Blast",
+      "eventReminder": "Event Reminder",
+      "appDeadline": "App Deadline",
+      "allLeads": "All Leads",
+      "eventAttendees": "Event Attendees",
+      "applicants": "Applicants",
+      "adAgency": "Ad Agency",
+      "printer": "Printer",
+      "sentInvoice": "Sent invoice",
+      "sharedCreative": "Shared creative",
+      "mbaEmailBlast": "MBA Email Blast",
+      "openDayReminder": "Open Day Reminder",
+      "leadViewedBrochure": "Lead Saudi Arabia viewed brochure 3 times",
+      "springBlastSent": "Spring Blast sent successfully",
+      "replyPending": "Reply pending from design team",
+      "opened": "Opened",
+      "clicked": "Clicked",
+      "delivered": "Delivered"
+    }
+  },
+  "training": {
+    "title": "Training & Development",
+    "subtitle": "Structured learning, skill upgrades, and knowledge sharing for marketing excellence.",
+    "nexusHiveAI": {
+      "title": "NexusHiveAI: Your Learning Partner",
+      "description": "NexusHiveAI is here to enhance your learning experience with personalized course recommendations and insights. Check out our recommended courses below!",
+      "recommendedCourses": "NexusHiveAI Recommended Courses"
+    },
+    "sections": {
+      "trainingDashboard": "Training Dashboard",
+      "trainingCalendar": "Training Calendar",
+      "courseLibrary": "Course Library / LMS Integration",
+      "skillProfiles": "Team Member Skill Profiles",
+      "trainingRequests": "Training Requests & Approvals",
+      "knowledgeManagement": "Knowledge Management",
+      "peerLearning": "Peer Learning & Mentorship",
+      "reportsInsights": "Reports & Insights",
+      "aiAssistant": "AI-Powered Training Assistant"
+    },
+    "aiFeatures": {
+      "skillGapPrediction": "AI Skill Gap Prediction",
+      "trainingROIEstimator": "Training ROI Estimator",
+      "smartRescheduling": "Smart Rescheduling",
+      "remindersNudges": "Reminders & Nudges",
+      "adaptiveLearningPath": "Adaptive Learning Path",
+      "autoGeneratedTests": "Auto-Generated Tests",
+      "skillScoreIndex": "Skill Score Index",
+      "promotionReadiness": "Promotion Readiness",
+      "costImpactAnalyzer": "Cost-Impact Analyzer",
+      "aiPoweredSearch": "AI-Powered Search",
+      "autoTagging": "Auto-Tagging",
+      "mentorshipMatchmaking": "Mentorship Matchmaking",
+      "engagementAnalyzer": "Engagement Analyzer",
+      "teamHeatmaps": "Team Heatmaps"
+    },
+    "dashboard": {
+      "upcomingSessions": "Upcoming Sessions",
+      "certificationStatus": "Certification Status",
+      "teamMember": "Team Member",
+      "completed": "Completed",
+      "pending": "Pending",
+      "skillGap": "Skill Gap",
+      "certified": "Certified",
+      "skillGapPrediction": "AI Skill Gap Prediction",
+      "trainingROIEstimator": "AI Training ROI Estimator"
+    },
+    "calendar": {
+      "april2025": "April 2025",
+      "today": "Today",
+      "upcoming": "Upcoming",
+      "pending": "Pending",
+      "completed": "Completed",
+      "smartRescheduling": "AI Smart Rescheduling",
+      "remindersNudges": "AI Reminders & Nudges"
+    },
+    "courseLibrary": {
+      "course": "Course",
+      "type": "Type",
+      "completed": "Completed",
+      "link": "Link",
+      "view": "View",
+      "internal": "Internal",
+      "external": "External",
+      "adaptiveLearningPath": "AI Adaptive Learning Path",
+      "autoGeneratedTest": "AI Auto-Generated Test"
+    },
+    "skillProfiles": {
+      "name": "Name",
+      "skills": "Skills",
+      "completed": "Completed",
+      "pending": "Pending",
+      "goals": "Goals",
+      "feedback": "Feedback",
+      "skillScore": "Skill Score",
+      "promotionReady": "Promotion Ready",
+      "yes": "Yes",
+      "no": "No",
+      "skillScoreIndex": "AI Skill Score Index",
+      "promotionReadiness": "AI Promotion Readiness"
+    },
+    "trainingRequests": {
+      "name": "Name",
+      "request": "Request",
+      "type": "Type",
+      "status": "Status",
+      "cost": "Cost ($)",
+      "costImpactAnalyzer": "AI Cost-Impact Analyzer"
+    },
+    "knowledgeManagement": {
+      "title": "Title",
+      "type": "Type",
+      "tags": "Tags",
+      "aiPoweredSearch": "AI-Powered Search",
+      "autoTagging": "AI Auto-Tagging"
+    },
+    "peerLearning": {
+      "mentor": "Mentor",
+      "mentee": "Mentee",
+      "topic": "Topic",
+      "status": "Status",
+      "mentorshipMatchmaking": "AI Mentorship Matchmaking"
+    },
+    "reportsInsights": {
+      "week": "Week",
+      "completed": "Completed",
+      "participation": "Participation (%)",
+      "skillImprovement": "Skill Improvement",
+      "feedback": "Feedback",
+      "engagementAnalyzer": "AI Engagement Analyzer",
+      "teamHeatmaps": "AI Team Heatmap"
+    },
+    "aiAssistant": {
+      "recommendedCourses": "Recommended Courses",
+      "learningPathSuggestions": "Learning Path Suggestions",
+      "advancedDigitalMarketing": "Advanced Digital Marketing Strategies",
+      "dataDrivenDecision": "Data-Driven Decision Making",
+      "leadershipMarketing": "Leadership in Marketing",
+      "customerRelationship": "Customer Relationship Management",
+      "marketingFundamentals": "Marketing Fundamentals",
+      "advancedAnalytics": "Advanced Analytics",
+      "strategicPlanning": "Strategic Planning"
+    },
+    "modal": {
+      "programDetails": "Program Details",
+      "type": "Type",
+      "duration": "Duration",
+      "instructor": "Instructor",
+      "participants": "Participants",
+      "courseModules": "Course Modules",
+      "progress": "Progress",
+      "complete": "Complete",
+      "updateProgram": "Update Program",
+      "viewParticipants": "View Participants",
+      "close": "Close"
+    },
+    "status": {
+      "active": "Active",
+      "upcoming": "Upcoming",
+      "completed": "Completed",
+      "pending": "Pending"
+    },
+    "demoData": {
+      "digitalMarketingFundamentals": "Digital Marketing Fundamentals",
+      "advancedLeadGeneration": "Advanced Lead Generation",
+      "campaignManagement": "Campaign Management",
+      "onlineCourse": "Online Course",
+      "workshop": "Workshop",
+      "certification": "Certification",
+      "introductionDigitalMarketing": "Introduction to Digital Marketing",
+      "socialMediaMarketing": "Social Media Marketing",
+      "contentMarketing": "Content Marketing",
+      "emailMarketing": "Email Marketing",
+      "analyticsReporting": "Analytics & Reporting",
+      "leadScoring": "Lead Scoring",
+      "crmManagement": "CRM Management",
+      "leadNurturing": "Lead Nurturing",
+      "conversionOptimization": "Conversion Optimization",
+      "campaignPlanning": "Campaign Planning",
+      "budgetManagement": "Budget Management",
+      "channelStrategy": "Channel Strategy",
+      "performanceAnalysis": "Performance Analysis",
+      "googleAdsBasics": "Google Ads Basics",
+      "crmLeadNurturing": "CRM Lead Nurturing",
+      "metaAdsCertification": "Meta Ads Certification",
+      "howToLaunchCampaign": "How to Launch a Campaign",
+      "marketingCalendarTemplate": "Marketing Calendar Template",
+      "failedLeadCampaignInsights": "Failed Lead Campaign Insights",
+      "sop": "SOP",
+      "toolkit": "Toolkit",
+      "report": "Report",
+      "campaign": "Campaign",
+      "template": "Template",
+      "calendar": "Calendar",
+      "leads": "Leads"
+    }
+  },
+  "leads": {
+    "title": "Leads",
+    "subtitle": "Manage the entire lead lifecycle with AI-powered insights.",
+    "importLeads": "Import Leads",
+    "exportLeads": "Export Leads",
+    "searchPlaceholder": "Search leads...",
+    "allStatus": "All Status",
+    "addLead": "Add Lead",
+    "export": "Export",
+    "selectedLeads": "{{count}} leads selected",
+    "assign": "Assign",
+    "changeStatus": "Change Status",
+    "delete": "Delete",
+    "table": {
+      "lead": "Lead",
+      "source": "Source",
+      "status": "Status",
+      "assignedTo": "Assigned To",
+      "lastContact": "Last Contact",
+      "actions": "Actions"
+    },
+    "status": {
+      "new": "New",
+      "opportunities": "Opportunities",
+      "interview schedule": "Interview Schedule",
+      "approved": "Approved",
+      "accounts": "Accounts",
+      "inactive": "Inactive"
+    },
+    "actions": {
+      "sendEmail": "Send Email",
+      "sendSMS": "Send SMS",
+      "viewDetails": "View Details",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "pagination": {
+      "showing": "Showing {{start}} to {{end}} of {{total}} leads",
+      "previous": "Previous",
+      "next": "Next",
+      "page": "Page {{current}} of {{total}}"
+    },
+    "exportFields": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "source": "Source",
+      "status": "Status",
+      "assignedTo": "Assigned To",
+      "lastContact": "Last Contact",
+      "notes": "Notes"
+    },
+    "modals": {
+      "import": {
+        "title": "Import Leads",
+        "selectFile": "Select CSV or XLSX file",
+        "acceptedColumns": "Accepted columns:",
+        "downloadTemplate": "Download a",
+        "sampleTemplate": "sample template",
+        "import": "Import",
+        "error": "Import failed:",
+        "noValidLeads": "No valid leads found in the file. Ensure Name, Email, and Phone are present.",
+        "unsupportedFile": "Unsupported file type. Please upload a CSV or XLSX file.",
+        "selectFileToImport": "Please select a file to import."
+      },
+      "export": {
+        "title": "Export Leads",
+        "exportFormat": "Export Format",
+        "fieldsToExport": "Fields to Export",
+        "export": "Export"
+      },
+      "addEdit": {
+        "addTitle": "Add Lead",
+        "editTitle": "Edit Lead",
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "source": "Source",
+        "status": "Status",
+        "assignedTo": "Assigned To",
+        "lastContact": "Last Contact",
+        "notes": "Notes",
+        "addLead": "Add Lead",
+        "updateLead": "Update Lead",
+        "cancel": "Cancel"
+      },
+      "analytics": {
+        "title": "Detailed Analytics",
+        "leadQualityDistribution": "Lead Quality Distribution",
+        "conversionFunnel": "Conversion Funnel",
+        "campaignPerformance": "Campaign Performance",
+        "counselorPerformance": "Counselor Performance"
+      }
+    },
+    "sections": {
+      "leadCaptureImport": {
+        "title": "Lead Capture & Import",
+        "aiQualityScoring": "AI Quality Scoring",
+        "date": "Date",
+        "source": "Source",
+        "count": "Count",
+        "quality": "Quality",
+        "status": "Status",
+        "quality": {
+          "high": "High",
+          "medium": "Medium",
+          "low": "Low"
+        },
+        "status": {
+          "completed": "Completed",
+          "pending": "Pending",
+          "failed": "Failed"
+        }
+      },
+      "leadSegmentation": {
+        "title": "Lead Segmentation & Filters",
+        "aiSegmentSuggestion": "AI Segment Suggestion",
+        "segmentName": "Segment Name",
+        "count": "Count",
+        "conversion": "Conversion",
+        "source": "Source",
+        "lastUpdated": "Last Updated"
+      },
+      "leadNurturing": {
+        "title": "Lead Nurturing & Workflow Automation",
+        "aiDripRecommendation": "AI Drip Recommendation",
+        "campaignName": "Campaign Name",
+        "status": "Status",
+        "leads": "Leads",
+        "openRate": "Open Rate",
+        "responseRate": "Response Rate",
+        "statusOptions": {
+          "active": "Active",
+          "scheduled": "Scheduled",
+          "draft": "Draft"
+        }
+      },
+      "communicationCenter": {
+        "title": "Communication Center",
+        "aiSentiment": "AI Sentiment",
+        "lead": "Lead",
+        "type": "Type",
+        "date": "Date",
+        "status": "Status",
+        "response": "Response",
+        "statusOptions": {
+          "completed": "Completed",
+          "sent": "Sent",
+          "delivered": "Delivered",
+          "opened": "Opened"
+        },
+        "responseOptions": {
+          "positive": "Positive",
+          "neutral": "Neutral",
+          "pending": "Pending"
+        }
+      },
+      "leadAssignment": {
+        "title": "Lead Assignment & Routing",
+        "aiRoutingEngine": "AI Routing Engine",
+        "counselor": "Counselor",
+        "assigned": "Assigned",
+        "converted": "Converted",
+        "conversionRate": "Conversion Rate",
+        "avgResponse": "Avg Response"
+      },
+      "leadScoring": {
+        "title": "Lead Scoring",
+        "aiDynamicScoring": "AI Dynamic Scoring",
+        "lead": "Lead",
+        "score": "Score",
+        "factors": "Factors",
+        "trend": "Trend",
+        "trendOptions": {
+          "up": "Up",
+          "down": "Down",
+          "stable": "Stable"
+        }
+      },
+      "analyticsInsights": {
+        "title": "Analytics & Insights",
+        "aiPredictions": "AI Predictions",
+        "viewDetailedAnalytics": "View Detailed Analytics",
+        "leadQualityDistribution": "Lead Quality Distribution",
+        "conversionFunnel": "Conversion Funnel",
+        "quality": {
+          "high": "High",
+          "medium": "Medium",
+          "low": "Low"
+        },
+        "metrics": {
+          "conversionrate": "Conversion Rate",
+          "responsetime": "Response Time",
+          "leadquality": "Lead Quality",
+          "dropoffrate": "Drop-off Rate"
+        },
+        "funnelStages": {
+          "new": "New",
+          "contacted": "Contacted",
+          "qualified": "Qualified",
+          "converted": "Converted"
+        }
+      },
+      "documentationTracking": {
+        "title": "Documentation & Application Tracking",
+        "lead": "Lead",
+        "documentType": "Document Type",
+        "status": "Status",
+        "date": "Date",
+        "statusOptions": {
+          "completed": "Completed",
+          "pending": "Pending",
+          "incomplete": "Incomplete"
+        }
+      },
+      "aiCopilotPanel": {
+        "title": "AI optimized decision panel",
+        "quickInsights": "Quick Insights",
+        "recommendedActions": "Recommended Actions",
+        "insights": {
+          "mbaLeads": "MBA leads showing 45% higher engagement",
+          "counselorsNeedFollowUp": "3 counselors need follow-up assistance",
+          "engineeringLeadsDropping": "Engineering program leads dropping off"
+        },
+        "actions": {
+          "scheduleFollowUp": "Schedule follow-up for 12 high-potential leads",
+          "adjustCampaignTargeting": "Adjust campaign targeting for Engineering program",
+          "reviewLeadScoring": "Review and update lead scoring criteria"
+        }
+      }
+    }
+  },
+  "campaigns": {
+    "title": "Campaign Management",
+    "subtitle": "Track and manage your marketing campaigns",
+    "createCampaign": "Create Campaign",
+    "exportReport": "Export Report",
+    "performance": {
+      "totalbudget": "Total Budget",
+      "totalspent": "Total Spent",
+      "totalleads": "Total Leads",
+      "totalconversions": "Total Conversions"
+    },
+    "channelPerformance": {
+      "title": "Channel Performance",
+      "budget": "Budget",
+      "spent": "Spent",
+      "leads": "Leads",
+      "conversions": "Conversions"
+    },
+    "allCampaigns": {
+      "title": "All Campaigns",
+      "allCampaigns": "All Campaigns",
+      "active": "Active",
+      "planning": "Planning",
+      "completed": "Completed",
+      "campaign": "Campaign",
+      "type": "Type",
+      "status": "Status",
+      "budget": "Budget",
+      "performance": "Performance",
+      "actions": "Actions",
+      "leads": "leads",
+      "conversions": "conversions",
+      "viewDetails": "View Details"
+    },
+    "status": {
+      "active": "Active",
+      "planning": "Planning",
+      "completed": "Completed"
+    },
+    "modal": {
+      "campaignDetails": "Campaign Details",
+      "type": "Type",
+      "duration": "Duration",
+      "budget": "Budget",
+      "spent": "Spent",
+      "channels": "Channels",
+      "teamMembers": "Team Members",
+      "performance": "Performance",
+      "leadsGenerated": "Leads Generated",
+      "conversions": "Conversions",
+      "updateCampaign": "Update Campaign",
+      "viewAnalytics": "View Analytics"
+    },
+    "createModal": {
+      "title": "Create New Campaign",
+      "campaignName": "Campaign Name",
+      "campaignNamePlaceholder": "e.g. Summer Enrollment Drive",
+      "type": "Type",
+      "typePlaceholder": "e.g. Digital, Social, Multi-channel",
+      "status": "Status",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "budget": "Budget ($)",
+      "budgetPlaceholder": "e.g. 50000",
+      "expectedResults": "Expected Results / ROI",
+      "expectedResultsPlaceholder": "e.g. 5x ROI, 1000 leads, 200 conversions",
+      "hardBenefits": "Hard Benefits",
+      "tangibleMeasurable": "Tangible, measurable",
+      "hardBenefitsPlaceholder": "e.g. Increased revenue, more enrollments, cost savings",
+      "softBenefits": "Soft Benefits",
+      "intangibleQualitative": "Intangible, qualitative",
+      "softBenefitsPlaceholder": "e.g. Brand awareness, team morale, market reputation",
+      "cancel": "Cancel",
+      "createCampaign": "Create Campaign"
+    }
+  },
+  "resources": {
+    "title": "Resource Management",
+    "subtitle": "Complete visibility and control over your marketing resources with AI-powered insights.",
+    "sections": {
+      "teamAllocation": "Team Allocation",
+      "eventMonitoring": "Event Monitoring",
+      "budgetCostAllocation": "Budget & Cost Allocation",
+      "toolSoftwareManagement": "Tool & Software Management",
+      "assetContentRepository": "Asset & Content Repository",
+      "vendorPartnerManagement": "Vendor & Partner Management",
+      "resourceUtilizationDashboard": "Resource Utilization Dashboard",
+      "approvalWorkflow": "Approval Workflow",
+      "academicCompliance": "Academic Compliance",
+      "aiFeatures": "AI Features in Resource Management"
+    },
+    "aiFeatures": {
+      "aiForecasting": "AI Forecasting",
+      "underutilizationAlerts": "Underutilization Alerts",
+      "aiDelayRisk": "AI Delay Risk",
+      "timeOptimization": "Time Optimization",
+      "aiRoiPredictor": "AI ROI Predictor",
+      "budgetDriftAlert": "Budget Drift Alert",
+      "aiUsageInsights": "AI Usage Insights",
+      "aiContentScoring": "AI Content Scoring",
+      "smartSuggestions": "Smart Suggestions",
+      "aiVendorAnalytics": "AI Vendor Analytics",
+      "aiWeeklyReport": "AI Weekly Report",
+      "anomalyDetection": "Anomaly Detection"
+    },
+    "teamAllocation": {
+      "name": "Name",
+      "role": "Role",
+      "assigned": "Assigned",
+      "geo": "Geo",
+      "workload": "Workload",
+      "aiAlert": "AI Alert",
+      "idle": "Idle",
+      "overbooked": "Overbooked"
+    },
+    "eventMonitoring": {
+      "campaign": "Campaign",
+      "start": "Start",
+      "end": "End",
+      "status": "Status",
+      "tasks": "Tasks",
+      "completed": "Completed",
+      "aiAlert": "AI Alert",
+      "delayRisk": "Delay Risk"
+    },
+    "budgetCostAllocation": {
+      "campaign": "Campaign",
+      "planned": "Planned",
+      "spent": "Spent",
+      "roi": "ROI",
+      "aiAlert": "AI Alert",
+      "overBudget": "Over Budget",
+      "highRoi": "High ROI"
+    },
+    "toolSoftwareManagement": {
+      "tool": "Tool",
+      "type": "Type",
+      "users": "Users",
+      "renewal": "Renewal",
+      "yearlySubscription": "Yearly Subscription",
+      "usage": "Usage",
+      "aiAlert": "AI Alert",
+      "underused": "Underused"
+    },
+    "assetContentRepository": {
+      "asset": "Asset",
+      "type": "Type",
+      "version": "Version",
+      "downloads": "Downloads",
+      "lastUsed": "Last Used",
+      "aiTag": "AI Tag",
+      "topPerformer": "Top Performer"
+    },
+    "vendorPartnerManagement": {
+      "vendor": "Vendor",
+      "type": "Type",
+      "rating": "Rating",
+      "contracts": "Contracts",
+      "lastInvoice": "Last Invoice",
+      "aiTag": "AI Tag",
+      "topVendor": "Top Vendor"
+    },
+    "resourceUtilizationDashboard": {
+      "teamUsageHeatmap": "Team Usage Heatmap",
+      "budgetConsumption": "Budget Consumption",
+      "assetDownloadFrequency": "Asset Download Frequency",
+      "toolCostVsUsage": "Tool Cost vs. Usage",
+      "used": "used"
+    },
+    "approvalWorkflow": {
+      "type": "Type",
+      "item": "Item",
+      "status": "Status",
+      "approver": "Approver"
+    },
+    "academicCompliance": {
+      "name": "Name",
+      "compliance": "Compliance",
+      "status": "Status",
+      "date": "Date"
+    },
+    "aiFeaturesList": {
+      "aiFeature": "AI Feature",
+      "description": "Description",
+      "forecastResourceDemand": "📊 Forecast Resource Demand",
+      "forecastResourceDemandDesc": "Predict team/resource needs based on upcoming campaigns",
+      "budgetDriftDetection": "📉 Budget Drift Detection",
+      "budgetDriftDetectionDesc": "Identify overspending trends early",
+      "smartContentSuggestions": "🧠 Smart Content Suggestions",
+      "smartContentSuggestionsDesc": "Suggest content for new campaigns based on prior performance",
+      "underOverutilizationAlerts": "🔔 Under/Overutilization Alerts",
+      "underOverutilizationAlertsDesc": "Notify about underused or overwhelmed staff",
+      "roiPredictor": "📈 ROI Predictor",
+      "roiPredictorDesc": "Predict ROI from planned resource allocation",
+      "toolOptimizationSuggestions": "🛠 Tool Optimization Suggestions",
+      "toolOptimizationSuggestionsDesc": "Recommend cost-saving on SaaS subscriptions"
+    }
+  },
+  "team": {
+    "title": "Manage Team",
+    "subtitle": "Track, assign, guide, and improve your marketing team with smart tools and AI insights.",
+    "addTeamMember": "Add Team Member",
+    "exportReport": "Export Report",
+    "sections": {
+      "teamStructure": {
+        "title": "Team Structure & Hierarchy",
+        "aiSuggestion": "AI Suggestion",
+        "byRole": "By Role",
+        "reportingHierarchy": "Reporting Hierarchy",
+        "aiWorkloadSuggestion": "AI: Suggests moving Noura Al-Zahra to Digital for better workload balance"
+      },
+      "roleAccess": {
+        "title": "Role-based Access & Permissions",
+        "member": "Member",
+        "role": "Role",
+        "permissions": "Permissions",
+        "actions": "Actions",
+        "edit": "Edit",
+        "aiPermissionSuggestion": "AI: Suggests permission template for new role"
+      },
+      "taskAssignment": {
+        "title": "Task Assignment & Tracking",
+        "aiSmartAssignment": "AI Smart Assignment",
+        "task": "Task",
+        "assignedTo": "Assigned To",
+        "status": "Status",
+        "progress": "Progress",
+        "deadline": "Deadline",
+        "aiAssignmentSuggestion": "AI: Assigns \"Write Blog Series\" to Noura Al-Zahra based on skill and availability"
+      },
+      "performanceDashboard": {
+        "title": "Performance Dashboard",
+        "aiLeaderboard": "AI Leaderboard",
+        "kpis": "KPIs",
+        "leaderboard": "Leaderboard",
+        "score": "Score",
+        "aiBurnoutPrediction": "AI: Predicts Khalid Al-Sayed at risk of burnout"
+      },
+      "trainingDevelopment": {
+        "title": "Training & Development Tracker",
+        "aiRecommendations": "AI Recommendations",
+        "certified": "Certified",
+        "inProgress": "In Progress",
+        "aiTrainingRecommendation": "AI: Recommends \"Social Media Analytics\" for Khalid Al-Sayed"
+      },
+      "communicationCenter": {
+        "title": "Communication Center",
+        "aiSummary": "AI Summary",
+        "announcement": "Announcement",
+        "reminder": "Reminder",
+        "brief": "Brief",
+        "aiTopUpdates": "AI: Top 3 updates for Abdullah Al-Rashid: Campaign Launch, Report Reminder, SOP Upload"
+      },
+      "issueEscalation": {
+        "title": "Issue Escalation Panel",
+        "aiPrioritization": "AI Prioritization",
+        "pending": "Pending",
+        "resolved": "Resolved",
+        "aiUrgentIssue": "AI: Prioritizes Khalid Al-Sayed's issue as urgent"
+      },
+      "attendanceAvailability": {
+        "title": "Attendance & Availability",
+        "aiForecast": "AI Forecast",
+        "present": "Present",
+        "onLeave": "On Leave",
+        "aiResourceGap": "AI: Predicts resource gap on July 8-10"
+      },
+      "goalPlanning": {
+        "title": "Goal Planning & Reviews",
+        "aiGoalSetting": "AI Goal Setting",
+        "julyGoal": "July Goal",
+        "aiGoalSuggestion": "AI: Suggests higher goal for Abdullah Al-Rashid based on past performance"
+      }
+    },
+    "modal": {
+      "contactInformation": "Contact Information",
+      "skills": "Skills",
+      "currentProjects": "Current Projects"
+    },
+    "status": {
+      "active": "Active",
+      "onLeave": "On Leave",
+      "inProgress": "In Progress",
+      "pending": "Pending",
+      "completed": "Completed"
+    }
+  }
+} 

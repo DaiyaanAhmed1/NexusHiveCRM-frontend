@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 // Demo data for support tickets
 const supportTickets = [
@@ -74,14 +75,14 @@ const CATEGORY_OPTIONS = [
   { value: "ERP", label: "ERP / CRM" },
 ];
 const SUBCATEGORY_MAP = {
-  IT: ["Internet not working", "System issue", "Email issue", "Printer issue"],
-  Electrical: ["Power outage", "Lights not working", "AC not working"],
-  Furniture: ["Chair broken", "Table replacement", "Whiteboard issue"],
-  Housekeeping: ["Cleaning required", "Sanitization", "Garbage pickup"],
-  Transport: ["Bus delay", "Route change", "Driver issue"],
-  Hostel: ["Room issue", "Water supply", "Maintenance"],
-  Examination: ["Portal access", "Result issue", "Exam schedule"],
-  ERP: ["Login issue", "Data error", "Feature request"],
+  IT: ["internetNotWorking", "systemIssue", "emailIssue", "printerIssue"],
+  Electrical: ["powerOutage", "lightsNotWorking", "acNotWorking"],
+  Furniture: ["chairBroken", "tableReplacement", "whiteboardIssue"],
+  Housekeeping: ["cleaningRequired", "sanitization", "garbagePickup"],
+  Transport: ["busDelay", "routeChange", "driverIssue"],
+  Hostel: ["roomIssue", "waterSupply", "maintenance"],
+  Examination: ["portalAccess", "resultIssue", "examSchedule"],
+  ERP: ["loginIssue", "dataError", "featureRequest"],
 };
 const PRIORITY_OPTIONS = ["Low", "Medium", "High", "Urgent"];
 
@@ -97,7 +98,7 @@ const DEMO_TICKETS = [
     id: "TCK-1001",
     subject: "WiFi not working on 2nd floor, Main Campus",
     category: "IT",
-    subcategory: "Internet not working",
+    subcategory: "internetNotWorking",
     location: "Main Campus - 2nd Floor",
     priority: "High",
     description: "No internet connectivity in the Computer Science lab.",
@@ -115,7 +116,7 @@ const DEMO_TICKETS = [
     id: "TCK-1002",
     subject: "AC not working in classroom A302",
     category: "Electrical",
-    subcategory: "AC not working",
+    subcategory: "acNotWorking",
     location: "Classroom A302",
     priority: "Medium",
     description: "AC is not cooling properly.",
@@ -129,6 +130,14 @@ const DEMO_TICKETS = [
 ];
 
 export default function MarketingHeadSupport() {
+  const { t, ready, i18n } = useTranslation('marketing');
+  const [languageVersion, setLanguageVersion] = useState(0);
+  
+  // Force re-render when language changes
+  useEffect(() => {
+    setLanguageVersion(prev => prev + 1);
+  }, [i18n.language]);
+
   const user = JSON.parse(localStorage.getItem('rbac_current_user'));
   const [expanded, setExpanded] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
@@ -149,6 +158,11 @@ export default function MarketingHeadSupport() {
   const [feedback, setFeedback] = useState("");
   const [showNewTicketModal, setShowNewTicketModal] = useState(false);
 
+  // Show loading state while translations are loading
+  if (!ready) {
+    return <div className="flex items-center justify-center min-h-screen">{t('support.messages.loading')}</div>;
+  }
+
   const handleTicketClick = (ticket) => {
     setSelectedTicket(ticket);
     setShowModal(true);
@@ -163,7 +177,7 @@ export default function MarketingHeadSupport() {
           <button
             onClick={onClose}
             className="absolute top-2 right-4 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-3xl font-bold"
-            aria-label="Close"
+            aria-label={t('support.modal.close')}
           >
             &times;
           </button>
@@ -175,50 +189,50 @@ export default function MarketingHeadSupport() {
                 ticket.priority === 'Medium' ? 'bg-yellow-100 text-yellow-700' :
                 'bg-green-100 text-green-700'
               }`}>
-                {ticket.priority}
+                {t(`support.tickets.priority.${ticket.priority.toLowerCase()}`)}
               </span>
               <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                 ticket.status === 'Open' ? 'bg-blue-100 text-blue-700' :
                 ticket.status === 'In Progress' ? 'bg-yellow-100 text-yellow-700' :
                 'bg-green-100 text-green-700'
               }`}>
-                {ticket.status}
+                {t(`support.tickets.status.${ticket.status.toLowerCase().replace(' ', '')}`)}
               </span>
             </div>
           </div>
           <div className="space-y-4">
             <div>
-              <h3 className="font-semibold mb-2">Ticket Details</h3>
+              <h3 className="font-semibold mb-2">{t('support.modal.ticketDetails')}</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-500">Category</p>
+                  <p className="text-sm text-gray-500">{t('support.tickets.table.category')}</p>
                   <p className="font-medium">{ticket.category} / {ticket.subcategory}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Location</p>
+                  <p className="text-sm text-gray-500">{t('support.form.location')}</p>
                   <p className="font-medium">{ticket.location}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Assigned To</p>
+                  <p className="text-sm text-gray-500">{t('support.tickets.table.assignedTo')}</p>
                   <p className="font-medium">{ticket.assignedTo}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Created At</p>
+                  <p className="text-sm text-gray-500">{t('support.messages.created')}</p>
                   <p className="font-medium">{ticket.submittedOn}</p>
                 </div>
               </div>
             </div>
             <div>
-              <h3 className="font-semibold mb-2">Description</h3>
+              <h3 className="font-semibold mb-2">{t('support.form.description')}</h3>
               <p className="text-gray-700 dark:text-gray-300">{ticket.description}</p>
             </div>
           </div>
           <div className="mt-6 flex gap-3">
             <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-              Update Status
+              {t('support.modal.updateStatus')}
             </button>
             <button className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600">
-              Add Comment
+              {t('support.modal.addComment')}
             </button>
           </div>
         </div>
@@ -247,7 +261,7 @@ export default function MarketingHeadSupport() {
     setTickets([newTicket, ...tickets]);
     // Reset form
     setCategory(""); setSubcategory(""); setLocation(""); setPriority(""); setDescription(""); setAttachment(null);
-    alert("Ticket submitted successfully!");
+    alert(t('support.messages.ticketSubmitted'));
   };
 
   function getAssignedDept(cat) {
@@ -279,19 +293,19 @@ export default function MarketingHeadSupport() {
   };
 
   return (
-    <div className="flex flex-col gap-8">
+    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-8">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">🆘 Help & Support</h1>
-          <p className="text-sm text-gray-600 dark:text-gray-300">Raise issues, track resolutions, and communicate with support teams across departments.</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('support.title')}</h1>
+          <p className="text-sm text-gray-600 dark:text-gray-300">{t('support.subtitle')}</p>
         </div>
         <div className="flex gap-3">
           <button className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700" onClick={() => setShowNewTicketModal(true)}>
-            New Ticket
+            {t('support.buttons.newTicket')}
           </button>
           <button className="px-4 py-2 text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600">
-            Contact Support
+            {t('support.buttons.contactSupport')}
           </button>
         </div>
       </div>
@@ -306,7 +320,7 @@ export default function MarketingHeadSupport() {
           }`}
           onClick={() => setActiveTab('tickets')}
         >
-          Support Tickets
+          {t('support.tabs.tickets')}
         </button>
         <button
           className={`pb-2 px-1 ${
@@ -316,7 +330,7 @@ export default function MarketingHeadSupport() {
           }`}
           onClick={() => setActiveTab('knowledge')}
         >
-          Knowledge Base
+          {t('support.tabs.knowledge')}
         </button>
       </div>
 
@@ -324,18 +338,18 @@ export default function MarketingHeadSupport() {
       {activeTab === 'tickets' ? (
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
           <div className="p-6">
-            <h2 className="text-lg font-semibold mb-4">Support Tickets</h2>
+            <h2 className="text-lg font-semibold mb-4">{t('support.tickets.title')}</h2>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr className="text-left border-b dark:border-gray-700">
-                    <th className="pb-3 font-medium">Title</th>
-                    <th className="pb-3 font-medium">Category</th>
-                    <th className="pb-3 font-medium">Priority</th>
-                    <th className="pb-3 font-medium">Status</th>
-                    <th className="pb-3 font-medium">Assigned To</th>
-                    <th className="pb-3 font-medium">Last Updated</th>
-                    <th className="pb-3 font-medium">Actions</th>
+                    <th className="pb-3 font-medium">{t('support.tickets.table.title')}</th>
+                    <th className="pb-3 font-medium">{t('support.tickets.table.category')}</th>
+                    <th className="pb-3 font-medium">{t('support.tickets.table.priority')}</th>
+                    <th className="pb-3 font-medium">{t('support.tickets.table.status')}</th>
+                    <th className="pb-3 font-medium">{t('support.tickets.table.assignedTo')}</th>
+                    <th className="pb-3 font-medium">{t('support.tickets.table.lastUpdated')}</th>
+                    <th className="pb-3 font-medium">{t('support.tickets.table.actions')}</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -345,18 +359,18 @@ export default function MarketingHeadSupport() {
                         <div>
                           <p className="font-medium">{ticket.subject}</p>
                           <p className="text-sm text-gray-500">
-                            Created: {ticket.submittedOn}
+                            {t('support.messages.created')}: {ticket.submittedOn}
                           </p>
                         </div>
                       </td>
-                      <td className="py-4">{ticket.category} / {ticket.subcategory}</td>
+                      <td className="py-4">{t(`support.categories.${ticket.category}`)} / {t(`support.subcategories.${ticket.subcategory}`)}</td>
                       <td className="py-4">
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                           ticket.priority === 'High' ? 'bg-red-100 text-red-700' :
                           ticket.priority === 'Medium' ? 'bg-yellow-100 text-yellow-700' :
                           'bg-green-100 text-green-700'
                         }`}>
-                          {ticket.priority}
+                          {t(`support.tickets.priority.${ticket.priority.toLowerCase()}`)}
                         </span>
                       </td>
                       <td className="py-4">
@@ -365,7 +379,7 @@ export default function MarketingHeadSupport() {
                           ticket.status === 'In Progress' ? 'bg-yellow-100 text-yellow-700' :
                           'bg-green-100 text-green-700'
                         }`}>
-                          {ticket.status}
+                          {t(`support.tickets.status.${ticket.status.toLowerCase().replace(' ', '')}`)}
                         </span>
                       </td>
                       <td className="py-4">{ticket.assignedTo}</td>
@@ -375,7 +389,7 @@ export default function MarketingHeadSupport() {
                           onClick={() => openModal(ticket)}
                           className="text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
                         >
-                          View Details
+                          {t('support.tickets.actions.viewDetails')}
                         </button>
                       </td>
                     </tr>
@@ -388,7 +402,7 @@ export default function MarketingHeadSupport() {
       ) : (
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
           <div className="p-6">
-            <h2 className="text-lg font-semibold mb-4">Knowledge Base</h2>
+            <h2 className="text-lg font-semibold mb-4">{t('support.knowledge.title')}</h2>
             <div className="grid gap-4">
               {knowledgeBaseArticles.map((article) => (
                 <div
@@ -399,15 +413,15 @@ export default function MarketingHeadSupport() {
                     <div>
                       <h3 className="font-medium">{article.title}</h3>
                       <p className="text-sm text-gray-500 mt-1">
-                        Category: {article.category}
+                        {t('support.knowledge.category')}: {article.category}
                       </p>
                     </div>
                     <div className="text-right">
                       <p className="text-sm text-gray-500">
-                        {article.views} views
+                        {article.views} {t('support.knowledge.views')}
                       </p>
                       <p className="text-sm text-gray-500">
-                        Updated: {article.lastUpdated}
+                        {t('support.knowledge.updated')}: {article.lastUpdated}
                       </p>
                     </div>
                   </div>
@@ -422,21 +436,21 @@ export default function MarketingHeadSupport() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
           <div className="absolute inset-0" onClick={closeModal} />
           <div className="relative z-10 bg-white dark:bg-gray-800 rounded-xl p-6 max-w-lg w-full mx-4">
-            <button onClick={closeModal} className="absolute top-2 right-4 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-3xl font-bold" aria-label="Close">&times;</button>
-            <h2 className="text-xl font-bold mb-2">Ticket Details</h2>
+            <button onClick={closeModal} className="absolute top-2 right-4 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-3xl font-bold" aria-label={t('support.modal.close')}>&times;</button>
+            <h2 className="text-xl font-bold mb-2">{t('support.modal.ticketDetails')}</h2>
             <div className="mb-2 text-xs text-gray-500">ID: {selectedTicket.id}</div>
-            <div className="mb-2"><b>Subject:</b> {selectedTicket.subject}</div>
-            <div className="mb-2"><b>Category:</b> {selectedTicket.category} / {selectedTicket.subcategory}</div>
-            <div className="mb-2"><b>Location:</b> {selectedTicket.location}</div>
-            <div className="mb-2"><b>Priority:</b> {selectedTicket.priority}</div>
-            <div className="mb-2"><b>Status:</b> {selectedTicket.status}</div>
-            <div className="mb-2"><b>Assigned To:</b> {selectedTicket.assignedTo}</div>
-            <div className="mb-2"><b>Description:</b> {selectedTicket.description}</div>
-            <div className="mb-2"><b>Submitted On:</b> {selectedTicket.submittedOn}</div>
-            <div className="mb-2"><b>Expected Resolution:</b> {selectedTicket.expectedResolution}</div>
+            <div className="mb-2"><b>{t('support.modal.subject')}:</b> {selectedTicket.subject}</div>
+            <div className="mb-2"><b>{t('support.tickets.table.category')}:</b> {t(`support.categories.${selectedTicket.category}`)} / {t(`support.subcategories.${selectedTicket.subcategory}`)}</div>
+            <div className="mb-2"><b>{t('support.form.location')}:</b> {selectedTicket.location}</div>
+            <div className="mb-2"><b>{t('support.tickets.table.priority')}:</b> {selectedTicket.priority}</div>
+            <div className="mb-2"><b>{t('support.tickets.table.status')}:</b> {selectedTicket.status}</div>
+            <div className="mb-2"><b>{t('support.tickets.table.assignedTo')}:</b> {selectedTicket.assignedTo}</div>
+            <div className="mb-2"><b>{t('support.form.description')}:</b> {selectedTicket.description}</div>
+            <div className="mb-2"><b>{t('support.messages.created')}:</b> {selectedTicket.submittedOn}</div>
+            <div className="mb-2"><b>{t('support.modal.expectedResolution')}:</b> {selectedTicket.expectedResolution}</div>
             {/* Comments */}
             <div className="mt-4">
-              <h3 className="font-semibold mb-2">Comments</h3>
+              <h3 className="font-semibold mb-2">{t('support.modal.comments')}</h3>
               <div className="space-y-2 max-h-32 overflow-y-auto">
                 {selectedTicket.comments.map((c, i) => (
                   <div key={i} className="bg-gray-100 dark:bg-gray-700 rounded p-2 text-xs">
@@ -445,19 +459,19 @@ export default function MarketingHeadSupport() {
                 ))}
               </div>
               <div className="flex gap-2 mt-2">
-                <input className="flex-1 rounded border px-2 py-1 text-xs" value={comment} onChange={e => setComment(e.target.value)} placeholder="Add a comment..." />
-                <button className="px-3 py-1 bg-blue-600 text-white rounded text-xs" onClick={handleAddComment}>Send</button>
+                <input className="flex-1 rounded border px-2 py-1 text-xs" value={comment} onChange={e => setComment(e.target.value)} placeholder={t('support.form.addComment')} />
+                <button className="px-3 py-1 bg-blue-600 text-white rounded text-xs" onClick={handleAddComment}>{t('support.modal.send')}</button>
               </div>
             </div>
             {/* Feedback/Close */}
             {selectedTicket.status !== "Resolved" ? (
               <div className="mt-4 flex justify-end">
-                <button className="px-4 py-2 bg-green-600 text-white rounded-lg" onClick={handleCloseTicket}>Close & Rate</button>
+                <button className="px-4 py-2 bg-green-600 text-white rounded-lg" onClick={handleCloseTicket}>{t('support.modal.closeAndRate')}</button>
               </div>
             ) : (
               <div className="mt-4">
-                <label className="block text-sm font-medium mb-1">Feedback / Rating</label>
-                <textarea className="w-full rounded border px-3 py-2" value={feedback} onChange={e => setFeedback(e.target.value)} rows={2} placeholder="How was your support experience?" />
+                <label className="block text-sm font-medium mb-1">{t('support.form.feedback')}</label>
+                <textarea className="w-full rounded border px-3 py-2" value={feedback} onChange={e => setFeedback(e.target.value)} rows={2} placeholder={t('support.form.feedbackPlaceholder')} />
               </div>
             )}
           </div>
@@ -468,47 +482,47 @@ export default function MarketingHeadSupport() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
           <div className="absolute inset-0" onClick={() => setShowNewTicketModal(false)} />
           <div className="relative z-10 bg-white dark:bg-gray-800 rounded-xl p-6 max-w-lg w-full mx-4">
-            <button onClick={() => setShowNewTicketModal(false)} className="absolute top-2 right-4 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-3xl font-bold" aria-label="Close">&times;</button>
-            <h2 className="text-xl font-bold mb-4">Create New Ticket</h2>
+            <button onClick={() => setShowNewTicketModal(false)} className="absolute top-2 right-4 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-3xl font-bold" aria-label={t('support.modal.close')}>&times;</button>
+            <h2 className="text-xl font-bold mb-4">{t('support.modal.createNewTicket')}</h2>
             <form onSubmit={e => { handleSubmit(e); setShowNewTicketModal(false); }} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-1">Category</label>
+                <label className="block text-sm font-medium mb-1">{t('support.form.category')}</label>
                 <select className="w-full rounded border px-3 py-2" value={category} onChange={e => { setCategory(e.target.value); setSubcategory(""); }} required>
-                  <option value="">Select Category</option>
-                  {CATEGORY_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+                  <option value="">{t('support.form.selectCategory')}</option>
+                  {CATEGORY_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{t(`support.categories.${opt.value}`)}</option>)}
                 </select>
               </div>
               {category && (
                 <div>
-                  <label className="block text-sm font-medium mb-1">Subcategory</label>
+                  <label className="block text-sm font-medium mb-1">{t('support.form.subcategory')}</label>
                   <select className="w-full rounded border px-3 py-2" value={subcategory} onChange={e => setSubcategory(e.target.value)} required>
-                    <option value="">Select Subcategory</option>
-                    {SUBCATEGORY_MAP[category].map(sub => <option key={sub} value={sub}>{sub}</option>)}
+                    <option value="">{t('support.form.selectSubcategory')}</option>
+                    {SUBCATEGORY_MAP[category].map(sub => <option key={sub} value={sub}>{t(`support.subcategories.${sub}`)}</option>)}
                   </select>
                 </div>
               )}
               <div>
-                <label className="block text-sm font-medium mb-1">Location</label>
+                <label className="block text-sm font-medium mb-1">{t('support.form.location')}</label>
                 <input className="w-full rounded border px-3 py-2" value={location} onChange={e => setLocation(e.target.value)} required />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Priority</label>
+                <label className="block text-sm font-medium mb-1">{t('support.form.priority')}</label>
                 <select className="w-full rounded border px-3 py-2" value={priority} onChange={e => setPriority(e.target.value)} required>
-                  <option value="">Select Priority</option>
-                  {PRIORITY_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
+                  <option value="">{t('support.form.selectPriority')}</option>
+                  {PRIORITY_OPTIONS.map(opt => <option key={opt} value={opt}>{t(`support.tickets.priority.${opt.toLowerCase()}`)}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Description</label>
+                <label className="block text-sm font-medium mb-1">{t('support.form.description')}</label>
                 <textarea className="w-full rounded border px-3 py-2" value={description} onChange={e => setDescription(e.target.value)} rows={3} required />
               </div>
               <div>
-                <label className="block text-sm font-medium mb-1">Attachment (optional)</label>
+                <label className="block text-sm font-medium mb-1">{t('support.form.attachment')}</label>
                 <input type="file" className="w-full" onChange={e => setAttachment(e.target.files[0])} />
               </div>
               <div className="flex justify-end gap-2 mt-4">
-                <button type="button" className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600" onClick={() => setShowNewTicketModal(false)}>Cancel</button>
-                <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Submit Ticket</button>
+                <button type="button" className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600" onClick={() => setShowNewTicketModal(false)}>{t('support.modal.cancel')}</button>
+                <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">{t('support.modal.submitTicket')}</button>
               </div>
             </form>
           </div>

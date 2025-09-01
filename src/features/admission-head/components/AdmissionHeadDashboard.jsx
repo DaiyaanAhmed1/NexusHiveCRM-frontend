@@ -122,9 +122,9 @@ export default function AdmissionHeadDashboard() {
             value={timeRange}
             onChange={(e) => setTimeRange(e.target.value)}
           >
-            <option value="current">Current Cycle</option>
-            <option value="last">Last Cycle</option>
-            <option value="yoy">Year over Year</option>
+            <option value="current" className="text-gray-700 dark:text-gray-200">Current Cycle</option>
+            <option value="last" className="text-gray-700 dark:text-gray-200">Last Cycle</option>
+            <option value="yoy" className="text-gray-700 dark:text-gray-200">Year over Year</option>
           </select>
           <button className="flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700">
             <FiDownload className="text-gray-500" />
@@ -135,13 +135,13 @@ export default function AdmissionHeadDashboard() {
 
       {/* Admission Funnel */}
       <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-2">
-            <FiBarChart2 className="text-blue-500" />
-            <h2 className="text-lg font-semibold">Admission Funnel Overview</h2>
+                  <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-2">
+              <FiBarChart2 className="text-blue-500" />
+              <h2 className="text-lg font-semibold">Admission Funnel Overview</h2>
+            </div>
+            <span className="text-sm text-gray-500 dark:text-gray-400">YoY Comparison</span>
           </div>
-          <span className="text-sm text-gray-500 dark:text-gray-400">YoY Comparison</span>
-        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-4">
           {admissionFunnel.map((stage, index) => (
             <motion.div
@@ -333,13 +333,13 @@ export default function AdmissionHeadDashboard() {
 
       {/* AI Insights Panel */}
       <section className="bg-gradient-to-r from-purple-50/60 to-blue-50/40 dark:from-gray-900 dark:to-gray-800 rounded-xl shadow p-6">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-2">
-            <FiBook className="text-purple-500" />
-            <h2 className="text-lg font-semibold">AI-Powered Insights</h2>
+                  <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-2">
+              <FiBook className="text-purple-500" />
+              <h2 className="text-lg font-semibold">AI-Powered Insights</h2>
+            </div>
+            <span className="text-sm text-gray-500 dark:text-gray-400">Updated Daily</span>
           </div>
-          <span className="text-sm text-gray-500 dark:text-gray-400">Updated Daily</span>
-        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="p-4 bg-white/50 dark:bg-gray-800/50 rounded-lg backdrop-blur-sm">
             <h3 className="font-medium text-gray-900 dark:text-white mb-2">Enrollment Forecast</h3>

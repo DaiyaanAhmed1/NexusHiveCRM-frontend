@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { FiBarChart2, FiUsers, FiBookOpen, FiCalendar, FiCheckCircle, FiZap, FiFileText, FiUser, FiSearch, FiDownload, FiPlus, FiEdit2, FiTrendingUp, FiTrendingDown, FiAward, FiClipboard, FiMessageCircle, FiStar, FiAlertCircle, FiSettings } from 'react-icons/fi';
+import { useTranslation } from 'react-i18next';
 
 // Demo data for training programs
 const trainingPrograms = [
@@ -113,6 +114,23 @@ const trainingReports = [
 ];
 
 export default function MarketingHeadTrainingDevelopment() {
+  const { t, ready, i18n } = useTranslation('marketing');
+  const [languageVersion, setLanguageVersion] = useState(0);
+  
+  useEffect(() => {
+    setLanguageVersion(prev => prev + 1);
+  }, [i18n.language]);
+
+  // Show loading state while translations are loading
+  if (!ready) {
+    return <div className="flex items-center justify-center min-h-screen">{t('support.messages.loading')}</div>;
+  }
+
+  // Debug: Log translation keys to console
+  console.log('Marketing Training - Language:', i18n.language);
+  console.log('Marketing Training - Ready:', ready);
+  console.log('Marketing Training - Title translation:', t('training.title'));
+
   const user = JSON.parse(localStorage.getItem('rbac_current_user'));
   const [expanded, setExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
@@ -145,33 +163,33 @@ export default function MarketingHeadTrainingDevelopment() {
               program.status === "Upcoming" ? "bg-yellow-100 text-yellow-700" :
               "bg-gray-100 text-gray-700"
             }`}>
-              {program.status}
+              {t(`training.status.${program.status.toLowerCase()}`)}
             </span>
           </div>
           <div className="space-y-4">
             <div>
-              <h3 className="font-semibold mb-2">Program Details</h3>
+              <h3 className="font-semibold mb-2">{t('training.modal.programDetails')}</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-500">Type</p>
+                  <p className="text-sm text-gray-500">{t('training.modal.type')}</p>
                   <p className="font-medium">{program.type}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Duration</p>
+                  <p className="text-sm text-gray-500">{t('training.modal.duration')}</p>
                   <p className="font-medium">{program.startDate} - {program.endDate}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Instructor</p>
+                  <p className="text-sm text-gray-500">{t('training.modal.instructor')}</p>
                   <p className="font-medium">{program.instructor}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Participants</p>
+                  <p className="text-sm text-gray-500">{t('training.modal.participants')}</p>
                   <p className="font-medium">{program.participants}</p>
                 </div>
               </div>
             </div>
             <div>
-              <h3 className="font-semibold mb-2">Course Modules</h3>
+              <h3 className="font-semibold mb-2">{t('training.modal.courseModules')}</h3>
               <div className="space-y-2">
                 {program.modules.map((module, index) => (
                   <div
@@ -185,22 +203,22 @@ export default function MarketingHeadTrainingDevelopment() {
               </div>
             </div>
             <div>
-              <h3 className="font-semibold mb-2">Progress</h3>
+              <h3 className="font-semibold mb-2">{t('training.modal.progress')}</h3>
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div
                   className="bg-blue-600 h-2 rounded-full"
                   style={{ width: `${program.completion}%` }}
                 />
               </div>
-              <p className="text-sm text-gray-500 mt-1">{program.completion}% Complete</p>
+              <p className="text-sm text-gray-500 mt-1">{program.completion}% {t('training.modal.complete')}</p>
             </div>
           </div>
           <div className="mt-6 flex gap-3">
             <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-              Update Program
+              {t('training.modal.updateProgram')}
             </button>
             <button className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600">
-              View Participants
+              {t('training.modal.viewParticipants')}
             </button>
           </div>
         </div>
@@ -213,8 +231,8 @@ export default function MarketingHeadTrainingDevelopment() {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-gray-200 dark:border-gray-700">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">Training & Development <FiBookOpen className="text-blue-500" /></h1>
-          <p className="text-sm text-gray-600 dark:text-gray-300">Structured learning, skill upgrades, and knowledge sharing for marketing excellence.</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">{t('training.title')} <FiBookOpen className="text-blue-500" /></h1>
+          <p className="text-sm text-gray-600 dark:text-gray-300">{t('training.subtitle')}</p>
         </div>
       </div>
 
@@ -222,10 +240,10 @@ export default function MarketingHeadTrainingDevelopment() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6 mb-6">
         <div className="flex items-center gap-2 mb-4">
           <FiZap className="text-yellow-500 animate-pulse" />
-          <h2 className="text-lg font-semibold">NexusHiveAI: Your Learning Partner</h2>
+          <h2 className="text-lg font-semibold">{t('training.nexusHiveAI.title')}</h2>
         </div>
         <p className="text-gray-700 dark:text-gray-300 mb-4">
-          NexusHiveAI is here to enhance your learning experience with personalized course recommendations and insights. Check out our recommended courses below!
+          {t('training.nexusHiveAI.description')}
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {trainingPrograms.map((program, idx) => (
@@ -246,13 +264,13 @@ export default function MarketingHeadTrainingDevelopment() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiBarChart2 className="text-blue-500" />
-          <h2 className="text-lg font-semibold">Training Dashboard</h2>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">AI Skill Gap Prediction</span>
-          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">Training ROI Estimator</span>
+          <h2 className="text-lg font-semibold">{t('training.sections.trainingDashboard')}</h2>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('training.aiFeatures.skillGapPrediction')}</span>
+          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('training.aiFeatures.trainingROIEstimator')}</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <h3 className="font-medium mb-2">Upcoming Sessions</h3>
+            <h3 className="font-medium mb-2">{t('training.dashboard.upcomingSessions')}</h3>
             <ul className="space-y-2">
               {trainingSessions.filter(s => s.status === 'Upcoming').map(s => (
                 <li key={s.id}>{s.title} - {s.date}</li>
@@ -260,7 +278,7 @@ export default function MarketingHeadTrainingDevelopment() {
             </ul>
           </div>
           <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <h3 className="font-medium mb-2">Certification Status</h3>
+            <h3 className="font-medium mb-2">{t('training.dashboard.certificationStatus')}</h3>
             <ul className="space-y-2">
               {teamTrainingStatus.map(t => (
                 <li key={t.id}>{t.name}: {t.certified ? <span className="text-green-600">Certified</span> : <span className="text-yellow-600">Pending</span>}</li>
@@ -272,10 +290,10 @@ export default function MarketingHeadTrainingDevelopment() {
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Team Member</th>
-                <th className="pb-3 font-medium">Completed</th>
-                <th className="pb-3 font-medium">Pending</th>
-                <th className="pb-3 font-medium">Skill Gap</th>
+                <th className="pb-3 font-medium">{t('training.dashboard.teamMember')}</th>
+                <th className="pb-3 font-medium">{t('training.dashboard.completed')}</th>
+                <th className="pb-3 font-medium">{t('training.dashboard.pending')}</th>
+                <th className="pb-3 font-medium">{t('training.dashboard.skillGap')}</th>
               </tr>
             </thead>
             <tbody>
@@ -292,11 +310,11 @@ export default function MarketingHeadTrainingDevelopment() {
         </div>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Skill Gap Prediction</div>
+            <div className="font-medium mb-1">{t('training.dashboard.skillGapPrediction')}</div>
             <div className="text-sm text-blue-700 dark:text-blue-300">USA needs Analytics upskilling based on recent campaign performance.</div>
           </div>
           <div className="p-4 bg-green-50 dark:bg-green-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Training ROI Estimator</div>
+            <div className="font-medium mb-1">{t('training.dashboard.trainingROIEstimator')}</div>
             <div className="text-sm text-green-700 dark:text-green-300">Campaign ROI improved by 15% after Google Ads training.</div>
           </div>
         </div>
@@ -306,12 +324,12 @@ export default function MarketingHeadTrainingDevelopment() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiCalendar className="text-purple-500" />
-          <h2 className="text-lg font-semibold">Training Calendar</h2>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">Smart Rescheduling</span>
-          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">Reminders & Nudges</span>
+          <h2 className="text-lg font-semibold">{t('training.sections.trainingCalendar')}</h2>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('training.aiFeatures.smartRescheduling')}</span>
+          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">{t('training.aiFeatures.remindersNudges')}</span>
         </div>
         <div className="h-56 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex flex-col items-center justify-start text-blue-700 dark:text-blue-300 font-bold mb-4 p-4">
-          <div className="text-lg font-semibold mb-2 text-center">April 2025</div>
+          <div className="text-lg font-semibold mb-2 text-center">{t('training.calendar.april2025')}</div>
           <div className="grid grid-cols-7 gap-1 text-xs text-center w-full mb-2">
             <div className="font-bold">Sun</div>
             <div className="font-bold">Mon</div>
@@ -339,19 +357,19 @@ export default function MarketingHeadTrainingDevelopment() {
             })}
           </div>
           <div className="flex justify-center gap-4 mt-2 text-xs w-full">
-            <span className="inline-flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-blue-600 inline-block"></span> Today</span>
-            <span className="inline-flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-green-400 inline-block"></span> Upcoming</span>
-            <span className="inline-flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-yellow-400 inline-block"></span> Pending</span>
-            <span className="inline-flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-gray-400 inline-block"></span> Completed</span>
+            <span className="inline-flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-blue-600 inline-block"></span> {t('training.calendar.today')}</span>
+            <span className="inline-flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-green-400 inline-block"></span> {t('training.calendar.upcoming')}</span>
+            <span className="inline-flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-yellow-400 inline-block"></span> {t('training.calendar.pending')}</span>
+            <span className="inline-flex items-center gap-1"><span className="w-3 h-3 rounded-full bg-gray-400 inline-block"></span> {t('training.calendar.completed')}</span>
           </div>
         </div>
         <div className="flex flex-col md:flex-row gap-4 mt-4">
           <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Smart Rescheduling</div>
+            <div className="font-medium mb-1">{t('training.calendar.smartRescheduling')}</div>
             <div className="text-sm text-blue-700 dark:text-blue-300">Suggested: Move "Meta Ads Certification" to avoid campaign overlap.</div>
           </div>
           <div className="p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Reminders & Nudges</div>
+            <div className="font-medium mb-1">{t('training.calendar.remindersNudges')}</div>
             <div className="text-sm text-yellow-700 dark:text-yellow-300">USA has overdue learning: "CRM Lead Nurturing".</div>
           </div>
         </div>
@@ -361,18 +379,18 @@ export default function MarketingHeadTrainingDevelopment() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiBookOpen className="text-green-500" />
-          <h2 className="text-lg font-semibold">Course Library / LMS Integration</h2>
-          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">Adaptive Learning Path</span>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">Auto-Generated Tests</span>
+          <h2 className="text-lg font-semibold">{t('training.sections.courseLibrary')}</h2>
+          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('training.aiFeatures.adaptiveLearningPath')}</span>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('training.aiFeatures.autoGeneratedTests')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Course</th>
-                <th className="pb-3 font-medium">Type</th>
-                <th className="pb-3 font-medium">Completed</th>
-                <th className="pb-3 font-medium">Link</th>
+                <th className="pb-3 font-medium">{t('training.courseLibrary.course')}</th>
+                <th className="pb-3 font-medium">{t('training.courseLibrary.type')}</th>
+                <th className="pb-3 font-medium">{t('training.courseLibrary.completed')}</th>
+                <th className="pb-3 font-medium">{t('training.courseLibrary.link')}</th>
               </tr>
             </thead>
             <tbody>
@@ -381,7 +399,7 @@ export default function MarketingHeadTrainingDevelopment() {
                   <td className="py-3 font-medium">{c.title}</td>
                   <td className="py-3">{c.type}</td>
                   <td className="py-3">{c.completed}</td>
-                  <td className="py-3"><a href={c.link} className="text-blue-600 underline">View</a></td>
+                  <td className="py-3"><a href={c.link} className="text-blue-600 underline">{t('training.courseLibrary.view')}</a></td>
                 </tr>
               ))}
             </tbody>
@@ -389,11 +407,11 @@ export default function MarketingHeadTrainingDevelopment() {
         </div>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="p-4 bg-green-50 dark:bg-green-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Adaptive Learning Path</div>
+            <div className="font-medium mb-1">{t('training.courseLibrary.adaptiveLearningPath')}</div>
             <div className="text-sm text-green-700 dark:text-green-300">USA recommended to take "Analytics for Marketers" next.</div>
           </div>
           <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Auto-Generated Test</div>
+            <div className="font-medium mb-1">{t('training.courseLibrary.autoGeneratedTest')}</div>
             <div className="text-sm text-blue-700 dark:text-blue-300">Quiz created from "Google Ads Basics" PDF.</div>
           </div>
         </div>
@@ -403,22 +421,22 @@ export default function MarketingHeadTrainingDevelopment() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiUser className="text-blue-400" />
-          <h2 className="text-lg font-semibold">Team Member Skill Profiles</h2>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">Skill Score Index</span>
-          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">Promotion Readiness</span>
+          <h2 className="text-lg font-semibold">{t('training.sections.skillProfiles')}</h2>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('training.aiFeatures.skillScoreIndex')}</span>
+          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('training.aiFeatures.promotionReadiness')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Name</th>
-                <th className="pb-3 font-medium">Skills</th>
-                <th className="pb-3 font-medium">Completed</th>
-                <th className="pb-3 font-medium">Pending</th>
-                <th className="pb-3 font-medium">Goals</th>
-                <th className="pb-3 font-medium">Feedback</th>
-                <th className="pb-3 font-medium">Skill Score</th>
-                <th className="pb-3 font-medium">Promotion Ready</th>
+                <th className="pb-3 font-medium">{t('training.skillProfiles.name')}</th>
+                <th className="pb-3 font-medium">{t('training.skillProfiles.skills')}</th>
+                <th className="pb-3 font-medium">{t('training.skillProfiles.completed')}</th>
+                <th className="pb-3 font-medium">{t('training.skillProfiles.pending')}</th>
+                <th className="pb-3 font-medium">{t('training.skillProfiles.goals')}</th>
+                <th className="pb-3 font-medium">{t('training.skillProfiles.feedback')}</th>
+                <th className="pb-3 font-medium">{t('training.skillProfiles.skillScore')}</th>
+                <th className="pb-3 font-medium">{t('training.skillProfiles.promotionReady')}</th>
               </tr>
             </thead>
             <tbody>
@@ -431,7 +449,7 @@ export default function MarketingHeadTrainingDevelopment() {
                   <td className="py-3">{p.goals}</td>
                   <td className="py-3">{p.feedback}</td>
                   <td className="py-3">{p.skillScore}</td>
-                  <td className="py-3">{p.promotionReady ? <span className="text-green-600">Yes</span> : <span className="text-yellow-600">No</span>}</td>
+                  <td className="py-3">{p.promotionReady ? <span className="text-green-600">{t('training.skillProfiles.yes')}</span> : <span className="text-yellow-600">{t('training.skillProfiles.no')}</span>}</td>
                 </tr>
               ))}
             </tbody>
@@ -439,11 +457,11 @@ export default function MarketingHeadTrainingDevelopment() {
         </div>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Skill Score Index</div>
+            <div className="font-medium mb-1">{t('training.skillProfiles.skillScoreIndex')}</div>
             <div className="text-sm text-blue-700 dark:text-blue-300">USA skill score updated after campaign assessment.</div>
           </div>
           <div className="p-4 bg-green-50 dark:bg-green-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Promotion Readiness</div>
+            <div className="font-medium mb-1">{t('training.skillProfiles.promotionReadiness')}</div>
             <div className="text-sm text-green-700 dark:text-green-300">USA flagged as ready for new role.</div>
           </div>
         </div>
@@ -453,18 +471,18 @@ export default function MarketingHeadTrainingDevelopment() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiClipboard className="text-purple-500" />
-          <h2 className="text-lg font-semibold">Training Requests & Approvals</h2>
-          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">Cost-Impact Analyzer</span>
+          <h2 className="text-lg font-semibold">{t('training.sections.trainingRequests')}</h2>
+          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">{t('training.aiFeatures.costImpactAnalyzer')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Name</th>
-                <th className="pb-3 font-medium">Request</th>
-                <th className="pb-3 font-medium">Type</th>
-                <th className="pb-3 font-medium">Status</th>
-                <th className="pb-3 font-medium">Cost ($)</th>
+                <th className="pb-3 font-medium">{t('training.trainingRequests.name')}</th>
+                <th className="pb-3 font-medium">{t('training.trainingRequests.request')}</th>
+                <th className="pb-3 font-medium">{t('training.trainingRequests.type')}</th>
+                <th className="pb-3 font-medium">{t('training.trainingRequests.status')}</th>
+                <th className="pb-3 font-medium">{t('training.trainingRequests.cost')}</th>
               </tr>
             </thead>
             <tbody>
@@ -481,7 +499,7 @@ export default function MarketingHeadTrainingDevelopment() {
           </table>
         </div>
         <div className="p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg">
-          <div className="font-medium mb-1">AI Cost-Impact Analyzer</div>
+          <div className="font-medium mb-1">{t('training.trainingRequests.costImpactAnalyzer')}</div>
           <div className="text-sm text-yellow-700 dark:text-yellow-300">Meta Ads Webinar expected to improve campaign ROI by 10%.</div>
         </div>
       </section>
@@ -490,17 +508,17 @@ export default function MarketingHeadTrainingDevelopment() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiFileText className="text-blue-400" />
-          <h2 className="text-lg font-semibold">Knowledge Management</h2>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">AI-Powered Search</span>
-          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">Auto-Tagging</span>
+          <h2 className="text-lg font-semibold">{t('training.sections.knowledgeManagement')}</h2>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('training.aiFeatures.aiPoweredSearch')}</span>
+          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('training.aiFeatures.autoTagging')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Title</th>
-                <th className="pb-3 font-medium">Type</th>
-                <th className="pb-3 font-medium">Tags</th>
+                <th className="pb-3 font-medium">{t('training.knowledgeManagement.title')}</th>
+                <th className="pb-3 font-medium">{t('training.knowledgeManagement.type')}</th>
+                <th className="pb-3 font-medium">{t('training.knowledgeManagement.tags')}</th>
               </tr>
             </thead>
             <tbody>
@@ -516,11 +534,11 @@ export default function MarketingHeadTrainingDevelopment() {
         </div>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI-Powered Search</div>
+            <div className="font-medium mb-1">{t('training.knowledgeManagement.aiPoweredSearch')}</div>
             <div className="text-sm text-blue-700 dark:text-blue-300">"Show me all SOPs for campaign launch"</div>
           </div>
           <div className="p-4 bg-green-50 dark:bg-green-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Auto-Tagging</div>
+            <div className="font-medium mb-1">{t('training.knowledgeManagement.autoTagging')}</div>
             <div className="text-sm text-green-700 dark:text-green-300">"Failed Lead Campaign Insights" auto-tagged as Report, Leads.</div>
           </div>
         </div>
@@ -530,17 +548,17 @@ export default function MarketingHeadTrainingDevelopment() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiUsers className="text-pink-500" />
-          <h2 className="text-lg font-semibold">Peer Learning & Mentorship</h2>
-          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">Mentorship Matchmaking</span>
+          <h2 className="text-lg font-semibold">{t('training.sections.peerLearning')}</h2>
+          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">{t('training.aiFeatures.mentorshipMatchmaking')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Mentor</th>
-                <th className="pb-3 font-medium">Mentee</th>
-                <th className="pb-3 font-medium">Topic</th>
-                <th className="pb-3 font-medium">Status</th>
+                <th className="pb-3 font-medium">{t('training.peerLearning.mentor')}</th>
+                <th className="pb-3 font-medium">{t('training.peerLearning.mentee')}</th>
+                <th className="pb-3 font-medium">{t('training.peerLearning.topic')}</th>
+                <th className="pb-3 font-medium">{t('training.peerLearning.status')}</th>
               </tr>
             </thead>
             <tbody>
@@ -556,7 +574,7 @@ export default function MarketingHeadTrainingDevelopment() {
           </table>
         </div>
         <div className="p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg">
-          <div className="font-medium mb-1">AI Mentorship Matchmaking</div>
+          <div className="font-medium mb-1">{t('training.peerLearning.mentorshipMatchmaking')}</div>
           <div className="text-sm text-yellow-700 dark:text-yellow-300">USA paired with USA for Google Ads mentoring.</div>
         </div>
       </section>
@@ -565,19 +583,19 @@ export default function MarketingHeadTrainingDevelopment() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiBarChart2 className="text-blue-500" />
-          <h2 className="text-lg font-semibold">Reports & Insights</h2>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">Engagement Analyzer</span>
-          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">Team Heatmaps</span>
+          <h2 className="text-lg font-semibold">{t('training.sections.reportsInsights')}</h2>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('training.aiFeatures.engagementAnalyzer')}</span>
+          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('training.aiFeatures.teamHeatmaps')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Week</th>
-                <th className="pb-3 font-medium">Completed</th>
-                <th className="pb-3 font-medium">Participation (%)</th>
-                <th className="pb-3 font-medium">Skill Improvement</th>
-                <th className="pb-3 font-medium">Feedback</th>
+                <th className="pb-3 font-medium">{t('training.reportsInsights.week')}</th>
+                <th className="pb-3 font-medium">{t('training.reportsInsights.completed')}</th>
+                <th className="pb-3 font-medium">{t('training.reportsInsights.participation')}</th>
+                <th className="pb-3 font-medium">{t('training.reportsInsights.skillImprovement')}</th>
+                <th className="pb-3 font-medium">{t('training.reportsInsights.feedback')}</th>
               </tr>
             </thead>
             <tbody>
@@ -595,11 +613,11 @@ export default function MarketingHeadTrainingDevelopment() {
         </div>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Engagement Analyzer</div>
+            <div className="font-medium mb-1">{t('training.reportsInsights.engagementAnalyzer')}</div>
             <div className="text-sm text-blue-700 dark:text-blue-300">"Meta Ads Certification" flagged for low completion.</div>
           </div>
           <div className="p-4 bg-green-50 dark:bg-green-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Team Heatmap</div>
+            <div className="font-medium mb-1">{t('training.reportsInsights.teamHeatmaps')}</div>
             <div className="text-sm text-green-700 dark:text-green-300">Analytics skill gap highest in team.</div>
           </div>
         </div>
@@ -609,27 +627,27 @@ export default function MarketingHeadTrainingDevelopment() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiZap className="text-yellow-500 animate-pulse" />
-          <h2 className="text-lg font-semibold">AI-Powered Training Assistant</h2>
+          <h2 className="text-lg font-semibold">{t('training.sections.aiAssistant')}</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <h3 className="font-medium mb-2">Recommended Courses</h3>
+            <h3 className="font-medium mb-2">{t('training.aiAssistant.recommendedCourses')}</h3>
             <div className="text-sm text-gray-700 dark:text-gray-300">
               <ul className="list-disc pl-6">
-                <li>Advanced Digital Marketing Strategies</li>
-                <li>Data-Driven Decision Making</li>
-                <li>Leadership in Marketing</li>
-                <li>Customer Relationship Management</li>
+                <li>{t('training.aiAssistant.advancedDigitalMarketing')}</li>
+                <li>{t('training.aiAssistant.dataDrivenDecision')}</li>
+                <li>{t('training.aiAssistant.leadershipMarketing')}</li>
+                <li>{t('training.aiAssistant.customerRelationship')}</li>
               </ul>
             </div>
           </div>
           <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <h3 className="font-medium mb-2">Learning Path Suggestions</h3>
+            <h3 className="font-medium mb-2">{t('training.aiAssistant.learningPathSuggestions')}</h3>
             <div className="text-sm text-gray-700 dark:text-gray-300">
               <ul className="list-disc pl-6">
-                <li>Start with "Marketing Fundamentals"</li>
-                <li>Progress to "Advanced Analytics"</li>
-                <li>Complete "Strategic Planning"</li>
+                <li>Start with "{t('training.aiAssistant.marketingFundamentals')}"</li>
+                <li>Progress to "{t('training.aiAssistant.advancedAnalytics')}"</li>
+                <li>Complete "{t('training.aiAssistant.strategicPlanning')}"</li>
               </ul>
             </div>
           </div>
@@ -640,7 +658,7 @@ export default function MarketingHeadTrainingDevelopment() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6 mt-6">
         <div className="flex items-center gap-2 mb-4">
           <FiZap className="text-yellow-500 animate-pulse" />
-          <h2 className="text-lg font-semibold">NexusHiveAI Recommended Courses</h2>
+          <h2 className="text-lg font-semibold">{t('training.nexusHiveAI.recommendedCourses')}</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {trainingPrograms.map((program, idx) => (

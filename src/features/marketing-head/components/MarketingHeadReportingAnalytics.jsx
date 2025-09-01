@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FiBarChart2, FiTrendingUp, FiTrendingDown, FiDollarSign, FiPieChart, FiUsers, FiMail, FiClock, FiZap, FiSearch, FiDownload, FiPlus, FiChevronRight, FiFileText, FiStar, FiMapPin, FiActivity, FiSettings } from 'react-icons/fi';
+import { useTranslation } from 'react-i18next';
 
 // Demo data for each module
 const leadFunnel = {
@@ -49,13 +50,6 @@ const teamProductivity = [
   { id: 2, member: "USA", calls: 30, emails: 45, meetings: 6, followup: 0.85, response: "3.2h", timeline: "Delayed", ai: "Delay Risk" },
 ];
 
-const dashboardKPIs = [
-  { label: "Leads Today", value: 120, icon: <FiUsers className="text-blue-500" /> },
-  { label: "Active Campaigns", value: 5, icon: <FiBarChart2 className="text-green-500" /> },
-  { label: "ROI Trend", value: "+12%", icon: <FiTrendingUp className="text-green-600" /> },
-  { label: "Drop-offs", value: 18, icon: <FiTrendingDown className="text-red-500" /> },
-];
-
 // Demo data for charts
 const leadSummaryData = [120, 140, 110, 160, 180, 150, 170];
 const roiTrendData = [1.2, 1.4, 1.1, 1.6, 1.8, 1.5, 1.7];
@@ -64,17 +58,37 @@ const maxLeads = 200;
 const minROI = 1.0, maxROI = 2.0;
 
 export default function MarketingHeadReportingAnalytics() {
+  const { t, ready, i18n } = useTranslation('marketing');
+  const [languageVersion, setLanguageVersion] = useState(0);
+  
+  useEffect(() => {
+    setLanguageVersion(prev => prev + 1);
+  }, [i18n.language]);
+
+  // Show loading state while translations are loading
+  if (!ready) {
+    return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
+  }
+
   const user = JSON.parse(localStorage.getItem('rbac_current_user'));
   const [expanded, setExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
 
+  // Define dashboardKPIs inside the component where t() is available
+  const dashboardKPIs = [
+    { label: t('analytics.performanceDashboards.leadsToday'), value: 120, icon: <FiUsers className="text-blue-500" /> },
+    { label: t('analytics.performanceDashboards.activeCampaigns'), value: 5, icon: <FiBarChart2 className="text-green-500" /> },
+    { label: t('analytics.performanceDashboards.roiTrend'), value: "+12%", icon: <FiTrendingUp className="text-green-600" /> },
+    { label: t('analytics.performanceDashboards.dropOffs'), value: 18, icon: <FiTrendingDown className="text-red-500" /> },
+  ];
+
   return (
-    <div className="flex flex-col gap-10 animate-fade-in">
+    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-10 animate-fade-in">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-gray-200 dark:border-gray-700">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">Reporting & Analytics <FiBarChart2 className="text-blue-500" /></h1>
-          <p className="text-sm text-gray-600 dark:text-gray-300">Real-time, actionable insights on campaigns, leads, spend, team, and ROI.</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">{t('analytics.title')} <FiBarChart2 className="text-blue-500" /></h1>
+          <p className="text-sm text-gray-600 dark:text-gray-300">{t('analytics.subtitle')}</p>
         </div>
       </div>
 
@@ -82,35 +96,35 @@ export default function MarketingHeadReportingAnalytics() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiTrendingUp className="text-blue-500" />
-          <h2 className="text-lg font-semibold">Lead Funnel Analytics</h2>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">AI Conversion Score</span>
-          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">Funnel Optimization</span>
+          <h2 className="text-lg font-semibold">{t('analytics.sections.leadFunnelAnalytics')}</h2>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.aiConversionScore')}</span>
+          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.funnelOptimization')}</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <h3 className="font-medium mb-2">Inquiries</h3>
+            <h3 className="font-medium mb-2">{t('analytics.leadFunnel.inquiries')}</h3>
             <div className="flex gap-4">
-              <div>Daily: <span className="font-bold">{leadFunnel.inquiries.daily}</span></div>
-              <div>Weekly: <span className="font-bold">{leadFunnel.inquiries.weekly}</span></div>
-              <div>Monthly: <span className="font-bold">{leadFunnel.inquiries.monthly}</span></div>
+              <div>{t('analytics.leadFunnel.daily')}: <span className="font-bold">{leadFunnel.inquiries.daily}</span></div>
+              <div>{t('analytics.leadFunnel.weekly')}: <span className="font-bold">{leadFunnel.inquiries.weekly}</span></div>
+              <div>{t('analytics.leadFunnel.monthly')}: <span className="font-bold">{leadFunnel.inquiries.monthly}</span></div>
             </div>
-            <div className="mt-2">Lead→App: <span className="font-bold">{(leadFunnel.leadToApp * 100).toFixed(1)}%</span></div>
-            <div>App→Admission: <span className="font-bold">{(leadFunnel.appToAdmission * 100).toFixed(1)}%</span></div>
+            <div className="mt-2">{t('analytics.leadFunnel.leadToApp')}: <span className="font-bold">{(leadFunnel.leadToApp * 100).toFixed(1)}%</span></div>
+            <div>{t('analytics.leadFunnel.appToAdmission')}: <span className="font-bold">{(leadFunnel.appToAdmission * 100).toFixed(1)}%</span></div>
           </div>
           <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <h3 className="font-medium mb-2">Drop-off Points</h3>
-            <div>Inquiry: <span className="font-bold text-red-500">{leadFunnel.dropOff.inquiry}%</span></div>
-            <div>Application: <span className="font-bold text-red-500">{leadFunnel.dropOff.application}%</span></div>
-            <div>Admission: <span className="font-bold text-red-500">{leadFunnel.dropOff.admission}%</span></div>
+            <h3 className="font-medium mb-2">{t('analytics.leadFunnel.dropOffPoints')}</h3>
+            <div>{t('analytics.leadFunnel.inquiry')}: <span className="font-bold text-red-500">{leadFunnel.dropOff.inquiry}%</span></div>
+            <div>{t('analytics.leadFunnel.application')}: <span className="font-bold text-red-500">{leadFunnel.dropOff.application}%</span></div>
+            <div>{t('analytics.leadFunnel.admission')}: <span className="font-bold text-red-500">{leadFunnel.dropOff.admission}%</span></div>
           </div>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Source</th>
-                <th className="pb-3 font-medium">Leads</th>
-                <th className="pb-3 font-medium">Conversion</th>
+                <th className="pb-3 font-medium">{t('analytics.leadFunnel.source')}</th>
+                <th className="pb-3 font-medium">{t('analytics.leadFunnel.leads')}</th>
+                <th className="pb-3 font-medium">{t('analytics.leadFunnel.conversion')}</th>
               </tr>
             </thead>
             <tbody>
@@ -126,11 +140,11 @@ export default function MarketingHeadReportingAnalytics() {
         </div>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Predictive Lead Conversion Score</div>
+            <div className="font-medium mb-1">{t('analytics.leadFunnel.aiPredictiveLeadConversionScore')}</div>
             <div className="text-2xl font-bold text-blue-600">{(leadFunnel.ai.predictiveScore * 100).toFixed(0)}%</div>
           </div>
           <div className="p-4 bg-green-50 dark:bg-green-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Funnel Optimization Suggestion</div>
+            <div className="font-medium mb-1">{t('analytics.leadFunnel.aiFunnelOptimizationSuggestion')}</div>
             <div className="text-sm text-green-700 dark:text-green-300">{leadFunnel.ai.funnelSuggestion}</div>
           </div>
         </div>
@@ -140,23 +154,23 @@ export default function MarketingHeadReportingAnalytics() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiDollarSign className="text-green-500" />
-          <h2 className="text-lg font-semibold">Marketing Spend vs ROI</h2>
-          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">AI ROI Estimator</span>
-          <span className="ml-2 text-xs bg-red-100 text-red-700 px-2 py-1 rounded animate-pulse">Overspend Alerts</span>
+          <h2 className="text-lg font-semibold">{t('analytics.sections.marketingSpendVsRoi')}</h2>
+          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.aiRoiEstimator')}</span>
+          <span className="ml-2 text-xs bg-red-100 text-red-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.overspendAlerts')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Campaign</th>
-                <th className="pb-3 font-medium">Budgeted ($)</th>
-                <th className="pb-3 font-medium">Actual ($)</th>
-                <th className="pb-3 font-medium">CPA ($)</th>
-                <th className="pb-3 font-medium">ROI</th>
-                <th className="pb-3 font-medium">Revenue ($)</th>
-                <th className="pb-3 font-medium">CPL ($)</th>
-                <th className="pb-3 font-medium">CAC ($)</th>
-                <th className="pb-3 font-medium">AI Alert</th>
+                <th className="pb-3 font-medium">{t('analytics.marketingSpend.campaign')}</th>
+                <th className="pb-3 font-medium">{t('analytics.marketingSpend.budgeted')}</th>
+                <th className="pb-3 font-medium">{t('analytics.marketingSpend.actual')}</th>
+                <th className="pb-3 font-medium">{t('analytics.marketingSpend.cpa')}</th>
+                <th className="pb-3 font-medium">{t('analytics.marketingSpend.roi')}</th>
+                <th className="pb-3 font-medium">{t('analytics.marketingSpend.revenue')}</th>
+                <th className="pb-3 font-medium">{t('analytics.marketingSpend.cpl')}</th>
+                <th className="pb-3 font-medium">{t('analytics.marketingSpend.cac')}</th>
+                <th className="pb-3 font-medium">{t('analytics.marketingSpend.aiAlert')}</th>
               </tr>
             </thead>
             <tbody>
@@ -171,8 +185,8 @@ export default function MarketingHeadReportingAnalytics() {
                   <td className="py-3">${row.cpl}</td>
                   <td className="py-3">${row.cac}</td>
                   <td className="py-3">
-                    {row.actual > row.budgeted && row.roi < 1.5 && <span className="text-xs text-red-700 bg-red-100 px-2 py-1 rounded">Overspend</span>}
-                    {row.roi > 1.5 && <span className="text-xs text-green-700 bg-green-100 px-2 py-1 rounded">High ROI</span>}
+                    {row.actual > row.budgeted && row.roi < 1.5 && <span className="text-xs text-red-700 bg-red-100 px-2 py-1 rounded">{t('analytics.marketingSpend.overspend')}</span>}
+                    {row.roi > 1.5 && <span className="text-xs text-green-700 bg-green-100 px-2 py-1 rounded">{t('analytics.marketingSpend.highRoi')}</span>}
                   </td>
                 </tr>
               ))}
@@ -180,7 +194,7 @@ export default function MarketingHeadReportingAnalytics() {
           </table>
         </div>
         <div className="p-4 bg-green-50 dark:bg-green-900/30 rounded-lg">
-          <div className="font-medium mb-1">AI-powered ROI Estimator</div>
+          <div className="font-medium mb-1">{t('analytics.marketingSpend.aiPoweredRoiEstimator')}</div>
           <div className="text-sm text-green-700 dark:text-green-300">Predicted outcome: $18,000 revenue, 600 leads for next campaign.</div>
         </div>
       </section>
@@ -189,21 +203,21 @@ export default function MarketingHeadReportingAnalytics() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiPieChart className="text-purple-500" />
-          <h2 className="text-lg font-semibold">Campaign Performance Reports</h2>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">AI Best Time Predictor</span>
-          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">Auto Ranking</span>
+          <h2 className="text-lg font-semibold">{t('analytics.sections.campaignPerformanceReports')}</h2>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.aiBestTimePredictor')}</span>
+          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.autoRanking')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Campaign</th>
-                <th className="pb-3 font-medium">Type</th>
-                <th className="pb-3 font-medium">Open/CTR</th>
-                <th className="pb-3 font-medium">Impr./Sent</th>
-                <th className="pb-3 font-medium">CPC/CPL</th>
-                <th className="pb-3 font-medium">Best Time</th>
-                <th className="pb-3 font-medium">Rank</th>
+                <th className="pb-3 font-medium">{t('analytics.campaignPerformance.campaign')}</th>
+                <th className="pb-3 font-medium">{t('analytics.campaignPerformance.type')}</th>
+                <th className="pb-3 font-medium">{t('analytics.campaignPerformance.openCtr')}</th>
+                <th className="pb-3 font-medium">{t('analytics.campaignPerformance.imprSent')}</th>
+                <th className="pb-3 font-medium">{t('analytics.campaignPerformance.cpcCpl')}</th>
+                <th className="pb-3 font-medium">{t('analytics.campaignPerformance.bestTime')}</th>
+                <th className="pb-3 font-medium">{t('analytics.campaignPerformance.rank')}</th>
               </tr>
             </thead>
             <tbody>
@@ -228,7 +242,7 @@ export default function MarketingHeadReportingAnalytics() {
           </table>
         </div>
         <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
-          <div className="font-medium mb-1">AI Campaign Insights</div>
+          <div className="font-medium mb-1">{t('analytics.campaignPerformance.aiCampaignInsights')}</div>
           <div className="text-sm text-blue-700 dark:text-blue-300">Best time to post: Mon 9am. Top campaign: Summer Google Ads.</div>
         </div>
       </section>
@@ -237,18 +251,18 @@ export default function MarketingHeadReportingAnalytics() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiUsers className="text-pink-500" />
-          <h2 className="text-lg font-semibold">Audience & Engagement Analytics</h2>
-          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">AI Geo-targeting</span>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">Demographic Modeling</span>
+          <h2 className="text-lg font-semibold">{t('analytics.sections.audienceEngagementAnalytics')}</h2>
+          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.aiGeoTargeting')}</span>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.demographicModeling')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Group</th>
-                <th className="pb-3 font-medium">Engagement</th>
-                <th className="pb-3 font-medium">Device</th>
-                <th className="pb-3 font-medium">Interest</th>
+                <th className="pb-3 font-medium">{t('analytics.audienceEngagement.group')}</th>
+                <th className="pb-3 font-medium">{t('analytics.audienceEngagement.engagement')}</th>
+                <th className="pb-3 font-medium">{t('analytics.audienceEngagement.device')}</th>
+                <th className="pb-3 font-medium">{t('analytics.audienceEngagement.interest')}</th>
               </tr>
             </thead>
             <tbody>
@@ -258,7 +272,7 @@ export default function MarketingHeadReportingAnalytics() {
                   <td className="py-3">{(a.engagement * 100).toFixed(1)}%</td>
                   <td className="py-3">{a.device}</td>
                   <td className="py-3">
-                    <span className={`px-2 py-1 rounded-full text-xs ${a.interest === 'Hot' ? 'bg-red-100 text-red-700' : a.interest === 'Warm' ? 'bg-yellow-100 text-yellow-700' : 'bg-blue-100 text-blue-700'}`}>{a.interest}</span>
+                    <span className={`px-2 py-1 rounded-full text-xs ${a.interest === 'Hot' ? 'bg-red-100 text-red-700' : a.interest === 'Warm' ? 'bg-yellow-100 text-yellow-700' : 'bg-blue-100 text-blue-700'}`}>{t(`analytics.audienceEngagement.${a.interest.toLowerCase()}`)}</span>
                   </td>
                 </tr>
               ))}
@@ -266,7 +280,7 @@ export default function MarketingHeadReportingAnalytics() {
           </table>
         </div>
         <div className="p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg">
-          <div className="font-medium mb-1">AI Geo/Demographic Insights</div>
+          <div className="font-medium mb-1">{t('analytics.audienceEngagement.aiGeoDemographicInsights')}</div>
           <div className="text-sm text-yellow-700 dark:text-yellow-300">Suggest targeting Dammam mobile users with video content for higher engagement.</div>
         </div>
       </section>
@@ -275,19 +289,19 @@ export default function MarketingHeadReportingAnalytics() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiFileText className="text-blue-400" />
-          <h2 className="text-lg font-semibold">Content Effectiveness</h2>
-          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">AI Content Recommendation</span>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">Repurpose Suggestion</span>
+          <h2 className="text-lg font-semibold">{t('analytics.sections.contentEffectiveness')}</h2>
+          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.aiContentRecommendation')}</span>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.repurposeSuggestion')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Type</th>
-                <th className="pb-3 font-medium">Views</th>
-                <th className="pb-3 font-medium">Downloads</th>
-                <th className="pb-3 font-medium">Engagement</th>
-                <th className="pb-3 font-medium">Conversions</th>
+                <th className="pb-3 font-medium">{t('analytics.contentEffectiveness.type')}</th>
+                <th className="pb-3 font-medium">{t('analytics.contentEffectiveness.views')}</th>
+                <th className="pb-3 font-medium">{t('analytics.contentEffectiveness.downloads')}</th>
+                <th className="pb-3 font-medium">{t('analytics.contentEffectiveness.engagement')}</th>
+                <th className="pb-3 font-medium">{t('analytics.contentEffectiveness.conversions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -305,11 +319,11 @@ export default function MarketingHeadReportingAnalytics() {
         </div>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="p-4 bg-green-50 dark:bg-green-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Content Recommendation</div>
+            <div className="font-medium mb-1">{t('analytics.contentEffectiveness.aiContentRecommendation')}</div>
             <div className="text-sm text-green-700 dark:text-green-300">Use more program videos for 18-24 age group in Riyadh.</div>
           </div>
           <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Repurpose Suggestion</div>
+            <div className="font-medium mb-1">{t('analytics.contentEffectiveness.aiRepurposeSuggestion')}</div>
             <div className="text-sm text-blue-700 dark:text-blue-300">Convert top-performing blog into a video for Facebook campaign.</div>
           </div>
         </div>
@@ -319,37 +333,37 @@ export default function MarketingHeadReportingAnalytics() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiActivity className="text-pink-500" />
-          <h2 className="text-lg font-semibold">Team Productivity Reports</h2>
-          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">AI Productivity Insights</span>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">Follow-up Delay Prediction</span>
+          <h2 className="text-lg font-semibold">{t('analytics.sections.teamProductivityReports')}</h2>
+          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.aiProductivityInsights')}</span>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.followUpDelayPrediction')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Member</th>
-                <th className="pb-3 font-medium">Calls</th>
-                <th className="pb-3 font-medium">Emails</th>
-                <th className="pb-3 font-medium">Meetings</th>
-                <th className="pb-3 font-medium">Follow-up %</th>
-                <th className="pb-3 font-medium">Response Time</th>
-                <th className="pb-3 font-medium">Timeline</th>
-                <th className="pb-3 font-medium">AI Alert</th>
+                <th className="pb-3 font-medium">{t('analytics.teamProductivity.member')}</th>
+                <th className="pb-3 font-medium">{t('analytics.teamProductivity.calls')}</th>
+                <th className="pb-3 font-medium">{t('analytics.teamProductivity.emails')}</th>
+                <th className="pb-3 font-medium">{t('analytics.teamProductivity.meetings')}</th>
+                <th className="pb-3 font-medium">{t('analytics.teamProductivity.followUp')}</th>
+                <th className="pb-3 font-medium">{t('analytics.teamProductivity.responseTime')}</th>
+                <th className="pb-3 font-medium">{t('analytics.teamProductivity.timeline')}</th>
+                <th className="pb-3 font-medium">{t('analytics.teamProductivity.aiAlert')}</th>
               </tr>
             </thead>
             <tbody>
-              {teamProductivity.map((t) => (
-                <tr key={t.id} className="border-b dark:border-gray-700">
-                  <td className="py-3 font-medium">{t.member}</td>
-                  <td className="py-3">{t.calls}</td>
-                  <td className="py-3">{t.emails}</td>
-                  <td className="py-3">{t.meetings}</td>
-                  <td className="py-3">{(t.followup * 100).toFixed(1)}%</td>
-                  <td className="py-3">{t.response}</td>
-                  <td className="py-3">{t.timeline}</td>
+              {teamProductivity.map((member) => (
+                <tr key={member.id} className="border-b dark:border-gray-700">
+                  <td className="py-3 font-medium">{member.member}</td>
+                  <td className="py-3">{member.calls}</td>
+                  <td className="py-3">{member.emails}</td>
+                  <td className="py-3">{member.meetings}</td>
+                  <td className="py-3">{(member.followup * 100).toFixed(1)}%</td>
+                  <td className="py-3">{member.response}</td>
+                  <td className="py-3">{member.timeline}</td>
                   <td className="py-3">
-                    {t.ai === 'Delay Risk' && <span className="text-xs text-red-700 bg-red-100 px-2 py-1 rounded">Delay Risk</span>}
-                    {t.ai === 'On Track' && <span className="text-xs text-green-700 bg-green-100 px-2 py-1 rounded">On Track</span>}
+                    {member.ai === 'Delay Risk' && <span className="text-xs text-red-700 bg-red-100 px-2 py-1 rounded">{t('analytics.teamProductivity.delayRisk')}</span>}
+                    {member.ai === 'On Track' && <span className="text-xs text-green-700 bg-green-100 px-2 py-1 rounded">{t('analytics.teamProductivity.onTrack')}</span>}
                   </td>
                 </tr>
               ))}
@@ -357,7 +371,7 @@ export default function MarketingHeadReportingAnalytics() {
           </table>
         </div>
         <div className="p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg">
-          <div className="font-medium mb-1">AI Productivity Insights</div>
+          <div className="font-medium mb-1">{t('analytics.teamProductivity.aiProductivityInsights')}</div>
           <div className="text-sm text-yellow-700 dark:text-yellow-300">Member USA is at risk of delay on follow-ups.</div>
         </div>
       </section>
@@ -366,7 +380,7 @@ export default function MarketingHeadReportingAnalytics() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiBarChart2 className="text-blue-500" />
-          <h2 className="text-lg font-semibold">Performance Dashboards</h2>
+          <h2 className="text-lg font-semibold">{t('analytics.sections.performanceDashboards')}</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
           {dashboardKPIs.map((kpi, idx) => (
@@ -381,9 +395,7 @@ export default function MarketingHeadReportingAnalytics() {
         </div>
         {/* Chart Placeholders */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* Lead Summary Chart */}
           <LeadSummaryChart />
-          {/* ROI Trend Chart */}
           <ROITrendChart />
         </div>
       </section>
@@ -392,52 +404,52 @@ export default function MarketingHeadReportingAnalytics() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiSettings className="text-purple-500" />
-          <h2 className="text-lg font-semibold">Custom Report Builder</h2>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">AI-Generated Reports</span>
+          <h2 className="text-lg font-semibold">{t('analytics.sections.customReportBuilder')}</h2>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.aiGeneratedReports')}</span>
         </div>
         <div className="flex flex-col md:flex-row gap-4 mb-4">
           <div className="flex flex-col gap-2 flex-1">
-            <label className="text-sm font-medium">Date Range</label>
+            <label className="text-sm font-medium">{t('analytics.customReportBuilder.dateRange')}</label>
             <input type="date" className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white" />
             <input type="date" className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white" />
           </div>
           <div className="flex flex-col gap-2 flex-1">
-            <label className="text-sm font-medium">Campaign</label>
+            <label className="text-sm font-medium">{t('analytics.customReportBuilder.campaign')}</label>
             <select className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
-              <option>All</option>
-              <option>Google Ads</option>
-              <option>Facebook</option>
-              <option>Events</option>
+              <option>{t('analytics.customReportBuilder.all')}</option>
+              <option>{t('analytics.demoData.googleAds')}</option>
+              <option>{t('analytics.demoData.facebook')}</option>
+              <option>{t('analytics.demoData.events')}</option>
             </select>
           </div>
           <div className="flex flex-col gap-2 flex-1">
-            <label className="text-sm font-medium">Lead Stage</label>
+            <label className="text-sm font-medium">{t('analytics.customReportBuilder.leadStage')}</label>
             <select className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
-              <option>All</option>
-              <option>Inquiry</option>
-              <option>Application</option>
-              <option>Admission</option>
+              <option>{t('analytics.customReportBuilder.all')}</option>
+              <option>{t('analytics.demoData.inquiry')}</option>
+              <option>{t('analytics.demoData.application')}</option>
+              <option>{t('analytics.demoData.admission')}</option>
             </select>
           </div>
           <div className="flex flex-col gap-2 flex-1">
-            <label className="text-sm font-medium">Channel</label>
+            <label className="text-sm font-medium">{t('analytics.customReportBuilder.channel')}</label>
             <select className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
-              <option>All</option>
-              <option>Google Ads</option>
-              <option>Facebook</option>
-              <option>LinkedIn</option>
-              <option>Events</option>
-              <option>Referrals</option>
+              <option>{t('analytics.customReportBuilder.all')}</option>
+              <option>{t('analytics.demoData.googleAds')}</option>
+              <option>{t('analytics.demoData.facebook')}</option>
+              <option>{t('analytics.demoData.linkedIn')}</option>
+              <option>{t('analytics.demoData.events')}</option>
+              <option>{t('analytics.demoData.referrals')}</option>
             </select>
           </div>
         </div>
         <div className="flex gap-2 mb-4">
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"><FiSearch /> Generate</button>
-          <button className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center gap-2"><FiDownload /> Export</button>
-          <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2"><FiPlus /> Schedule</button>
+          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"><FiSearch /> {t('analytics.customReportBuilder.generate')}</button>
+          <button className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center gap-2"><FiDownload /> {t('analytics.customReportBuilder.export')}</button>
+          <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2"><FiPlus /> {t('analytics.customReportBuilder.schedule')}</button>
         </div>
         <div className="p-4 bg-purple-50 dark:bg-purple-900/30 rounded-lg">
-          <div className="font-medium mb-1">AI-Generated Narrative Report</div>
+          <div className="font-medium mb-1">{t('analytics.customReportBuilder.aiGeneratedNarrativeReport')}</div>
           <div className="text-sm text-purple-700 dark:text-purple-300">This week, your LinkedIn campaign brought in 20% more leads at 10% lower cost. Facebook campaign ROI dropped by 5% due to higher CPC.</div>
         </div>
       </section>
@@ -499,7 +511,7 @@ function LeadSummaryChart() {
           <text key={d} x={64 + i*40} y={155} fontSize="12" textAnchor="middle" fill="#1e293b">{d}</text>
         ))}
       </svg>
-      <div className="text-xs text-gray-500 w-full text-left mt-2">Leads over the last 7 days</div>
+      <div className="text-xs text-gray-500 w-full text-left mt-2">Leads Over Last 7 Days</div>
     </div>
   );
 }
@@ -561,7 +573,7 @@ function ROITrendChart() {
           <text key={d} x={64 + i*40} y={155} fontSize="12" textAnchor="middle" fill="#166534">{d}</text>
         ))}
       </svg>
-      <div className="text-xs text-gray-500 w-full text-left mt-2">ROI trend over the last 7 days</div>
+      <div className="text-xs text-gray-500 w-full text-left mt-2">ROI Trend Over Last 7 Days</div>
     </div>
   );
 } 

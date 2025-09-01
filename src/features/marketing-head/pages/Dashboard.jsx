@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '../../../components/ui/tabs';
 import { BarChart, LineChart, PieChart } from '../../../components/ui/charts';
 import { FiBell, FiSearch, FiDownload, FiCalendar, FiExternalLink, FiInfo } from 'react-icons/fi';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 // Demo/mock data for all sections
 const funnelData = [
@@ -67,48 +68,84 @@ const departmentInsights = [
   { dept: 'Arts', inquiries: 180, conversions: 40 },
 ];
 const notifications = [
-  { type: 'New Lead', message: '12 new leads added today', priority: 'info' },
-  { type: 'Hot Lead', message: '3 high-priority leads need follow-up', priority: 'warning' },
-  { type: 'Overdue', message: '5 leads overdue for follow-up', priority: 'danger' },
+  { typeKey: 'dashboard.notifications.newLead', messageKey: 'dashboard.notifications.messages.newLeads', priority: 'info' },
+  { typeKey: 'dashboard.notifications.hotLead', messageKey: 'dashboard.notifications.messages.hotLeads', priority: 'warning' },
+  { typeKey: 'dashboard.notifications.overdue', messageKey: 'dashboard.notifications.messages.overdueLeads', priority: 'danger' },
 ];
 
 const kpis = [
-  { label: 'Total Leads', value: 2345, icon: '🎯', color: 'bg-blue-100 text-blue-700', trend: '+12.5%' },
-  { label: 'Conversion Rate', value: '23.4%', icon: '📈', color: 'bg-green-100 text-green-700', trend: '+2.1%' },
-  { label: 'Campaign ROI', value: '4.2x', icon: '💰', color: 'bg-purple-100 text-purple-700', trend: '+0.3x' },
-  { label: 'Active Campaigns', value: 12, icon: '📢', color: 'bg-pink-100 text-pink-700', trend: '3 ending soon' },
-  { label: 'Followers', value: '26.5K', icon: '👥', color: 'bg-yellow-100 text-yellow-700', trend: '+1.2K' },
+  { labelKey: 'dashboard.kpis.totalLeads', value: 2345, icon: '🎯', color: 'bg-blue-100 text-blue-700', trend: '+12.5%' },
+  { labelKey: 'dashboard.kpis.conversionRate', value: '23.4%', icon: '📈', color: 'bg-green-100 text-green-700', trend: '+2.1%' },
+  { labelKey: 'dashboard.kpis.campaignROI', value: '4.2x', icon: '💰', color: 'bg-purple-100 text-purple-700', trend: '+0.3x' },
+  { labelKey: 'dashboard.kpis.activeCampaigns', value: 12, icon: '📢', color: 'bg-pink-100 text-pink-700', trend: '3 ending soon' },
+  { labelKey: 'dashboard.kpis.followers', value: '26.5K', icon: '👥', color: 'bg-yellow-100 text-yellow-700', trend: '+1.2K' },
 ];
 const recentActivity = [
-  { action: 'New lead added', time: '2 hours ago', user: 'Abdullah Al-Rashid' },
-  { action: 'Campaign launched', time: '5 hours ago', user: 'Noura Al-Zahra' },
-  { action: 'Report generated', time: '1 day ago', user: 'Khalid Al-Sayed' },
-  { action: 'Budget request approved', time: '2 days ago', user: 'Aisha Al-Hassan' },
+  { actionKey: 'dashboard.activity.newLeadAdded', time: '2 hours ago', user: 'Abdullah Al-Rashid' },
+  { actionKey: 'dashboard.activity.campaignLaunched', time: '5 hours ago', user: 'Noura Al-Zahra' },
+  { actionKey: 'dashboard.activity.reportGenerated', time: '1 day ago', user: 'Khalid Al-Sayed' },
+  { actionKey: 'dashboard.activity.budgetRequestApproved', time: '2 days ago', user: 'Aisha Al-Hassan' },
 ];
 const user = { displayName: 'Omar Al-Mutairi', avatar: 'https://randomuser.me/api/portraits/men/32.jpg', role: 'Marketing Head' };
 
 export default function Dashboard() {
+  const { t, ready, i18n } = useTranslation(['dashboard', 'common']);
   const [search, setSearch] = useState('');
-  const [dateRange, setDateRange] = useState('Last 30 Days');
+  const [dateRange, setDateRange] = useState('');
   const [showCalendar, setShowCalendar] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
 
+  // Initialize dateRange when i18n is ready
+  useEffect(() => {
+    if (ready) {
+      setDateRange(t('dashboard.dateRange'));
+    }
+  }, [ready, t]);
+
+  // Force re-render when language changes
+  const [languageVersion, setLanguageVersion] = useState(0);
+  
+  useEffect(() => {
+    const handleLanguageChange = () => {
+      console.log('MarketingHead Dashboard - Language changed to:', i18n.language);
+      setLanguageVersion(prev => prev + 1);
+      setDateRange(t('dashboard.dateRange'));
+    };
+    
+    i18n.on('languageChanged', handleLanguageChange);
+    
+    return () => {
+      i18n.off('languageChanged', handleLanguageChange);
+    };
+  }, [i18n, t]);
+
+  // Show loading state if i18n is not ready
+  if (!ready) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <h1 className="text-xl font-bold text-gray-900 dark:text-white">{t('loading')}</h1>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="space-y-10 animate-fade-in">
+    <div key={`${i18n.language}-${languageVersion}`} className="space-y-10 animate-fade-in">
       {/* Dashboard Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 pb-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-50/60 to-purple-50/40 dark:from-gray-900 dark:to-gray-800 rounded-xl px-4 py-6 relative">
         <div className="flex items-center gap-4">
           <img src={user.avatar} alt="avatar" className="w-14 h-14 rounded-full border-2 border-blue-400 shadow" />
           <div>
-            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Welcome, {user.displayName}</h1>
-            <p className="text-sm text-gray-600 dark:text-gray-300">Role: {user.role}</p>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('dashboard.user.welcome')} {user.displayName}</h1>
+            <p className="text-sm text-gray-600 dark:text-gray-300">{t('dashboard.user.role')}: {user.role}</p>
           </div>
         </div>
         <div className="flex flex-wrap gap-3 items-center">
           <div className="relative">
             <input
               className="pl-10 pr-4 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-              placeholder="Search leads, campaigns, events..."
+              placeholder={t('dashboard.searchPlaceholder')}
               value={search}
               onChange={e => setSearch(e.target.value)}
             />
@@ -119,15 +156,15 @@ export default function Dashboard() {
             value={dateRange}
             onChange={e => setDateRange(e.target.value)}
           >
-            <option>Last 7 Days</option>
-            <option>Last 30 Days</option>
-            <option>Last 90 Days</option>
-            <option>Custom</option>
+            <option>{t('dashboard.dateRanges.last7Days')}</option>
+            <option>{t('dashboard.dateRanges.last30Days')}</option>
+            <option>{t('dashboard.dateRanges.last90Days')}</option>
+            <option>{t('dashboard.dateRanges.custom')}</option>
           </select>
           <button
             className="p-2 rounded-full bg-blue-100 hover:bg-blue-200 text-blue-700 transition relative"
             onClick={() => setShowCalendar(v => !v)}
-            title="Open Calendar"
+            title={t('dashboard.calendar')}
           >
             <FiCalendar size={20} />
           </button>
@@ -135,19 +172,19 @@ export default function Dashboard() {
             <FiBell size={20} />
             <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full px-1.5">3</span>
           </button>
-          <button className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 transition" title="Export Dashboard">
+          <button className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 transition" title={t('dashboard.buttons.exportDashboard')}>
             <FiDownload size={20} />
           </button>
         </div>
         {/* Notifications Dropdown (Demo) */}
         {showNotifications && (
           <div className="absolute right-8 top-20 z-50 bg-white dark:bg-gray-900 rounded-xl shadow-lg p-4 border border-gray-200 dark:border-gray-700 w-72 animate-fade-in">
-            <div className="font-semibold mb-2">Notifications</div>
+            <div className="font-semibold mb-2">{t('dashboard.notifications')}</div>
             <ul className="space-y-2">
               {notifications.map((n, i) => (
                 <li key={i} className={`flex items-center gap-2 px-2 py-1 rounded ${n.priority === 'info' ? 'bg-blue-50' : n.priority === 'warning' ? 'bg-yellow-50' : 'bg-red-50'}`}> 
                   <span className={`w-2 h-2 rounded-full ${n.priority === 'info' ? 'bg-blue-500' : n.priority === 'warning' ? 'bg-yellow-500' : 'bg-red-500'}`}></span>
-                  <span className="text-xs text-gray-700 dark:text-gray-300">{n.message}</span>
+                  <span className="text-xs text-gray-700 dark:text-gray-300">{t(n.messageKey)}</span>
                 </li>
               ))}
             </ul>
@@ -157,7 +194,7 @@ export default function Dashboard() {
       {/* Mini Calendar Widget */}
       {showCalendar && (
         <div className="absolute z-50 mt-2 bg-white dark:bg-gray-900 rounded-xl shadow-lg p-4 border border-gray-200 dark:border-gray-700">
-          <div className="font-semibold mb-2">Mini Calendar (Demo)</div>
+          <div className="font-semibold mb-2">{t('dashboard.calendar')} (Demo)</div>
           <div className="grid grid-cols-7 gap-1 text-center text-xs">
             {[...Array(30)].map((_, i) => (
               <div key={i} className="py-1 px-2 rounded hover:bg-blue-100 cursor-pointer">{i + 1}</div>
@@ -180,21 +217,21 @@ export default function Dashboard() {
               <span className="text-2xl">{kpi.icon}</span>
               <span className="text-2xl font-bold group-hover:scale-110 transition-transform duration-200">{kpi.value}</span>
             </div>
-            <p className="text-sm mt-2">{kpi.label}</p>
+            <p className="text-sm mt-2">{t(kpi.labelKey)}</p>
             <span className="absolute bottom-2 right-2 text-xs text-green-600 font-semibold animate-fade-in">{kpi.trend}</span>
-            <span className="absolute top-2 right-2 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" title="View Details"><FiExternalLink /></span>
+            <span className="absolute top-2 right-2 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" title={t('dashboard.buttons.viewDetails')}><FiExternalLink /></span>
           </motion.div>
         ))}
       </div>
       {/* Recent Activity Feed */}
       <div className="bg-gradient-to-r from-blue-50/60 to-purple-50/40 dark:from-gray-900 dark:to-gray-800 rounded-xl p-6 shadow flex flex-col md:flex-row gap-6 items-start md:items-center justify-between border border-gray-100 dark:border-gray-800">
         <div className="flex-1">
-          <h3 className="font-semibold mb-2 text-gray-800 dark:text-gray-200 flex items-center gap-2">Recent Activity <FiInfo title='Latest actions by your team' className='text-blue-400' /></h3>
+          <h3 className="font-semibold mb-2 text-gray-800 dark:text-gray-200 flex items-center gap-2">{t('dashboard.sections.recentActivity')} <FiInfo title='Latest actions by your team' className='text-blue-400' /></h3>
           <ul className="space-y-1 text-sm">
             {recentActivity.map((a, i) => (
               <li key={i} className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <span className="w-2 h-2 rounded-full bg-blue-500 inline-block"></span>
-                <span className="font-medium">{a.action}</span>
+                <span className="font-medium">{t(a.actionKey)}</span>
                 <span className="text-xs text-gray-400">{a.time} by {a.user}</span>
               </li>
             ))}
@@ -209,25 +246,25 @@ export default function Dashboard() {
       {/* 1. Lead Funnel Overview */}
       <section>
         <div className="flex items-center justify-between mb-2">
-          <h2 className="text-xl font-bold flex items-center gap-2">📊 Lead Funnel Overview <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">AI Forecast</span></h2>
-          <button className="flex items-center gap-1 px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded transition text-xs" title="Export Funnel Data"><FiDownload /> Export</button>
+          <h2 className="text-xl font-bold flex items-center gap-2">📊 {t('dashboard.sections.leadFunnel')} <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">AI Forecast</span></h2>
+          <button className="flex items-center gap-1 px-3 py-1 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded transition text-xs" title={t('dashboard.buttons.exportFunnelData')}><FiDownload /> {t('dashboard.buttons.export')}</button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Card className="p-4 hover:shadow-lg transition group cursor-pointer relative">
-            <CardTitle className="mb-2 flex items-center gap-2">Funnel <FiInfo title='Lead journey stages' className='text-blue-400' /></CardTitle>
+            <CardTitle className="mb-2 flex items-center gap-2">{t('dashboard.sections.leadFunnel')} <FiInfo title='Lead journey stages' className='text-blue-400' /></CardTitle>
             <BarChart data={funnelData.map(d => ({ ...d, name: d.stage }))} categories={['value']} />
             <div className="flex justify-between mt-2 text-xs text-gray-500">
               {dropOffRates.map((rate, idx) => (
                 <span key={idx}>Drop-off: {rate}%</span>
               ))}
             </div>
-            <span className="absolute top-2 right-2 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" title="Drill Down"><FiExternalLink /></span>
+            <span className="absolute top-2 right-2 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" title={t('dashboard.buttons.drillDown')}><FiExternalLink /></span>
           </Card>
           <Card className="p-4 hover:shadow-lg transition group cursor-pointer relative">
-            <CardTitle className="mb-2 flex items-center gap-2">Enrollment Prediction <FiInfo title='AI-powered forecast' className='text-blue-400' /></CardTitle>
+            <CardTitle className="mb-2 flex items-center gap-2">{t('dashboard.sections.predictiveAnalytics')} <FiInfo title='AI-powered forecast' className='text-blue-400' /></CardTitle>
             <LineChart data={predictiveEnrollment.map((d, i) => ({ ...d, name: d.month }))} categories={['predicted']} />
             <div className="mt-2 text-xs text-blue-600 animate-bounce">AI: Next month forecast is 250 enrollments</div>
-            <span className="absolute top-2 right-2 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" title="Drill Down"><FiExternalLink /></span>
+            <span className="absolute top-2 right-2 text-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" title={t('dashboard.buttons.drillDown')}><FiExternalLink /></span>
           </Card>
         </div>
       </section>

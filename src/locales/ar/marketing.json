@@ -1,1 +1,1226 @@
-{"marketing": {"title": "إدارة التسويق"}} 
+{
+  "title": "إدارة التسويق",
+  "support": {
+    "title": "🆘 المساعدة والدعم",
+    "subtitle": "رفع المشاكل، تتبع الحلول، والتواصل مع فرق الدعم عبر الأقسام المختلفة.",
+    "buttons": {
+      "newTicket": "تذكرة جديدة",
+      "contactSupport": "اتصل بالدعم"
+    },
+    "tabs": {
+      "tickets": "تذاكر الدعم",
+      "knowledge": "قاعدة المعرفة"
+    },
+    "tickets": {
+      "title": "تذاكر الدعم",
+      "table": {
+        "title": "العنوان",
+        "category": "الفئة",
+        "priority": "الأولوية",
+        "status": "الحالة",
+        "assignedTo": "مُسند إلى",
+        "lastUpdated": "آخر تحديث",
+        "actions": "الإجراءات"
+      },
+      "status": {
+        "open": "مفتوح",
+        "inProgress": "قيد التنفيذ",
+        "resolved": "محلول",
+        "pending": "في الانتظار"
+      },
+      "priority": {
+        "low": "منخفضة",
+        "medium": "متوسطة",
+        "high": "عالية",
+        "urgent": "عاجلة"
+      },
+      "actions": {
+        "viewDetails": "عرض التفاصيل"
+      }
+    },
+    "knowledge": {
+      "title": "قاعدة المعرفة",
+      "category": "الفئة",
+      "views": "مشاهدات",
+      "updated": "محدث"
+    },
+    "modal": {
+      "ticketDetails": "تفاصيل التذكرة",
+      "close": "إغلاق",
+      "updateStatus": "تحديث الحالة",
+      "addComment": "إضافة تعليق",
+      "submitTicket": "إرسال التذكرة",
+      "cancel": "إلغاء",
+      "send": "إرسال",
+      "closeAndRate": "إغلاق وتقييم",
+      "subject": "الموضوع",
+      "expectedResolution": "الحل المتوقع",
+      "comments": "التعليقات",
+      "createNewTicket": "إنشاء تذكرة جديدة"
+    },
+    "form": {
+      "category": "الفئة",
+      "subcategory": "الفئة الفرعية",
+      "location": "الموقع",
+      "priority": "الأولوية",
+      "description": "الوصف",
+      "attachment": "المرفق (اختياري)",
+      "selectCategory": "اختر الفئة",
+      "selectSubcategory": "اختر الفئة الفرعية",
+      "selectPriority": "اختر الأولوية",
+      "addComment": "أضف تعليقاً...",
+      "feedback": "التقييم / التغذية الراجعة",
+      "feedbackPlaceholder": "كيف كانت تجربتك مع الدعم؟"
+    },
+    "categories": {
+      "IT": "تقنية المعلومات",
+      "Electrical": "الكهرباء",
+      "Furniture": "الأثاث / البنية التحتية",
+      "Housekeeping": "النظافة / الصرف الصحي",
+      "Transport": "النقل",
+      "Hostel": "السكن أو الإقامة",
+      "Examination": "بوابة الامتحانات",
+      "ERP": "نظام إدارة الموارد / إدارة علاقات العملاء"
+    },
+    "subcategories": {
+      "internetNotWorking": "الإنترنت لا يعمل",
+      "systemIssue": "مشكلة في النظام",
+      "emailIssue": "مشكلة في البريد الإلكتروني",
+      "printerIssue": "مشكلة في الطابعة",
+      "powerOutage": "انقطاع الكهرباء",
+      "lightsNotWorking": "الأضواء لا تعمل",
+      "acNotWorking": "مكيف الهواء لا يعمل",
+      "chairBroken": "كرسي مكسور",
+      "tableReplacement": "استبدال الطاولة",
+      "whiteboardIssue": "مشكلة في السبورة البيضاء",
+      "cleaningRequired": "مطلوب تنظيف",
+      "sanitization": "التعقيم",
+      "garbagePickup": "جمع القمامة",
+      "busDelay": "تأخير الحافلة",
+      "routeChange": "تغيير المسار",
+      "driverIssue": "مشكلة مع السائق",
+      "roomIssue": "مشكلة في الغرفة",
+      "waterSupply": "إمدادات المياه",
+      "maintenance": "الصيانة",
+      "portalAccess": "الوصول للبوابة",
+      "resultIssue": "مشكلة في النتائج",
+      "examSchedule": "جدول الامتحانات",
+      "loginIssue": "مشكلة في تسجيل الدخول",
+      "dataError": "خطأ في البيانات",
+      "featureRequest": "طلب ميزة جديدة"
+    },
+    "demoData": {
+      "tickets": [
+        {
+          "subject": "الواي فاي لا يعمل في الطابق الثاني، الحرم الرئيسي",
+          "description": "لا توجد اتصال بالإنترنت في مختبر علوم الحاسوب."
+        },
+        {
+          "subject": "مكيف الهواء لا يعمل في الفصل A302",
+          "description": "مكيف الهواء لا يبرد بشكل صحيح."
+        }
+      ],
+      "knowledgeArticles": [
+        {
+          "title": "كيفية إنشاء حملة جديدة",
+          "category": "الحملات"
+        },
+        {
+          "title": "فهم تحليلات التسويق",
+          "category": "التحليلات"
+        },
+        {
+          "title": "إرشادات التعاون الجماعي",
+          "category": "الفريق"
+        }
+      ]
+    },
+    "messages": {
+      "ticketSubmitted": "تم إرسال التذكرة بنجاح!",
+      "created": "تم الإنشاء",
+      "loading": "جاري التحميل..."
+    }
+  },
+  "workspace": {
+    "title": "مساحة العمل",
+    "subtitle": "لوحة موحدة لفريق التسويق لإدارة الحملات والأصول والامتثال والعمليات اليومية.",
+    "sections": {
+      "trainingDevelopment": "🎓 التدريب والتطوير",
+      "complianceQuality": "✅ الامتثال والجودة",
+      "assetCampaignManagement": "📁 إدارة الأصول والحملات"
+    },
+    "trainingDevelopment": {
+      "title": "التدريب التسويقي",
+      "digitalMarketingBootcamp": "معسكر التسويق الرقمي",
+      "brandManagementWorkshop": "ورشة إدارة العلامة التجارية",
+      "contentStrategySeminar": "ندوة استراتيجية المحتوى",
+      "knowledgeBase": {
+        "title": "قاعدة المعرفة",
+        "launchCampaign": "كيفية إطلاق حملة",
+        "socialMediaBestPractices": "أفضل ممارسات وسائل التواصل الاجتماعي",
+        "complianceChecklist": "قائمة مراجعة الامتثال التسويقي"
+      }
+    },
+    "complianceQuality": {
+      "campaignCompliance": {
+        "title": "امتثال الحملة",
+        "adContentReview": "مراجعة محتوى الإعلان",
+        "brandGuidelineAdherence": "الالتزام بإرشادات العلامة التجارية",
+        "gdprPrivacyCompliance": "امتثال GDPR/الخصوصية"
+      },
+      "riskManagement": {
+        "title": "إدارة المخاطر",
+        "negativeCampaignFeedback": "تغذية راجعة سلبية للحملة",
+        "missedCampaignDeadlines": "مواعيد نهائية فائتة للحملة",
+        "budgetOverrunAlert": "تنبيه تجاوز الميزانية"
+      },
+      "actions": {
+        "review": "مراجعة",
+        "check": "فحص",
+        "audit": "تدقيق"
+      },
+      "riskLevels": {
+        "high": "عالية",
+        "medium": "متوسطة",
+        "alert": "تنبيه"
+      }
+    },
+    "assetCampaignManagement": {
+      "myCampaigns": {
+        "title": "حملاتي",
+        "q2MarketingStrategy": "استراتيجية التسويق للربع الثاني",
+        "summerCampaign": "الحملة الصيفية",
+        "brandAwarenessDrive": "مبادرة الوعي بالعلامة التجارية"
+      },
+      "assetLibrary": {
+        "title": "مكتبة الأصول",
+        "summerCampaignAssets": "أصول الحملة الصيفية",
+        "brandGuidelines": "إرشادات العلامة التجارية",
+        "socialMediaTemplates": "قوالب وسائل التواصل الاجتماعي"
+      },
+      "taskBox": {
+        "title": "صندوق المهام",
+        "submitCampaignReport": "إرسال تقرير الحملة",
+        "reviewAdCreatives": "مراجعة الإبداعات الإعلانية",
+        "approveInfluencerContracts": "الموافقة على عقود المؤثرين"
+      },
+      "events": {
+        "title": "الأحداث",
+        "annualMarketingSummit": "قمة التسويق السنوية – التسجيل مفتوح",
+        "internalTrainingSchedule": "جدول التدريب الداخلي"
+      },
+      "analytics": {
+        "title": "التحليلات",
+        "campaignPerformanceDashboard": "لوحة أداء الحملة",
+        "leadGenerationTrends": "اتجاهات توليد العملاء المحتملين",
+        "roiAnalysis": "تحليل العائد على الاستثمار"
+      },
+      "status": {
+        "inProgress": "قيد التنفيذ",
+        "completed": "مكتمل",
+        "pending": "في الانتظار",
+        "active": "نشط",
+        "planning": "تخطيط"
+      }
+    }
+  },
+  "analytics": {
+    "title": "التقارير والتحليلات",
+    "subtitle": "رؤى قابلة للتنفيذ في الوقت الفعلي حول الحملات والعملاء المحتملين والإنفاق والفريق والعائد على الاستثمار.",
+    "sections": {
+      "leadFunnelAnalytics": "تحليلات قمع العملاء المحتملين",
+      "marketingSpendVsRoi": "الإنفاق التسويقي مقابل العائد على الاستثمار",
+      "campaignPerformanceReports": "تقارير أداء الحملات",
+      "audienceEngagementAnalytics": "تحليلات الجمهور والمشاركة",
+      "contentEffectiveness": "فعالية المحتوى",
+      "teamProductivityReports": "تقارير إنتاجية الفريق",
+      "performanceDashboards": "لوحات الأداء",
+      "customReportBuilder": "منشئ التقارير المخصصة"
+    },
+    "aiFeatures": {
+      "aiConversionScore": "نقاط التحويل بالذكاء الاصطناعي",
+      "funnelOptimization": "تحسين القمع",
+      "aiRoiEstimator": "مقدر العائد على الاستثمار بالذكاء الاصطناعي",
+      "overspendAlerts": "تنبيهات الإنفاق الزائد",
+      "aiBestTimePredictor": "متنبئ أفضل وقت بالذكاء الاصطناعي",
+      "autoRanking": "الترتيب التلقائي",
+      "aiGeoTargeting": "استهداف جغرافي بالذكاء الاصطناعي",
+      "demographicModeling": "النمذجة الديموغرافية",
+      "aiContentRecommendation": "توصية المحتوى بالذكاء الاصطناعي",
+      "repurposeSuggestion": "اقتراح إعادة الاستخدام",
+      "aiProductivityInsights": "رؤى الإنتاجية بالذكاء الاصطناعي",
+      "followUpDelayPrediction": "توقع تأخير المتابعة",
+      "aiGeneratedReports": "التقارير المولدة بالذكاء الاصطناعي"
+    },
+    "leadFunnel": {
+      "inquiries": "الاستفسارات",
+      "daily": "يومي",
+      "weekly": "أسبوعي",
+      "monthly": "شهري",
+      "leadToApp": "عميل محتمل→تطبيق",
+      "appToAdmission": "تطبيق→قبول",
+      "dropOffPoints": "نقاط الانسحاب",
+      "inquiry": "استفسار",
+      "application": "تطبيق",
+      "admission": "قبول",
+      "source": "المصدر",
+      "leads": "العملاء المحتملون",
+      "conversion": "التحويل",
+      "aiPredictiveLeadConversionScore": "نقاط تحويل العملاء المحتملين التنبؤية بالذكاء الاصطناعي",
+      "aiFunnelOptimizationSuggestion": "اقتراح تحسين القمع بالذكاء الاصطناعي"
+    },
+    "marketingSpend": {
+      "campaign": "الحملة",
+      "budgeted": "الميزانية ($)",
+      "actual": "الفعلي ($)",
+      "cpa": "تكلفة الاكتساب ($)",
+      "roi": "العائد على الاستثمار",
+      "revenue": "الإيرادات ($)",
+      "cpl": "تكلفة العميل المحتمل ($)",
+      "cac": "تكلفة اكتساب العميل ($)",
+      "aiAlert": "تنبيه الذكاء الاصطناعي",
+      "overspend": "إنفاق زائد",
+      "highRoi": "عائد مرتفع على الاستثمار",
+      "aiPoweredRoiEstimator": "مقدر العائد على الاستثمار بالذكاء الاصطناعي"
+    },
+    "campaignPerformance": {
+      "campaign": "الحملة",
+      "type": "النوع",
+      "openCtr": "فتح/معدل النقر",
+      "imprSent": "الانطباعات/المرسل",
+      "cpcCpl": "تكلفة النقر/تكلفة العميل المحتمل",
+      "bestTime": "أفضل وقت",
+      "rank": "الترتيب",
+      "aiCampaignInsights": "رؤى الحملة بالذكاء الاصطناعي"
+    },
+    "audienceEngagement": {
+      "group": "المجموعة",
+      "engagement": "المشاركة",
+      "device": "الجهاز",
+      "interest": "الاهتمام",
+      "hot": "ساخن",
+      "warm": "دافئ",
+      "cold": "بارد",
+      "aiGeoDemographicInsights": "رؤى جغرافية ديموغرافية بالذكاء الاصطناعي"
+    },
+    "contentEffectiveness": {
+      "type": "النوع",
+      "views": "المشاهدات",
+      "downloads": "التحميلات",
+      "engagement": "المشاركة",
+      "conversions": "التحويلات",
+      "aiContentRecommendation": "توصية المحتوى بالذكاء الاصطناعي",
+      "aiRepurposeSuggestion": "اقتراح إعادة الاستخدام بالذكاء الاصطناعي"
+    },
+    "teamProductivity": {
+      "member": "العضو",
+      "calls": "المكالمات",
+      "emails": "رسائل البريد الإلكتروني",
+      "meetings": "الاجتماعات",
+      "followUp": "المتابعة %",
+      "responseTime": "وقت الاستجابة",
+      "timeline": "الجدول الزمني",
+      "aiAlert": "تنبيه الذكاء الاصطناعي",
+      "delayRisk": "خطر التأخير",
+      "onTrack": "في المسار الصحيح",
+      "aiProductivityInsights": "رؤى الإنتاجية بالذكاء الاصطناعي"
+    },
+    "performanceDashboards": {
+      "leadsToday": "العملاء المحتملون اليوم",
+      "activeCampaigns": "الحملات النشطة",
+      "roiTrend": "اتجاه العائد على الاستثمار",
+      "dropOffs": "الانسحابات",
+      "leadSummaryChart": "رسم بياني ملخص العملاء المحتملين",
+      "roiTrendChart": "رسم بياني اتجاه العائد على الاستثمار",
+      "leadsOverLast7Days": "العملاء المحتملون خلال آخر 7 أيام",
+      "roiTrendOverLast7Days": "اتجاه العائد على الاستثمار خلال آخر 7 أيام"
+    },
+    "customReportBuilder": {
+      "dateRange": "نطاق التاريخ",
+      "campaign": "الحملة",
+      "leadStage": "مرحلة العميل المحتمل",
+      "channel": "القناة",
+      "all": "الكل",
+      "generate": "توليد",
+      "export": "تصدير",
+      "schedule": "جدولة",
+      "aiGeneratedNarrativeReport": "التقرير السردي المولد بالذكاء الاصطناعي"
+    },
+    "demoData": {
+      "googleAds": "إعلانات جوجل",
+      "facebook": "فيسبوك",
+      "linkedIn": "لينكد إن",
+      "events": "الأحداث",
+      "referrals": "الإحالات",
+      "springEmailBlast": "انفجار البريد الإلكتروني الربيعي",
+      "summerGoogleAds": "إعلانات جوجل الصيفية",
+      "campusEvent": "حدث الحرم الجامعي",
+      "email": "البريد الإلكتروني",
+      "paidAds": "إعلانات مدفوعة",
+      "event": "الحدث",
+      "brochure": "الكتيب",
+      "programVideo": "فيديو البرنامج",
+      "testimonial": "الشهادة",
+      "mobile": "الجوال",
+      "desktop": "سطح المكتب",
+      "inquiry": "استفسار",
+      "application": "تطبيق",
+      "admission": "قبول"
+    }
+  },
+  "communication": {
+    "title": "مركز التواصل",
+    "subtitle": "مركزية وتبسيط جميع تواصلات التسويق مع رؤى مدعومة بالذكاء الاصطناعي.",
+    "sections": {
+      "leadCommunicationPanel": "لوحة تواصل العملاء المحتملين",
+      "teamCollaborationChannel": "قناة تعاون الفريق",
+      "campaignMessagingCenter": "مركز رسائل الحملات",
+      "vendorPartnerComms": "تواصل الموردين والشركاء",
+      "integratedCommunicationCalendar": "تقويم التواصل المتكامل",
+      "notificationAlertCenter": "مركز الإشعارات والتنبيهات",
+      "communicationLogsAnalytics": "سجلات التواصل والتحليلات",
+      "aiCommunicationAssistant": "مساعد التواصل بالذكاء الاصطناعي"
+    },
+    "aiFeatures": {
+      "aiResponseSuggestions": "اقتراحات الرد بالذكاء الاصطناعي",
+      "toneOptimizer": "محسن النبرة",
+      "engagementTracker": "متتبع المشاركة",
+      "aiSummarization": "التلخيص بالذكاء الاصطناعي",
+      "smartFileSuggestions": "اقتراحات الملفات الذكية",
+      "sendTimeOptimization": "تحسين وقت الإرسال",
+      "subjectLinePredictor": "متنبئ سطر الموضوع",
+      "abTestingInsights": "رؤى اختبار A/B",
+      "vendorPerformanceSummary": "ملخص أداء الموردين",
+      "followUpNudges": "دفعات المتابعة",
+      "smartScheduling": "الجدولة الذكية",
+      "missedOpportunityAlerts": "تنبيهات الفرص الفائتة",
+      "urgencyDetector": "كاشف الاستعجال",
+      "aiPrioritization": "الأولوية بالذكاء الاصطناعي",
+      "dropOffDetector": "كاشف الانسحاب",
+      "messageQualityAnalyzer": "محلل جودة الرسائل"
+    },
+    "leadCommunication": {
+      "lead": "العميل المحتمل",
+      "channel": "القناة",
+      "lastMessage": "آخر رسالة",
+      "date": "التاريخ",
+      "engagement": "المشاركة",
+      "aiResponseSuggestion": "اقتراح الرد بالذكاء الاصطناعي",
+      "aiToneOptimizer": "محسن النبرة بالذكاء الاصطناعي"
+    },
+    "teamCollaboration": {
+      "chatRooms": "غرف الدردشة",
+      "announcements": "الإعلانات",
+      "new": "جديد",
+      "aiAutoSummarization": "التلخيص التلقائي بالذكاء الاصطناعي",
+      "aiSmartFileSuggestion": "اقتراح الملف الذكي بالذكاء الاصطناعي"
+    },
+    "campaignMessaging": {
+      "type": "النوع",
+      "name": "الاسم",
+      "status": "الحالة",
+      "segment": "الشريحة",
+      "sendTime": "وقت الإرسال",
+      "aiSendTimeOptimization": "تحسين وقت الإرسال بالذكاء الاصطناعي",
+      "aiSubjectLinePredictor": "متنبئ سطر الموضوع بالذكاء الاصطناعي",
+      "aiAbTestingInsights": "رؤى اختبار A/B بالذكاء الاصطناعي"
+    },
+    "vendorPartner": {
+      "vendor": "المورد",
+      "type": "النوع",
+      "lastMessage": "آخر رسالة",
+      "date": "التاريخ",
+      "performance": "الأداء",
+      "aiVendorPerformanceSummary": "ملخص أداء الموردين بالذكاء الاصطناعي",
+      "aiFollowUpNudge": "دفعة المتابعة بالذكاء الاصطناعي"
+    },
+    "communicationCalendar": {
+      "event": "الحدث",
+      "type": "النوع",
+      "date": "التاريخ",
+      "time": "الوقت",
+      "aiSmartScheduling": "الجدولة الذكية بالذكاء الاصطناعي",
+      "aiMissedOpportunityAlert": "تنبيه الفرصة الفائتة بالذكاء الاصطناعي"
+    },
+    "notificationAlert": {
+      "type": "النوع",
+      "message": "الرسالة",
+      "date": "التاريخ",
+      "urgent": "عاجل",
+      "urgentLabel": "عاجل",
+      "normal": "عادي",
+      "aiUrgencyDetector": "كاشف الاستعجال بالذكاء الاصطناعي",
+      "aiPrioritization": "الأولوية بالذكاء الاصطناعي"
+    },
+    "communicationLogs": {
+      "name": "الاسم",
+      "channel": "القناة",
+      "outcome": "النتيجة",
+      "date": "التاريخ",
+      "aiDropOffDetector": "كاشف الانسحاب بالذكاء الاصطناعي",
+      "aiMessageQualityAnalyzer": "محلل جودة الرسائل بالذكاء الاصطناعي"
+    },
+    "aiAssistant": {
+      "composeSmartResponse": "تأليف رد ذكي",
+      "recommendMessageTemplate": "توصية قالب رسالة",
+      "generateDripCampaign": "توليد حملة تقطرية",
+      "summarizeThread": "تلخيص المحادثة"
+    },
+    "modal": {
+      "channelDetails": "تفاصيل القناة",
+      "participants": "المشاركون",
+      "status": "الحالة",
+      "recentMessages": "الرسائل الأخيرة",
+      "typeYourMessage": "اكتب رسالتك...",
+      "sendMessage": "إرسال الرسالة",
+      "close": "إغلاق"
+    },
+    "status": {
+      "active": "نشط",
+      "scheduled": "مجدول",
+      "sent": "مرسل",
+      "draft": "مسودة",
+      "high": "عالية",
+      "medium": "متوسطة",
+      "low": "منخفضة"
+    },
+    "demoData": {
+      "teamAnnouncements": "إعلانات الفريق",
+      "campaignUpdates": "تحديثات الحملات",
+      "clientCommunications": "تواصل العملاء",
+      "internal": "داخلي",
+      "project": "مشروع",
+      "external": "خارجي",
+      "q2MarketingStrategyMeeting": "اجتماع استراتيجية التسويق للربع الثاني - غداً الساعة 10 صباحاً",
+      "summerCampaignAssets": "أصول الحملة الصيفية جاهزة للمراجعة",
+      "newClientOnboarding": "جدولة انضمام عميل جديد الأسبوع القادم",
+      "pleaseReviewMetrics": "يرجى مراجعة أحدث مقاييس الحملة",
+      "teamMeetingAgenda": "تم تحديث جدول أعمال اجتماع الفريق",
+      "newClientPresentation": "عرض العميل الجديد جاهز",
+      "interestedInMbaProgram": "مهتم ببرنامج الماجستير في إدارة الأعمال",
+      "requestedBrochure": "طلب كتيب",
+      "sentApplicationLink": "تم إرسال رابط التطبيق",
+      "mbaCampaign": "حملة الماجستير في إدارة الأعمال",
+      "socialMedia": "وسائل التواصل الاجتماعي",
+      "events": "الأحداث",
+      "designReadyForReview": "التصميم جاهز للمراجعة",
+      "scheduledNextPost": "تم جدولة المنشور التالي",
+      "venueConfirmed": "تم تأكيد المكان",
+      "mbaCampaignKickoff": "اجتماع انطلاق حملة الماجستير في إدارة الأعمال الساعة 3 مساءً.",
+      "socialMediaCalendarUpdated": "تم تحديث تقويم وسائل التواصل الاجتماعي.",
+      "springBlast": "انفجار الربيع",
+      "eventReminder": "تذكير الحدث",
+      "appDeadline": "موعد نهائي التطبيق",
+      "allLeads": "جميع العملاء المحتملين",
+      "eventAttendees": "حضور الحدث",
+      "applicants": "المتقدمون",
+      "adAgency": "وكالة إعلانات",
+      "printer": "طابعة",
+      "sentInvoice": "تم إرسال الفاتورة",
+      "sharedCreative": "تم مشاركة الإبداع",
+      "mbaEmailBlast": "انفجار بريد الماجستير في إدارة الأعمال",
+      "openDayReminder": "تذكير اليوم المفتوح",
+      "leadViewedBrochure": "العميل المحتمل السعودية شاهد الكتيب 3 مرات",
+      "springBlastSent": "تم إرسال انفجار الربيع بنجاح",
+      "replyPending": "رد معلق من فريق التصميم",
+      "opened": "مفتوح",
+      "clicked": "تم النقر",
+      "delivered": "تم التسليم"
+    }
+  },
+  "training": {
+    "title": "التدريب والتطوير",
+    "subtitle": "التعلم المنظم، ترقية المهارات، ومشاركة المعرفة للتميز في التسويق.",
+    "nexusHiveAI": {
+      "title": "NexusHiveAI: شريكك في التعلم",
+      "description": "NexusHiveAI هنا لتعزيز تجربة التعلم الخاصة بك مع توصيات الدورات المخصصة والرؤى. تحقق من الدورات الموصى بها أدناه!",
+      "recommendedCourses": "الدورات الموصى بها من NexusHiveAI"
+    },
+    "sections": {
+      "trainingDashboard": "لوحة التدريب",
+      "trainingCalendar": "تقويم التدريب",
+      "courseLibrary": "مكتبة الدورات / تكامل LMS",
+      "skillProfiles": "ملفات مهارات أعضاء الفريق",
+      "trainingRequests": "طلبات التدريب والموافقات",
+      "knowledgeManagement": "إدارة المعرفة",
+      "peerLearning": "التعلم من الأقران والتوجيه",
+      "reportsInsights": "التقارير والرؤى",
+      "aiAssistant": "مساعد التدريب المدعوم بالذكاء الاصطناعي"
+    },
+    "aiFeatures": {
+      "skillGapPrediction": "توقع فجوة المهارات بالذكاء الاصطناعي",
+      "trainingROIEstimator": "مقدر عائد الاستثمار للتدريب",
+      "smartRescheduling": "إعادة الجدولة الذكية",
+      "remindersNudges": "التذكيرات والدفعات",
+      "adaptiveLearningPath": "مسار التعلم التكيفي",
+      "autoGeneratedTests": "الاختبارات المُولدة تلقائياً",
+      "skillScoreIndex": "مؤشر درجة المهارة",
+      "promotionReadiness": "جاهزية الترقية",
+      "costImpactAnalyzer": "محلل التكلفة والتأثير",
+      "aiPoweredSearch": "البحث المدعوم بالذكاء الاصطناعي",
+      "autoTagging": "التوسيم التلقائي",
+      "mentorshipMatchmaking": "مطابقة التوجيه",
+      "engagementAnalyzer": "محلل المشاركة",
+      "teamHeatmaps": "خرائط الحرارة للفريق"
+    },
+    "dashboard": {
+      "upcomingSessions": "الجلسات القادمة",
+      "certificationStatus": "حالة الشهادة",
+      "teamMember": "عضو الفريق",
+      "completed": "مكتمل",
+      "pending": "في الانتظار",
+      "skillGap": "فجوة المهارة",
+      "certified": "معتمد",
+      "skillGapPrediction": "توقع فجوة المهارات بالذكاء الاصطناعي",
+      "trainingROIEstimator": "مقدر عائد الاستثمار للتدريب بالذكاء الاصطناعي"
+    },
+    "calendar": {
+      "april2025": "أبريل 2025",
+      "today": "اليوم",
+      "upcoming": "قادم",
+      "pending": "في الانتظار",
+      "completed": "مكتمل",
+      "smartRescheduling": "إعادة الجدولة الذكية بالذكاء الاصطناعي",
+      "remindersNudges": "التذكيرات والدفعات بالذكاء الاصطناعي"
+    },
+    "courseLibrary": {
+      "course": "الدورة",
+      "type": "النوع",
+      "completed": "مكتمل",
+      "link": "الرابط",
+      "view": "عرض",
+      "internal": "داخلي",
+      "external": "خارجي",
+      "adaptiveLearningPath": "مسار التعلم التكيفي بالذكاء الاصطناعي",
+      "autoGeneratedTest": "الاختبار المُولد تلقائياً بالذكاء الاصطناعي"
+    },
+    "skillProfiles": {
+      "name": "الاسم",
+      "skills": "المهارات",
+      "completed": "مكتمل",
+      "pending": "في الانتظار",
+      "goals": "الأهداف",
+      "feedback": "التغذية الراجعة",
+      "skillScore": "درجة المهارة",
+      "promotionReady": "جاهز للترقية",
+      "yes": "نعم",
+      "no": "لا",
+      "skillScoreIndex": "مؤشر درجة المهارة بالذكاء الاصطناعي",
+      "promotionReadiness": "جاهزية الترقية بالذكاء الاصطناعي"
+    },
+    "trainingRequests": {
+      "name": "الاسم",
+      "request": "الطلب",
+      "type": "النوع",
+      "status": "الحالة",
+      "cost": "التكلفة ($)",
+      "costImpactAnalyzer": "محلل التكلفة والتأثير بالذكاء الاصطناعي"
+    },
+    "knowledgeManagement": {
+      "title": "العنوان",
+      "type": "النوع",
+      "tags": "العلامات",
+      "aiPoweredSearch": "البحث المدعوم بالذكاء الاصطناعي",
+      "autoTagging": "التوسيم التلقائي بالذكاء الاصطناعي"
+    },
+    "peerLearning": {
+      "mentor": "الموجه",
+      "mentee": "المتوجه",
+      "topic": "الموضوع",
+      "status": "الحالة",
+      "mentorshipMatchmaking": "مطابقة التوجيه بالذكاء الاصطناعي"
+    },
+    "reportsInsights": {
+      "week": "الأسبوع",
+      "completed": "مكتمل",
+      "participation": "المشاركة (%)",
+      "skillImprovement": "تحسين المهارة",
+      "feedback": "التغذية الراجعة",
+      "engagementAnalyzer": "محلل المشاركة بالذكاء الاصطناعي",
+      "teamHeatmaps": "خريطة الحرارة للفريق بالذكاء الاصطناعي"
+    },
+    "aiAssistant": {
+      "recommendedCourses": "الدورات الموصى بها",
+      "learningPathSuggestions": "اقتراحات مسار التعلم",
+      "advancedDigitalMarketing": "استراتيجيات التسويق الرقمي المتقدمة",
+      "dataDrivenDecision": "اتخاذ القرارات القائمة على البيانات",
+      "leadershipMarketing": "القيادة في التسويق",
+      "customerRelationship": "إدارة علاقات العملاء",
+      "marketingFundamentals": "أساسيات التسويق",
+      "advancedAnalytics": "التحليلات المتقدمة",
+      "strategicPlanning": "التخطيط الاستراتيجي"
+    },
+    "modal": {
+      "programDetails": "تفاصيل البرنامج",
+      "type": "النوع",
+      "duration": "المدة",
+      "instructor": "المدرب",
+      "participants": "المشاركون",
+      "courseModules": "وحدات الدورة",
+      "progress": "التقدم",
+      "complete": "مكتمل",
+      "updateProgram": "تحديث البرنامج",
+      "viewParticipants": "عرض المشاركين",
+      "close": "إغلاق"
+    },
+    "status": {
+      "active": "نشط",
+      "upcoming": "قادم",
+      "completed": "مكتمل",
+      "pending": "في الانتظار"
+    },
+    "demoData": {
+      "digitalMarketingFundamentals": "أساسيات التسويق الرقمي",
+      "advancedLeadGeneration": "توليد العملاء المحتملين المتقدم",
+      "campaignManagement": "إدارة الحملات",
+      "onlineCourse": "دورة عبر الإنترنت",
+      "workshop": "ورشة عمل",
+      "certification": "شهادة",
+      "introductionDigitalMarketing": "مقدمة في التسويق الرقمي",
+      "socialMediaMarketing": "التسويق عبر وسائل التواصل الاجتماعي",
+      "contentMarketing": "تسويق المحتوى",
+      "emailMarketing": "التسويق عبر البريد الإلكتروني",
+      "analyticsReporting": "التحليلات والتقارير",
+      "leadScoring": "تقييم العملاء المحتملين",
+      "crmManagement": "إدارة CRM",
+      "leadNurturing": "رعاية العملاء المحتملين",
+      "conversionOptimization": "تحسين التحويل",
+      "campaignPlanning": "تخطيط الحملات",
+      "budgetManagement": "إدارة الميزانية",
+      "channelStrategy": "استراتيجية القنوات",
+      "performanceAnalysis": "تحليل الأداء",
+      "googleAdsBasics": "أساسيات إعلانات جوجل",
+      "crmLeadNurturing": "رعاية العملاء المحتملين في CRM",
+      "metaAdsCertification": "شهادة إعلانات ميتا",
+      "howToLaunchCampaign": "كيفية إطلاق حملة",
+      "marketingCalendarTemplate": "قالب التقويم التسويقي",
+      "failedLeadCampaignInsights": "رؤى حملة العملاء المحتملين الفاشلة",
+      "sop": "إجراءات التشغيل القياسية",
+      "toolkit": "مجموعة الأدوات",
+      "report": "التقرير",
+      "campaign": "الحملة",
+      "template": "القالب",
+      "calendar": "التقويم",
+      "leads": "العملاء المحتملون"
+    }
+  },
+  "campaigns": {
+    "title": "إدارة الحملات",
+    "subtitle": "تتبع وإدارة حملات التسويق الخاصة بك",
+    "createCampaign": "إنشاء حملة",
+    "exportReport": "تصدير التقرير",
+    "performance": {
+      "totalbudget": "إجمالي الميزانية",
+      "totalspent": "إجمالي المنفق",
+      "totalleads": "إجمالي العملاء المحتملين",
+      "totalconversions": "إجمالي التحويلات"
+    },
+    "channelPerformance": {
+      "title": "أداء القنوات",
+      "budget": "الميزانية",
+      "spent": "المنفق",
+      "leads": "العملاء المحتملون",
+      "conversions": "التحويلات"
+    },
+    "allCampaigns": {
+      "title": "جميع الحملات",
+      "allCampaigns": "جميع الحملات",
+      "active": "نشط",
+      "planning": "تخطيط",
+      "completed": "مكتمل",
+      "campaign": "الحملة",
+      "type": "النوع",
+      "status": "الحالة",
+      "budget": "الميزانية",
+      "performance": "الأداء",
+      "actions": "الإجراءات",
+      "leads": "عملاء محتملون",
+      "conversions": "تحويلات",
+      "viewDetails": "عرض التفاصيل"
+    },
+    "status": {
+      "active": "نشط",
+      "planning": "تخطيط",
+      "completed": "مكتمل"
+    },
+    "modal": {
+      "campaignDetails": "تفاصيل الحملة",
+      "type": "النوع",
+      "duration": "المدة",
+      "budget": "الميزانية",
+      "spent": "المنفق",
+      "channels": "القنوات",
+      "teamMembers": "أعضاء الفريق",
+      "performance": "الأداء",
+      "leadsGenerated": "العملاء المحتملون المُنشأون",
+      "conversions": "التحويلات",
+      "updateCampaign": "تحديث الحملة",
+      "viewAnalytics": "عرض التحليلات"
+    },
+    "createModal": {
+      "title": "إنشاء حملة جديدة",
+      "campaignName": "اسم الحملة",
+      "campaignNamePlaceholder": "مثال: حملة التسجيل الصيفي",
+      "type": "النوع",
+      "typePlaceholder": "مثال: رقمي، اجتماعي، متعدد القنوات",
+      "status": "الحالة",
+      "startDate": "تاريخ البداية",
+      "endDate": "تاريخ النهاية",
+      "budget": "الميزانية ($)",
+      "budgetPlaceholder": "مثال: 50000",
+      "expectedResults": "النتائج المتوقعة / عائد الاستثمار",
+      "expectedResultsPlaceholder": "مثال: 5x عائد الاستثمار، 1000 عميل محتمل، 200 تحويل",
+      "hardBenefits": "الفوائد الملموسة",
+      "tangibleMeasurable": "ملموسة، قابلة للقياس",
+      "hardBenefitsPlaceholder": "مثال: زيادة الإيرادات، المزيد من التسجيلات، توفير التكاليف",
+      "softBenefits": "الفوائد غير الملموسة",
+      "intangibleQualitative": "غير ملموسة، نوعية",
+      "softBenefitsPlaceholder": "مثال: الوعي بالعلامة التجارية، معنويات الفريق، سمعة السوق",
+      "cancel": "إلغاء",
+      "createCampaign": "إنشاء الحملة"
+    }
+  },
+  "resources": {
+    "title": "إدارة الموارد",
+    "subtitle": "رؤية كاملة وتحكم في موارد التسويق الخاصة بك مع رؤى مدعومة بالذكاء الاصطناعي.",
+    "sections": {
+      "teamAllocation": "توزيع الفريق",
+      "eventMonitoring": "مراقبة الأحداث",
+      "budgetCostAllocation": "الميزانية وتخصيص التكاليف",
+      "toolSoftwareManagement": "إدارة الأدوات والبرامج",
+      "assetContentRepository": "مستودع الأصول والمحتوى",
+      "vendorPartnerManagement": "إدارة الموردين والشركاء",
+      "resourceUtilizationDashboard": "لوحة تحكم استخدام الموارد",
+      "approvalWorkflow": "سير عمل الموافقة",
+      "academicCompliance": "الامتثال الأكاديمي",
+      "aiFeatures": "ميزات الذكاء الاصطناعي في إدارة الموارد"
+    },
+    "aiFeatures": {
+      "aiForecasting": "التنبؤ بالذكاء الاصطناعي",
+      "underutilizationAlerts": "تنبيهات الاستخدام المنخفض",
+      "aiDelayRisk": "مخاطر التأخير بالذكاء الاصطناعي",
+      "timeOptimization": "تحسين الوقت",
+      "aiRoiPredictor": "منبئ عائد الاستثمار بالذكاء الاصطناعي",
+      "budgetDriftAlert": "تنبيه انحراف الميزانية",
+      "aiUsageInsights": "رؤى الاستخدام بالذكاء الاصطناعي",
+      "aiContentScoring": "تقييم المحتوى بالذكاء الاصطناعي",
+      "smartSuggestions": "الاقتراحات الذكية",
+      "aiVendorAnalytics": "تحليلات الموردين بالذكاء الاصطناعي",
+      "aiWeeklyReport": "التقرير الأسبوعي بالذكاء الاصطناعي",
+      "anomalyDetection": "كشف الشذوذ"
+    },
+    "teamAllocation": {
+      "name": "الاسم",
+      "role": "الدور",
+      "assigned": "المُسند",
+      "geo": "الموقع الجغرافي",
+      "workload": "عبء العمل",
+      "aiAlert": "تنبيه الذكاء الاصطناعي",
+      "idle": "خامل",
+      "overbooked": "محمّل بشكل مفرط"
+    },
+    "eventMonitoring": {
+      "campaign": "الحملة",
+      "start": "البداية",
+      "end": "النهاية",
+      "status": "الحالة",
+      "tasks": "المهام",
+      "completed": "مكتمل",
+      "aiAlert": "تنبيه الذكاء الاصطناعي",
+      "delayRisk": "مخاطر التأخير"
+    },
+    "budgetCostAllocation": {
+      "campaign": "الحملة",
+      "planned": "مخطط",
+      "spent": "مُنفق",
+      "roi": "عائد الاستثمار",
+      "aiAlert": "تنبيه الذكاء الاصطناعي",
+      "overBudget": "تجاوز الميزانية",
+      "highRoi": "عائد استثمار مرتفع"
+    },
+    "toolSoftwareManagement": {
+      "tool": "الأداة",
+      "type": "النوع",
+      "users": "المستخدمون",
+      "renewal": "التجديد",
+      "yearlySubscription": "الاشتراك السنوي",
+      "usage": "الاستخدام",
+      "aiAlert": "تنبيه الذكاء الاصطناعي",
+      "underused": "قليل الاستخدام"
+    },
+    "assetContentRepository": {
+      "asset": "الأصل",
+      "type": "النوع",
+      "version": "الإصدار",
+      "downloads": "التحميلات",
+      "lastUsed": "آخر استخدام",
+      "aiTag": "وسم الذكاء الاصطناعي",
+      "topPerformer": "الأداء الأفضل"
+    },
+    "vendorPartnerManagement": {
+      "vendor": "المورد",
+      "type": "النوع",
+      "rating": "التقييم",
+      "contracts": "العقود",
+      "lastInvoice": "آخر فاتورة",
+      "aiTag": "وسم الذكاء الاصطناعي",
+      "topVendor": "المورد الأفضل"
+    },
+    "resourceUtilizationDashboard": {
+      "teamUsageHeatmap": "خريطة حرارية لاستخدام الفريق",
+      "budgetConsumption": "استهلاك الميزانية",
+      "assetDownloadFrequency": "تكرار تحميل الأصول",
+      "toolCostVsUsage": "تكلفة الأداة مقابل الاستخدام",
+      "used": "مستخدم"
+    },
+    "approvalWorkflow": {
+      "type": "النوع",
+      "item": "العنصر",
+      "status": "الحالة",
+      "approver": "الموافق"
+    },
+    "academicCompliance": {
+      "name": "الاسم",
+      "compliance": "الامتثال",
+      "status": "الحالة",
+      "date": "التاريخ"
+    },
+    "aiFeaturesList": {
+      "aiFeature": "ميزة الذكاء الاصطناعي",
+      "description": "الوصف",
+      "forecastResourceDemand": "📊 التنبؤ بطلب الموارد",
+      "forecastResourceDemandDesc": "توقع احتياجات الفريق/الموارد بناءً على الحملات القادمة",
+      "budgetDriftDetection": "📉 كشف انحراف الميزانية",
+      "budgetDriftDetectionDesc": "تحديد اتجاهات الإنفاق المفرط مبكراً",
+      "smartContentSuggestions": "🧠 اقتراحات المحتوى الذكية",
+      "smartContentSuggestionsDesc": "اقتراح محتوى للحملات الجديدة بناءً على الأداء السابق",
+      "underOverutilizationAlerts": "🔔 تنبيهات الاستخدام المنخفض/المرتفع",
+      "underOverutilizationAlertsDesc": "إشعار حول الموظفين قليلي الاستخدام أو المحملين بشكل مفرط",
+      "roiPredictor": "📈 منبئ عائد الاستثمار",
+      "roiPredictorDesc": "توقع عائد الاستثمار من تخصيص الموارد المخطط",
+      "toolOptimizationSuggestions": "🛠 اقتراحات تحسين الأدوات",
+      "toolOptimizationSuggestionsDesc": "توصية بتوفير التكاليف على اشتراكات SaaS"
+    }
+  },
+  "leads": {
+    "title": "العملاء المحتملون",
+    "subtitle": "إدارة دورة حياة العملاء المحتملين بالكامل مع رؤى مدعومة بالذكاء الاصطناعي.",
+    "importLeads": "استيراد العملاء المحتملين",
+    "exportLeads": "تصدير العملاء المحتملين",
+    "searchPlaceholder": "البحث في العملاء المحتملين...",
+    "allStatus": "جميع الحالات",
+    "addLead": "إضافة عميل محتمل",
+    "export": "تصدير",
+    "selectedLeads": "{{count}} عميل محتمل محدد",
+    "assign": "تعيين",
+    "changeStatus": "تغيير الحالة",
+    "delete": "حذف",
+    "table": {
+      "lead": "العميل المحتمل",
+      "source": "المصدر",
+      "status": "الحالة",
+      "assignedTo": "مُسند إلى",
+      "lastContact": "آخر اتصال",
+      "actions": "الإجراءات"
+    },
+    "status": {
+      "new": "جديد",
+      "opportunities": "الفرص",
+      "interview schedule": "جدولة المقابلة",
+      "approved": "موافق عليه",
+      "accounts": "الحسابات",
+      "inactive": "غير نشط"
+    },
+    "actions": {
+      "sendEmail": "إرسال بريد إلكتروني",
+      "sendSMS": "إرسال رسالة نصية",
+      "viewDetails": "عرض التفاصيل",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "pagination": {
+      "showing": "عرض {{start}} إلى {{end}} من {{total}} عميل محتمل",
+      "previous": "السابق",
+      "next": "التالي",
+      "page": "الصفحة {{current}} من {{total}}"
+    },
+    "exportFields": {
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "source": "المصدر",
+      "status": "الحالة",
+      "assignedTo": "مُسند إلى",
+      "lastContact": "آخر اتصال",
+      "notes": "الملاحظات"
+    },
+    "modals": {
+      "import": {
+        "title": "استيراد العملاء المحتملين",
+        "selectFile": "اختر ملف CSV أو XLSX",
+        "acceptedColumns": "الأعمدة المقبولة:",
+        "downloadTemplate": "تحميل",
+        "sampleTemplate": "قالب نموذجي",
+        "import": "استيراد",
+        "error": "فشل الاستيراد:",
+        "noValidLeads": "لم يتم العثور على عملاء محتملين صالحين في الملف. تأكد من وجود الاسم والبريد الإلكتروني والهاتف.",
+        "unsupportedFile": "نوع ملف غير مدعوم. يرجى رفع ملف CSV أو XLSX.",
+        "selectFileToImport": "يرجى اختيار ملف للاستيراد."
+      },
+      "export": {
+        "title": "تصدير العملاء المحتملين",
+        "exportFormat": "تنسيق التصدير",
+        "fieldsToExport": "الحقول المراد تصديرها",
+        "export": "تصدير"
+      },
+      "addEdit": {
+        "addTitle": "إضافة عميل محتمل",
+        "editTitle": "تعديل العميل المحتمل",
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "phone": "الهاتف",
+        "source": "المصدر",
+        "status": "الحالة",
+        "assignedTo": "مُسند إلى",
+        "lastContact": "آخر اتصال",
+        "notes": "الملاحظات",
+        "addLead": "إضافة عميل محتمل",
+        "updateLead": "تحديث العميل المحتمل",
+        "cancel": "إلغاء"
+      },
+      "analytics": {
+        "title": "التحليلات التفصيلية",
+        "leadQualityDistribution": "توزيع جودة العملاء المحتملين",
+        "conversionFunnel": "قمع التحويل",
+        "campaignPerformance": "أداء الحملة",
+        "counselorPerformance": "أداء المستشار"
+      }
+    },
+    "sections": {
+      "leadCaptureImport": {
+        "title": "التقاط واستيراد العملاء المحتملين",
+        "aiQualityScoring": "تقييم الجودة بالذكاء الاصطناعي",
+        "date": "التاريخ",
+        "source": "المصدر",
+        "count": "العدد",
+        "quality": "الجودة",
+        "status": "الحالة",
+        "quality": {
+          "high": "عالية",
+          "medium": "متوسطة",
+          "low": "منخفضة"
+        },
+        "status": {
+          "completed": "مكتمل",
+          "pending": "قيد الانتظار",
+          "failed": "فشل"
+        }
+      },
+      "leadSegmentation": {
+        "title": "تقسيم العملاء المحتملين والمرشحات",
+        "aiSegmentSuggestion": "اقتراح التقسيم بالذكاء الاصطناعي",
+        "segmentName": "اسم القسم",
+        "count": "العدد",
+        "conversion": "التحويل",
+        "source": "المصدر",
+        "lastUpdated": "آخر تحديث"
+      },
+      "leadNurturing": {
+        "title": "رعاية العملاء المحتملين وأتمتة سير العمل",
+        "aiDripRecommendation": "توصية التنقيط بالذكاء الاصطناعي",
+        "campaignName": "اسم الحملة",
+        "status": "الحالة",
+        "leads": "العملاء المحتملون",
+        "openRate": "معدل الفتح",
+        "responseRate": "معدل الاستجابة",
+        "statusOptions": {
+          "active": "نشط",
+          "scheduled": "مجدول",
+          "draft": "مسودة"
+        }
+      },
+      "communicationCenter": {
+        "title": "مركز الاتصالات",
+        "aiSentiment": "تحليل المشاعر بالذكاء الاصطناعي",
+        "lead": "العميل المحتمل",
+        "type": "النوع",
+        "date": "التاريخ",
+        "status": "الحالة",
+        "response": "الاستجابة",
+        "statusOptions": {
+          "completed": "مكتمل",
+          "sent": "مرسل",
+          "delivered": "مستلم",
+          "opened": "مفتوح"
+        },
+        "responseOptions": {
+          "positive": "إيجابي",
+          "neutral": "محايد",
+          "pending": "قيد الانتظار"
+        }
+      },
+      "leadAssignment": {
+        "title": "تعيين العملاء المحتملين والتوجيه",
+        "aiRoutingEngine": "محرك التوجيه بالذكاء الاصطناعي",
+        "counselor": "المستشار",
+        "assigned": "مُسند",
+        "converted": "محول",
+        "conversionRate": "معدل التحويل",
+        "avgResponse": "متوسط الاستجابة"
+      },
+      "leadScoring": {
+        "title": "تقييم العملاء المحتملين",
+        "aiDynamicScoring": "التقييم الديناميكي بالذكاء الاصطناعي",
+        "lead": "العميل المحتمل",
+        "score": "الدرجة",
+        "factors": "العوامل",
+        "trend": "الاتجاه",
+        "trendOptions": {
+          "up": "صاعد",
+          "down": "هابط",
+          "stable": "مستقر"
+        }
+      },
+      "analyticsInsights": {
+        "title": "التحليلات والرؤى",
+        "aiPredictions": "التنبؤات بالذكاء الاصطناعي",
+        "viewDetailedAnalytics": "عرض التحليلات التفصيلية",
+        "leadQualityDistribution": "توزيع جودة العملاء المحتملين",
+        "conversionFunnel": "قمع التحويل",
+        "quality": {
+          "high": "عالية",
+          "medium": "متوسطة",
+          "low": "منخفضة"
+        },
+        "metrics": {
+          "conversionrate": "معدل التحويل",
+          "responsetime": "وقت الاستجابة",
+          "leadquality": "جودة العملاء المحتملين",
+          "dropoffrate": "معدل الانسحاب"
+        },
+        "funnelStages": {
+          "new": "جديد",
+          "contacted": "تم الاتصال",
+          "qualified": "مؤهل",
+          "converted": "محول"
+        }
+      },
+      "documentationTracking": {
+        "title": "تتبع الوثائق والطلبات",
+        "lead": "العميل المحتمل",
+        "documentType": "نوع المستند",
+        "status": "الحالة",
+        "date": "التاريخ",
+        "statusOptions": {
+          "completed": "مكتمل",
+          "pending": "قيد الانتظار",
+          "incomplete": "غير مكتمل"
+        }
+      },
+      "aiCopilotPanel": {
+        "title": "لوحة القرارات المحسنة بالذكاء الاصطناعي",
+        "quickInsights": "رؤى سريعة",
+        "recommendedActions": "الإجراءات الموصى بها",
+        "insights": {
+          "mbaLeads": "عملاء MBA يظهرون تفاعلاً أعلى بنسبة 45%",
+          "counselorsNeedFollowUp": "3 مستشارين يحتاجون مساعدة في المتابعة",
+          "engineeringLeadsDropping": "عملاء برنامج الهندسة يتسربون"
+        },
+        "actions": {
+          "scheduleFollowUp": "جدولة متابعة لـ 12 عميل محتمل عالي الإمكانات",
+          "adjustCampaignTargeting": "تعديل استهداف الحملة لبرنامج الهندسة",
+          "reviewLeadScoring": "مراجعة وتحديث معايير تقييم العملاء المحتملين"
+        }
+      }
+    }
+  },
+  "team": {
+    "title": "إدارة الفريق",
+    "subtitle": "تتبع وتعيين وتوجيه وتحسين فريق التسويق الخاص بك باستخدام أدوات ذكية ورؤى الذكاء الاصطناعي.",
+    "addTeamMember": "إضافة عضو فريق",
+    "exportReport": "تصدير التقرير",
+    "sections": {
+      "teamStructure": {
+        "title": "هيكل الفريق والتسلسل الهرمي",
+        "aiSuggestion": "اقتراح الذكاء الاصطناعي",
+        "byRole": "حسب الدور",
+        "reportingHierarchy": "التسلسل الهرمي للإبلاغ",
+        "aiWorkloadSuggestion": "الذكاء الاصطناعي: يقترح نقل نورة الزهراء إلى الرقمي لتحسين توازن العمل"
+      },
+      "roleAccess": {
+        "title": "الوصول والصلاحيات حسب الدور",
+        "member": "العضو",
+        "role": "الدور",
+        "permissions": "الصلاحيات",
+        "actions": "الإجراءات",
+        "edit": "تعديل",
+        "aiPermissionSuggestion": "الذكاء الاصطناعي: يقترح قالب صلاحيات للدور الجديد"
+      },
+      "taskAssignment": {
+        "title": "تعيين المهام والتتبع",
+        "aiSmartAssignment": "التعيين الذكي بالذكاء الاصطناعي",
+        "task": "المهمة",
+        "assignedTo": "مُسند إلى",
+        "status": "الحالة",
+        "progress": "التقدم",
+        "deadline": "الموعد النهائي",
+        "aiAssignmentSuggestion": "الذكاء الاصطناعي: يُسند \"كتابة سلسلة المدونة\" إلى نورة الزهراء بناءً على المهارة والتوفر"
+      },
+      "performanceDashboard": {
+        "title": "لوحة أداء الأداء",
+        "aiLeaderboard": "قائمة المتصدرين بالذكاء الاصطناعي",
+        "kpis": "مؤشرات الأداء الرئيسية",
+        "leaderboard": "قائمة المتصدرين",
+        "score": "الدرجة",
+        "aiBurnoutPrediction": "الذكاء الاصطناعي: يتنبأ بخالد السيد معرض لخطر الإرهاق"
+      },
+      "trainingDevelopment": {
+        "title": "متتبع التدريب والتطوير",
+        "aiRecommendations": "توصيات الذكاء الاصطناعي",
+        "certified": "معتمد",
+        "inProgress": "قيد التقدم",
+        "aiTrainingRecommendation": "الذكاء الاصطناعي: يوصي بـ \"تحليلات وسائل التواصل الاجتماعي\" لخالد السيد"
+      },
+      "communicationCenter": {
+        "title": "مركز الاتصالات",
+        "aiSummary": "ملخص الذكاء الاصطناعي",
+        "announcement": "إعلان",
+        "reminder": "تذكير",
+        "brief": "ملخص",
+        "aiTopUpdates": "الذكاء الاصطناعي: أهم 3 تحديثات لعبدالله الرشيد: إطلاق الحملة، تذكير التقرير، رفع الإجراءات"
+      },
+      "issueEscalation": {
+        "title": "لوحة تصعيد المشاكل",
+        "aiPrioritization": "الأولوية بالذكاء الاصطناعي",
+        "pending": "قيد الانتظار",
+        "resolved": "محلول",
+        "aiUrgentIssue": "الذكاء الاصطناعي: يعطي أولوية لمشكلة خالد السيد كعاجلة"
+      },
+      "attendanceAvailability": {
+        "title": "الحضور والتوفر",
+        "aiForecast": "التنبؤ بالذكاء الاصطناعي",
+        "present": "حاضر",
+        "onLeave": "في إجازة",
+        "aiResourceGap": "الذكاء الاصطناعي: يتنبأ بفجوة في الموارد في 8-10 يوليو"
+      },
+      "goalPlanning": {
+        "title": "تخطيط الأهداف والمراجعات",
+        "aiGoalSetting": "تحديد الأهداف بالذكاء الاصطناعي",
+        "julyGoal": "هدف يوليو",
+        "aiGoalSuggestion": "الذكاء الاصطناعي: يقترح هدف أعلى لعبدالله الرشيد بناءً على الأداء السابق"
+      }
+    },
+    "modal": {
+      "contactInformation": "معلومات الاتصال",
+      "skills": "المهارات",
+      "currentProjects": "المشاريع الحالية"
+    },
+    "status": {
+      "active": "نشط",
+      "onLeave": "في إجازة",
+      "inProgress": "قيد التقدم",
+      "pending": "قيد الانتظار",
+      "completed": "مكتمل"
+    }
+  }
+} 

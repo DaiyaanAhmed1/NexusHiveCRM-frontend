@@ -328,7 +328,7 @@ export default function SearchFilters() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-100 dark:from-gray-900 dark:to-gray-950 p-6 animate-fade-in">
       {/* 1. Global Search Bar */}
-      <div className="sticky top-0 z-30 bg-gradient-to-br from-gray-50 to-blue-100 dark:from-gray-900 dark:to-gray-950 py-4 mb-6 flex flex-col gap-2 shadow-lg rounded-b-2xl">
+              <div className="sticky top-0 z-30 bg-gradient-to-br from-gray-50 to-blue-100 dark:from-gray-900 dark:to-gray-950 py-4 mb-6 flex flex-col gap-2 shadow-lg rounded-b-2xl">
         <div className="flex items-center gap-2 max-w-2xl mx-auto w-full">
           <FiSearch className="text-blue-500" size={22} />
           <input

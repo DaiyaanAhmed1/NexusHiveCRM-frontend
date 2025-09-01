@@ -12,6 +12,7 @@ import enValidation from '../locales/en/validation.json';
 import enDashboard from '../locales/en/dashboard.json';
 import enAdmission from '../locales/en/admission.json';
 import enMarketing from '../locales/en/marketing.json';
+
 import enHR from '../locales/en/hr.json';
 import enDirector from '../locales/en/director.json';
 import enAdmin from '../locales/en/admin.json';
@@ -30,6 +31,7 @@ import arValidation from '../locales/ar/validation.json';
 import arDashboard from '../locales/ar/dashboard.json';
 import arAdmission from '../locales/ar/admission.json';
 import arMarketing from '../locales/ar/marketing.json';
+
 import arHR from '../locales/ar/hr.json';
 import arDirector from '../locales/ar/director.json';
 import arAdmin from '../locales/ar/admin.json';
@@ -50,6 +52,7 @@ const resources = {
     dashboard: enDashboard,
     admission: enAdmission,
     marketing: enMarketing,
+    
     hr: enHR,
     director: enDirector,
     admin: enAdmin,
@@ -69,6 +72,7 @@ const resources = {
     dashboard: arDashboard,
     admission: arAdmission,
     marketing: arMarketing,
+    
     hr: arHR,
     director: arDirector,
     admin: arAdmin,
@@ -99,7 +103,7 @@ i18n
     
     ns: [
       'common', 'navigation', 'forms', 'messages', 'validation',
-      'dashboard', 'admission', 'marketing', 'hr', 'director', 'admin',
+                    'dashboard', 'admission', 'marketing', 'hr', 'director', 'admin',
       'student', 'professor', 'parent', 'settings', 'auth'
     ],
     defaultNS: 'common',

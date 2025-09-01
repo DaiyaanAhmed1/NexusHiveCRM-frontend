@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { FiMail, FiMessageCircle, FiPhone, FiUsers, FiBell, FiCalendar, FiZap, FiFileText, FiSend, FiUser, FiChevronRight, FiSearch, FiDownload, FiPlus, FiAlertCircle, FiStar, FiInbox, FiClock, FiTrendingUp, FiTrendingDown, FiSettings } from 'react-icons/fi';
+import { useTranslation } from 'react-i18next';
 
 // Demo data for communication channels
 const communicationChannels = [
@@ -105,6 +106,23 @@ const commLogs = [
 ];
 
 export default function MarketingHeadCommunicationHub() {
+  const { t, ready, i18n } = useTranslation('marketing');
+  const [languageVersion, setLanguageVersion] = useState(0);
+  
+  useEffect(() => {
+    setLanguageVersion(prev => prev + 1);
+  }, [i18n.language]);
+
+  // Show loading state while translations are loading
+  if (!ready) {
+    return <div className="flex items-center justify-center min-h-screen">{t('support.messages.loading')}</div>;
+  }
+
+  // Debug: Log translation keys to console
+  console.log('Marketing Communication - Language:', i18n.language);
+  console.log('Marketing Communication - Ready:', ready);
+  console.log('Marketing Communication - Title translation:', t('communication.title'));
+
   const user = JSON.parse(localStorage.getItem('rbac_current_user'));
   const [expanded, setExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
@@ -137,25 +155,25 @@ export default function MarketingHeadCommunicationHub() {
               channel.type === 'Project' ? 'bg-green-100 text-green-700' :
               'bg-purple-100 text-purple-700'
             }`}>
-              {channel.type}
+              {t(`communication.status.${channel.type.toLowerCase()}`)}
             </span>
           </div>
           <div className="space-y-4">
             <div>
-              <h3 className="font-semibold mb-2">Channel Details</h3>
+              <h3 className="font-semibold mb-2">{t('communication.modal.channelDetails')}</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-500">Participants</p>
+                  <p className="text-sm text-gray-500">{t('communication.modal.participants')}</p>
                   <p className="font-medium">{channel.participants}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Status</p>
+                  <p className="text-sm text-gray-500">{t('communication.modal.status')}</p>
                   <p className="font-medium">{channel.status}</p>
                 </div>
               </div>
             </div>
             <div>
-              <h3 className="font-semibold mb-2">Recent Messages</h3>
+              <h3 className="font-semibold mb-2">{t('communication.modal.recentMessages')}</h3>
               <div className="space-y-2">
                 {recentMessages.map((message) => (
                   <div key={message.id} className="p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
@@ -174,12 +192,12 @@ export default function MarketingHeadCommunicationHub() {
               <textarea
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
-                placeholder="Type your message..."
+                placeholder={t('communication.modal.typeYourMessage')}
                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 dark:bg-gray-700"
                 rows={3}
               />
               <button className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                Send Message
+                {t('communication.modal.sendMessage')}
               </button>
             </div>
           </div>
@@ -193,8 +211,8 @@ export default function MarketingHeadCommunicationHub() {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-gray-200 dark:border-gray-700">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">Communication Hub <FiMessageCircle className="text-blue-500" /></h1>
-          <p className="text-sm text-gray-600 dark:text-gray-300">Centralize and streamline all marketing communications with AI-powered insights.</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">{t('communication.title')} <FiMessageCircle className="text-blue-500" /></h1>
+          <p className="text-sm text-gray-600 dark:text-gray-300">{t('communication.subtitle')}</p>
         </div>
       </div>
 
@@ -202,20 +220,20 @@ export default function MarketingHeadCommunicationHub() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiMail className="text-blue-500" />
-          <h2 className="text-lg font-semibold">Lead Communication Panel</h2>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">AI Response Suggestions</span>
-          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">Tone Optimizer</span>
-          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">Engagement Tracker</span>
+          <h2 className="text-lg font-semibold">{t('communication.sections.leadCommunicationPanel')}</h2>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('communication.aiFeatures.aiResponseSuggestions')}</span>
+          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('communication.aiFeatures.toneOptimizer')}</span>
+          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">{t('communication.aiFeatures.engagementTracker')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Lead</th>
-                <th className="pb-3 font-medium">Channel</th>
-                <th className="pb-3 font-medium">Last Message</th>
-                <th className="pb-3 font-medium">Date</th>
-                <th className="pb-3 font-medium">Engagement</th>
+                <th className="pb-3 font-medium">{t('communication.leadCommunication.lead')}</th>
+                <th className="pb-3 font-medium">{t('communication.leadCommunication.channel')}</th>
+                <th className="pb-3 font-medium">{t('communication.leadCommunication.lastMessage')}</th>
+                <th className="pb-3 font-medium">{t('communication.leadCommunication.date')}</th>
+                <th className="pb-3 font-medium">{t('communication.leadCommunication.engagement')}</th>
               </tr>
             </thead>
             <tbody>
@@ -238,11 +256,11 @@ export default function MarketingHeadCommunicationHub() {
         </div>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Response Suggestion</div>
+            <div className="font-medium mb-1">{t('communication.leadCommunication.aiResponseSuggestion')}</div>
             <div className="text-sm text-blue-700 dark:text-blue-300">"Hi, thanks for your interest! Would you like to schedule a call to discuss the MBA program?"</div>
           </div>
           <div className="p-4 bg-green-50 dark:bg-green-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Tone Optimizer</div>
+            <div className="font-medium mb-1">{t('communication.leadCommunication.aiToneOptimizer')}</div>
             <div className="text-sm text-green-700 dark:text-green-300">Suggestion: Use a more friendly tone for higher conversion.</div>
           </div>
         </div>
@@ -252,38 +270,38 @@ export default function MarketingHeadCommunicationHub() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiUsers className="text-purple-500" />
-          <h2 className="text-lg font-semibold">Team Collaboration Channel</h2>
-          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">AI Summarization</span>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">Smart File Suggestions</span>
+          <h2 className="text-lg font-semibold">{t('communication.sections.teamCollaborationChannel')}</h2>
+          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">{t('communication.aiFeatures.aiSummarization')}</span>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('communication.aiFeatures.smartFileSuggestions')}</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <h3 className="font-medium mb-2">Chat Rooms</h3>
+            <h3 className="font-medium mb-2">{t('communication.teamCollaboration.chatRooms')}</h3>
             <ul className="space-y-2">
               {teamChats.map((chat) => (
                 <li key={chat.id} className="flex items-center gap-2">
                   <FiMessageCircle className="text-blue-400" />
                   <span className="font-medium">{chat.room}</span>
                   <span className="text-xs text-gray-500">{chat.lastMsg}</span>
-                  {chat.unread > 0 && <span className="ml-auto text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">{chat.unread} new</span>}
+                  {chat.unread > 0 && <span className="ml-auto text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">{chat.unread} {t('communication.teamCollaboration.new')}</span>}
                 </li>
               ))}
             </ul>
           </div>
           <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <h3 className="font-medium mb-2">Announcements</h3>
+            <h3 className="font-medium mb-2">{t('communication.teamCollaboration.announcements')}</h3>
             <ul className="space-y-2">
-              <li className="flex items-center gap-2"><FiBell className="text-yellow-500" /> MBA campaign kickoff meeting at 3pm.</li>
-              <li className="flex items-center gap-2"><FiBell className="text-yellow-500" /> Social media calendar updated.</li>
+              <li className="flex items-center gap-2"><FiBell className="text-yellow-500" /> {t('communication.demoData.mbaCampaignKickoff')}</li>
+              <li className="flex items-center gap-2"><FiBell className="text-yellow-500" /> {t('communication.demoData.socialMediaCalendarUpdated')}</li>
             </ul>
           </div>
         </div>
         <div className="p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg mb-4">
-          <div className="font-medium mb-1">AI Auto-Summarization</div>
+          <div className="font-medium mb-1">{t('communication.teamCollaboration.aiAutoSummarization')}</div>
           <div className="text-sm text-yellow-700 dark:text-yellow-300">"3 action points: 1) Review design, 2) Approve content, 3) Schedule next post."</div>
         </div>
         <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
-          <div className="font-medium mb-1">AI Smart File Suggestion</div>
+          <div className="font-medium mb-1">{t('communication.teamCollaboration.aiSmartFileSuggestion')}</div>
           <div className="text-sm text-blue-700 dark:text-blue-300">Suggested: "MBA_Brochure_v2.pdf" for campaign discussion.</div>
         </div>
       </section>
@@ -292,20 +310,20 @@ export default function MarketingHeadCommunicationHub() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiSend className="text-green-500" />
-          <h2 className="text-lg font-semibold">Campaign Messaging Center</h2>
-          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">Send-Time Optimization</span>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">Subject Line Predictor</span>
-          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">A/B Testing Insights</span>
+          <h2 className="text-lg font-semibold">{t('communication.sections.campaignMessagingCenter')}</h2>
+          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('communication.aiFeatures.sendTimeOptimization')}</span>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('communication.aiFeatures.subjectLinePredictor')}</span>
+          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">{t('communication.aiFeatures.abTestingInsights')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Type</th>
-                <th className="pb-3 font-medium">Name</th>
-                <th className="pb-3 font-medium">Status</th>
-                <th className="pb-3 font-medium">Segment</th>
-                <th className="pb-3 font-medium">Send Time</th>
+                <th className="pb-3 font-medium">{t('communication.campaignMessaging.type')}</th>
+                <th className="pb-3 font-medium">{t('communication.campaignMessaging.name')}</th>
+                <th className="pb-3 font-medium">{t('communication.campaignMessaging.status')}</th>
+                <th className="pb-3 font-medium">{t('communication.campaignMessaging.segment')}</th>
+                <th className="pb-3 font-medium">{t('communication.campaignMessaging.sendTime')}</th>
               </tr>
             </thead>
             <tbody>
@@ -323,16 +341,16 @@ export default function MarketingHeadCommunicationHub() {
         </div>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="p-4 bg-green-50 dark:bg-green-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Send-Time Optimization</div>
+            <div className="font-medium mb-1">{t('communication.campaignMessaging.aiSendTimeOptimization')}</div>
             <div className="text-sm text-green-700 dark:text-green-300">Best time to send: 10:00 AM for max engagement.</div>
           </div>
           <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Subject Line Predictor</div>
+            <div className="font-medium mb-1">{t('communication.campaignMessaging.aiSubjectLinePredictor')}</div>
             <div className="text-sm text-blue-700 dark:text-blue-300">Subject: "Unlock Your Future at Our MBA Program" (Predicted Open Rate: 38%)</div>
           </div>
         </div>
         <div className="p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg mt-4">
-          <div className="font-medium mb-1">AI A/B Testing Insights</div>
+          <div className="font-medium mb-1">{t('communication.campaignMessaging.aiAbTestingInsights')}</div>
           <div className="text-sm text-yellow-700 dark:text-yellow-300">Variant B performed 12% better in click-through rate.</div>
         </div>
       </section>
@@ -341,19 +359,19 @@ export default function MarketingHeadCommunicationHub() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiInbox className="text-pink-500" />
-          <h2 className="text-lg font-semibold">Vendor & Partner Comms</h2>
-          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">Vendor Performance Summary</span>
-          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">Follow-up Nudges</span>
+          <h2 className="text-lg font-semibold">{t('communication.sections.vendorPartnerComms')}</h2>
+          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('communication.aiFeatures.vendorPerformanceSummary')}</span>
+          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">{t('communication.aiFeatures.followUpNudges')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Vendor</th>
-                <th className="pb-3 font-medium">Type</th>
-                <th className="pb-3 font-medium">Last Message</th>
-                <th className="pb-3 font-medium">Date</th>
-                <th className="pb-3 font-medium">Performance</th>
+                <th className="pb-3 font-medium">{t('communication.vendorPartner.vendor')}</th>
+                <th className="pb-3 font-medium">{t('communication.vendorPartner.type')}</th>
+                <th className="pb-3 font-medium">{t('communication.vendorPartner.lastMessage')}</th>
+                <th className="pb-3 font-medium">{t('communication.vendorPartner.date')}</th>
+                <th className="pb-3 font-medium">{t('communication.vendorPartner.performance')}</th>
               </tr>
             </thead>
             <tbody>
@@ -373,11 +391,11 @@ export default function MarketingHeadCommunicationHub() {
         </div>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="p-4 bg-green-50 dark:bg-green-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Vendor Performance Summary</div>
+            <div className="font-medium mb-1">{t('communication.vendorPartner.aiVendorPerformanceSummary')}</div>
             <div className="text-sm text-green-700 dark:text-green-300">Saudi Arabia: $5,000 spent, 120 leads, 30 conversions.</div>
           </div>
           <div className="p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Follow-up Nudge</div>
+            <div className="font-medium mb-1">{t('communication.vendorPartner.aiFollowUpNudge')}</div>
             <div className="text-sm text-yellow-700 dark:text-yellow-300">No follow-up sent to Saudi Arabia in 7 days.</div>
           </div>
         </div>
@@ -387,18 +405,18 @@ export default function MarketingHeadCommunicationHub() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiCalendar className="text-blue-400" />
-          <h2 className="text-lg font-semibold">Integrated Communication Calendar</h2>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">Smart Scheduling</span>
-          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">Missed Opportunity Alerts</span>
+          <h2 className="text-lg font-semibold">{t('communication.sections.integratedCommunicationCalendar')}</h2>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('communication.aiFeatures.smartScheduling')}</span>
+          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">{t('communication.aiFeatures.missedOpportunityAlerts')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Event</th>
-                <th className="pb-3 font-medium">Type</th>
-                <th className="pb-3 font-medium">Date</th>
-                <th className="pb-3 font-medium">Time</th>
+                <th className="pb-3 font-medium">{t('communication.communicationCalendar.event')}</th>
+                <th className="pb-3 font-medium">{t('communication.communicationCalendar.type')}</th>
+                <th className="pb-3 font-medium">{t('communication.communicationCalendar.date')}</th>
+                <th className="pb-3 font-medium">{t('communication.communicationCalendar.time')}</th>
               </tr>
             </thead>
             <tbody>
@@ -415,11 +433,11 @@ export default function MarketingHeadCommunicationHub() {
         </div>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Smart Scheduling</div>
+            <div className="font-medium mb-1">{t('communication.communicationCalendar.aiSmartScheduling')}</div>
             <div className="text-sm text-blue-700 dark:text-blue-300">No message overlaps. Next free slot: 11:00 AM, 20th April.</div>
           </div>
           <div className="p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Missed Opportunity Alert</div>
+            <div className="font-medium mb-1">{t('communication.communicationCalendar.aiMissedOpportunityAlert')}</div>
             <div className="text-sm text-yellow-700 dark:text-yellow-300">No campaign scheduled for "Open Day" event.</div>
           </div>
         </div>
@@ -429,18 +447,18 @@ export default function MarketingHeadCommunicationHub() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiBell className="text-green-500" />
-          <h2 className="text-lg font-semibold">Notification & Alert Center</h2>
-          <span className="ml-2 text-xs bg-red-100 text-red-700 px-2 py-1 rounded animate-pulse">Urgency Detector</span>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">AI Prioritization</span>
+          <h2 className="text-lg font-semibold">{t('communication.sections.notificationAlertCenter')}</h2>
+          <span className="ml-2 text-xs bg-red-100 text-red-700 px-2 py-1 rounded animate-pulse">{t('communication.aiFeatures.urgencyDetector')}</span>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('communication.aiFeatures.aiPrioritization')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Type</th>
-                <th className="pb-3 font-medium">Message</th>
-                <th className="pb-3 font-medium">Date</th>
-                <th className="pb-3 font-medium">Urgent</th>
+                <th className="pb-3 font-medium">{t('communication.notificationAlert.type')}</th>
+                <th className="pb-3 font-medium">{t('communication.notificationAlert.message')}</th>
+                <th className="pb-3 font-medium">{t('communication.notificationAlert.date')}</th>
+                <th className="pb-3 font-medium">{t('communication.notificationAlert.urgent')}</th>
               </tr>
             </thead>
             <tbody>
@@ -450,7 +468,7 @@ export default function MarketingHeadCommunicationHub() {
                   <td className="py-3">{n.msg}</td>
                   <td className="py-3">{n.date}</td>
                   <td className="py-3">
-                    {n.urgent ? <span className="text-xs text-red-700 bg-red-100 px-2 py-1 rounded">Urgent</span> : <span className="text-xs text-green-700 bg-green-100 px-2 py-1 rounded">Normal</span>}
+                    {n.urgent ? <span className="text-xs text-red-700 bg-red-100 px-2 py-1 rounded">{t('communication.notificationAlert.urgentLabel')}</span> : <span className="text-xs text-green-700 bg-green-100 px-2 py-1 rounded">{t('communication.notificationAlert.normal')}</span>}
                   </td>
                 </tr>
               ))}
@@ -459,11 +477,11 @@ export default function MarketingHeadCommunicationHub() {
         </div>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="p-4 bg-red-50 dark:bg-red-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Urgency Detector</div>
+            <div className="font-medium mb-1">{t('communication.notificationAlert.aiUrgencyDetector')}</div>
             <div className="text-sm text-red-700 dark:text-red-300">"Reply pending from design team" flagged as urgent.</div>
           </div>
           <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Prioritization</div>
+            <div className="font-medium mb-1">{t('communication.notificationAlert.aiPrioritization')}</div>
             <div className="text-sm text-blue-700 dark:text-blue-300">Lead Saudi Arabia ranked high value, prioritize follow-up.</div>
           </div>
         </div>
@@ -473,18 +491,18 @@ export default function MarketingHeadCommunicationHub() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiFileText className="text-blue-400" />
-          <h2 className="text-lg font-semibold">Communication Logs & Analytics</h2>
-          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">Drop-Off Detector</span>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">Message Quality Analyzer</span>
+          <h2 className="text-lg font-semibold">{t('communication.sections.communicationLogsAnalytics')}</h2>
+          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">{t('communication.aiFeatures.dropOffDetector')}</span>
+          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('communication.aiFeatures.messageQualityAnalyzer')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
               <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">Name</th>
-                <th className="pb-3 font-medium">Channel</th>
-                <th className="pb-3 font-medium">Outcome</th>
-                <th className="pb-3 font-medium">Date</th>
+                <th className="pb-3 font-medium">{t('communication.communicationLogs.name')}</th>
+                <th className="pb-3 font-medium">{t('communication.communicationLogs.channel')}</th>
+                <th className="pb-3 font-medium">{t('communication.communicationLogs.outcome')}</th>
+                <th className="pb-3 font-medium">{t('communication.communicationLogs.date')}</th>
               </tr>
             </thead>
             <tbody>
@@ -501,11 +519,11 @@ export default function MarketingHeadCommunicationHub() {
         </div>
         <div className="flex flex-col md:flex-row gap-4">
           <div className="p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Drop-Off Detector</div>
+            <div className="font-medium mb-1">{t('communication.communicationLogs.aiDropOffDetector')}</div>
             <div className="text-sm text-yellow-700 dark:text-yellow-300">Lead Saudi Arabia stopped engaging after last WhatsApp message.</div>
           </div>
           <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg flex-1">
-            <div className="font-medium mb-1">AI Message Quality Analyzer</div>
+            <div className="font-medium mb-1">{t('communication.communicationLogs.aiMessageQualityAnalyzer')}</div>
             <div className="text-sm text-blue-700 dark:text-blue-300">Suggestion: Clarify next steps in follow-up messages.</div>
           </div>
         </div>
@@ -515,23 +533,23 @@ export default function MarketingHeadCommunicationHub() {
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
         <div className="flex items-center gap-2 mb-4">
           <FiZap className="text-yellow-500 animate-pulse" />
-          <h2 className="text-lg font-semibold">AI Communication Assistant</h2>
+          <h2 className="text-lg font-semibold">{t('communication.sections.aiCommunicationAssistant')}</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <h3 className="font-medium mb-2">Compose Smart Response</h3>
+            <h3 className="font-medium mb-2">{t('communication.aiAssistant.composeSmartResponse')}</h3>
             <div className="text-sm text-gray-700 dark:text-gray-300">"Thank you for your interest! Here's the brochure and next steps for your application."</div>
           </div>
           <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <h3 className="font-medium mb-2">Recommend Message Template</h3>
+            <h3 className="font-medium mb-2">{t('communication.aiAssistant.recommendMessageTemplate')}</h3>
             <div className="text-sm text-gray-700 dark:text-gray-300">"Hi [First Name], are you ready to take the next step in your journey?"</div>
           </div>
           <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <h3 className="font-medium mb-2">Generate Drip Campaign</h3>
+            <h3 className="font-medium mb-2">{t('communication.aiAssistant.generateDripCampaign')}</h3>
             <div className="text-sm text-gray-700 dark:text-gray-300">Day 1: Welcome email. Day 3: Program video. Day 5: Counselor call.</div>
           </div>
           <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
-            <h3 className="font-medium mb-2">Summarize Thread</h3>
+            <h3 className="font-medium mb-2">{t('communication.aiAssistant.summarizeThread')}</h3>
             <div className="text-sm text-gray-700 dark:text-gray-300">"Lead Saudi Arabia requested info, received brochure, scheduled call."</div>
           </div>
         </div>
