@@ -26,7 +26,7 @@ const mockArchive = [
 ];
 
 export default function Documents() {
-  const { t, i18n, ready } = useTranslation(['admission'], { useSuspense: false });
+  const { t, i18n, ready } = useTranslation(['admission', 'common']);
   const [languageVersion, setLanguageVersion] = useState(0);
   
   // State

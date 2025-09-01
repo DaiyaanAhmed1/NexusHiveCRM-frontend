@@ -509,103 +509,103 @@
       "title": "المراجعة والتاريخ",
       "export": "تصدير",
       "description": "مسار مراجعة التواصل الكامل لكل متقدم. الاحتفاظ بالبيانات: سنتان. قابل للتصدير للامتثال."
+    }
+  },
+  "documents": {
+    "title": "المستندات",
+    "dashboard": {
+      "totalUploaded": "إجمالي المرفوع",
+      "pendingVerification": "في انتظار التحقق",
+      "awaitingUpload": "في انتظار الرفع",
+      "expiredInvalid": "منتهي الصلاحية/غير صالح",
+      "deptWise": "حسب القسم",
+      "completionRate": "معدل الإكمال"
     },
-    "documents": {
-      "title": "المستندات",
-      "dashboard": {
-        "totalUploaded": "إجمالي المرفوع",
-        "pendingVerification": "في انتظار التحقق",
-        "awaitingUpload": "في انتظار الرفع",
-        "expiredInvalid": "منتهي الصلاحية/غير صالح",
-        "deptWise": "حسب القسم",
-        "completionRate": "معدل الإكمال"
+    "quickActions": {
+      "uploadDocument": "رفع مستند",
+      "requestMissing": "طلب المفقود",
+      "viewByStatus": "عرض حسب الحالة",
+      "aiCompletion": "الذكاء الاصطناعي: 85% إكمال للمؤكدين"
+    },
+    "sections": {
+      "applicantDocumentRepository": "مستودع مستندات المتقدم",
+      "documentUploadPortal": "بوابة رفع المستندات",
+      "verificationValidation": "التحقق والتحقق من الصحة",
+      "bulkDocumentReview": "مراجعة المستندات الجماعية والإجراءات",
+      "documentRequestSystem": "نظام طلب المستندات",
+      "templatesFormsLibrary": "مكتبة القوالب والنماذج",
+      "archiveRetentionManagement": "إدارة الأرشيف والاحتفاظ",
+      "accessControlPermissions": "التحكم في الوصول والأذونات",
+      "aiSmartFeatures": "الميزات الذكية والذكاء الاصطناعي"
+    },
+    "search": {
+      "placeholder": "البحث بالاسم أو المعرف...",
+      "allDepartments": "جميع الأقسام",
+      "allStatus": "جميع الحالات"
+    },
+    "table": {
+      "headers": {
+        "applicant": "المتقدم",
+        "document": "المستند",
+        "status": "الحالة",
+        "file": "الملف",
+        "action": "الإجراء",
+        "name": "الاسم",
+        "version": "الإصدار",
+        "expires": "ينتهي",
+        "downloads": "التحميلات"
       },
-      "quickActions": {
-        "uploadDocument": "رفع مستند",
-        "requestMissing": "طلب المفقود",
-        "viewByStatus": "عرض حسب الحالة",
-        "aiCompletion": "الذكاء الاصطناعي: 85% إكمال للمؤكدين"
-      },
-      "sections": {
-        "applicantDocumentRepository": "مستودع مستندات المتقدم",
-        "documentUploadPortal": "بوابة رفع المستندات",
-        "verificationValidation": "التحقق والتحقق من الصحة",
-        "bulkDocumentReview": "مراجعة المستندات الجماعية والإجراءات",
-        "documentRequestSystem": "نظام طلب المستندات",
-        "templatesFormsLibrary": "مكتبة القوالب والنماذج",
-        "archiveRetentionManagement": "إدارة الأرشيف والاحتفاظ",
-        "accessControlPermissions": "التحكم في الوصول والأذونات",
-        "aiSmartFeatures": "الميزات الذكية والذكاء الاصطناعي"
-      },
-      "search": {
-        "placeholder": "البحث بالاسم أو المعرف...",
-        "allDepartments": "جميع الأقسام",
-        "allStatus": "جميع الحالات"
-      },
-      "table": {
-        "headers": {
-          "applicant": "المتقدم",
-          "document": "المستند",
-          "status": "الحالة",
-          "file": "الملف",
-          "action": "الإجراء",
-          "name": "الاسم",
-          "version": "الإصدار",
-          "expires": "ينتهي",
-          "downloads": "التحميلات"
-        },
-        "actions": {
-          "download": "تحميل",
-          "approve": "موافقة",
-          "reject": "رفض",
-          "requestReupload": "طلب إعادة رفع",
-          "delete": "حذف"
-        }
-      },
-      "upload": {
-        "title": "رفع",
-        "description": "اسحب وأفلت الملفات. المسموح: PDF، JPEG، PNG، DOCX. سيكتشف الذكاء الاصطناعي الفئة تلقائياً ويتحقق من الصحة.",
-        "bulkUpload": "رفع جماعي",
-        "setDeadline": "تعيين موعد نهائي"
-      },
-      "verification": {
-        "description": "تعيين للمتحققين، موافقة قائمة التحقق، تعليقات، سجل المراجعة، توقيع رقمي (وهمي).",
-        "bulkApprove": "موافقة جماعية",
-        "bulkReject": "رفض جماعي",
-        "auditLog": "سجل المراجعة"
-      },
-      "bulkReview": {
-        "description": "جدول المستندات غير المحققة/المفقودة. موافقة/رفض جماعي. تصدير الحالة.",
-        "sendReminders": "إرسال تذكيرات",
-        "exportExcel": "تصدير Excel"
-      },
-      "requestSystem": {
-        "description": "تشغيل الطلبات، تتبع الوفاء، المواعيد النهائية، التصعيد، رابط رفع آمن.",
-        "request": "طلب"
-      },
-      "templates": {
-        "upload": "رفع"
-      },
-      "archive": {
-        "retention": "الاحتفاظ: 5 سنوات. الأرشيف التلقائي مفعل. تتبع سجلات الوصول.",
-        "access": "الوصول"
-      },
-      "accessControl": {
-        "view": "عرض",
-        "upload": "رفع",
-        "approve": "موافقة",
-        "delete": "حذف",
+      "actions": {
         "download": "تحميل",
-        "encryption": "التشفير",
-        "accessLogs": "سجلات الوصول"
-      },
-      "aiFeatures": {
-        "ocrAutoTagging": "OCR والتوسيم التلقائي: 3 مستندات",
-        "duplicateDetection": "اكتشاف النسخ المكررة: 1 معلَم",
-        "smartReminders": "تذكيرات ذكية: 2 معلق",
-        "riskFlagging": "تحديد المخاطر: 1 مشبوه",
-        "completionAnalytics": "تحليلات الإكمال: 85% مؤكد"
+        "approve": "موافقة",
+        "reject": "رفض",
+        "requestReupload": "طلب إعادة رفع",
+        "delete": "حذف"
       }
+    },
+    "upload": {
+      "title": "رفع",
+      "description": "اسحب وأفلت الملفات. المسموح: PDF، JPEG، PNG، DOCX. سيكتشف الذكاء الاصطناعي الفئة تلقائياً ويتحقق من الصحة.",
+      "bulkUpload": "رفع جماعي",
+      "setDeadline": "تعيين موعد نهائي"
+    },
+    "verification": {
+      "description": "تعيين للمتحققين، موافقة قائمة التحقق، تعليقات، سجل المراجعة، توقيع رقمي (وهمي).",
+      "bulkApprove": "موافقة جماعية",
+      "bulkReject": "رفض جماعي",
+      "auditLog": "سجل المراجعة"
+    },
+    "bulkReview": {
+      "description": "جدول المستندات غير المحققة/المفقودة. موافقة/رفض جماعي. تصدير الحالة.",
+      "sendReminders": "إرسال تذكيرات",
+      "exportExcel": "تصدير Excel"
+    },
+    "requestSystem": {
+      "description": "تشغيل الطلبات، تتبع الوفاء، المواعيد النهائية، التصعيد، رابط رفع آمن.",
+      "request": "طلب"
+    },
+    "templates": {
+      "upload": "رفع"
+    },
+    "archive": {
+      "retention": "الاحتفاظ: 5 سنوات. الأرشيف التلقائي مفعل. تتبع سجلات الوصول.",
+      "access": "الوصول"
+    },
+    "accessControl": {
+      "view": "عرض",
+      "upload": "رفع",
+      "approve": "موافقة",
+      "delete": "حذف",
+      "download": "تحميل",
+      "encryption": "التشفير",
+      "accessLogs": "سجلات الوصول"
+    },
+    "aiFeatures": {
+      "ocrAutoTagging": "OCR والتوسيم التلقائي: 3 مستندات",
+      "duplicateDetection": "اكتشاف النسخ المكررة: 1 معلَم",
+      "smartReminders": "تذكيرات ذكية: 2 معلق",
+      "riskFlagging": "تحديد المخاطر: 1 مشبوه",
+      "completionAnalytics": "تحليلات الإكمال: 85% مؤكد"
     }
   }
 } 
