@@ -697,5 +697,137 @@
         "bulkDocumentValidator": "التحقق من صحة المستندات الجماعية (OCR)"
       }
     }
+  },
+  "schedule": {
+    "title": "الجدول الزمني والمواعيد",
+    "subtitle": "نظام جدولة شامل للمقابلات وجلسات الإرشاد والزيارات الجامعية واجتماعات الفريق مع التحسين المدعوم بالذكاء الاصطناعي وحل التعارضات.",
+    "dashboard": {
+      "today": "اليوم",
+      "thisWeek": "هذا الأسبوع",
+      "pending": "معلق",
+      "confirmed": "مؤكد"
+    },
+    "types": {
+      "studentInterview": "مقابلة الطالب",
+      "parentCounseling": "إرشاد الوالدين",
+      "agentMeeting": "اجتماع الوكيل",
+      "highSchoolOutreach": "outreach المدرسة الثانوية",
+      "campusVisit": "زيارة الحرم الجامعي",
+      "teamSync": "مزامنة الفريق",
+      "walkIn": "دخول مباشر"
+    },
+    "status": {
+      "confirmed": "مؤكد",
+      "pending": "معلق",
+      "cancelled": "ملغي",
+      "completed": "مكتمل"
+    },
+    "modes": {
+      "online": "عبر الإنترنت",
+      "offline": "غير متصل"
+    },
+    "actions": {
+      "addAppointment": "إضافة موعد",
+      "reschedule": "إعادة جدولة",
+      "assignStaff": "تعيين الموظفين",
+      "markAttended": "تحديد الحضور",
+      "sendReminder": "إرسال تذكير",
+      "cancel": "إلغاء"
+    },
+    "form": {
+      "applicantName": "اسم المتقدم/المنظمة",
+      "date": "التاريخ",
+      "time": "الوقت",
+      "mode": "الوضع"
+    },
+    "view": {
+      "month": "الشهر",
+      "week": "الأسبوع",
+      "day": "اليوم"
+    },
+    "types": {
+      "title": "أنواع المواعيد"
+    }
+  },
+  "searchFilters": {
+    "title": "البحث المتقدم والمرشحات",
+    "subtitle": "قدرات بحث قوية مع اقتراحات الذكاء الاصطناعي والربط العميق والآراء المحفوظة وخيارات التصفية الشاملة لإدارة المتقدمين بكفاءة.",
+    "search": {
+      "placeholder": "البحث عن المتقدمين والمستندات والمدفوعات والتواصل...",
+      "recentSearches": "البحث الأخير",
+      "clearAll": "مسح الكل",
+      "suggestions": "اقتراحات الذكاء الاصطناعي",
+      "deepLinks": "الروابط العميقة",
+      "savedViews": "الآراء المحفوظة"
+    },
+    "filters": {
+      "title": "المرشحات",
+      "clearAll": "مسح الكل",
+      "apply": "تطبيق المرشحات",
+      "save": "حفظ الرأي",
+      "share": "مشاركة الرأي"
+    },
+    "results": {
+      "title": "نتائج البحث",
+      "selected": "محدد",
+      "export": "تصدير",
+      "bulkActions": "الإجراءات الجماعية"
+    },
+    "status": {
+      "verified": "متحقق",
+      "pending": "معلق",
+      "rejected": "مرفوض"
+    },
+    "programs": {
+      "engineering": "الهندسة",
+      "business": "الأعمال",
+      "arts": "الفنون",
+      "medicalSciences": "العلوم الطبية",
+      "law": "القانون"
+    },
+    "tags": {
+      "scholarship": "منحة دراسية",
+      "ews": "EWS",
+      "international": "دولي",
+      "sportsQuota": "حصة رياضية",
+      "specialCategory": "فئة خاصة"
+    },
+    "filters": {
+      "mobile": "المرشحات",
+      "advanced": "المرشحات المتقدمة",
+      "applicationId": "معرف الطلب",
+      "name": "الاسم",
+      "email": "البريد الإلكتروني",
+      "phone": "الهاتف",
+      "allStatus": "جميع الحالات",
+      "allPrograms": "جميع البرامج",
+      "tags": "العلامات (مفصولة بفواصل)",
+      "counselor": "المستشار",
+      "dateRange": "نطاق التاريخ",
+      "scoreRange": "نطاق النتيجة",
+      "cancel": "إلغاء"
+    },
+    "savedViews": {
+      "title": "الآراء المحفوظة",
+      "saveCurrent": "حفظ الحالي",
+      "default": "افتراضي"
+    },
+    "bulkActions": {
+      "bulkEmail": "بريد إلكتروني جماعي",
+      "bulkApprove": "موافقة جماعية",
+      "bulkReject": "رفض جماعي",
+      "exportCSV": "تصدير CSV",
+      "addTag": "إضافة علامة",
+      "schedule": "جدولة"
+    },
+    "aiFilters": {
+      "title": "المرشحات الذكية للذكاء الاصطناعي"
+    },
+    "accessControl": {
+      "title": "الوصول والتحكم",
+      "role": "الدور",
+      "admin": "المدير: جميع المرشحات",
+      "counselor": "المستشار: المخصص فقط"
+    }
   }
 } 

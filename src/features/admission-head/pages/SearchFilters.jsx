@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FiSearch, FiFilter, FiUser, FiMail, FiPhone, FiFileText, FiCheckCircle, FiXCircle, FiZap, FiSave, FiShare2, FiDownload, FiTag, FiUsers, FiChevronDown, FiChevronUp, FiEdit2, FiTrash2, FiPlus, FiSettings, FiEye, FiEyeOff, FiList, FiCalendar, FiAlertCircle, FiStar, FiArrowRight } from 'react-icons/fi';
 
 // Mock data for suggestions, filters, and roles
@@ -264,6 +265,7 @@ function BulkActionBar({ selected, onAction }) {
 }
 
 export default function SearchFilters() {
+  const { t } = useTranslation(['admission', 'common']);
   // State
   const [search, setSearch] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -326,164 +328,154 @@ export default function SearchFilters() {
 
   // UI
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-100 dark:from-gray-900 dark:to-gray-950 p-6 animate-fade-in">
-      {/* 1. Global Search Bar */}
-              <div className="sticky top-0 z-30 bg-gradient-to-br from-gray-50 to-blue-100 dark:from-gray-900 dark:to-gray-950 py-4 mb-6 flex flex-col gap-2 shadow-lg rounded-b-2xl">
-        <div className="flex items-center gap-2 max-w-2xl mx-auto w-full">
-          <FiSearch className="text-blue-500" size={22} />
-          <input
-            className="flex-1 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-lg font-medium shadow"
-            placeholder="Search by Name, Email, ID, etc..."
-            value={search}
-            onChange={e => { setSearch(e.target.value); setShowSuggestions(true); }}
-            onFocus={() => setShowSuggestions(true)}
-            onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-          />
-          <button className="px-3 py-2 bg-blue-600 text-white rounded-lg font-semibold" onClick={() => handleSearch(search)}>Search</button>
-          <button className="px-3 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg font-semibold" onClick={() => setShowFilterPanel(v => !v)}><FiFilter /></button>
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 dark:from-gray-900 dark:to-gray-950 p-0 animate-fade-in">
+      {/* Hero Header */}
+      <div className="w-full bg-gradient-to-r from-blue-600 to-purple-500 py-10 px-6 md:px-12 flex flex-col md:flex-row items-center gap-6 mb-10 rounded-b-3xl shadow-lg animate-fade-in">
+        <div className="flex items-center gap-4">
+          <div className="bg-white/20 rounded-full p-4"><FiSearch className="text-white" size={40} /></div>
+          <div>
+            <h1 className="text-4xl font-extrabold text-white mb-2 tracking-tight">{t('searchFilters.title')}</h1>
+            <p className="text-white/90 text-lg max-w-xl">{t('searchFilters.subtitle')}</p>
+          </div>
         </div>
-        {/* Suggestions Dropdown */}
-        {showSuggestions && (suggestions.length > 0 || deepLinks.length > 0) && (
-          <div className="absolute left-1/2 -translate-x-1/2 mt-2 w-full max-w-2xl bg-white dark:bg-gray-900 rounded-xl shadow-lg z-40 p-4 animate-fade-in flex flex-col gap-2">
-            {suggestions.length > 0 && <div className="text-xs text-gray-500 mb-1">Suggestions</div>}
-            {suggestions.map((s, i) => (
-              <button key={i} className="text-left px-2 py-1 hover:bg-blue-50 dark:hover:bg-blue-800/30 rounded" onClick={() => handleSearch(s)}>{s}</button>
-            ))}
-            {deepLinks.length > 0 && <div className="text-xs text-gray-500 mt-2 mb-1">Deep Links</div>}
-            {deepLinks.map((d, i) => (
-              <button key={i} className="flex items-center gap-2 text-left px-2 py-1 hover:bg-blue-50 dark:hover:bg-blue-800/30 rounded" onClick={() => handleSearch(d.label)}>
-                {d.type === 'profile' && <FiUser className="text-blue-400" />} 
-                {d.type === 'payment' && <FiFileText className="text-green-400" />} 
-                {d.type === 'document' && <FiFileText className="text-purple-400" />} 
-                {d.type === 'communication' && <FiMail className="text-pink-400" />} 
-                {d.label}
+      </div>
+
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-4 pb-16">
+        {/* Search Bar */}
+        <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 mb-8">
+          <div className="relative">
+            <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder={t('searchFilters.search.placeholder')}
+              className="w-full pl-12 pr-4 py-3 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+            {search && (
+              <button
+                onClick={() => setSearch('')}
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              >
+                <FiXCircle size={20} />
               </button>
-            ))}
-            <div className="mt-2 flex flex-wrap gap-2">
-              {aiSuggestions.map((a, i) => (
-                <button key={i} className="bg-yellow-100 text-yellow-700 px-2 py-1 rounded-full text-xs font-semibold hover:bg-yellow-200" onClick={() => handleSearch(a)}><FiZap className="inline mr-1" />{a}</button>
-              ))}
-            </div>
-            <div className="mt-2 flex flex-wrap gap-2">
-              {recent.map((r, i) => (
-                <button key={i} className="bg-gray-100 text-gray-700 px-2 py-1 rounded-full text-xs font-semibold hover:bg-blue-100" onClick={() => handleSearch(r)}>{r}</button>
-              ))}
+            )}
+          </div>
+        </div>
+        {/* 2. Quick Filters (Mobile) */}
+        <div className="md:hidden flex flex-wrap gap-2 mb-4">
+          {quickFilters.map((q, i) => (
+            <button key={i} className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold" onClick={() => handleSearch(q)}>{q}</button>
+          ))}
+          <button className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold" onClick={() => setShowMobileFilters(v => !v)}><FiFilter className="inline mr-1" />{t('searchFilters.filters.mobile')}</button>
+        </div>
+        {/* 3. Advanced Filter Builder Panel */}
+        {(showFilterPanel || showMobileFilters) && (
+          <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/30 animate-fade-in">
+            <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-6 w-full max-w-2xl relative">
+              <button className="absolute top-2 right-2 text-gray-400 hover:text-gray-700" onClick={() => { setShowFilterPanel(false); setShowMobileFilters(false); }}>&times;</button>
+              <h2 className="text-lg font-bold mb-4 text-gray-800 dark:text-gray-100 flex items-center gap-2"><FiFilter />{t('searchFilters.filters.advanced')}</h2>
+              {/* Example filter fields, expand as needed */}
+              <div className="flex flex-col gap-3">
+                <div className="flex gap-2">
+                  <input className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900" placeholder={t('searchFilters.filters.applicationId')} />
+                  <input className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900" placeholder={t('searchFilters.filters.name')} />
+                </div>
+                <div className="flex gap-2">
+                  <input className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900" placeholder={t('searchFilters.filters.email')} />
+                  <input className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900" placeholder={t('searchFilters.filters.phone')} />
+                </div>
+                <div className="flex gap-2">
+                  <select className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"><option>{t('searchFilters.filters.allStatus')}</option></select>
+                  <select className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"><option>{t('searchFilters.filters.allPrograms')}</option></select>
+                </div>
+                <div className="flex gap-2">
+                  <input className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900" placeholder={t('searchFilters.filters.tags')} />
+                  <input className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900" placeholder={t('searchFilters.filters.counselor')} />
+                </div>
+                <div className="flex gap-2">
+                  <input className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900" placeholder={t('searchFilters.filters.dateRange')} />
+                  <input className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900" placeholder={t('searchFilters.filters.scoreRange')} />
+                </div>
+                {/* Add more filter fields as per spec */}
+              </div>
+              <div className="flex gap-2 mt-4">
+                <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold" onClick={() => { setShowFilterPanel(false); setShowMobileFilters(false); setToast(t('searchFilters.filters.apply')); }}>{t('searchFilters.filters.apply')}</button>
+                <button className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg font-semibold" onClick={() => { setShowFilterPanel(false); setShowMobileFilters(false); }}>{t('searchFilters.filters.cancel')}</button>
+              </div>
             </div>
           </div>
         )}
-      </div>
-      {/* 2. Quick Filters (Mobile) */}
-      <div className="md:hidden flex flex-wrap gap-2 mb-4">
-        {quickFilters.map((q, i) => (
-          <button key={i} className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold" onClick={() => handleSearch(q)}>{q}</button>
-        ))}
-        <button className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold" onClick={() => setShowMobileFilters(v => !v)}><FiFilter className="inline mr-1" />Filters</button>
-      </div>
-      {/* 3. Advanced Filter Builder Panel */}
-      {(showFilterPanel || showMobileFilters) && (
-        <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/30 animate-fade-in">
-          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-6 w-full max-w-2xl relative">
-            <button className="absolute top-2 right-2 text-gray-400 hover:text-gray-700" onClick={() => { setShowFilterPanel(false); setShowMobileFilters(false); }}>&times;</button>
-            <h2 className="text-lg font-bold mb-4 text-gray-800 dark:text-gray-100 flex items-center gap-2"><FiFilter />Advanced Filters</h2>
-            {/* Example filter fields, expand as needed */}
-            <div className="flex flex-col gap-3">
-              <div className="flex gap-2">
-                <input className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900" placeholder="Application ID" />
-                <input className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900" placeholder="Name" />
+        {/* 4. Saved Views & Custom Filters */}
+        <div className="mb-6">
+          <div className="flex items-center gap-2 mb-2">
+            <FiSave className="text-green-500" />
+            <span className="font-semibold text-gray-700 dark:text-gray-200">{t('searchFilters.savedViews.title')}</span>
+            <button className="ml-auto px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-xs font-semibold" onClick={handleSaveView}><FiPlus className="inline mr-1" />{t('searchFilters.savedViews.saveCurrent')}</button>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {savedViews.map((v, i) => (
+              <div key={i} className="bg-white dark:bg-gray-800 rounded-lg shadow px-3 py-2 flex items-center gap-2">
+                <span className="font-semibold text-blue-700 dark:text-blue-300">{v.name}</span>
+                <span className="text-xs text-gray-400">{v.desc}</span>
+                {v.default && <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs">{t('searchFilters.savedViews.default')}</span>}
+                {v.shared && <FiShare2 className="text-blue-400" />}
+                <button className="text-xs text-gray-400 hover:text-red-500" onClick={() => setSavedViews(savedViews.filter((_, idx) => idx !== i))}><FiTrash2 /></button>
               </div>
-              <div className="flex gap-2">
-                <input className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900" placeholder="Email" />
-                <input className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900" placeholder="Phone" />
-              </div>
-              <div className="flex gap-2">
-                <select className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"><option>All Status</option></select>
-                <select className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900"><option>All Programs</option></select>
-              </div>
-              <div className="flex gap-2">
-                <input className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900" placeholder="Tags (comma separated)" />
-                <input className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900" placeholder="Counselor" />
-              </div>
-              <div className="flex gap-2">
-                <input className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900" placeholder="Date Range" />
-                <input className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900" placeholder="Score Range" />
-              </div>
-              {/* Add more filter fields as per spec */}
-            </div>
-            <div className="flex gap-2 mt-4">
-              <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold" onClick={() => { setShowFilterPanel(false); setShowMobileFilters(false); setToast('Filters applied!'); }}>Apply</button>
-              <button className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg font-semibold" onClick={() => { setShowFilterPanel(false); setShowMobileFilters(false); }}>Cancel</button>
-            </div>
+            ))}
           </div>
         </div>
-      )}
-      {/* 4. Saved Views & Custom Filters */}
-      <div className="mb-6">
-        <div className="flex items-center gap-2 mb-2">
-          <FiSave className="text-green-500" />
-          <span className="font-semibold text-gray-700 dark:text-gray-200">Saved Views</span>
-          <button className="ml-auto px-3 py-1 bg-blue-100 text-blue-700 rounded-lg text-xs font-semibold" onClick={handleSaveView}><FiPlus className="inline mr-1" />Save Current</button>
+        {/* 5. Bulk Action Enablers */}
+        {bulkEnabled && (
+          <div className="mb-6 flex flex-wrap gap-2">
+            <button className="px-3 py-2 bg-blue-600 text-white rounded-lg font-semibold" onClick={() => handleBulkAction('Bulk Email')}><FiMail className="inline mr-1" />{t('searchFilters.bulkActions.bulkEmail')}</button>
+            <button className="px-3 py-2 bg-green-600 text-white rounded-lg font-semibold" onClick={() => handleBulkAction('Bulk Approve')}><FiCheckCircle className="inline mr-1" />{t('searchFilters.bulkActions.bulkApprove')}</button>
+            <button className="px-3 py-2 bg-red-600 text-white rounded-lg font-semibold" onClick={() => handleBulkAction('Bulk Reject')}><FiXCircle className="inline mr-1" />{t('searchFilters.bulkActions.bulkReject')}</button>
+            <button className="px-3 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold" onClick={() => handleBulkAction('Export CSV')}><FiDownload className="inline mr-1" />{t('searchFilters.bulkActions.exportCSV')}</button>
+            <button className="px-3 py-2 bg-yellow-200 text-yellow-700 rounded-lg font-semibold" onClick={() => handleBulkAction('Add Tag')}><FiTag className="inline mr-1" />{t('searchFilters.bulkActions.addTag')}</button>
+            <button className="px-3 py-2 bg-purple-200 text-purple-700 rounded-lg font-semibold" onClick={() => handleBulkAction('Schedule Appointments')}><FiCalendar className="inline mr-1" />{t('searchFilters.bulkActions.schedule')}</button>
+          </div>
+        )}
+        {/* 6. Smart Suggestions & AI Filters */}
+        <div className="mb-6">
+          <div className="flex items-center gap-2 mb-2">
+            <FiZap className="text-pink-500 animate-pulse" />
+            <span className="font-semibold text-gray-700 dark:text-gray-200">{t('searchFilters.aiFilters.title')}</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {aiSuggestions.map((a, i) => (
+              <button key={i} className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-semibold hover:bg-yellow-200" onClick={() => handleSearch(a)}><FiZap className="inline mr-1" />{a}</button>
+            ))}
+          </div>
         </div>
-        <div className="flex flex-wrap gap-2">
-          {savedViews.map((v, i) => (
-            <div key={i} className="bg-white dark:bg-gray-800 rounded-lg shadow px-3 py-2 flex items-center gap-2">
-              <span className="font-semibold text-blue-700 dark:text-blue-300">{v.name}</span>
-              <span className="text-xs text-gray-400">{v.desc}</span>
-              {v.default && <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs">Default</span>}
-              {v.shared && <FiShare2 className="text-blue-400" />}
-              <button className="text-xs text-gray-400 hover:text-red-500" onClick={() => setSavedViews(savedViews.filter((_, idx) => idx !== i))}><FiTrash2 /></button>
-            </div>
-          ))}
+        {/* 7. Access & Control */}
+        <div className="mb-6">
+          <div className="flex items-center gap-2 mb-2">
+            <FiSettings className="text-blue-500" />
+            <span className="font-semibold text-gray-700 dark:text-gray-200">{t('searchFilters.accessControl.title')}</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-xs">{t('searchFilters.accessControl.role')}: {role}</span>
+            <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs">{t('searchFilters.accessControl.admin')}</span>
+            <span className="bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full text-xs">{t('searchFilters.accessControl.counselor')}</span>
+          </div>
         </div>
+        <ResultsTable
+          results={results}
+          onRowClick={profile => setProfileDrawer({ open: true, profile })}
+          selected={selected}
+          setSelected={setSelected}
+        />
+        <ProfileDrawer
+          open={profileDrawer.open}
+          onClose={() => setProfileDrawer({ open: false, profile: null })}
+          profile={profileDrawer.profile}
+        />
+        <BulkActionBar selected={selected} onAction={handleBulkAction} />
+        {/* Toast */}
+        {toast && <div className="fixed bottom-6 right-6 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-fade-in">{toast}</div>}
       </div>
-      {/* 5. Bulk Action Enablers */}
-      {bulkEnabled && (
-        <div className="mb-6 flex flex-wrap gap-2">
-          <button className="px-3 py-2 bg-blue-600 text-white rounded-lg font-semibold" onClick={() => handleBulkAction('Bulk Email')}><FiMail className="inline mr-1" />Bulk Email</button>
-          <button className="px-3 py-2 bg-green-600 text-white rounded-lg font-semibold" onClick={() => handleBulkAction('Bulk Approve')}><FiCheckCircle className="inline mr-1" />Bulk Approve</button>
-          <button className="px-3 py-2 bg-red-600 text-white rounded-lg font-semibold" onClick={() => handleBulkAction('Bulk Reject')}><FiXCircle className="inline mr-1" />Bulk Reject</button>
-          <button className="px-3 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold" onClick={() => handleBulkAction('Export CSV')}><FiDownload className="inline mr-1" />Export CSV</button>
-          <button className="px-3 py-2 bg-yellow-200 text-yellow-700 rounded-lg font-semibold" onClick={() => handleBulkAction('Add Tag')}><FiTag className="inline mr-1" />Add Tag</button>
-          <button className="px-3 py-2 bg-purple-200 text-purple-700 rounded-lg font-semibold" onClick={() => handleBulkAction('Schedule Appointments')}><FiCalendar className="inline mr-1" />Schedule</button>
-        </div>
-      )}
-      {/* 6. Smart Suggestions & AI Filters */}
-      <div className="mb-6">
-        <div className="flex items-center gap-2 mb-2">
-          <FiZap className="text-pink-500 animate-pulse" />
-          <span className="font-semibold text-gray-700 dark:text-gray-200">AI Smart Filters</span>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {aiSuggestions.map((a, i) => (
-            <button key={i} className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-semibold hover:bg-yellow-200" onClick={() => handleSearch(a)}><FiZap className="inline mr-1" />{a}</button>
-          ))}
-        </div>
-      </div>
-      {/* 7. Access & Control */}
-      <div className="mb-6">
-        <div className="flex items-center gap-2 mb-2">
-          <FiSettings className="text-blue-500" />
-          <span className="font-semibold text-gray-700 dark:text-gray-200">Access & Control</span>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-xs">Role: {role}</span>
-          <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs">Admin: All Filters</span>
-          <span className="bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full text-xs">Counselor: Assigned Only</span>
-        </div>
-      </div>
-      <ResultsTable
-        results={results}
-        onRowClick={profile => setProfileDrawer({ open: true, profile })}
-        selected={selected}
-        setSelected={setSelected}
-      />
-      <ProfileDrawer
-        open={profileDrawer.open}
-        onClose={() => setProfileDrawer({ open: false, profile: null })}
-        profile={profileDrawer.profile}
-      />
-      <BulkActionBar selected={selected} onAction={handleBulkAction} />
-      {/* Toast */}
-      {toast && <div className="fixed bottom-6 right-6 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-fade-in">{toast}</div>}
     </div>
   );
 } 

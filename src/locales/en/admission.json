@@ -692,5 +692,137 @@
         "bulkDocumentValidator": "Bulk Document Validator (OCR)"
       }
     }
+  },
+  "schedule": {
+    "title": "Schedule & Appointments",
+    "subtitle": "Comprehensive scheduling system for interviews, counseling sessions, campus visits, and team meetings with AI-powered optimization and conflict resolution.",
+    "dashboard": {
+      "today": "Today",
+      "thisWeek": "This Week",
+      "pending": "Pending",
+      "confirmed": "Confirmed"
+    },
+    "types": {
+      "studentInterview": "Student Interview",
+      "parentCounseling": "Parent Counseling",
+      "agentMeeting": "Agent Meeting",
+      "highSchoolOutreach": "High School Outreach",
+      "campusVisit": "Campus Visit",
+      "teamSync": "Team Sync",
+      "walkIn": "Walk-In"
+    },
+    "status": {
+      "confirmed": "Confirmed",
+      "pending": "Pending",
+      "cancelled": "Cancelled",
+      "completed": "Completed"
+    },
+    "modes": {
+      "online": "Online",
+      "offline": "Offline"
+    },
+    "actions": {
+      "addAppointment": "Add Appointment",
+      "reschedule": "Reschedule",
+      "assignStaff": "Assign Staff",
+      "markAttended": "Mark Attended",
+      "sendReminder": "Send Reminder",
+      "cancel": "Cancel"
+    },
+    "form": {
+      "applicantName": "Applicant/Org Name",
+      "date": "Date",
+      "time": "Time",
+      "mode": "Mode"
+    },
+    "view": {
+      "month": "Month",
+      "week": "Week",
+      "day": "Day"
+    },
+    "types": {
+      "title": "Appointment Types"
+    }
+  },
+  "searchFilters": {
+    "title": "Advanced Search & Filters",
+    "subtitle": "Powerful search capabilities with AI suggestions, deep linking, saved views, and comprehensive filtering options for efficient applicant management.",
+    "search": {
+      "placeholder": "Search applicants, documents, payments, communications...",
+      "recentSearches": "Recent Searches",
+      "clearAll": "Clear All",
+      "suggestions": "AI Suggestions",
+      "deepLinks": "Deep Links",
+      "savedViews": "Saved Views"
+    },
+    "filters": {
+      "title": "Filters",
+      "clearAll": "Clear All",
+      "apply": "Apply Filters",
+      "save": "Save View",
+      "share": "Share View"
+    },
+    "results": {
+      "title": "Search Results",
+      "selected": "selected",
+      "export": "Export",
+      "bulkActions": "Bulk Actions"
+    },
+    "status": {
+      "verified": "Verified",
+      "pending": "Pending",
+      "rejected": "Rejected"
+    },
+    "programs": {
+      "engineering": "Engineering",
+      "business": "Business",
+      "arts": "Arts",
+      "medicalSciences": "Medical Sciences",
+      "law": "Law"
+    },
+    "tags": {
+      "scholarship": "Scholarship",
+      "ews": "EWS",
+      "international": "International",
+      "sportsQuota": "Sports Quota",
+      "specialCategory": "Special Category"
+    },
+    "filters": {
+      "mobile": "Filters",
+      "advanced": "Advanced Filters",
+      "applicationId": "Application ID",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "allStatus": "All Status",
+      "allPrograms": "All Programs",
+      "tags": "Tags (comma separated)",
+      "counselor": "Counselor",
+      "dateRange": "Date Range",
+      "scoreRange": "Score Range",
+      "cancel": "Cancel"
+    },
+    "savedViews": {
+      "title": "Saved Views",
+      "saveCurrent": "Save Current",
+      "default": "Default"
+    },
+    "bulkActions": {
+      "bulkEmail": "Bulk Email",
+      "bulkApprove": "Bulk Approve",
+      "bulkReject": "Bulk Reject",
+      "exportCSV": "Export CSV",
+      "addTag": "Add Tag",
+      "schedule": "Schedule"
+    },
+    "aiFilters": {
+      "title": "AI Smart Filters"
+    },
+    "accessControl": {
+      "title": "Access & Control",
+      "role": "Role",
+      "admin": "Admin: All Filters",
+      "counselor": "Counselor: Assigned Only"
+    }
   }
 } 
