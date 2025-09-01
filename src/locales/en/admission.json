@@ -602,5 +602,95 @@
       "riskFlagging": "Risk Flagging: 1 suspicious",
       "completionAnalytics": "Completion Analytics: 85% confirmed"
     }
+  },
+  "leadTransfer": {
+    "title": "Lead Transfer Management",
+    "subtitle": "Manage and transfer leads between counselors efficiently",
+    "tabs": {
+      "overview": "Lead Overview",
+      "bulkTransfer": "Bulk Transfer",
+      "history": "Transfer History",
+      "conflicts": "Conflicts",
+      "kpi": "KPI Insights"
+    }
+  },
+  "toolsUtilities": {
+    "title": "Tools & Utilities",
+    "subtitle": "Central hub for essential admission-related utilities, automation tools, file converters, calculators, import/export tools, and productivity enhancers — boosting efficiency, reducing manual errors, and enabling data-driven decisions.",
+    "tools": {
+      "bulkUpload": {
+        "title": "Bulk Data Upload / Import",
+        "desc": "Map columns, validate, log summary",
+        "button": "Upload Excel/CSV",
+        "example": "Example: Upload 200 offline walk-in applications collected during education fairs"
+      },
+      "bulkExport": {
+        "title": "Bulk Data Export",
+        "desc": "XLSX, PDF, CSV, JSON | Redact sensitive data",
+        "button": "Export Data",
+        "useCase": "Use Case: Share \"Admitted UG Students for 2025\" with Finance or Hostel teams"
+      },
+      "documentConverter": {
+        "title": "Document Converter",
+        "desc": "Image/Word to PDF, merge, compress",
+        "imageToPdf": "Image/Word to PDF",
+        "mergeCompress": "Merge/Compress",
+        "ideal": "Ideal for scanned documents from students"
+      },
+      "feeEstimator": {
+        "title": "Admission Fee Estimator",
+        "desc": "Configure, AI suggest, print/download",
+        "button": "Estimate Fee"
+      },
+      "timelineGenerator": {
+        "title": "Application Timeline Generator",
+        "desc": "Visual, alerts, share",
+        "button": "Generate Timeline"
+      },
+      "templatesManager": {
+        "title": "Email & SMS Templates Manager",
+        "desc": "CRUD, merge fields, organize",
+        "button": "Manage Templates"
+      },
+      "taskAssignment": {
+        "title": "Task Assignment Panel",
+        "desc": "Assign, track, workload",
+        "button": "Assign Task"
+      },
+      "geoInsights": {
+        "title": "Geo Insights Tool",
+        "desc": "Filter, export by region",
+        "button": "View Heat Map"
+      },
+      "duplicateChecker": {
+        "title": "Duplicate Checker",
+        "desc": "Scan, fuzzy match, AI suggest",
+        "button": "Scan for Duplicates"
+      },
+      "auditLog": {
+        "title": "Audit Log Viewer",
+        "desc": "Search/filter logs",
+        "button": "View Logs"
+      },
+      "scheduler": {
+        "title": "Scheduler Utility",
+        "desc": "Auto-reminders, sync with appointments",
+        "button": "View Calendar"
+      },
+      "apiIntegration": {
+        "title": "API Integration Panel",
+        "desc": "Status, retry, logs",
+        "button": "Monitor Integrations"
+      },
+      "aiUtilities": {
+        "title": "AI-Powered Utilities",
+        "desc": "Automation, validation, data quality",
+        "smartAutoFill": "Smart Auto-Fill",
+        "predictiveImport": "Predictive Import Mapping",
+        "dataQualityScore": "Data Quality Score",
+        "anomalyDetector": "Anomaly Detector",
+        "bulkDocumentValidator": "Bulk Document Validator (OCR)"
+      }
+    }
   }
 } 

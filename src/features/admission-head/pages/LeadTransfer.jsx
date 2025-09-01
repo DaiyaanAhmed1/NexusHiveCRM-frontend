@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { 
   FiUsers, 
   FiFilter, 
@@ -19,6 +20,7 @@ import ConflictResolutionPanel from '../components/lead-transfer/ConflictResolut
 import KPIDashboard from '../components/lead-transfer/KPIDashboard';
 
 const LeadTransfer = () => {
+  const { t } = useTranslation(['admission', 'common']);
   const [selectedLeads, setSelectedLeads] = useState([]);
   const [activeTab, setActiveTab] = useState('overview');
   const [filters, setFilters] = useState({
@@ -29,11 +31,11 @@ const LeadTransfer = () => {
   });
 
   const tabs = [
-    { id: 'overview', label: 'Lead Overview', icon: <FiUsers /> },
-    { id: 'bulk-transfer', label: 'Bulk Transfer', icon: <FiFilter /> },
-    { id: 'history', label: 'Transfer History', icon: <FiClock /> },
-    { id: 'conflicts', label: 'Conflicts', icon: <FiAlertCircle /> },
-    { id: 'kpi', label: 'KPI Insights', icon: <FiBarChart2 /> }
+    { id: 'overview', label: t('leadTransfer.tabs.overview'), icon: <FiUsers /> },
+    { id: 'bulk-transfer', label: t('leadTransfer.tabs.bulkTransfer'), icon: <FiFilter /> },
+    { id: 'history', label: t('leadTransfer.tabs.history'), icon: <FiClock /> },
+    { id: 'conflicts', label: t('leadTransfer.tabs.conflicts'), icon: <FiAlertCircle /> },
+    { id: 'kpi', label: t('leadTransfer.tabs.kpi'), icon: <FiBarChart2 /> }
   ];
 
   return (
@@ -42,10 +44,10 @@ const LeadTransfer = () => {
       <div className="bg-white dark:bg-gray-800 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
-            Lead Transfer Management
+            {t('leadTransfer.title')}
           </h1>
           <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-            Manage and transfer leads between counselors efficiently
+            {t('leadTransfer.subtitle')}
           </p>
         </div>
       </div>
