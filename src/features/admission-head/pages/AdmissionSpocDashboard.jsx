@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function AdmissionHeadDashboard() {
+export default function AdmissionSpocDashboard() {
   return (
     <>
-      <h1 className="text-3xl font-bold text-primary mb-4">Welcome, Admission Head!</h1>
+      <h1 className="text-3xl font-bold text-primary mb-4">Welcome, Admission SPOC!</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div className="bg-card rounded-2xl shadow p-6 flex flex-col items-start">
           <span className="text-2xl mb-2">📝</span>

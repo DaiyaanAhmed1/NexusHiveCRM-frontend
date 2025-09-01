@@ -15,8 +15,7 @@ import MarketingHeadDashboard from "./features/marketing-head/pages/MarketingHea
 import MarketingHeadTeamManagement from './features/marketing-head/components/MarketingHeadTeamManagement';
 import MarketingHeadCampaignManagement from './features/marketing-head/components/MarketingHeadCampaignManagement';
 import MarketingManagerDashboard from "./components/MarketingManagerDashboard";
-import AdmissionHeadDashboard from "./components/AdmissionHeadDashboard";
-import AdmissionSpocDashboard from "./components/AdmissionSpocDashboard";
+import AdmissionSpocDashboard from "./features/admission-head/pages/AdmissionSpocDashboard";
 import HRHeadLayout from "./features/hr-head/pages/HRHeadLayout";
 import HRHeadDashboard from "./features/hr-head/pages/Dashboard";
 import HRManagerDashboard from "./components/HRManagerDashboard";
@@ -39,7 +38,7 @@ import MarketingHeadTrainingDevelopment from './features/marketing-head/componen
 import MarketingHeadComplianceQuality from './features/marketing-head/components/MarketingHeadComplianceQuality';
 import AdmissionHeadAccountManagement from './features/admission-head/pages/AccountManagement';
 import MarketingHeadTickets from "./features/marketing-head/components/MarketingHeadTickets";
-import AdmissionHeadLayout from "./components/AdmissionHeadLayout";
+import AdmissionHeadLayout from "./features/admission-head/pages/AdmissionHeadLayout";
 import AdminHeadLayout from "./features/admin-head/pages/AdminHeadLayout";
 import AdminHeadDashboard from "./features/admin-head/pages/AdminHeadDashboard";
 import ITHeadDashboard from "./components/ITHeadDashboard";
@@ -59,6 +58,7 @@ import AdmissionHeadSupport from './features/admission-head/components/Admission
 import MarketingHeadSupport from './features/marketing-head/components/MarketingHeadSupport';
 import AdmissionHeadDashboardComponent from "./features/admission-head/components/AdmissionHeadDashboard";
 import AdmissionHeadLeadsApplicants from "./features/admission-head/components/AdmissionHeadLeadsApplicants";
+import LeadsManagement from "./features/admission-head/pages/LeadsManagement";
 import AdmissionHeadWorkspace from "./features/admission-head/components/AdmissionHeadWorkspace";
 import Applications from './features/admission-head/pages/Applications';
 import Schedule from './features/admission-head/pages/Schedule';

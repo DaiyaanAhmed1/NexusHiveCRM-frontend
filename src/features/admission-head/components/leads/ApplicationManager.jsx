@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { 
   FiAlertCircle, FiCheckCircle, FiClock, FiFileText, 
@@ -6,20 +7,22 @@ import {
   FiDownload, FiUpload, FiFilter, FiSearch
 } from 'react-icons/fi';
 
-const applicationStatuses = [
-  { id: 'all', label: 'All Applications', icon: FiFileText },
-  { id: 'pending_docs', label: 'Pending Documents', icon: FiAlertCircle },
-  { id: 'pending_payment', label: 'Pending Payment', icon: FiDollarSign },
-  { id: 'interview_scheduled', label: 'Interview Scheduled', icon: FiCalendar },
-  { id: 'approved', label: 'Approved', icon: FiUserCheck },
-  { id: 'rejected', label: 'Rejected', icon: FiUserX },
-];
-
 const ApplicationManager = ({ leads }) => {
+  const { t } = useTranslation(['admission']);
   const [activeStatus, setActiveStatus] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedApplications, setSelectedApplications] = useState([]);
   const [showFilters, setShowFilters] = useState(false);
+
+  // Application statuses with translations
+  const applicationStatuses = [
+    { id: 'all', label: t('leadsApplicants.applicationManager.statuses.allApplications'), icon: FiFileText },
+    { id: 'pending_docs', label: t('leadsApplicants.applicationManager.statuses.pendingDocuments'), icon: FiAlertCircle },
+    { id: 'pending_payment', label: t('leadsApplicants.applicationManager.statuses.pendingPayment'), icon: FiDollarSign },
+    { id: 'interview_scheduled', label: t('leadsApplicants.applicationManager.statuses.interviewScheduled'), icon: FiCalendar },
+    { id: 'approved', label: t('leadsApplicants.applicationManager.statuses.approved'), icon: FiUserCheck },
+    { id: 'rejected', label: t('leadsApplicants.applicationManager.statuses.rejected'), icon: FiUserX },
+  ];
 
   // Filter applications based on status and search
   const filteredApplications = leads.filter(lead => {
@@ -70,7 +73,7 @@ const ApplicationManager = ({ leads }) => {
             <input
               type="text"
               className="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md leading-5 bg-white dark:bg-gray-700 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              placeholder="Search applications by name, ID, or program..."
+              placeholder={t('leadsApplicants.applicationManager.search.placeholder')}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -82,11 +85,11 @@ const ApplicationManager = ({ leads }) => {
             className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
           >
             <FiFilter className="mr-2" />
-            Filters
+            {t('leadsApplicants.applicationManager.actions.filters')}
           </button>
           <button className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">
             <FiDownload className="mr-2" />
-            Export
+            {t('leadsApplicants.applicationManager.actions.export')}
           </button>
         </div>
       </div>

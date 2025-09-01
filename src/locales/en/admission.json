@@ -1,1 +1,703 @@
-{"admission": {"title": "Admission Management", "leads": "Leads", "applications": "Applications"}} 
+{
+  "dashboard": {
+    "title": "Admission Head Dashboard",
+    "subtitle": "Comprehensive admission analytics and insights",
+    "filters": {
+      "allDepartments": "All Departments",
+      "engineering": "Engineering",
+      "business": "Business",
+      "arts": "Arts",
+      "currentCycle": "Current Cycle",
+      "lastCycle": "Last Cycle",
+      "yearOverYear": "Year over Year",
+      "export": "Export"
+    },
+    "admissionFunnel": {
+      "title": "Admission Funnel Overview",
+      "comparison": "YoY Comparison",
+      "stages": {
+        "totalInquiries": "Total Inquiries",
+        "applicationsStarted": "Applications Started",
+        "applicationsSubmitted": "Applications Submitted",
+        "applicationsApproved": "Applications Approved",
+        "offersSent": "Offers Sent",
+        "admissionsConfirmed": "Admissions Confirmed",
+        "enrolledStudents": "Enrolled Students"
+      }
+    },
+    "leadSources": {
+      "title": "Lead Source Performance",
+      "period": "Last 30 Days",
+      "conversionRate": "Conversion Rate",
+      "applications": "Applications",
+      "vsLastMonth": "vs Last Month"
+    },
+    "departmentStatus": {
+      "title": "Department-wise Status",
+      "currentCycle": "Current Cycle",
+      "totalSeats": "Total Seats",
+      "applications": "Applications",
+      "filled": "Filled",
+      "waitlisted": "Waitlisted",
+      "fillRate": "Fill Rate"
+    },
+    "demographics": {
+      "title": "Demographics Snapshot",
+      "currentApplicants": "Current Applicants",
+      "regionalDistribution": "Regional Distribution",
+      "genderRatio": "Gender Ratio",
+      "ageDistribution": "Age Distribution",
+      "regions": {
+        "north": "North",
+        "south": "South",
+        "east": "East",
+        "west": "West"
+      },
+      "gender": {
+        "male": "Male",
+        "female": "Female"
+      },
+      "ageGroups": {
+        "age18to20": "18-20",
+        "age21to23": "21-23",
+        "age24plus": "24+"
+      }
+    },
+    "pendingActions": {
+      "title": "Pending Actions & Alerts",
+      "requiresAttention": "Requires Attention",
+      "itemsPending": "items pending",
+      "viewDetails": "View Details"
+    },
+    "alerts": {
+      "applicationSpike": "Application Spike",
+      "capacityAlert": "Capacity Alert",
+      "systemNotice": "System Notice"
+    },
+    "aiInsights": {
+      "title": "AI-Powered Insights",
+      "updatedDaily": "Updated Daily",
+      "enrollmentForecast": "Enrollment Forecast",
+      "departmentAlert": "Department Alert",
+      "resourcePlanning": "Resource Planning",
+      "forecastText": "Based on current trends, expected enrollment for next cycle:",
+      "alertText": "Design department applications may fall short by",
+      "planningText": "Hostel accommodation capacity nearing"
+    }
+  },
+  "applications": {
+    "title": "Applications",
+    "overview": {
+      "totalApplications": "Total Applications",
+      "underReview": "Under Review",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "tracker": {
+      "title": "Application Tracker",
+      "tableView": "Table View",
+      "cardView": "Card View",
+      "searchPlaceholder": "Search by name or application ID...",
+      "allStatuses": "All Statuses"
+    },
+    "statusBreakdown": {
+      "title": "Status Breakdown"
+    },
+    "table": {
+      "candidate": "Candidate",
+      "applicationId": "Application ID",
+      "program": "Program",
+      "submissionDate": "Submission Date",
+      "status": "Status",
+      "reviewer": "Reviewer",
+      "ai": "AI",
+      "actions": "Actions",
+      "view": "View"
+    },
+    "status": {
+      "underReview": "Under Review",
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "pendingVerification": "Pending Verification",
+      "paymentPending": "Payment Pending",
+      "offersSent": "Offers Sent",
+      "enrollmentsConfirmed": "Enrollments Confirmed"
+    },
+    "ai": {
+      "topPercentile": "Top 5%",
+      "duplicate": "Duplicate",
+      "likelihood": "Likelihood"
+    },
+    "documentVerification": {
+      "title": "Document Verification Hub",
+      "documentsVerified": "Documents Verified:",
+      "verifiedFor": "Verified documents for",
+      "requestedFrom": "Requested missing documents from",
+      "missing": "Missing:",
+      "markAsVerified": "Mark as Verified"
+    },
+    "aiInsights": {
+      "title": "AI Insights",
+      "topApplicants": "Top 5% Applicants",
+      "possibleDuplicate": "Possible duplicate:",
+      "highlyLikelyToEnroll": "Highly Likely to Enroll"
+    },
+    "sections": {
+      "pendingApplicants": "Pending Applicants:",
+      "missingDocs": "Missing Docs",
+      "verify": "Verify",
+      "request": "Request",
+      "reviewWorkflow": "Review Workflow Manager",
+      "reviewerWorkload": "Reviewer Workload:",
+      "topReviewers": "Top Reviewers:",
+      "apps": "apps",
+      "assign": "Assign",
+      "bulkAssign": "Bulk Assign",
+      "interviewManagement": "Interview Management",
+      "interviewsScheduled": "Interviews Scheduled:",
+      "upcomingInterviews": "Upcoming Interviews:",
+      "markCompleted": "Mark Completed",
+      "sendReminder": "Send Reminder",
+      "scheduleInterview": "Schedule Interview",
+      "offerManagement": "Offer Management",
+      "offersAccepted": "Offers Accepted:",
+      "recentOffers": "Recent Offers:",
+      "accepted": "Accepted",
+      "pending": "Pending",
+      "sendOffer": "Send Offer",
+      "download": "Download",
+      "sendOffers": "Send Offers"
+    },
+    "toast": {
+      "bulkOffersSent": "Bulk offers sent!",
+      "verifiedDocumentsFor": "Verified documents for",
+      "requestedMissingDocumentsFrom": "Requested missing documents from",
+      "assignedTo": "Assigned",
+      "to": "to",
+      "interviewScheduledFor": "Interview scheduled for",
+      "at": "at",
+      "reminderSentTo": "Reminder sent to",
+      "interviewMarkedCompleted": "Interview marked as completed for",
+      "offerSentTo": "Offer sent to",
+      "downloadingOfferLetter": "Downloading offer letter for"
+    }
+  },
+  "leads": {
+    "title": "Leads & Applicants",
+    "subtitle": "Manage and track all leads through the admission pipeline",
+    "tabs": {
+      "pipeline": "Lead Pipeline",
+      "filters": "Filters & Search",
+      "profile": "Lead Profile",
+      "workload": "Team Workload",
+      "performance": "Source Performance",
+      "bulkActions": "Bulk Actions",
+      "applications": "Application Manager",
+      "communication": "Communication Triggers",
+      "dropoff": "Dropoff Insights",
+      "insights": "AI Insights"
+    },
+    "search": {
+      "placeholder": "Search leads by name, program, or ID..."
+    },
+    "actions": {
+      "aiInsights": "AI Insights",
+      "bulkActions": "Bulk Actions",
+      "communication": "Communication"
+    },
+    "status": {
+      "inquiry": "Inquiry",
+      "contacted": "Contacted",
+      "qualified": "Qualified",
+      "application": "Application",
+      "enrolled": "Enrolled"
+    },
+    "conversionScore": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "applicationStatus": {
+      "notStarted": "Not Started",
+      "inProgress": "In Progress",
+      "submitted": "Submitted",
+      "approved": "Approved",
+      "rejected": "Rejected"
+    },
+    "paymentStatus": {
+      "pending": "Pending",
+      "paid": "Paid",
+      "partial": "Partial"
+    }
+  },
+  "leadsApplicants": {
+    "tabs": {
+      "leads": "Leads",
+      "applicants": "Applicants",
+      "shortlisted": "Shortlisted",
+      "offersSent": "Offers Sent",
+      "enrolled": "Enrolled"
+    },
+    "pipelineStages": {
+      "inquiry": "Inquiry",
+      "contacted": "Contacted",
+      "applicationStarted": "Application Started",
+      "documentsSubmitted": "Documents Submitted",
+      "verified": "Verified",
+      "offerSent": "Offer Sent",
+      "confirmed": "Confirmed",
+      "withdrawnRejected": "Withdrawn / Rejected"
+    },
+    "search": {
+      "placeholder": "Search by name, email, phone..."
+    },
+    "filters": {
+      "program": "Program",
+      "state": "State",
+      "officer": "Officer",
+      "status": "Status",
+      "source": "Source",
+      "date": "Date"
+    },
+    "actions": {
+      "importCSV": "Import CSV",
+      "addLead": "Add Lead"
+    },
+    "noLeads": "No leads",
+    "engagement": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "sections": {
+      "applicationManager": "Application Manager",
+      "communicationTriggers": "Communication Triggers",
+      "teamAssignmentWorkload": "Team Assignment & Workload",
+      "dropoffInactivityInsights": "Drop-off & Inactivity Insights",
+      "leadSourcePerformance": "Lead Source Performance",
+      "bulkActionsDataImport": "Bulk Actions / Data Import",
+      "aiAutomation": "AI & Automation"
+    },
+    "modal": {
+      "contactInfo": "Contact Info",
+      "location": "Location",
+      "timeline": "Timeline",
+      "documents": "Documents",
+      "internalNotes": "Internal Notes",
+      "assignTaskFollowup": "Assign Task / Follow-up",
+      "stageTransitions": "Stage Transitions",
+      "sourceAttribution": "Source Attribution",
+      "aiConversionPrediction": "AI Conversion Prediction",
+      "communicationLog": "Communication Log",
+      "assigned": "Assigned",
+      "noDocumentsUploaded": "No documents uploaded",
+      "addTaskFollowup": "Add a task or follow-up...",
+      "assign": "Assign",
+      "noRecentMessages": "(Demo) No recent messages",
+      "engagementLikelihood": "Likelihood"
+    },
+    "sources": {
+      "website": "Website",
+      "referral": "Referral"
+    },
+    "programs": {
+      "mba": "MBA",
+      "btech": "B.Tech"
+    },
+    "demo": {
+      "description": "(Demo) Table of formal applicants, document/payment/interview status, alerts for pending docs.",
+      "bulkSingle": "(Demo) Bulk/single WhatsApp, Email, SMS, AI-powered nudges.",
+      "officerWorkload": "(Demo) Officer workload, reassign, AI suggestions.",
+      "inactiveLeads": "(Demo) Inactive leads, drop-offs, re-engagement nudges.",
+      "conversionCost": "(Demo) Conversion %, cost per lead, ROAS, color-coded bars.",
+      "manualEntry": "(Demo) Manual entry, CSV import, API integrations.",
+      "smartDetection": "(Demo) Smart duplicate detection, auto-assignment, predictive scoring, Smart Assistant."
+    },
+    "applicationManager": {
+      "statuses": {
+        "allApplications": "All Applications",
+        "pendingDocuments": "Pending Documents",
+        "pendingPayment": "Pending Payment",
+        "interviewScheduled": "Interview Scheduled",
+        "approved": "Approved",
+        "rejected": "Rejected"
+      },
+      "search": {
+        "placeholder": "Search applications by name, ID, or program..."
+      },
+      "actions": {
+        "filters": "Filters",
+        "export": "Export"
+      },
+      "table": {
+        "headers": {
+          "applicant": "Applicant",
+          "applicationId": "Application ID",
+          "program": "Program",
+          "status": "Status",
+          "documents": "Documents",
+          "payment": "Payment",
+          "interview": "Interview",
+          "actions": "Actions"
+        }
+      }
+    },
+    "communication": {
+      "title": "Communication & Logs",
+      "dashboard": {
+        "thisWeek": "This Week",
+        "thisMonth": "This Month",
+        "emailsSent": "Emails Sent",
+        "smsSent": "SMS Sent",
+        "whatsapp": "WhatsApp",
+        "callsLogged": "Calls Logged",
+        "pendingReplies": "Pending Replies",
+        "unread": "Unread"
+      },
+      "tabs": {
+        "outgoing": "Outgoing",
+        "incoming": "Incoming",
+        "templates": "Templates",
+        "notes": "Notes",
+        "calls": "Calls",
+        "audit": "Audit"
+      },
+      "status": {
+        "delivered": "Delivered",
+        "sent": "Sent",
+        "read": "Read",
+        "needsFollowup": "Needs Follow-up",
+        "escalated": "Escalated",
+        "replied": "Replied"
+      },
+      "types": {
+        "email": "Email",
+        "sms": "SMS",
+        "whatsapp": "WhatsApp"
+      },
+      "actions": {
+        "compose": "Compose",
+        "send": "Send",
+        "edit": "Edit",
+        "delete": "Delete",
+        "share": "Share",
+        "download": "Download"
+      },
+      "sections": {
+        "outgoingCommunications": "Outgoing Communications",
+        "incomingMessagesLogs": "Incoming Messages / Logs",
+        "bulkCommunicationTools": "Bulk Communication Tools",
+        "templatesManager": "Templates Manager",
+        "internalNotesLogbook": "Internal Notes / Logbook",
+        "callLogsVoiceNotes": "Call Logs & Voice Notes",
+        "integrationChannels": "Integration & Channels",
+        "aiPoweredFeatures": "AI-Powered Features",
+        "auditHistory": "Audit & History"
+      },
+      "table": {
+        "headers": {
+          "recipient": "Recipient",
+          "sender": "Sender",
+          "type": "Type",
+          "subject": "Subject",
+          "dateTime": "Date/Time",
+          "sentBy": "Sent By",
+          "status": "Status",
+          "action": "Action",
+          "tags": "Tags"
+        }
+      },
+      "buttons": {
+        "bulkSend": "Bulk Send",
+        "addNote": "Add Note",
+        "newCampaign": "New Campaign",
+        "sendNow": "Send Now",
+        "schedule": "Schedule",
+        "resend": "Resend",
+        "viewFull": "View Full",
+        "followUp": "Follow-up",
+        "reply": "Reply",
+        "escalate": "Escalate",
+        "assign": "Assign",
+        "compose": "Compose",
+        "send": "Send",
+        "edit": "Edit",
+        "delete": "Delete",
+        "share": "Share",
+        "download": "Download"
+      },
+      "bulkTools": {
+        "target": "Target",
+        "mode": "Mode",
+        "template": "Template",
+        "personalization": "Personalization",
+        "allLeads": "All Leads",
+        "email": "Email",
+        "applicationReminder": "Application Reminder",
+        "openRate": "Open Rate",
+        "clickRate": "Click Rate",
+        "deliveryRate": "Delivery Rate"
+      },
+      "templates": {
+        "title": "Templates Manager",
+        "newTemplate": "New Template",
+        "headers": {
+          "name": "Name",
+          "type": "Type",
+          "content": "Content",
+          "language": "Language",
+          "approved": "Approved",
+          "action": "Action"
+        },
+        "actions": {
+          "edit": "Edit",
+          "delete": "Delete"
+        }
+      },
+      "notes": {
+        "title": "Internal Notes / Logbook",
+        "addNote": "Add Note",
+        "private": "Private",
+        "team": "Team"
+      },
+      "calls": {
+        "title": "Call Logs & Voice Notes",
+        "logCall": "Log Call",
+        "completed": "Completed",
+        "aiSummary": "AI Summary"
+      },
+      "integrations": {
+        "title": "Integration & Channels",
+        "on": "ON",
+        "off": "OFF"
+      },
+      "aiFeatures": {
+        "title": "AI-Powered Features",
+        "urgencyDetection": "Urgency Detection",
+        "flagged": "flagged",
+        "replySuggestion": "Reply Suggestion",
+        "smartReminder": "Smart Reminder",
+        "followUpsSuggested": "follow-ups suggested",
+        "sentiment": "Sentiment",
+        "parentFrustrated": "Parent is frustrated about delay",
+        "botLog": "Bot Log",
+        "chatbotInteractions": "chatbot interactions",
+        "urgencyDetector": "Urgency Detector",
+        "aiPrioritization": "AI Prioritization",
+        "dropOffDetector": "Drop-off Detector",
+        "messageQualityAnalyzer": "Message Quality Analyzer",
+        "aiResponseSuggestions": "AI Response Suggestions",
+        "toneOptimizer": "Tone Optimizer",
+        "engagementTracker": "Engagement Tracker",
+        "aiSummarization": "AI Summarization",
+        "smartFileSuggestions": "Smart File Suggestions",
+        "sendTimeOptimization": "Send Time Optimization",
+        "subjectLinePredictor": "Subject Line Predictor",
+        "abTestingInsights": "A/B Testing Insights",
+        "vendorPerformanceSummary": "Vendor Performance Summary",
+        "followUpNudges": "Follow-up Nudges",
+        "smartScheduling": "Smart Scheduling",
+        "missedOpportunityAlerts": "Missed Opportunity Alerts"
+      },
+      "audit": {
+        "title": "Audit & History",
+        "export": "Export",
+        "description": "Full communication audit trail per applicant. Data retention: 2 years. Exportable for compliance."
+      },
+      "documents": {
+        "title": "Documents",
+        "dashboard": {
+          "totalUploaded": "Total Uploaded",
+          "pendingVerification": "Pending Verification",
+          "awaitingUpload": "Awaiting Upload",
+          "expiredInvalid": "Expired/Invalid",
+          "deptWise": "Dept-wise",
+          "completionRate": "Completion Rate"
+        },
+        "quickActions": {
+          "uploadDocument": "Upload Document",
+          "requestMissing": "Request Missing",
+          "viewByStatus": "View by Status",
+          "aiCompletion": "AI: 85% completion for confirmed"
+        },
+        "sections": {
+          "applicantDocumentRepository": "Applicant Document Repository",
+          "documentUploadPortal": "Document Upload Portal",
+          "verificationValidation": "Verification & Validation",
+          "bulkDocumentReview": "Bulk Document Review & Actions",
+          "documentRequestSystem": "Document Request System",
+          "templatesFormsLibrary": "Templates & Forms Library",
+          "archiveRetentionManagement": "Archive & Retention Management",
+          "accessControlPermissions": "Access Control & Permissions",
+          "aiSmartFeatures": "AI & Smart Features"
+        },
+        "search": {
+          "placeholder": "Search by name or ID...",
+          "allDepartments": "All Departments",
+          "allStatus": "All Status"
+        },
+        "table": {
+          "headers": {
+            "applicant": "Applicant",
+            "document": "Document",
+            "status": "Status",
+            "file": "File",
+            "action": "Action",
+            "name": "Name",
+            "version": "Version",
+            "expires": "Expires",
+            "downloads": "Downloads"
+          },
+          "actions": {
+            "download": "Download",
+            "approve": "Approve",
+            "reject": "Reject",
+            "requestReupload": "Request Re-upload",
+            "delete": "Delete"
+          }
+        },
+        "upload": {
+          "title": "Upload",
+          "description": "Drag and drop files. Allowed: PDF, JPEG, PNG, DOCX. AI will auto-detect category and validate.",
+          "bulkUpload": "Bulk Upload",
+          "setDeadline": "Set Deadline"
+        },
+        "verification": {
+          "description": "Assign to validators, checklist approval, comments, audit log, digital signature (mock).",
+          "bulkApprove": "Bulk Approve",
+          "bulkReject": "Bulk Reject",
+          "auditLog": "Audit Log"
+        },
+        "bulkReview": {
+          "description": "Table of unverified/missing docs. Approve/reject in bulk. Export status.",
+          "sendReminders": "Send Reminders",
+          "exportExcel": "Export Excel"
+        },
+        "requestSystem": {
+          "description": "Trigger requests, track fulfillment, deadlines, escalation, secure upload link.",
+          "request": "Request"
+        },
+        "templates": {
+          "upload": "Upload"
+        },
+        "archive": {
+          "retention": "Retention: 5 years. Auto-archive enabled. Access logs tracked.",
+          "access": "Access"
+        },
+        "accessControl": {
+          "view": "View",
+          "upload": "Upload",
+          "approve": "Approve",
+          "delete": "Delete",
+          "download": "Download",
+          "encryption": "Encryption",
+          "accessLogs": "Access Logs"
+        },
+        "aiFeatures": {
+          "ocrAutoTagging": "OCR & Auto-Tagging: 3 docs",
+          "duplicateDetection": "Duplicate Detection: 1 flagged",
+          "smartReminders": "Smart Reminders: 2 pending",
+          "riskFlagging": "Risk Flagging: 1 suspicious",
+          "completionAnalytics": "Completion Analytics: 85% confirmed"
+        }
+      }
+    }
+  },
+  "documents": {
+    "title": "Documents",
+    "dashboard": {
+      "totalUploaded": "Total Uploaded",
+      "pendingVerification": "Pending Verification",
+      "awaitingUpload": "Awaiting Upload",
+      "expiredInvalid": "Expired/Invalid",
+      "deptWise": "Dept-wise",
+      "completionRate": "Completion Rate"
+    },
+    "quickActions": {
+      "uploadDocument": "Upload Document",
+      "requestMissing": "Request Missing",
+      "viewByStatus": "View by Status",
+      "aiCompletion": "AI: 85% completion for confirmed"
+    },
+    "sections": {
+      "applicantDocumentRepository": "Applicant Document Repository",
+      "documentUploadPortal": "Document Upload Portal",
+      "verificationValidation": "Verification & Validation",
+      "bulkDocumentReview": "Bulk Document Review & Actions",
+      "documentRequestSystem": "Document Request System",
+      "templatesFormsLibrary": "Templates & Forms Library",
+      "archiveRetentionManagement": "Archive & Retention Management",
+      "accessControlPermissions": "Access Control & Permissions",
+      "aiSmartFeatures": "AI & Smart Features"
+    },
+    "search": {
+      "placeholder": "Search by name or ID...",
+      "allDepartments": "All Departments",
+      "allStatus": "All Status"
+    },
+    "table": {
+      "headers": {
+        "applicant": "Applicant",
+        "document": "Document",
+        "status": "Status",
+        "file": "File",
+        "action": "Action",
+        "name": "Name",
+        "version": "Version",
+        "expires": "Expires",
+        "downloads": "Downloads"
+      },
+      "actions": {
+        "download": "Download",
+        "approve": "Approve",
+        "reject": "Reject",
+        "requestReupload": "Request Re-upload",
+        "delete": "Delete"
+      }
+    },
+    "upload": {
+      "title": "Upload",
+      "description": "Drag and drop files. Allowed: PDF, JPEG, PNG, DOCX. AI will auto-detect category and validate.",
+      "bulkUpload": "Bulk Upload",
+      "setDeadline": "Set Deadline"
+    },
+    "verification": {
+      "description": "Assign to validators, checklist approval, comments, audit log, digital signature (mock).",
+      "bulkApprove": "Bulk Approve",
+      "bulkReject": "Bulk Reject",
+      "auditLog": "Audit Log"
+    },
+    "bulkReview": {
+      "description": "Table of unverified/missing docs. Approve/reject in bulk. Export status.",
+      "sendReminders": "Send Reminders",
+      "exportExcel": "Export Excel"
+    },
+    "requestSystem": {
+      "description": "Trigger requests, track fulfillment, deadlines, escalation, secure upload link.",
+      "request": "Request"
+    },
+    "templates": {
+      "upload": "Upload"
+    },
+    "archive": {
+      "retention": "Retention: 5 years. Auto-archive enabled. Access logs tracked.",
+      "access": "Access"
+    },
+    "accessControl": {
+      "view": "View",
+      "upload": "Upload",
+      "approve": "Approve",
+      "delete": "Delete",
+      "download": "Download",
+      "encryption": "Encryption",
+      "accessLogs": "Access Logs"
+    },
+    "aiFeatures": {
+      "ocrAutoTagging": "OCR & Auto-Tagging: 3 docs",
+      "duplicateDetection": "Duplicate Detection: 1 flagged",
+      "smartReminders": "Smart Reminders: 2 pending",
+      "riskFlagging": "Risk Flagging: 1 suspicious",
+      "completionAnalytics": "Completion Analytics: 85% confirmed"
+    }
+  }
+} 

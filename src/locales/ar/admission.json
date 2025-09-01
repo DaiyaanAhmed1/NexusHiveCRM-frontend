@@ -1,1 +1,611 @@
-{"admission": {"title": "إدارة القبول", "leads": "العملاء المحتملين", "applications": "الطلبات"}} 
+{
+  "dashboard": {
+    "title": "لوحة تحكم رئيس القبول",
+    "subtitle": "تحليلات ورؤى شاملة للقبول",
+    "filters": {
+      "allDepartments": "جميع الأقسام",
+      "engineering": "الهندسة",
+      "business": "الأعمال",
+      "arts": "الفنون",
+      "currentCycle": "الدورة الحالية",
+      "lastCycle": "الدورة السابقة",
+      "yearOverYear": "مقارنة سنوية",
+      "export": "تصدير"
+    },
+    "admissionFunnel": {
+      "title": "نظرة عامة على قمع القبول",
+      "comparison": "مقارنة سنوية",
+      "stages": {
+        "totalInquiries": "إجمالي الاستفسارات",
+        "applicationsStarted": "الطلبات المبدوءة",
+        "applicationsSubmitted": "الطلبات المقدمة",
+        "applicationsApproved": "الطلبات المعتمدة",
+        "offersSent": "العروض المرسلة",
+        "admissionsConfirmed": "القبول المؤكد",
+        "enrolledStudents": "الطلاب المسجلين"
+      }
+    },
+    "leadSources": {
+      "title": "أداء مصادر العملاء المحتملين",
+      "period": "آخر 30 يوم",
+      "conversionRate": "معدل التحويل",
+      "applications": "الطلبات",
+      "vsLastMonth": "مقارنة بالشهر السابق"
+    },
+    "departmentStatus": {
+      "title": "حالة الأقسام",
+      "currentCycle": "الدورة الحالية",
+      "totalSeats": "إجمالي المقاعد",
+      "applications": "الطلبات",
+      "filled": "المشغولة",
+      "waitlisted": "قائمة الانتظار",
+      "fillRate": "معدل الإشغال"
+    },
+    "demographics": {
+      "title": "لقطة ديموغرافية",
+      "currentApplicants": "المتقدمون الحاليون",
+      "regionalDistribution": "التوزيع الإقليمي",
+      "genderRatio": "نسبة الجنس",
+      "ageDistribution": "توزيع العمر",
+      "regions": {
+        "north": "الشمال",
+        "south": "الجنوب",
+        "east": "الشرق",
+        "west": "الغرب"
+      },
+      "gender": {
+        "male": "ذكر",
+        "female": "أنثى"
+      },
+      "ageGroups": {
+        "age18to20": "18-20",
+        "age21to23": "21-23",
+        "age24plus": "24+"
+      }
+    },
+    "pendingActions": {
+      "title": "الإجراءات المعلقة والتنبيهات",
+      "requiresAttention": "تتطلب اهتمام",
+      "itemsPending": "عناصر معلقة",
+      "viewDetails": "عرض التفاصيل"
+    },
+    "alerts": {
+      "applicationSpike": "ارتفاع في الطلبات",
+      "capacityAlert": "تنبيه السعة",
+      "systemNotice": "إشعار النظام"
+    },
+    "aiInsights": {
+      "title": "رؤى مدعومة بالذكاء الاصطناعي",
+      "updatedDaily": "تحديث يومي",
+      "enrollmentForecast": "توقعات التسجيل",
+      "departmentAlert": "تنبيه القسم",
+      "resourcePlanning": "تخطيط الموارد",
+      "forecastText": "بناءً على الاتجاهات الحالية، التسجيل المتوقع للدورة القادمة:",
+      "alertText": "طلبات قسم التصميم قد تقل بـ",
+      "planningText": "سعة إقامة الطلاب تقترب من"
+    }
+  },
+  "applications": {
+    "title": "الطلبات",
+    "overview": {
+      "totalApplications": "إجمالي الطلبات",
+      "underReview": "قيد المراجعة",
+      "approved": "معتمد",
+      "rejected": "مرفوض"
+    },
+    "tracker": {
+      "title": "متتبع الطلبات",
+      "tableView": "عرض الجدول",
+      "cardView": "عرض البطاقات",
+      "searchPlaceholder": "البحث بالاسم أو معرف الطلب...",
+      "allStatuses": "جميع الحالات"
+    },
+    "statusBreakdown": {
+      "title": "توزيع الحالات"
+    },
+    "table": {
+      "candidate": "المرشح",
+      "applicationId": "معرف الطلب",
+      "program": "البرنامج",
+      "submissionDate": "تاريخ التقديم",
+      "status": "الحالة",
+      "reviewer": "المراجع",
+      "ai": "الذكاء الاصطناعي",
+      "actions": "الإجراءات",
+      "view": "عرض"
+    },
+    "status": {
+      "underReview": "قيد المراجعة",
+      "approved": "معتمد",
+      "rejected": "مرفوض",
+      "pendingVerification": "في انتظار التحقق",
+      "paymentPending": "في انتظار الدفع",
+      "offersSent": "تم إرسال العروض",
+      "enrollmentsConfirmed": "تم تأكيد التسجيلات"
+    },
+    "ai": {
+      "topPercentile": "أعلى 5%",
+      "duplicate": "مكرر",
+      "likelihood": "الاحتمالية"
+    },
+    "documentVerification": {
+      "title": "مركز التحقق من المستندات",
+      "documentsVerified": "المستندات المحققة:",
+      "verifiedFor": "تم التحقق من المستندات لـ",
+      "requestedFrom": "تم طلب المستندات المفقودة من",
+      "missing": "مفقود:",
+      "markAsVerified": "تحديد كمحقق"
+    },
+    "aiInsights": {
+      "title": "رؤى الذكاء الاصطناعي",
+      "topApplicants": "أعلى 5% من المتقدمين",
+      "possibleDuplicate": "مكرر محتمل:",
+      "highlyLikelyToEnroll": "من المحتمل جداً التسجيل"
+    },
+    "sections": {
+      "pendingApplicants": "المتقدمون المعلقون:",
+      "missingDocs": "مستندات مفقودة",
+      "verify": "تحقق",
+      "request": "طلب",
+      "reviewWorkflow": "مدير سير عمل المراجعة",
+      "reviewerWorkload": "عبء عمل المراجع:",
+      "topReviewers": "أفضل المراجعين:",
+      "apps": "طلبات",
+      "assign": "تعيين",
+      "bulkAssign": "تعيين جماعي",
+      "interviewManagement": "إدارة المقابلات",
+      "interviewsScheduled": "المقابلات المجدولة:",
+      "upcomingInterviews": "المقابلات القادمة:",
+      "markCompleted": "تحديد كمكتملة",
+      "sendReminder": "إرسال تذكير",
+      "scheduleInterview": "جدولة مقابلة",
+      "offerManagement": "إدارة العروض",
+      "offersAccepted": "العروض المقبولة:",
+      "recentOffers": "العروض الحديثة:",
+      "accepted": "مقبول",
+      "pending": "معلق",
+      "sendOffer": "إرسال عرض",
+      "download": "تحميل",
+      "sendOffers": "إرسال العروض"
+    },
+    "toast": {
+      "bulkOffersSent": "تم إرسال العروض الجماعية!",
+      "verifiedDocumentsFor": "تم التحقق من المستندات لـ",
+      "requestedMissingDocumentsFrom": "تم طلب المستندات المفقودة من",
+      "assignedTo": "تم تعيين",
+      "to": "إلى",
+      "interviewScheduledFor": "تم جدولة المقابلة لـ",
+      "at": "في",
+      "reminderSentTo": "تم إرسال تذكير إلى",
+      "interviewMarkedCompleted": "تم تحديد المقابلة كمكتملة لـ",
+      "offerSentTo": "تم إرسال العرض إلى",
+      "downloadingOfferLetter": "جاري تحميل خطاب العرض لـ"
+    }
+  },
+  "leads": {
+    "title": "العملاء المحتملون والمتقدمون",
+    "subtitle": "إدارة وتتبع جميع العملاء المحتملين من خلال خط أنابيب القبول",
+    "tabs": {
+      "pipeline": "خط أنابيب العملاء المحتملين",
+      "filters": "الفلاتر والبحث",
+      "profile": "ملف العميل المحتمل",
+      "workload": "عبء عمل الفريق",
+      "performance": "أداء المصادر",
+      "bulkActions": "الإجراءات الجماعية",
+      "applications": "مدير الطلبات",
+      "communication": "مشغلات التواصل",
+      "dropoff": "رؤى الانسحاب",
+      "insights": "رؤى الذكاء الاصطناعي"
+    },
+    "search": {
+      "placeholder": "البحث عن العملاء المحتملين بالاسم أو البرنامج أو المعرف..."
+    },
+    "actions": {
+      "aiInsights": "رؤى الذكاء الاصطناعي",
+      "bulkActions": "الإجراءات الجماعية",
+      "communication": "التواصل"
+    },
+    "status": {
+      "inquiry": "استفسار",
+      "contacted": "تم التواصل",
+      "qualified": "مؤهل",
+      "application": "طلب",
+      "enrolled": "مسجل"
+    },
+    "conversionScore": {
+      "high": "عالي",
+      "medium": "متوسط",
+      "low": "منخفض"
+    },
+    "applicationStatus": {
+      "notStarted": "لم يبدأ",
+      "inProgress": "قيد التقدم",
+      "submitted": "مقدم",
+      "approved": "معتمد",
+      "rejected": "مرفوض"
+    },
+    "paymentStatus": {
+      "pending": "معلق",
+      "paid": "مدفوع",
+      "partial": "جزئي"
+    },
+    "engagement": {
+      "high": "عالي",
+      "medium": "متوسط",
+      "low": "منخفض"
+    },
+    "sections": {
+      "applicationManager": "مدير الطلبات",
+      "communicationTriggers": "مشغلات التواصل",
+      "teamAssignmentWorkload": "تعيين الفريق وعبء العمل",
+      "dropoffInactivityInsights": "رؤى الانسحاب والخمول",
+      "leadSourcePerformance": "أداء مصدر العملاء المحتملين",
+      "bulkActionsDataImport": "الإجراءات الجماعية / استيراد البيانات",
+      "aiAutomation": "الذكاء الاصطناعي والأتمتة"
+    },
+    "modal": {
+      "contactInfo": "معلومات الاتصال",
+      "location": "الموقع",
+      "timeline": "الجدول الزمني",
+      "documents": "المستندات",
+      "internalNotes": "الملاحظات الداخلية",
+      "assignTaskFollowup": "تعيين مهمة / متابعة",
+      "stageTransitions": "انتقالات المرحلة",
+      "sourceAttribution": "نسب المصدر",
+      "aiConversionPrediction": "توقع التحويل بالذكاء الاصطناعي",
+      "communicationLog": "سجل التواصل",
+      "assigned": "تم التعيين",
+      "noDocumentsUploaded": "لم يتم رفع أي مستندات",
+      "addTaskFollowup": "أضف مهمة أو متابعة...",
+      "assign": "تعيين",
+      "noRecentMessages": "(تجريبي) لا توجد رسائل حديثة",
+      "engagementLikelihood": "احتمالية"
+    },
+    "sources": {
+      "website": "الموقع الإلكتروني",
+      "referral": "إحالة"
+    },
+    "programs": {
+      "mba": "ماجستير إدارة الأعمال",
+      "btech": "بكالوريوس التكنولوجيا"
+    },
+    "demo": {
+      "description": "(تجريبي) جدول المتقدمين الرسميين، حالة المستندات/الدفع/المقابلة، تنبيهات للمستندات المعلقة.",
+      "bulkSingle": "(تجريبي) واتساب جماعي/فردي، بريد إلكتروني، رسائل نصية، تلميحات مدعومة بالذكاء الاصطناعي.",
+      "officerWorkload": "(تجريبي) عبء عمل الموظف، إعادة تعيين، اقتراحات الذكاء الاصطناعي.",
+      "inactiveLeads": "(تجريبي) العملاء المحتملون غير النشطين، الانسحابات، تلميحات إعادة المشاركة.",
+      "conversionCost": "(تجريبي) نسبة التحويل، تكلفة العميل المحتمل، عائد الاستثمار، أشرطة ملونة.",
+      "manualEntry": "(تجريبي) إدخال يدوي، استيراد CSV، تكاملات API.",
+      "smartDetection": "(تجريبي) اكتشاف ذكي للنسخ المكررة، تعيين تلقائي، تقييم تنبؤي، المساعد الذكي."
+    },
+    "applicationManager": {
+      "statuses": {
+        "allApplications": "جميع الطلبات",
+        "pendingDocuments": "مستندات معلقة",
+        "pendingPayment": "دفع معلق",
+        "interviewScheduled": "مقابلة مجدولة",
+        "approved": "معتمد",
+        "rejected": "مرفوض"
+      },
+      "search": {
+        "placeholder": "البحث في الطلبات بالاسم أو المعرف أو البرنامج..."
+      },
+      "actions": {
+        "filters": "الفلاتر",
+        "export": "تصدير"
+      },
+      "table": {
+        "headers": {
+          "applicant": "المتقدم",
+          "applicationId": "معرف الطلب",
+          "program": "البرنامج",
+          "status": "الحالة",
+          "documents": "المستندات",
+          "payment": "الدفع",
+          "interview": "المقابلة",
+          "actions": "الإجراءات"
+        }
+      }
+    }
+  },
+  "leadsApplicants": {
+    "tabs": {
+      "leads": "العملاء المحتملون",
+      "applicants": "المتقدمون",
+      "shortlisted": "القائمة المختصرة",
+      "offersSent": "العروض المرسلة",
+      "enrolled": "المسجلون"
+    },
+    "pipelineStages": {
+      "inquiry": "استفسار",
+      "contacted": "تم التواصل",
+      "applicationStarted": "بدأ الطلب",
+      "documentsSubmitted": "تم تقديم المستندات",
+      "verified": "تم التحقق",
+      "offerSent": "تم إرسال العرض",
+      "confirmed": "مؤكد",
+      "withdrawnRejected": "منسحب / مرفوض"
+    },
+    "search": {
+      "placeholder": "البحث بالاسم أو البريد الإلكتروني أو الهاتف..."
+    },
+    "filters": {
+      "program": "البرنامج",
+      "state": "الولاية",
+      "officer": "الموظف",
+      "status": "الحالة",
+      "source": "المصدر",
+      "date": "التاريخ"
+    },
+    "actions": {
+      "importCSV": "استيراد CSV",
+      "addLead": "إضافة عميل محتمل"
+    },
+    "noLeads": "لا توجد عملاء محتملون",
+    "engagement": {
+      "high": "عالي",
+      "medium": "متوسط",
+      "low": "منخفض"
+    }
+  },
+  "communication": {
+    "title": "التواصل والسجلات",
+    "dashboard": {
+      "thisWeek": "هذا الأسبوع",
+      "thisMonth": "هذا الشهر",
+      "emailsSent": "رسائل البريد الإلكتروني المرسلة",
+      "smsSent": "رسائل SMS المرسلة",
+      "whatsapp": "واتساب",
+      "callsLogged": "المكالمات المسجلة",
+      "pendingReplies": "الردود المعلقة",
+      "unread": "غير مقروء"
+    },
+    "tabs": {
+      "outgoing": "الصادرة",
+      "incoming": "الواردة",
+      "templates": "القوالب",
+      "notes": "الملاحظات",
+      "calls": "المكالمات",
+      "audit": "المراجعة"
+    },
+    "status": {
+      "delivered": "تم التسليم",
+      "sent": "تم الإرسال",
+      "read": "تم القراءة",
+      "needsFollowup": "يحتاج متابعة",
+      "escalated": "تم التصعيد",
+      "replied": "تم الرد"
+    },
+    "types": {
+      "email": "البريد الإلكتروني",
+      "sms": "رسالة نصية",
+      "whatsapp": "واتساب"
+    },
+    "actions": {
+      "compose": "إنشاء",
+      "send": "إرسال",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "share": "مشاركة",
+      "download": "تحميل"
+    },
+    "sections": {
+      "outgoingCommunications": "التواصل الصادر",
+      "incomingMessagesLogs": "الرسائل الواردة / السجلات",
+      "bulkCommunicationTools": "أدوات التواصل الجماعي",
+      "templatesManager": "مدير القوالب",
+      "internalNotesLogbook": "الملاحظات الداخلية / دفتر اليومية",
+      "callLogsVoiceNotes": "سجلات المكالمات والملاحظات الصوتية",
+      "integrationChannels": "التكامل والقنوات",
+      "aiPoweredFeatures": "الميزات المدعومة بالذكاء الاصطناعي",
+      "auditHistory": "المراجعة والتاريخ"
+    },
+    "table": {
+      "headers": {
+        "recipient": "المستلم",
+        "sender": "المرسل",
+        "type": "النوع",
+        "subject": "الموضوع",
+        "dateTime": "التاريخ/الوقت",
+        "sentBy": "أرسل بواسطة",
+        "status": "الحالة",
+        "action": "الإجراء",
+        "tags": "العلامات"
+      }
+    },
+    "buttons": {
+      "bulkSend": "إرسال جماعي",
+      "addNote": "إضافة ملاحظة",
+      "newCampaign": "حملة جديدة",
+      "sendNow": "إرسال الآن",
+      "schedule": "جدولة",
+      "resend": "إعادة إرسال",
+      "viewFull": "عرض كامل",
+      "followUp": "متابعة",
+      "reply": "رد",
+      "escalate": "تصعيد",
+      "assign": "تعيين",
+      "compose": "تأليف",
+      "send": "إرسال",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "share": "مشاركة",
+      "download": "تحميل"
+    },
+    "bulkTools": {
+      "target": "الهدف",
+      "mode": "الوضع",
+      "template": "القالب",
+      "personalization": "التخصيص",
+      "allLeads": "جميع العملاء المحتملين",
+      "email": "البريد الإلكتروني",
+      "applicationReminder": "تذكير الطلب",
+      "openRate": "معدل الفتح",
+      "clickRate": "معدل النقر",
+      "deliveryRate": "معدل التسليم"
+    },
+    "notes": {
+      "title": "الملاحظات الداخلية / سجل",
+      "addNote": "إضافة ملاحظة",
+      "private": "خاص",
+      "team": "الفريق"
+    },
+    "calls": {
+      "title": "سجلات المكالمات والملاحظات الصوتية",
+      "logCall": "تسجيل مكالمة",
+      "completed": "مكتمل",
+      "aiSummary": "ملخص الذكاء الاصطناعي"
+    },
+    "integrations": {
+      "title": "التكامل والقنوات",
+      "on": "تشغيل",
+      "off": "إيقاف"
+    },
+    "templates": {
+      "title": "مدير القوالب",
+      "newTemplate": "قالب جديد",
+      "headers": {
+        "name": "الاسم",
+        "type": "النوع",
+        "content": "المحتوى",
+        "language": "اللغة",
+        "approved": "معتمد",
+        "action": "الإجراء"
+      },
+      "actions": {
+        "edit": "تعديل",
+        "delete": "حذف"
+      }
+    },
+    "aiFeatures": {
+      "title": "الميزات المدعومة بالذكاء الاصطناعي",
+      "urgencyDetection": "اكتشاف الاستعجال",
+      "flagged": "مُعلَم",
+      "replySuggestion": "اقتراح الرد",
+      "smartReminder": "تذكير ذكي",
+      "followUpsSuggested": "متابعات مقترحة",
+      "sentiment": "المشاعر",
+      "parentFrustrated": "الوالد محبط بسبب التأخير",
+      "botLog": "سجل البوت",
+      "chatbotInteractions": "تفاعلات البوت",
+      "urgencyDetector": "كاشف الاستعجال",
+      "aiPrioritization": "أولوية الذكاء الاصطناعي",
+      "dropOffDetector": "كاشف الانقطاع",
+      "messageQualityAnalyzer": "محلل جودة الرسائل",
+      "aiResponseSuggestions": "اقتراحات الرد بالذكاء الاصطناعي",
+      "toneOptimizer": "محسن النبرة",
+      "engagementTracker": "متتبع التفاعل",
+      "aiSummarization": "التلخيص بالذكاء الاصطناعي",
+      "smartFileSuggestions": "اقتراحات الملفات الذكية",
+      "sendTimeOptimization": "تحسين وقت الإرسال",
+      "subjectLinePredictor": "تنبؤ سطر الموضوع",
+      "abTestingInsights": "رؤى اختبار A/B",
+      "vendorPerformanceSummary": "ملخص أداء المورد",
+      "followUpNudges": "دفعات المتابعة",
+      "smartScheduling": "الجدولة الذكية",
+      "missedOpportunityAlerts": "تنبيهات الفرص الضائعة"
+    },
+    "audit": {
+      "title": "المراجعة والتاريخ",
+      "export": "تصدير",
+      "description": "مسار مراجعة التواصل الكامل لكل متقدم. الاحتفاظ بالبيانات: سنتان. قابل للتصدير للامتثال."
+    },
+    "documents": {
+      "title": "المستندات",
+      "dashboard": {
+        "totalUploaded": "إجمالي المرفوع",
+        "pendingVerification": "في انتظار التحقق",
+        "awaitingUpload": "في انتظار الرفع",
+        "expiredInvalid": "منتهي الصلاحية/غير صالح",
+        "deptWise": "حسب القسم",
+        "completionRate": "معدل الإكمال"
+      },
+      "quickActions": {
+        "uploadDocument": "رفع مستند",
+        "requestMissing": "طلب المفقود",
+        "viewByStatus": "عرض حسب الحالة",
+        "aiCompletion": "الذكاء الاصطناعي: 85% إكمال للمؤكدين"
+      },
+      "sections": {
+        "applicantDocumentRepository": "مستودع مستندات المتقدم",
+        "documentUploadPortal": "بوابة رفع المستندات",
+        "verificationValidation": "التحقق والتحقق من الصحة",
+        "bulkDocumentReview": "مراجعة المستندات الجماعية والإجراءات",
+        "documentRequestSystem": "نظام طلب المستندات",
+        "templatesFormsLibrary": "مكتبة القوالب والنماذج",
+        "archiveRetentionManagement": "إدارة الأرشيف والاحتفاظ",
+        "accessControlPermissions": "التحكم في الوصول والأذونات",
+        "aiSmartFeatures": "الميزات الذكية والذكاء الاصطناعي"
+      },
+      "search": {
+        "placeholder": "البحث بالاسم أو المعرف...",
+        "allDepartments": "جميع الأقسام",
+        "allStatus": "جميع الحالات"
+      },
+      "table": {
+        "headers": {
+          "applicant": "المتقدم",
+          "document": "المستند",
+          "status": "الحالة",
+          "file": "الملف",
+          "action": "الإجراء",
+          "name": "الاسم",
+          "version": "الإصدار",
+          "expires": "ينتهي",
+          "downloads": "التحميلات"
+        },
+        "actions": {
+          "download": "تحميل",
+          "approve": "موافقة",
+          "reject": "رفض",
+          "requestReupload": "طلب إعادة رفع",
+          "delete": "حذف"
+        }
+      },
+      "upload": {
+        "title": "رفع",
+        "description": "اسحب وأفلت الملفات. المسموح: PDF، JPEG، PNG، DOCX. سيكتشف الذكاء الاصطناعي الفئة تلقائياً ويتحقق من الصحة.",
+        "bulkUpload": "رفع جماعي",
+        "setDeadline": "تعيين موعد نهائي"
+      },
+      "verification": {
+        "description": "تعيين للمتحققين، موافقة قائمة التحقق، تعليقات، سجل المراجعة، توقيع رقمي (وهمي).",
+        "bulkApprove": "موافقة جماعية",
+        "bulkReject": "رفض جماعي",
+        "auditLog": "سجل المراجعة"
+      },
+      "bulkReview": {
+        "description": "جدول المستندات غير المحققة/المفقودة. موافقة/رفض جماعي. تصدير الحالة.",
+        "sendReminders": "إرسال تذكيرات",
+        "exportExcel": "تصدير Excel"
+      },
+      "requestSystem": {
+        "description": "تشغيل الطلبات، تتبع الوفاء، المواعيد النهائية، التصعيد، رابط رفع آمن.",
+        "request": "طلب"
+      },
+      "templates": {
+        "upload": "رفع"
+      },
+      "archive": {
+        "retention": "الاحتفاظ: 5 سنوات. الأرشيف التلقائي مفعل. تتبع سجلات الوصول.",
+        "access": "الوصول"
+      },
+      "accessControl": {
+        "view": "عرض",
+        "upload": "رفع",
+        "approve": "موافقة",
+        "delete": "حذف",
+        "download": "تحميل",
+        "encryption": "التشفير",
+        "accessLogs": "سجلات الوصول"
+      },
+      "aiFeatures": {
+        "ocrAutoTagging": "OCR والتوسيم التلقائي: 3 مستندات",
+        "duplicateDetection": "اكتشاف النسخ المكررة: 1 معلَم",
+        "smartReminders": "تذكيرات ذكية: 2 معلق",
+        "riskFlagging": "تحديد المخاطر: 1 مشبوه",
+        "completionAnalytics": "تحليلات الإكمال: 85% مؤكد"
+      }
+    }
+  }
+} 

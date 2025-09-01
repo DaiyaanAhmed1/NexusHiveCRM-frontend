@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import { 
   FiUsers, FiCalendar, FiDollarSign, FiFileText, FiCheckCircle, 
   FiAlertCircle, FiTrendingUp, FiTrendingDown, FiBarChart2, 
@@ -8,18 +9,18 @@ import {
 } from 'react-icons/fi';
 
 // Demo data for admission funnel
-const admissionFunnel = [
-  { label: "Total Inquiries", value: 5000, change: "+12%", trend: "up", icon: <FiUsers />, color: "blue" },
-  { label: "Applications Started", value: 2500, change: "+8%", trend: "up", icon: <FiFileText />, color: "purple" },
-  { label: "Applications Submitted", value: 1800, change: "+5%", trend: "up", icon: <FiCheckCircle />, color: "green" },
-  { label: "Applications Approved", value: 1200, change: "+15%", trend: "up", icon: <FiUserCheck />, color: "emerald" },
-  { label: "Offers Sent", value: 1000, change: "+10%", trend: "up", icon: <FiTarget />, color: "amber" },
-  { label: "Admissions Confirmed", value: 800, change: "+20%", trend: "up", icon: <FiUserCheck />, color: "teal" },
-  { label: "Enrolled Students", value: 750, change: "+18%", trend: "up", icon: <FiUsers />, color: "indigo" },
+const getAdmissionFunnel = (t) => [
+  { label: t('dashboard.admissionFunnel.stages.totalInquiries'), value: 5000, change: "+12%", trend: "up", icon: <FiUsers />, color: "blue" },
+  { label: t('dashboard.admissionFunnel.stages.applicationsStarted'), value: 2500, change: "+8%", trend: "up", icon: <FiFileText />, color: "purple" },
+  { label: t('dashboard.admissionFunnel.stages.applicationsSubmitted'), value: 1800, change: "+5%", trend: "up", icon: <FiCheckCircle />, color: "green" },
+  { label: t('dashboard.admissionFunnel.stages.applicationsApproved'), value: 1200, change: "+15%", trend: "up", icon: <FiUserCheck />, color: "emerald" },
+  { label: t('dashboard.admissionFunnel.stages.offersSent'), value: 1000, change: "+10%", trend: "up", icon: <FiTarget />, color: "amber" },
+  { label: t('dashboard.admissionFunnel.stages.admissionsConfirmed'), value: 800, change: "+20%", trend: "up", icon: <FiUserCheck />, color: "teal" },
+  { label: t('dashboard.admissionFunnel.stages.enrolledStudents'), value: 750, change: "+18%", trend: "up", icon: <FiUsers />, color: "indigo" },
 ];
 
 // Demo data for lead sources
-const leadSources = [
+const getLeadSources = (t) => [
   { source: "Google Ads", conversions: 35, clicks: 1000, applications: 350, trend: "+15%" },
   { source: "Facebook", conversions: 28, clicks: 800, applications: 224, trend: "+8%" },
   { source: "Education Fairs", conversions: 42, clicks: 500, applications: 210, trend: "+25%" },
@@ -58,26 +59,26 @@ const departmentStatus = [
 ];
 
 // Demo data for demographics
-const demographics = {
+const getDemographics = (t) => ({
   regions: [
-    { region: "North", percentage: 35 },
-    { region: "South", percentage: 25 },
-    { region: "East", percentage: 20 },
-    { region: "West", percentage: 20 },
+    { region: t('dashboard.demographics.regions.north'), percentage: 35 },
+    { region: t('dashboard.demographics.regions.south'), percentage: 25 },
+    { region: t('dashboard.demographics.regions.east'), percentage: 20 },
+    { region: t('dashboard.demographics.regions.west'), percentage: 20 },
   ],
   gender: [
-    { type: "Male", percentage: 55 },
-    { type: "Female", percentage: 45 },
+    { type: t('dashboard.demographics.gender.male'), percentage: 55 },
+    { type: t('dashboard.demographics.gender.female'), percentage: 45 },
   ],
   ageGroups: [
-    { range: "18-20", percentage: 45 },
-    { range: "21-23", percentage: 35 },
-    { range: "24+", percentage: 20 },
+    { range: t('dashboard.demographics.ageGroups.age18to20'), percentage: 45 },
+    { range: t('dashboard.demographics.ageGroups.age21to23'), percentage: 35 },
+    { range: t('dashboard.demographics.ageGroups.age24plus'), percentage: 20 },
   ],
-};
+});
 
 // Demo data for pending actions
-const pendingActions = [
+const getPendingActions = (t) => [
   { type: "Application Review", count: 45, priority: "high" },
   { type: "Campaign Approval", count: 3, priority: "medium" },
   { type: "Overbooking Alert", count: 2, priority: "high" },
@@ -85,65 +86,82 @@ const pendingActions = [
 ];
 
 // Demo data for alerts
-const alerts = [
-  { type: "Application Spike", message: "Unusual increase in applications from Telangana region", severity: "info" },
-  { type: "Capacity Alert", message: "Law Department admissions nearing capacity", severity: "warning" },
-  { type: "System Notice", message: "New admission policy update from Director", severity: "info" },
+const getAlerts = (t) => [
+  { type: t('dashboard.alerts.applicationSpike'), message: "Unusual increase in applications from Telangana region", severity: "info" },
+  { type: t('dashboard.alerts.capacityAlert'), message: "Law Department admissions nearing capacity", severity: "warning" },
+  { type: t('dashboard.alerts.systemNotice'), message: "New admission policy update from Director", severity: "info" },
 ];
 
 export default function AdmissionHeadDashboard() {
+  const { t, i18n, ready } = useTranslation(['admission', 'common']);
   const user = JSON.parse(localStorage.getItem('rbac_current_user'));
   const [expanded, setExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedDepartment, setSelectedDepartment] = useState("all");
   const [timeRange, setTimeRange] = useState("current");
+  const [languageVersion, setLanguageVersion] = useState(0);
+
+  useEffect(() => {
+    const handleLanguageChange = () => {
+      setLanguageVersion(prev => prev + 1);
+    };
+
+    i18n.on('languageChanged', handleLanguageChange);
+    return () => {
+      i18n.off('languageChanged', handleLanguageChange);
+    };
+  }, [i18n]);
+
+  if (!ready) {
+    return <div className="flex items-center justify-center h-64">{t('common.loading')}</div>;
+  }
 
   return (
-    <div className="flex flex-col gap-6 animate-fade-in">
+    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-6 animate-fade-in bg-transparent dark:bg-transparent">
       {/* Header with Filters */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-50/60 to-purple-50/40 dark:from-gray-900 dark:to-gray-800 rounded-xl px-4 py-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Admission Head Dashboard</h1>
-          <p className="text-sm text-gray-600 dark:text-gray-300">Comprehensive admission analytics and insights</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('dashboard.title')}</h1>
+          <p className="text-sm text-gray-600 dark:text-gray-300">{t('dashboard.subtitle')}</p>
         </div>
         <div className="flex gap-4">
           <select 
-            className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 text-sm"
+            className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-gray-100"
             value={selectedDepartment}
             onChange={(e) => setSelectedDepartment(e.target.value)}
           >
-            <option value="all">All Departments</option>
-            <option value="engineering">Engineering</option>
-            <option value="business">Business</option>
-            <option value="arts">Arts</option>
+            <option value="all">{t('dashboard.filters.allDepartments')}</option>
+            <option value="engineering">{t('dashboard.filters.engineering')}</option>
+            <option value="business">{t('dashboard.filters.business')}</option>
+            <option value="arts">{t('dashboard.filters.arts')}</option>
           </select>
           <select 
-            className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 text-sm"
+            className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 text-sm text-gray-900 dark:text-gray-100"
             value={timeRange}
             onChange={(e) => setTimeRange(e.target.value)}
           >
-            <option value="current" className="text-gray-700 dark:text-gray-200">Current Cycle</option>
-            <option value="last" className="text-gray-700 dark:text-gray-200">Last Cycle</option>
-            <option value="yoy" className="text-gray-700 dark:text-gray-200">Year over Year</option>
+            <option value="current" className="text-gray-700 dark:text-gray-200">{t('dashboard.filters.currentCycle')}</option>
+            <option value="last" className="text-gray-700 dark:text-gray-200">{t('dashboard.filters.lastCycle')}</option>
+            <option value="yoy" className="text-gray-700 dark:text-gray-200">{t('dashboard.filters.yearOverYear')}</option>
           </select>
-          <button className="flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700">
-            <FiDownload className="text-gray-500" />
-            Export
+          <button className="flex items-center gap-2 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg px-3 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100">
+            <FiDownload className="text-gray-500 dark:text-gray-400" />
+            {t('dashboard.filters.export')}
           </button>
         </div>
       </div>
 
       {/* Admission Funnel */}
-      <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6">
-                  <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-2">
-              <FiBarChart2 className="text-blue-500" />
-              <h2 className="text-lg font-semibold">Admission Funnel Overview</h2>
-            </div>
-            <span className="text-sm text-gray-500 dark:text-gray-400">YoY Comparison</span>
+      <section className="bg-gray-50 dark:bg-gray-800/80 dark:!bg-gray-800/80 rounded-xl shadow p-6">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-2">
+            <FiBarChart2 className="text-blue-500" />
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{t('dashboard.admissionFunnel.title')}</h2>
           </div>
+          <span className="text-sm text-gray-500 dark:text-gray-400">{t('dashboard.admissionFunnel.comparison')}</span>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-7 gap-4">
-          {admissionFunnel.map((stage, index) => (
+          {getAdmissionFunnel(t).map((stage, index) => (
             <motion.div
               key={stage.label}
               initial={{ opacity: 0, y: 20 }}
@@ -169,29 +187,29 @@ export default function AdmissionHeadDashboard() {
       {/* Lead Sources and Department Status */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Lead Sources */}
-        <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6">
+        <section className="bg-gray-50 dark:bg-gray-800/80 dark:!bg-gray-800/80 rounded-xl shadow p-6">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
               <FiPieChart className="text-purple-500" />
-              <h2 className="text-lg font-semibold">Lead Source Performance</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{t('dashboard.leadSources.title')}</h2>
             </div>
-            <span className="text-sm text-gray-500 dark:text-gray-400">Last 30 Days</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400">{t('dashboard.leadSources.period')}</span>
           </div>
           <div className="space-y-4">
-            {leadSources.map((source) => (
+            {getLeadSources(t).map((source) => (
               <div key={source.source} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                 <div>
                   <h3 className="font-medium text-gray-900 dark:text-white">{source.source}</h3>
                   <p className="text-sm text-gray-600 dark:text-gray-300">
-                    {source.conversions}% Conversion Rate
+                    {source.conversions}% {t('dashboard.leadSources.conversionRate')}
                   </p>
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-medium text-gray-900 dark:text-white">
-                    {source.applications} Applications
+                    {source.applications} {t('dashboard.leadSources.applications')}
                   </p>
                   <p className={`text-sm ${source.trend.startsWith('+') ? 'text-green-500' : 'text-red-500'}`}>
-                    {source.trend} vs Last Month
+                    {source.trend} {t('dashboard.leadSources.vsLastMonth')}
                   </p>
                 </div>
               </div>
@@ -200,13 +218,13 @@ export default function AdmissionHeadDashboard() {
         </section>
 
         {/* Department Status */}
-        <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6">
+        <section className="bg-gray-50 dark:bg-gray-800/80 dark:!bg-gray-800/80 rounded-xl shadow p-6">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
               <FiTarget className="text-green-500" />
-              <h2 className="text-lg font-semibold">Department-wise Status</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{t('dashboard.departmentStatus.title')}</h2>
             </div>
-            <span className="text-sm text-gray-500 dark:text-gray-400">Current Cycle</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400">{t('dashboard.departmentStatus.currentCycle')}</span>
           </div>
           <div className="space-y-4">
             {departmentStatus.map((dept) => (
@@ -214,24 +232,24 @@ export default function AdmissionHeadDashboard() {
                 <div className="flex items-center justify-between mb-2">
                   <h3 className="font-medium text-gray-900 dark:text-white">{dept.department}</h3>
                   <span className={`text-sm font-medium ${dept.fillRate >= 90 ? 'text-green-500' : 'text-yellow-500'}`}>
-                    {dept.fillRate}% Fill Rate
+                    {dept.fillRate}% {t('dashboard.departmentStatus.fillRate')}
                   </span>
                 </div>
                 <div className="grid grid-cols-4 gap-2 text-sm">
                   <div>
-                    <p className="text-gray-500 dark:text-gray-400">Total Seats</p>
+                    <p className="text-gray-500 dark:text-gray-400">{t('dashboard.departmentStatus.totalSeats')}</p>
                     <p className="font-medium text-gray-900 dark:text-white">{dept.totalSeats}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500 dark:text-gray-400">Applications</p>
+                    <p className="text-gray-500 dark:text-gray-400">{t('dashboard.departmentStatus.applications')}</p>
                     <p className="font-medium text-gray-900 dark:text-white">{dept.applications}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500 dark:text-gray-400">Filled</p>
+                    <p className="text-gray-500 dark:text-gray-400">{t('dashboard.departmentStatus.filled')}</p>
                     <p className="font-medium text-gray-900 dark:text-white">{dept.filled}</p>
                   </div>
                   <div>
-                    <p className="text-gray-500 dark:text-gray-400">Waitlisted</p>
+                    <p className="text-gray-500 dark:text-gray-400">{t('dashboard.departmentStatus.waitlisted')}</p>
                     <p className="font-medium text-gray-900 dark:text-white">{dept.waitlisted}</p>
                   </div>
                 </div>
@@ -244,18 +262,18 @@ export default function AdmissionHeadDashboard() {
       {/* Demographics and Pending Actions */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Demographics */}
-        <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6">
+        <section className="bg-gray-50 dark:bg-gray-800/80 dark:!bg-gray-800/80 rounded-xl shadow p-6">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
               <FiGlobe className="text-blue-500" />
-              <h2 className="text-lg font-semibold">Demographics Snapshot</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{t('dashboard.demographics.title')}</h2>
             </div>
-            <span className="text-sm text-gray-500 dark:text-gray-400">Current Applicants</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400">{t('dashboard.demographics.currentApplicants')}</span>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-              <h3 className="font-medium text-gray-900 dark:text-white mb-2">Regional Distribution</h3>
-              {demographics.regions.map((region) => (
+              <h3 className="font-medium text-gray-900 dark:text-white mb-2">{t('dashboard.demographics.regionalDistribution')}</h3>
+              {getDemographics(t).regions.map((region) => (
                 <div key={region.region} className="flex items-center justify-between mb-2">
                   <span className="text-sm text-gray-600 dark:text-gray-300">{region.region}</span>
                   <span className="text-sm font-medium text-gray-900 dark:text-white">{region.percentage}%</span>
@@ -263,8 +281,8 @@ export default function AdmissionHeadDashboard() {
               ))}
             </div>
             <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-              <h3 className="font-medium text-gray-900 dark:text-white mb-2">Gender Ratio</h3>
-              {demographics.gender.map((item) => (
+              <h3 className="font-medium text-gray-900 dark:text-white mb-2">{t('dashboard.demographics.genderRatio')}</h3>
+              {getDemographics(t).gender.map((item) => (
                 <div key={item.type} className="flex items-center justify-between mb-2">
                   <span className="text-sm text-gray-600 dark:text-gray-300">{item.type}</span>
                   <span className="text-sm font-medium text-gray-900 dark:text-white">{item.percentage}%</span>
@@ -272,8 +290,8 @@ export default function AdmissionHeadDashboard() {
               ))}
             </div>
             <div className="p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
-              <h3 className="font-medium text-gray-900 dark:text-white mb-2">Age Distribution</h3>
-              {demographics.ageGroups.map((group) => (
+              <h3 className="font-medium text-gray-900 dark:text-white mb-2">{t('dashboard.demographics.ageDistribution')}</h3>
+              {getDemographics(t).ageGroups.map((group) => (
                 <div key={group.range} className="flex items-center justify-between mb-2">
                   <span className="text-sm text-gray-600 dark:text-gray-300">{group.range}</span>
                   <span className="text-sm font-medium text-gray-900 dark:text-white">{group.percentage}%</span>
@@ -284,16 +302,16 @@ export default function AdmissionHeadDashboard() {
         </section>
 
         {/* Pending Actions & Alerts */}
-        <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6">
+        <section className="bg-gray-50 dark:bg-gray-800/80 dark:!bg-gray-800/80 rounded-xl shadow p-6">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
               <FiBell className="text-red-500" />
-              <h2 className="text-lg font-semibold">Pending Actions & Alerts</h2>
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{t('dashboard.pendingActions.title')}</h2>
             </div>
-            <span className="text-sm text-gray-500 dark:text-gray-400">Requires Attention</span>
+            <span className="text-sm text-gray-500 dark:text-gray-400">{t('dashboard.pendingActions.requiresAttention')}</span>
           </div>
           <div className="space-y-4">
-            {pendingActions.map((action) => (
+            {getPendingActions(t).map((action) => (
               <div key={action.type} className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                 <div className="flex items-center gap-3">
                   <div className={`p-2 rounded-lg ${
@@ -306,14 +324,14 @@ export default function AdmissionHeadDashboard() {
                   <div>
                     <h3 className="font-medium text-gray-900 dark:text-white">{action.type}</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-300">
-                      {action.count} items pending
+                      {action.count} {t('dashboard.pendingActions.itemsPending')}
                     </p>
                   </div>
                 </div>
-                <button className="text-sm text-blue-500 hover:text-blue-600">View Details</button>
+                <button className="text-sm text-blue-500 hover:text-blue-600">{t('dashboard.pendingActions.viewDetails')}</button>
               </div>
             ))}
-            {alerts.map((alert, index) => (
+            {getAlerts(t).map((alert, index) => (
               <div key={index} className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                 <div className={`p-2 rounded-lg ${
                   alert.severity === 'warning' ? 'bg-yellow-100 text-yellow-500' :
@@ -333,30 +351,30 @@ export default function AdmissionHeadDashboard() {
 
       {/* AI Insights Panel */}
       <section className="bg-gradient-to-r from-purple-50/60 to-blue-50/40 dark:from-gray-900 dark:to-gray-800 rounded-xl shadow p-6">
-                  <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-2">
-              <FiBook className="text-purple-500" />
-              <h2 className="text-lg font-semibold">AI-Powered Insights</h2>
-            </div>
-            <span className="text-sm text-gray-500 dark:text-gray-400">Updated Daily</span>
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-2">
+            <FiBook className="text-purple-500" />
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">{t('dashboard.aiInsights.title')}</h2>
           </div>
+          <span className="text-sm text-gray-500 dark:text-gray-400">{t('dashboard.aiInsights.updatedDaily')}</span>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="p-4 bg-white/50 dark:bg-gray-800/50 rounded-lg backdrop-blur-sm">
-            <h3 className="font-medium text-gray-900 dark:text-white mb-2">Enrollment Forecast</h3>
+          <div className="p-4 bg-gray-50/50 dark:bg-gray-800/50 rounded-lg backdrop-blur-sm">
+            <h3 className="font-medium text-gray-900 dark:text-white mb-2">{t('dashboard.aiInsights.enrollmentForecast')}</h3>
             <p className="text-sm text-gray-600 dark:text-gray-300">
-              Based on current trends, expected enrollment for next cycle: <span className="font-medium text-green-500">+15%</span>
+              {t('dashboard.aiInsights.forecastText')} <span className="font-medium text-green-500">+15%</span>
             </p>
           </div>
-          <div className="p-4 bg-white/50 dark:bg-gray-800/50 rounded-lg backdrop-blur-sm">
-            <h3 className="font-medium text-gray-900 dark:text-white mb-2">Department Alert</h3>
+          <div className="p-4 bg-gray-50/50 dark:bg-gray-800/50 rounded-lg backdrop-blur-sm">
+            <h3 className="font-medium text-gray-900 dark:text-white mb-2">{t('dashboard.aiInsights.departmentAlert')}</h3>
             <p className="text-sm text-gray-600 dark:text-gray-300">
-              Design department applications may fall short by <span className="font-medium text-red-500">15%</span> this year
+              {t('dashboard.aiInsights.alertText')} <span className="font-medium text-red-500">15%</span> this year
             </p>
           </div>
-          <div className="p-4 bg-white/50 dark:bg-gray-800/50 rounded-lg backdrop-blur-sm">
-            <h3 className="font-medium text-gray-900 dark:text-white mb-2">Resource Planning</h3>
+          <div className="p-4 bg-gray-50/50 dark:bg-gray-800/50 rounded-lg backdrop-blur-sm">
+            <h3 className="font-medium text-gray-900 dark:text-white mb-2">{t('dashboard.aiInsights.resourcePlanning')}</h3>
             <p className="text-sm text-gray-600 dark:text-gray-300">
-              Hostel accommodation capacity nearing <span className="font-medium text-yellow-500">90%</span>
+              {t('dashboard.aiInsights.planningText')} <span className="font-medium text-yellow-500">90%</span>
             </p>
           </div>
         </div>
