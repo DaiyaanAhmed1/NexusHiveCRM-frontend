@@ -100,14 +100,197 @@
   padding-right: 1rem;
 }
 
-.rtl .pr-2 {
+.rtl-layout .pr-2 {
   padding-right: 0;
   padding-left: 0.5rem;
 }
 
-.rtl .pr-4 {
+.rtl-layout .pr-4 {
   padding-right: 0;
   padding-left: 1rem;
+}
+
+/* RTL Login Form Specific Styles */
+.rtl-layout .login-input {
+  text-align: right;
+  direction: rtl;
+}
+
+.rtl-layout .login-input::placeholder {
+  text-align: right;
+  direction: rtl;
+}
+
+.rtl-layout .login-button svg {
+  transform: scaleX(-1);
+}
+
+/* RTL Form Input Styles */
+.rtl-layout input[type="text"],
+.rtl-layout input[type="password"],
+.rtl-layout input[type="email"] {
+  text-align: right;
+  direction: rtl;
+}
+
+.rtl-layout input[type="text"]::placeholder,
+.rtl-layout input[type="password"]::placeholder,
+.rtl-layout input[type="email"]::placeholder {
+  text-align: right;
+  direction: rtl;
+}
+
+/* RTL Button Icon Flipping */
+.rtl-layout button svg[data-arrow="true"] {
+  transform: scaleX(-1);
+}
+
+/* RTL Input Icon Positioning */
+.rtl-layout .input-with-icon {
+  direction: rtl;
+}
+
+.rtl-layout .input-with-icon input {
+  padding-right: 3rem;
+  padding-left: 1rem;
+}
+
+.rtl-layout .input-with-icon .input-icon {
+  right: 1rem;
+  left: auto;
+}
+
+/* RTL Language Switcher and Theme Toggle Positioning */
+.rtl-layout .top-controls {
+  left: 1.5rem;
+  right: auto;
+}
+
+.rtl-layout .top-controls .space-x-2 > * + * {
+  margin-right: 0.5rem;
+  margin-left: 0;
+}
+
+/* RTL Form Layout Adjustments */
+.rtl-layout .form-container {
+  direction: rtl;
+}
+
+.rtl-layout .form-container .form-row {
+  flex-direction: row-reverse;
+}
+
+/* RTL Button Content Alignment */
+.rtl-layout .login-button {
+  direction: rtl;
+}
+
+.rtl-layout .login-button .flex {
+  flex-direction: row-reverse;
+}
+
+/* RTL Language Switcher Specific Styles */
+.rtl-layout .language-switcher {
+  direction: rtl;
+}
+
+.rtl-layout .language-switcher button {
+  direction: rtl;
+}
+
+.rtl-layout .language-switcher .dropdown-menu {
+  right: auto;
+  left: 0;
+  direction: rtl;
+}
+
+.rtl-layout .language-switcher .dropdown-item {
+  text-align: right;
+  direction: rtl;
+}
+
+.rtl-layout .language-switcher .dropdown-item .flex {
+  flex-direction: row-reverse;
+}
+
+/* RTL Dropdown Positioning */
+.rtl-layout .absolute.top-full {
+  right: auto;
+  left: 0;
+}
+
+/* RTL Button Icon Spacing */
+.rtl-layout .space-x-2 > * + * {
+  margin-right: 0.5rem;
+  margin-left: 0;
+}
+
+.rtl-layout .space-x-3 > * + * {
+  margin-right: 0.75rem;
+  margin-left: 0;
+}
+
+/* RTL Language Switcher Chevron Icon */
+.rtl-layout .language-switcher .chevron-icon {
+  transform: scaleX(-1);
+}
+
+/* RTL Dropdown Menu Positioning */
+.rtl-layout .language-switcher .dropdown-menu {
+  transform-origin: top right;
+}
+
+.rtl-layout .language-switcher .dropdown-menu {
+  transform-origin: top left;
+}
+
+/* RTL Language Switcher Button Content */
+.rtl-layout .language-switcher button > * {
+  direction: rtl;
+}
+
+/* RTL Dropdown Item Hover Effects */
+.rtl-layout .language-switcher .dropdown-item:hover {
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
+/* RTL Language Switcher Active State */
+.rtl-layout .language-switcher .dropdown-item.active {
+  background-color: rgba(59, 130, 246, 0.2);
+  color: rgb(37, 99, 235);
+}
+
+/* RTL Language Switcher Dark Mode Support */
+.dark .rtl-layout .language-switcher .dropdown-item:hover {
+  background-color: rgba(59, 130, 246, 0.15);
+}
+
+.dark .rtl-layout .language-switcher .dropdown-item.active {
+  background-color: rgba(59, 130, 246, 0.3);
+  color: rgb(96, 165, 250);
+}
+
+/* RTL Language Switcher Button Dark Mode */
+.dark .rtl-layout .language-switcher button {
+  background-color: rgb(31, 41, 55);
+  border-color: rgb(55, 65, 81);
+  color: rgb(243, 244, 246);
+}
+
+.dark .rtl-layout .language-switcher button:hover {
+  background-color: rgb(55, 65, 81);
+}
+
+/* RTL Language Switcher Dropdown Dark Mode */
+.dark .rtl-layout .language-switcher .dropdown-menu {
+  background-color: rgb(31, 41, 55);
+  border-color: rgb(55, 65, 81);
+}
+
+/* RTL Language Switcher Text Direction Override */
+.rtl-layout .language-switcher .dropdown-item .text-sm {
+  direction: rtl;
+  text-align: right;
 }
 
 /* RTL specific components */

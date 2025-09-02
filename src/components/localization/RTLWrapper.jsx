@@ -6,7 +6,7 @@ const RTLWrapper = ({ children, className = '' }) => {
 
   return (
     <div 
-      className={`${className} ${isRTLMode ? 'rtl' : 'ltr'}`}
+      className={`${className} ${isRTLMode ? 'rtl-layout' : 'ltr-layout'}`}
       dir={textDirection}
       lang={isRTLMode ? 'ar' : 'en'}
     >

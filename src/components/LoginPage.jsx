@@ -41,7 +41,7 @@ function LoginPageContent() {
   const [darkTheme, setDarkTheme] = useState(false);
   const navigate = useNavigate();
   const { t } = useTranslation(['auth', 'common']);
-  const { isRTL, flexDirection, textAlign } = useRTL();
+  const { isRTL, flexDirection, textAlign, margin, padding } = useRTL();
 
   // Initialize theme from localStorage or system preference
   useEffect(() => {
@@ -103,7 +103,7 @@ function LoginPageContent() {
   return (
     <RTLWrapper className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#4f3cc9] via-[#6c5dd3] to-[#90caf9] relative">
       {/* Language Switcher and Theme Toggle - Positioned absolutely in top-right */}
-      <div className={`absolute top-6 ${isRTL ? 'left-6' : 'right-6'} z-10 flex items-center space-x-2 ${isRTL ? 'space-x-reverse' : ''}`}>
+      <div className={`absolute top-6 ${isRTL ? 'left-6' : 'right-6'} z-10 flex items-center space-x-2 ${isRTL ? 'space-x-reverse' : ''} top-controls`}>
         {/* Theme Toggle Button */}
         <button
           onClick={handleThemeToggle}
@@ -152,7 +152,7 @@ function LoginPageContent() {
         <LanguageSwitcher />
       </div>
       
-      <div className={`flex w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl bg-white/10 backdrop-blur-lg border border-white/20 ${isRTL ? 'flex-row-reverse' : ''}`}>
+      <div className={`flex w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl bg-white/10 backdrop-blur-lg border border-white/20 ${flexDirection('row')}`}>
         {/* Left Side - Logo & Tagline */}
         <div className={`hidden md:flex flex-col items-center justify-center w-1/2 bg-white/10 p-10 ${isRTL ? 'rounded-r-3xl' : 'rounded-l-3xl'}`}>
           <img
@@ -168,27 +168,27 @@ function LoginPageContent() {
           </p>
         </div>
         {/* Right Side - Login Form */}
-        <div className={`flex-1 flex flex-col justify-center items-center p-8 md:p-16 bg-white/20 ${isRTL ? 'rounded-l-3xl' : 'rounded-r-3xl'}`}>
+        <div className={`flex-1 flex flex-col justify-center items-center p-8 md:p-16 bg-white/20 ${isRTL ? 'rounded-l-3xl' : 'rounded-r-3xl'} form-container`}>
           <div className="w-full max-w-sm">
-                          <h2 className={`text-2xl font-bold text-center ${darkTheme ? 'text-white' : 'text-[#23232B]'} mb-8`}>
-                {t('auth.login.title')}
-              </h2>
+            <h2 className={`text-2xl font-bold text-center ${darkTheme ? 'text-white' : 'text-[#23232B]'} mb-8`}>
+              {t('auth.login.title')}
+            </h2>
             <form onSubmit={handleLogin} className="space-y-6">
               <div>
                 <label className={`block text-sm font-medium ${darkTheme ? 'text-white' : 'text-white/80'} mb-1 text-${textAlign('left')}`}>
                   {t('auth.login.username')}
                 </label>
-                <div className="relative">
+                <div className="relative input-with-icon">
                   <input
                     type="text"
-                    className={`w-full px-4 py-3 rounded-xl ${darkTheme ? 'bg-slate-700/80 text-white placeholder:text-slate-300/60' : 'bg-white/60 text-[#23232B] placeholder:text-[#23232B]/60'} focus:outline-none focus:ring-2 focus:ring-[#4f3cc9] font-medium shadow text-${textAlign('left')}`}
+                    className={`w-full px-4 py-3 rounded-xl ${darkTheme ? 'bg-slate-700/80 text-white placeholder:text-slate-300/60' : 'bg-white/60 text-[#23232B] placeholder:text-[#23232B]/60'} focus:outline-none focus:ring-2 focus:ring-[#4f3cc9] font-medium shadow text-${textAlign('left')} ${isRTL ? 'pr-12' : 'pl-12'}`}
                     placeholder={t('auth.login.usernamePlaceholder')}
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     autoFocus
                     disabled={isLoading}
                   />
-                  <span className={`absolute ${isRTL ? 'left-4' : 'right-4'} top-1/2 -translate-y-1/2 text-[#4f3cc9]`}>
+                  <span className={`absolute ${isRTL ? 'right-4' : 'left-4'} top-1/2 -translate-y-1/2 text-[#4f3cc9] input-icon`}>
                     <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="#4f3cc9"/></svg>
                   </span>
                 </div>
@@ -197,16 +197,16 @@ function LoginPageContent() {
                 <label className={`block text-sm font-medium ${darkTheme ? 'text-white' : 'text-white/80'} mb-1 text-${textAlign('left')}`}>
                   {t('auth.login.password')}
                 </label>
-                <div className="relative">
+                <div className="relative input-with-icon">
                   <input
                     type="password"
-                    className={`w-full px-4 py-3 rounded-xl ${darkTheme ? 'bg-slate-700/80 text-white placeholder:text-slate-300/60' : 'bg-white/60 text-[#23232B] placeholder:text-[#23232B]/60'} focus:outline-none focus:ring-2 focus:ring-[#4f3cc9] font-medium shadow text-${textAlign('left')}`}
+                    className={`w-full px-4 py-3 rounded-xl ${darkTheme ? 'bg-slate-700/80 text-white placeholder:text-slate-300/60' : 'bg-white/60 text-[#23232B] placeholder:text-[#23232B]/60'} focus:outline-none focus:ring-2 focus:ring-[#4f3cc9] font-medium shadow text-${textAlign('left')} ${isRTL ? 'pr-12' : 'pl-12'}`}
                     placeholder={t('auth.login.passwordPlaceholder')}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     disabled={isLoading}
                   />
-                  <span className={`absolute ${isRTL ? 'left-4' : 'right-4'} top-1/2 -translate-y-1/2 text-[#4f3cc9]`}>
+                  <span className={`absolute ${isRTL ? 'right-4' : 'left-4'} top-1/2 -translate-y-1/2 text-[#4f3cc9] input-icon`}>
                     <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M12 17a2 2 0 100-4 2 2 0 000 4zm6-7V8a6 6 0 10-12 0v2a2 2 0 00-2 2v6a2 2 0 002 2h12a2 2 0 002-2v-6a2 2 0 00-2-2zm-8-2a4 4 0 118 0v2H6V8zm10 10H4v-6h16v6z" fill="#4f3cc9"/></svg>
                   </span>
                 </div>
@@ -224,7 +224,7 @@ function LoginPageContent() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className={`w-full py-3 rounded-xl bg-[#23232B] text-white font-semibold text-lg shadow hover:bg-[#4f3cc9] transition-colors flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed ${flexDirection('row')}`}
+                className={`w-full py-3 rounded-xl bg-[#23232B] text-white font-semibold text-lg shadow hover:bg-[#4f3cc9] transition-colors flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed ${flexDirection('row')} login-button`}
               >
                 {isLoading ? t('auth.login.loading') : t('auth.login.signInButton')}
                 {!isLoading && (
@@ -234,6 +234,7 @@ function LoginPageContent() {
                     fill="none" 
                     viewBox="0 0 24 24"
                     className={isRTL ? 'rotate-180' : ''}
+                    data-arrow="true"
                   >
                     <path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
