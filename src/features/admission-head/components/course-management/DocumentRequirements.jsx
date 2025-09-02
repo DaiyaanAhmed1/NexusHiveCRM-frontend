@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const initialDocs = [
   {
@@ -30,6 +31,7 @@ const DocumentRequirements = () => {
   const [docs, setDocs] = useState(initialDocs);
   const [showAdd, setShowAdd] = useState(false);
   const [newDoc, setNewDoc] = useState({ course: '', document: '', type: 'Mandatory' });
+  const { t } = useTranslation();
 
   const handleAddDoc = () => {
     setDocs([

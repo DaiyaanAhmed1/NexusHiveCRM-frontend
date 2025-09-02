@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Switch } from '@headlessui/react';
-import { 
-  EyeIcon, 
+import {
+  EyeIcon,
   EyeSlashIcon,
   CalendarIcon,
   UserGroupIcon,
@@ -15,6 +16,7 @@ function classNames(...classes) {
 const VisibilitySettings = () => {
   const [selectedCycle, setSelectedCycle] = useState('2024-2025');
   const [selectedDepartment, setSelectedDepartment] = useState('all');
+  const { t } = useTranslation();
 
   // Mock data for courses
   const courses = [
@@ -75,7 +77,7 @@ const VisibilitySettings = () => {
     console.log(`Toggling ${field} for course ${courseId}`);
   };
 
-  const filteredCourses = courses.filter(course => 
+  const filteredCourses = courses.filter(course =>
     (selectedDepartment === 'all' || course.department === selectedDepartment) &&
     course.admissionCycles.includes(selectedCycle)
   );

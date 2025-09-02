@@ -974,7 +974,7 @@
     "title": "إدارة الدورات",
     "subtitle": "إدارة وتنسيق البرامج الأكاديمية عبر الكليات والأقسام",
     "tabs": {
-      "courseCatalog": "كتالوج الدورات",
+      "courseCatalog": "فهرس الدورات",
       "addEditCourses": "إضافة/تعديل الدورات",
       "visibilitySettings": "إعدادات الرؤية",
       "seatMonitoring": "مراقبة المقاعد",
@@ -982,8 +982,107 @@
       "feeMapping": "تخطيط الرسوم",
       "documentRequirements": "متطلبات المستندات",
       "academicMetrics": "المقاييس الأكاديمية",
-      "bulkActions": "الإجراءات الجماعية",
+      "bulkActions": "الإجراءات المجمعة",
       "marketingReadiness": "جاهزية التسويق"
+    },
+    "marketingReadiness": {
+      "title": "جاهزية التسويق",
+      "subtitle": "تتبع حالة الاستعداد التسويقي لجميع الدورات",
+      "readiness": "الجاهزية",
+      "brochureReady": "الكتيب جاهز",
+      "websiteUpdated": "تم تحديث الموقع",
+      "campaignLaunched": "تم إطلاق الحملة",
+      "readyForMarketing": "جاهز للتسويق!",
+      "needsAttention": "يحتاج إلى اهتمام",
+      "markAsReady": "تحديد كجاهز",
+      "ready": "جاهز"
+    },
+    "courseCatalog": {
+      "title": "فهرس الدورات",
+      "subtitle": "تصفح وإدارة جميع الدورات المتاحة",
+      "searchPlaceholder": "البحث في الدورات...",
+      "filters": "المرشحات",
+      "tableHeaders": {
+        "course": "الدورة",
+        "department": "القسم",
+        "type": "النوع",
+        "duration": "المدة",
+        "intake": "الاستيعاب",
+        "fee": "الرسوم",
+        "status": "الحالة"
+      },
+      "status": {
+        "active": "نشط",
+        "upcoming": "قادم",
+        "inactive": "غير نشط"
+      }
+    },
+    "courseForm": {
+      "title": "إضافة/تعديل دورة",
+      "subtitle": "إنشاء دورات جديدة أو تعديل الموجودة",
+      "courseName": "اسم الدورة",
+      "courseCode": "رمز الدورة",
+      "department": "القسم",
+      "type": "النوع",
+      "duration": "المدة",
+      "intake": "الاستيعاب",
+      "fee": "الرسوم",
+      "description": "الوصف",
+      "save": "حفظ الدورة",
+      "cancel": "إلغاء"
+    },
+    "visibilitySettings": {
+      "title": "إعدادات الرؤية",
+      "subtitle": "التحكم في رؤية الدورة وأذونات الوصول",
+      "public": "عام",
+      "private": "خاص",
+      "restricted": "مقيد"
+    },
+    "seatMonitoring": {
+      "title": "مراقبة المقاعد",
+      "subtitle": "تتبع توفر المقاعد وحالة التسجيل",
+      "totalSeats": "إجمالي المقاعد",
+      "availableSeats": "المقاعد المتاحة",
+      "enrolledSeats": "المقاعد المسجلة",
+      "waitlist": "قائمة الانتظار"
+    },
+    "linkedApplications": {
+      "title": "الطلبات المرتبطة",
+      "subtitle": "عرض الطلبات المرتبطة بدورات محددة",
+      "applicantName": "اسم مقدم الطلب",
+      "applicationId": "معرف الطلب",
+      "status": "الحالة",
+      "linkedDate": "تاريخ الربط"
+    },
+    "feeMapping": {
+      "title": "تخطيط الرسوم",
+      "subtitle": "تكوين هياكل الرسوم لدورات مختلفة",
+      "courseFee": "رسوم الدورة",
+      "additionalFees": "رسوم إضافية",
+      "scholarship": "المنحة الدراسية",
+      "paymentPlan": "خطة الدفع"
+    },
+    "documentRequirements": {
+      "title": "متطلبات المستندات",
+      "subtitle": "إدارة المستندات المطلوبة لطلبات الدورات",
+      "required": "مطلوب",
+      "optional": "اختياري",
+      "conditional": "مشروط"
+    },
+    "academicMetrics": {
+      "title": "المقاييس الأكاديمية",
+      "subtitle": "تتبع أداء ومقاييس التسجيل",
+      "enrollmentRate": "معدل التسجيل",
+      "completionRate": "معدل الإكمال",
+      "satisfactionScore": "درجة الرضا"
+    },
+    "bulkActions": {
+      "title": "الإجراءات المجمعة",
+      "subtitle": "تنفيذ عمليات على دورات متعددة في وقت واحد",
+      "selectAll": "تحديد الكل",
+      "bulkUpdate": "تحديث مجمع",
+      "bulkDelete": "حذف مجمع",
+      "export": "تصدير"
     }
   },
   "complianceQuality": {

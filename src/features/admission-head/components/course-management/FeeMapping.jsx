@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const initialCourses = [
   {
@@ -31,6 +32,7 @@ const paymentPlans = ['Full Payment', 'Installments', 'Deferred'];
 
 const FeeMapping = () => {
   const [courses, setCourses] = useState(initialCourses);
+  const { t } = useTranslation();
 
   const handleFeeChange = (id, value) => {
     setCourses(courses.map(course =>

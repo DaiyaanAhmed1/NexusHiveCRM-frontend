@@ -59,15 +59,15 @@ const CourseManagement = () => {
           </p>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow relative">
           <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
-            <Tab.List className="flex space-x-1 border-b border-gray-200 dark:border-gray-700 p-4">
+            <Tab.List className="flex space-x-1 border-b border-gray-200 dark:border-gray-700 p-4 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-gray-100 dark:scrollbar-track-gray-700 relative">
               {tabs.map((tab) => (
                 <Tab
                   key={tab.name}
                   className={({ selected }) =>
                     classNames(
-                      'flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-colors duration-200',
+                      'flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-colors duration-200 whitespace-nowrap flex-shrink-0',
                       selected
                         ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200'
                         : 'text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700'
@@ -79,6 +79,10 @@ const CourseManagement = () => {
                 </Tab>
               ))}
             </Tab.List>
+            
+            {/* Scroll indicator - gradient fade on the right */}
+            <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-white dark:from-gray-800 to-transparent pointer-events-none z-10"></div>
+            
             <Tab.Panels className="p-4">
               {tabs.map((tab) => (
                 <Tab.Panel

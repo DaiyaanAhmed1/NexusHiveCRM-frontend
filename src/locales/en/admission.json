@@ -1095,6 +1095,105 @@
       "academicMetrics": "Academic Metrics",
       "bulkActions": "Bulk Actions",
       "marketingReadiness": "Marketing Readiness"
+    },
+    "marketingReadiness": {
+      "title": "Marketing Readiness",
+      "subtitle": "Track marketing preparation status for all courses",
+      "readiness": "Readiness",
+      "brochureReady": "Brochure Ready",
+      "websiteUpdated": "Website Updated",
+      "campaignLaunched": "Campaign Launched",
+      "readyForMarketing": "Ready for Marketing!",
+      "needsAttention": "Needs Attention",
+      "markAsReady": "Mark as Ready",
+      "ready": "Ready"
+    },
+    "courseCatalog": {
+      "title": "Course Catalog",
+      "subtitle": "Browse and manage all available courses",
+      "searchPlaceholder": "Search courses...",
+      "filters": "Filters",
+      "tableHeaders": {
+        "course": "COURSE",
+        "department": "DEPARTMENT",
+        "type": "TYPE",
+        "duration": "DURATION",
+        "intake": "INTAKE",
+        "fee": "FEE",
+        "status": "STATUS"
+      },
+      "status": {
+        "active": "Active",
+        "upcoming": "Upcoming",
+        "inactive": "Inactive"
+      }
+    },
+    "courseForm": {
+      "title": "Add/Edit Course",
+      "subtitle": "Create new courses or modify existing ones",
+      "courseName": "Course Name",
+      "courseCode": "Course Code",
+      "department": "Department",
+      "type": "Type",
+      "duration": "Duration",
+      "intake": "Intake",
+      "fee": "Fee",
+      "description": "Description",
+      "save": "Save Course",
+      "cancel": "Cancel"
+    },
+    "visibilitySettings": {
+      "title": "Visibility Settings",
+      "subtitle": "Control course visibility and access permissions",
+      "public": "Public",
+      "private": "Private",
+      "restricted": "Restricted"
+    },
+    "seatMonitoring": {
+      "title": "Seat Monitoring",
+      "subtitle": "Track seat availability and enrollment status",
+      "totalSeats": "Total Seats",
+      "availableSeats": "Available Seats",
+      "enrolledSeats": "Enrolled Seats",
+      "waitlist": "Waitlist"
+    },
+    "linkedApplications": {
+      "title": "Linked Applications",
+      "subtitle": "View applications linked to specific courses",
+      "applicantName": "Applicant Name",
+      "applicationId": "Application ID",
+      "status": "Status",
+      "linkedDate": "Linked Date"
+    },
+    "feeMapping": {
+      "title": "Fee Mapping",
+      "subtitle": "Configure fee structures for different courses",
+      "courseFee": "Course Fee",
+      "additionalFees": "Additional Fees",
+      "scholarship": "Scholarship",
+      "paymentPlan": "Payment Plan"
+    },
+    "documentRequirements": {
+      "title": "Document Requirements",
+      "subtitle": "Manage required documents for course applications",
+      "required": "Required",
+      "optional": "Optional",
+      "conditional": "Conditional"
+    },
+    "academicMetrics": {
+      "title": "Academic Metrics",
+      "subtitle": "Track performance and enrollment metrics",
+      "enrollmentRate": "Enrollment Rate",
+      "completionRate": "Completion Rate",
+      "satisfactionScore": "Satisfaction Score"
+    },
+    "bulkActions": {
+      "title": "Bulk Actions",
+      "subtitle": "Perform operations on multiple courses at once",
+      "selectAll": "Select All",
+      "bulkUpdate": "Bulk Update",
+      "bulkDelete": "Bulk Delete",
+      "export": "Export"
     }
   },
   "complianceQuality": {
