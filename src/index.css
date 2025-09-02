@@ -271,6 +271,128 @@ body.dark .backdrop-blur-lg {
   direction: rtl !important;
 }
 
+/* Enhanced RTL Scrollbar Styling */
+.rtl-layout ::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+  direction: rtl;
+}
+
+.rtl-layout ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 2px;
+}
+
+.rtl-layout ::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 2px;
+}
+
+.rtl-layout ::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Dark mode RTL scrollbar */
+.dark .rtl-layout ::-webkit-scrollbar-track {
+  background: #374151;
+}
+
+.dark .rtl-layout ::-webkit-scrollbar-thumb {
+  background: #6b7280;
+}
+
+.dark .rtl-layout ::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Firefox RTL scrollbar support */
+.rtl-layout {
+  scrollbar-width: thin;
+  scrollbar-color: #c1c1c1 #f1f1f1;
+}
+
+.dark .rtl-layout {
+  scrollbar-color: #6b7280 #374151;
+}
+
+/* Ultra-thin scrollbar for modern browsers */
+.rtl-layout {
+  scrollbar-width: thin;
+}
+
+/* Additional thin scrollbar styling for better appearance */
+.rtl-layout ::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Hover effects for thin scrollbar */
+.rtl-layout ::-webkit-scrollbar-thumb:active {
+  background: #888;
+}
+
+/* Smooth transitions for scrollbar interactions */
+.rtl-layout ::-webkit-scrollbar-thumb {
+  transition: background-color 0.2s ease;
+}
+
+/* Ensure thin scrollbar doesn't interfere with content */
+.rtl-layout {
+  scrollbar-gutter: stable;
+  padding-right: 0;
+}
+
+/* Hide default scrollbar in RTL mode and show custom one */
+.rtl-layout {
+  overflow: auto;
+}
+
+/* Ensure RTL layout affects all child elements */
+.rtl-layout * {
+  direction: inherit;
+}
+
+/* Additional scrollbar positioning for RTL */
+.rtl-layout {
+  scrollbar-gutter: stable;
+}
+
+/* Ensure proper overflow behavior in RTL */
+.rtl-layout .overflow-auto,
+.rtl-layout .overflow-scroll {
+  direction: rtl;
+}
+
+/* RTL-specific container adjustments */
+.rtl-layout .container {
+  direction: rtl;
+}
+
+/* Ensure RTL works with flexbox and grid */
+.rtl-layout .flex,
+.rtl-layout .grid {
+  direction: rtl;
+}
+
+/* RTL text alignment overrides */
+.rtl-layout .text-left {
+  text-align: right !important;
+}
+
+.rtl-layout .text-right {
+  text-align: left !important;
+}
+
+/* RTL margin and padding overrides */
+.rtl-layout .ml-auto {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+.rtl-layout .mr-auto {
+  margin-right: 0 !important;
+  margin-left: auto !important;
+}
+
 /* Additional RTL Layout Support */
 .rtl-layout .pr-2 {
   padding-right: 0;

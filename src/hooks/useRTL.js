@@ -10,6 +10,7 @@ import {
   getFloatDirection,
   getTransformDirection,
   forceRTLScrollbar,
+  setLTRScrollbar,
   cleanupRTLStyling
 } from '../utils/rtl';
 
@@ -21,11 +22,9 @@ export const useRTL = () => {
     if (isRTLMode) {
       forceRTLScrollbar();
     } else {
-      // Clean up RTL scrollbar when switching to LTR
-      if (typeof document !== 'undefined') {
-        document.body.classList.remove('rtl-scrollbar');
-        console.log('RTL scrollbar cleaned up');
-      }
+      // Set LTR scrollbar when switching to LTR
+      setLTRScrollbar();
+      console.log('LTR scrollbar applied');
     }
   }, [isRTLMode]);
 

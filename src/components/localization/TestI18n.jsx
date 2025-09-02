@@ -117,6 +117,31 @@ const TestI18n = () => {
             This layout should automatically reverse when Arabic is selected. The boxes above should flow from right to left in RTL mode.
           </p>
         </div>
+
+        {/* RTL Scrollbar Test */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow p-6 mt-6">
+          <h2 className="text-xl font-semibold mb-4">RTL Scrollbar Test</h2>
+          <div className="space-y-4">
+            <div className="h-32 overflow-auto border border-gray-300 rounded p-4 bg-gray-50 dark:bg-gray-700">
+              <div className="space-y-2">
+                <p className="text-sm">This is a scrollable container to test RTL scrollbar behavior.</p>
+                <p className="text-sm">In Arabic mode, the scrollbar should appear on the left side.</p>
+                <p className="text-sm">In English mode, the scrollbar should appear on the right side.</p>
+                <p className="text-sm">Scroll down to see more content...</p>
+                <p className="text-sm">Line 5: Testing scrollbar positioning</p>
+                <p className="text-sm">Line 6: More content to scroll</p>
+                <p className="text-sm">Line 7: Even more content</p>
+                <p className="text-sm">Line 8: Almost there</p>
+                <p className="text-sm">Line 9: Final line</p>
+                <p className="text-sm">Line 10: End of scrollable content</p>
+              </div>
+            </div>
+            <div className="text-sm text-gray-600 dark:text-gray-400">
+              <p><strong>Current Scrollbar Position:</strong> {isRTLMode ? 'Left (RTL)' : 'Right (LTR)'}</p>
+              <p><strong>Scrollbar Direction:</strong> {document.documentElement?.style.direction || document.documentElement?.dir || 'ltr'}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </RTLWrapper>
   );

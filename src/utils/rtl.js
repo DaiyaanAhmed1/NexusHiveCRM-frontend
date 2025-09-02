@@ -82,9 +82,41 @@ export const forceRTLScrollbar = () => {
   try {
     // Add RTL scrollbar class
     document.body.classList.add('rtl-scrollbar');
-    console.log('RTL scrollbar applied');
+    
+    // Also ensure html element has RTL direction for scrollbar inheritance
+    if (document.documentElement) {
+      document.documentElement.style.direction = 'rtl';
+    }
+    
+    // Apply RTL scrollbar styling to body
+    if (document.body) {
+      document.body.style.direction = 'rtl';
+      document.body.style.overflow = 'auto';
+    }
+    
+    console.log('RTL scrollbar applied with enhanced styling');
   } catch (error) {
     console.error('Failed to apply RTL scrollbar:', error);
+  }
+};
+
+// Function to set LTR scrollbar behavior
+export const setLTRScrollbar = () => {
+  if (typeof document === 'undefined') return;
+  
+  try {
+    // Reset scrollbar direction to LTR
+    if (document.documentElement) {
+      document.documentElement.style.direction = 'ltr';
+    }
+    if (document.body) {
+      document.body.style.direction = 'ltr';
+      document.body.style.overflow = '';
+    }
+    
+    console.log('LTR scrollbar applied');
+  } catch (error) {
+    console.error('Failed to apply LTR scrollbar:', error);
   }
 };
 
@@ -102,7 +134,16 @@ export const cleanupRTLStyling = () => {
       }
     });
     
-    console.log('RTL styling cleanup completed');
+    // Reset scrollbar-related styles
+    if (document.documentElement) {
+      document.documentElement.style.direction = '';
+    }
+    if (document.body) {
+      document.body.style.direction = '';
+      document.body.style.overflow = '';
+    }
+    
+    console.log('RTL styling cleanup completed - scrollbar styles reset');
   } catch (error) {
     console.error('Failed to cleanup RTL styling:', error);
   }
