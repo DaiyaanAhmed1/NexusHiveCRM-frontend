@@ -84,7 +84,7 @@ const KnowledgeHub = () => {
   );
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
@@ -93,115 +93,119 @@ const KnowledgeHub = () => {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark"
+          className="flex items-center gap-2 px-4 py-2 bg-primary text-white dark:text-white rounded-lg hover:bg-primary-dark dark:hover:bg-primary-dark transition-colors"
         >
           <PlusIcon className="w-5 h-5" />
           Add Resource
         </button>
       </div>
 
-      {/* Search */}
+      {/* Search Bar */}
       <div className="relative">
+        <MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400 dark:text-gray-500" />
         <input
           type="text"
           placeholder="Search resources..."
-          className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white"
         />
-        <MagnifyingGlassIcon className="w-5 h-5 text-gray-400 dark:text-gray-500 absolute left-3 top-2.5" />
       </div>
 
-      {/* Resource Types */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {resourceTypes.map((type) => (
-          <div key={type.name} className={`p-4 rounded-lg ${type.color} flex items-center gap-3`}>
-            <type.icon className="w-6 h-6" />
-            <span className="font-medium">{type.name}</span>
-          </div>
-        ))}
-      </div>
-
-      {/* Resources List */}
-      <div className="space-y-4">
-        <h4 className="font-semibold text-gray-900 dark:text-white">Available Resources</h4>
-        <div className="grid gap-4">
-          {resources.map((resource) => (
-            <div key={resource.id} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">{resource.title}</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{resource.description}</p>
-                  <div className="flex items-center gap-4 mt-2 text-sm text-gray-600 dark:text-gray-300">
-                    <div className="flex items-center gap-1">
-                      <DocumentTextIcon className="w-4 h-4" />
-                      {resource.type}
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <UserIcon className="w-4 h-4" />
-                      {resource.author}
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    resource.status === 'Published' ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' : 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200'
-                  }`}>
-                    {resource.status}
+      {/* Resources Grid */}
+      <div className="grid gap-4">
+        {filteredResources.map((resource) => (
+          <div key={resource.id} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow">
+            <div className="flex justify-between items-start">
+              <div>
+                <h4 className="text-lg font-semibold text-gray-900 dark:text-white">{resource.title}</h4>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{resource.description}</p>
+                <div className="flex items-center gap-4 mt-2 text-sm text-gray-500 dark:text-gray-400">
+                  <span className="flex items-center gap-1">
+                    <UserIcon className="w-4 h-4" />
+                    {resource.author}
                   </span>
-                  <button
-                    onClick={() => setSelectedResource(resource)}
-                    className="p-1 text-gray-500 dark:text-gray-400 hover:text-primary"
-                  >
-                    <PencilIcon className="w-5 h-5" />
-                  </button>
-                  <button
-                    onClick={() => handleDeleteResource(resource.id)}
-                    className="p-1 text-gray-500 dark:text-gray-400 hover:text-red-600"
-                  >
-                    <TrashIcon className="w-5 h-5" />
-                  </button>
+                  <span>{resource.uploadDate}</span>
+                  <span>{resource.size}</span>
                 </div>
               </div>
-
-              {/* Tags */}
-              {resource.tags && resource.tags.length > 0 && (
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {resource.tags.map((tag, index) => (
-                    <span key={index} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded-full">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              )}
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => setSelectedResource(resource)}
+                  className="p-1 text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary"
+                >
+                  <PencilIcon className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={() => handleDeleteResource(resource.id)}
+                  className="p-1 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400"
+                >
+                  <TrashIcon className="w-5 h-5" />
+                </button>
+              </div>
             </div>
-          ))}
-        </div>
+
+            <div className="mt-4 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                {resourceTypes.find(type => type.name === resource.type)?.icon && (
+                  <div className={`p-2 rounded-lg ${resourceTypes.find(type => type.name === resource.type)?.color} dark:bg-opacity-20`}>
+                    {React.createElement(resourceTypes.find(type => type.name === resource.type)?.icon, { className: "w-5 h-5" })}
+                  </div>
+                )}
+                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{resource.type}</span>
+              </div>
+              <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+                <span className="flex items-center gap-1">
+                  <EyeIcon className="w-4 h-4" />
+                  {resource.views}
+                </span>
+                <span className="flex items-center gap-1">
+                  <ArrowDownTrayIcon className="w-4 h-4" />
+                  {resource.downloads}
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-3 flex flex-wrap gap-2">
+              {resource.tags.map((tag, index) => (
+                <span
+                  key={index}
+                  className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded-full"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* Add/Edit Resource Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-            <h3 className="text-lg font-semibold mb-4">Upload Resource</h3>
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md border border-gray-200 dark:border-gray-700">
+            <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Upload Resource</h3>
             <form className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Title</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Resource Title</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white"
                   placeholder="Enter resource title"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Type</label>
-                <select className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary">
-                  {resourceTypes.map(type => (
-                    <option key={type.name} value={type.name}>{type.name}</option>
-                  ))}
-                </select>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
+                <textarea
+                  rows={3}
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white"
+                  placeholder="Enter resource description"
+                />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Category</label>
-                <select className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Category</label>
+                <select className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white">
+                  <option value="">Select category</option>
                   <option value="Technical">Technical</option>
                   <option value="Process">Process</option>
                   <option value="Policy">Policy</option>
@@ -209,42 +213,34 @@ const KnowledgeHub = () => {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Description</label>
-                <textarea
-                  rows={3}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
-                  placeholder="Enter resource description"
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Tags</label>
+                <input
+                  type="text"
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white"
+                  placeholder="Enter tags separated by commas"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">File</label>
-                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">File Upload</label>
+                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-md dark:bg-gray-700">
                   <div className="space-y-1 text-center">
-                    <DocumentTextIcon className="mx-auto h-12 w-12 text-gray-400" />
-                    <div className="flex text-sm text-gray-600">
-                      <label className="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-primary-dark">
+                    <DocumentTextIcon className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" />
+                    <div className="flex text-sm text-gray-600 dark:text-gray-400">
+                      <label className="relative cursor-pointer bg-white dark:bg-gray-600 rounded-md font-medium text-primary hover:text-primary-dark dark:text-primary-light">
                         <span>Upload a file</span>
                         <input type="file" className="sr-only" />
                       </label>
                       <p className="pl-1">or drag and drop</p>
                     </div>
-                    <p className="text-xs text-gray-500">PDF, MP4, PPTX up to 200MB</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">PDF, MP4, PPTX up to 10MB</p>
                   </div>
                 </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">Tags</label>
-                <input
-                  type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
-                  placeholder="Enter tags (comma-separated)"
-                />
               </div>
               <div className="flex justify-end gap-2 mt-6">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600"
                 >
                   Cancel
                 </button>

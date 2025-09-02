@@ -80,7 +80,7 @@ const TrainingFeedback = () => {
           <StarIcon
             key={star}
             className={`w-4 h-4 ${
-              star <= rating ? 'text-yellow-400' : 'text-gray-300'
+              star <= rating ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600'
             }`}
           />
         ))}
@@ -89,7 +89,7 @@ const TrainingFeedback = () => {
   };
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="p-6 space-y-6 bg-gray-50 dark:bg-gray-900 min-h-screen">
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
@@ -98,7 +98,7 @@ const TrainingFeedback = () => {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark"
+          className="flex items-center gap-2 px-4 py-2 bg-primary text-white dark:text-white rounded-lg hover:bg-primary-dark dark:hover:bg-primary-dark transition-colors"
         >
           <PlusIcon className="w-5 h-5" />
           Add Feedback
@@ -108,7 +108,7 @@ const TrainingFeedback = () => {
       {/* Feedback List */}
       <div className="grid gap-6">
         {feedback.map((item) => (
-          <div key={item.id} className="bg-white border rounded-lg p-6 hover:shadow-md transition-shadow">
+          <div key={item.id} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6 hover:shadow-md transition-shadow">
             <div className="flex justify-between items-start">
               <div>
                 <h4 className="text-lg font-semibold text-gray-900 dark:text-white">{item.sessionTitle}</h4>
@@ -130,13 +130,13 @@ const TrainingFeedback = () => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setSelectedFeedback(item)}
-                  className="p-1 text-gray-500 hover:text-primary"
+                  className="p-1 text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary"
                 >
                   <PencilIcon className="w-5 h-5" />
                 </button>
                 <button
                   onClick={() => handleDeleteFeedback(item.id)}
-                  className="p-1 text-gray-500 hover:text-red-600"
+                  className="p-1 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400"
                 >
                   <TrashIcon className="w-5 h-5" />
                 </button>
@@ -152,7 +152,7 @@ const TrainingFeedback = () => {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {Object.entries(item.categories).map(([category, rating]) => (
-                  <div key={category} className="p-3 bg-gray-50 rounded">
+                  <div key={category} className="p-3 bg-gray-50 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600">
                     <div className="text-sm font-medium capitalize text-gray-900 dark:text-white">{category}</div>
                     <div className="flex items-center gap-1 mt-1">
                       {renderRatingStars(Math.round(rating))}
@@ -168,7 +168,7 @@ const TrainingFeedback = () => {
               <h5 className="font-medium mb-3 text-gray-900 dark:text-white">Comments</h5>
               <div className="space-y-4">
                 {item.comments.map((comment, index) => (
-                  <div key={index} className="p-4 bg-gray-50 rounded">
+                  <div key={index} className="p-4 bg-gray-50 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600">
                     <div className="flex justify-between items-start">
                       <div>
                         <div className="font-medium text-gray-900 dark:text-white">{comment.author}</div>
@@ -190,14 +190,14 @@ const TrainingFeedback = () => {
       {/* Add/Edit Feedback Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md border border-gray-200 dark:border-gray-700">
             <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Add Training Feedback</h3>
             <form className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Session Title</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white"
                   placeholder="Enter session title"
                 />
               </div>
@@ -205,7 +205,7 @@ const TrainingFeedback = () => {
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Trainer</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white"
                   placeholder="Enter trainer name"
                 />
               </div>
@@ -213,14 +213,14 @@ const TrainingFeedback = () => {
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Date</label>
                 <input
                   type="date"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white"
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Number of Participants</label>
                 <input
                   type="number"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white"
                   placeholder="Enter number of participants"
                 />
               </div>
@@ -249,7 +249,7 @@ const TrainingFeedback = () => {
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Comments</label>
                 <textarea
                   rows={4}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white"
                   placeholder="Enter your feedback comments"
                 />
               </div>
@@ -257,7 +257,7 @@ const TrainingFeedback = () => {
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600"
                 >
                   Cancel
                 </button>

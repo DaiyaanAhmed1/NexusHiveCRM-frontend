@@ -836,6 +836,7 @@
     "subtitle": "لوحة موحدة لإدارة القبول والامتثال والعمليات اليومية.",
     "complianceQuality": {
       "title": "الامتثال والجودة",
+      "subtitle": "ضمان الامتثال للمعايير المؤسسية والحفاظ على العمليات عالية الجودة",
       "tabs": {
         "regulatoryDashboard": {
           "name": "لوحة الامتثال التنظيمي",
@@ -986,6 +987,8 @@
     }
   },
   "complianceQuality": {
+    "title": "الامتثال والجودة",
+    "subtitle": "ضمان الامتثال للمعايير المؤسسية والحفاظ على العمليات عالية الجودة",
     "tabs": {
       "regulatoryDashboard": {
         "name": "لوحة الامتثال التنظيمي",
@@ -1032,13 +1035,105 @@
     "tabs": {
       "trainingCalendar": "تقويم التدريب",
       "trainingModules": "وحدات التدريب",
-      "onboarding": "التوجيه",
+      "onboardingPrograms": "برامج التعريف",
       "skillGapAnalysis": "تحليل فجوة المهارات",
       "progressTracking": "تتبع التقدم",
       "trainerManagement": "إدارة المدربين",
-      "feedbackEvaluation": "التعليقات والتقييم",
+      "trainingFeedback": "تعليقات التدريب",
       "knowledgeHub": "مركز المعرفة",
-      "gamification": "التلعيب"
+      "gamification": "الألعاب"
+    }
+  },
+  "helpSupport": {
+    "title": "المساعدة والدعم",
+    "subtitle": "احصل على المساعدة، أرسل التذاكر، واذهب إلى قاعدة المعرفة",
+    "tabs": {
+      "supportTickets": "تذاكر الدعم",
+      "knowledgeBase": "قاعدة المعرفة"
+    },
+    "actions": {
+      "raiseTicket": "+ إرسال تذكرة",
+      "submitTicket": "إرسال التذكرة"
+    },
+    "ticketForm": {
+      "title": "إرسال تذكرة جديدة",
+      "subject": "الموضوع",
+      "category": "الفئة",
+      "subcategory": "الفئة الفرعية",
+      "location": "الموقع",
+      "priority": "الأولوية",
+      "description": "الوصف",
+      "select": "اختر",
+      "required": "مطلوب"
+    },
+    "categories": {
+      "IT": "تقنية المعلومات",
+      "ERP": "تخطيط موارد المؤسسة / إدارة علاقات العملاء",
+      "Admissions": "القبول",
+      "Documents": "المستندات",
+      "Payments": "المدفوعات",
+      "Facilities": "المرافق"
+    },
+    "subcategories": {
+      "IT": {
+        "systemIssue": "مشكلة في النظام",
+        "emailIssue": "مشكلة في البريد الإلكتروني",
+        "printerIssue": "مشكلة في الطابعة"
+      },
+      "ERP": {
+        "loginIssue": "مشكلة في تسجيل الدخول",
+        "dataError": "خطأ في البيانات",
+        "featureRequest": "طلب ميزة"
+      },
+      "Admissions": {
+        "cycleSetup": "إعداد الدورة",
+        "leadAssignment": "تعيين العملاء المحتملين",
+        "applicationReview": "مراجعة الطلبات"
+      },
+      "Documents": {
+        "uploadIssue": "مشكلة في الرفع",
+        "verification": "التحقق",
+        "downloadError": "خطأ في التحميل"
+      },
+      "Payments": {
+        "paymentLink": "رابط الدفع",
+        "refund": "استرداد",
+        "statusUpdate": "تحديث الحالة"
+      },
+      "Facilities": {
+        "roomIssue": "مشكلة في الغرفة",
+        "maintenance": "الصيانة",
+        "cleaning": "التنظيف"
+      }
+    },
+    "priorities": {
+      "low": "منخفضة",
+      "medium": "متوسطة",
+      "high": "عالية",
+      "urgent": "عاجلة"
+    },
+    "ticketDetails": {
+      "title": "تفاصيل التذكرة",
+      "category": "الفئة",
+      "location": "الموقع",
+      "assignedTo": "مُخصص إلى",
+      "expectedResolution": "الحل المتوقع",
+      "description": "الوصف",
+      "comments": "التعليقات"
+    },
+    "status": {
+      "open": "مفتوحة",
+      "inProgress": "قيد التنفيذ",
+      "pending": "في الانتظار",
+      "resolved": "تم الحل"
+    },
+    "knowledgeBase": {
+      "title": "قاعدة المعرفة",
+      "howToReviewApplications": "كيفية مراجعة الطلبات",
+      "managingAdmissionCycles": "إدارة دورات القبول",
+      "uploadingAndVerifyingDocuments": "رفع والتحقق من المستندات",
+      "views": "مشاهدات",
+      "lastUpdated": "آخر تحديث"
     }
   }
 } 

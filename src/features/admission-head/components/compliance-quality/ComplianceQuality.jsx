@@ -95,10 +95,10 @@ const ComplianceQuality = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Compliance & Quality
+            {t('complianceQuality.title')}
           </h1>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            Ensure compliance with institutional standards and maintain high-quality processes
+            {t('complianceQuality.subtitle')}
           </p>
         </div>
 

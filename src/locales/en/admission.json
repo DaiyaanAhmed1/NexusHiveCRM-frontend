@@ -869,6 +869,7 @@
     "subtitle": "Unified dashboard for managing admissions, compliance, and daily operations.",
     "complianceQuality": {
       "title": "Compliance & Quality",
+      "subtitle": "Ensure compliance with institutional standards and maintain high-quality processes",
       "tabs": {
         "regulatoryDashboard": {
           "name": "Regulatory Dashboard",
@@ -1019,6 +1020,8 @@
     }
   },
   "complianceQuality": {
+    "title": "Compliance & Quality",
+    "subtitle": "Ensure compliance with institutional standards and maintain high-quality processes",
     "tabs": {
       "regulatoryDashboard": {
         "name": "Regulatory Dashboard",
@@ -1065,13 +1068,105 @@
     "tabs": {
       "trainingCalendar": "Training Calendar",
       "trainingModules": "Training Modules",
-      "onboarding": "Onboarding",
+      "onboardingPrograms": "Onboarding Programs",
       "skillGapAnalysis": "Skill Gap Analysis",
       "progressTracking": "Progress Tracking",
       "trainerManagement": "Trainer Management",
-      "feedbackEvaluation": "Feedback & Evaluation",
+      "trainingFeedback": "Training Feedback",
       "knowledgeHub": "Knowledge Hub",
       "gamification": "Gamification"
+    }
+  },
+  "helpSupport": {
+    "title": "Help & Support",
+    "subtitle": "Get help, submit tickets, and access knowledge base",
+    "tabs": {
+      "supportTickets": "Support Tickets",
+      "knowledgeBase": "Knowledge Base"
+    },
+    "actions": {
+      "raiseTicket": "+ Raise Ticket",
+      "submitTicket": "Submit Ticket"
+    },
+    "ticketForm": {
+      "title": "Raise a New Ticket",
+      "subject": "Subject",
+      "category": "Category",
+      "subcategory": "Subcategory",
+      "location": "Location",
+      "priority": "Priority",
+      "description": "Description",
+      "select": "Select",
+      "required": "Required"
+    },
+    "categories": {
+      "IT": "IT",
+      "ERP": "ERP / CRM",
+      "Admissions": "Admissions",
+      "Documents": "Documents",
+      "Payments": "Payments",
+      "Facilities": "Facilities"
+    },
+    "subcategories": {
+      "IT": {
+        "systemIssue": "System issue",
+        "emailIssue": "Email issue",
+        "printerIssue": "Printer issue"
+      },
+      "ERP": {
+        "loginIssue": "Login issue",
+        "dataError": "Data error",
+        "featureRequest": "Feature request"
+      },
+      "Admissions": {
+        "cycleSetup": "Cycle setup",
+        "leadAssignment": "Lead assignment",
+        "applicationReview": "Application review"
+      },
+      "Documents": {
+        "uploadIssue": "Upload issue",
+        "verification": "Verification",
+        "downloadError": "Download error"
+      },
+      "Payments": {
+        "paymentLink": "Payment link",
+        "refund": "Refund",
+        "statusUpdate": "Status update"
+      },
+      "Facilities": {
+        "roomIssue": "Room issue",
+        "maintenance": "Maintenance",
+        "cleaning": "Cleaning"
+      }
+    },
+    "priorities": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "urgent": "Urgent"
+    },
+    "ticketDetails": {
+      "title": "Ticket Details",
+      "category": "Category",
+      "location": "Location",
+      "assignedTo": "Assigned To",
+      "expectedResolution": "Expected Resolution",
+      "description": "Description",
+      "comments": "Comments"
+    },
+    "status": {
+      "open": "Open",
+      "inProgress": "In Progress",
+      "pending": "Pending",
+      "resolved": "Resolved"
+    },
+    "knowledgeBase": {
+      "title": "Knowledge Base",
+      "howToReviewApplications": "How to Review Applications",
+      "managingAdmissionCycles": "Managing Admission Cycles",
+      "uploadingAndVerifyingDocuments": "Uploading and Verifying Documents",
+      "views": "views",
+      "lastUpdated": "Last updated"
     }
   }
 } 
