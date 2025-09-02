@@ -1,6 +1,6 @@
 import { useContext, createContext, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { isRTL, getTextDirection } from '../utils/rtl';
+import { isRTL, getTextDirection, forceRTLScrollbar, cleanupRTLStyling, debugRTLState } from '../utils/rtl';
 import { saveLanguagePreference, getLanguagePreference, detectUserLanguage } from '../utils/languageUtils';
 
 const LocalizationContext = createContext();
@@ -21,18 +21,36 @@ export const LocalizationProvider = ({ children }) => {
     try {
       await i18n.changeLanguage(languageCode);
       setCurrentLanguage(languageCode);
-      setIsRTLMode(isRTL(languageCode));
+      
+      const newRTLMode = isRTL(languageCode);
+      setIsRTLMode(newRTLMode);
       saveLanguagePreference(languageCode);
       
-      // Update document attributes
-      document.documentElement.lang = languageCode;
-      document.documentElement.dir = getTextDirection(languageCode);
+      console.log('Language changed to:', languageCode, 'RTL mode:', newRTLMode);
       
-      // Add/remove RTL CSS class
-      if (isRTL(languageCode)) {
-        document.body.classList.add('rtl');
-      } else {
-        document.body.classList.remove('rtl');
+      // Update document attributes safely
+      if (typeof document !== 'undefined') {
+        document.documentElement.lang = languageCode;
+        document.documentElement.dir = getTextDirection(languageCode);
+        
+        // First, clean up any existing RTL/LTR classes to ensure clean state
+        console.log('Cleaning up existing RTL/LTR classes...');
+        cleanupRTLStyling();
+        
+        // Use specific class names to avoid conflicts
+        if (newRTLMode) {
+          document.body.classList.add('rtl-layout');
+          // Only apply RTL scrollbar when needed
+          forceRTLScrollbar();
+          console.log('RTL layout and scrollbar applied');
+        } else {
+          document.body.classList.add('ltr-layout');
+          console.log('LTR layout applied - all RTL styling cleaned up');
+        }
+        
+        // Debug: Check final state
+        console.log('Final RTL state after language change:');
+        debugRTLState();
       }
     } catch (error) {
       console.error('Failed to change language:', error);

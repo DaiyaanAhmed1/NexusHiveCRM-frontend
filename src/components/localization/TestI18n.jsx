@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocalization } from '../../hooks/useLocalization.jsx';
 import { useRTL } from '../../hooks/useRTL';
+import { debugRTLState } from '../../utils/rtl';
 import LanguageSwitcher from './LanguageSwitcher';
 import RTLWrapper from './RTLWrapper';
 import LocalizedText from './LocalizedText';
@@ -10,6 +11,11 @@ const TestI18n = () => {
   const { t } = useTranslation(['common', 'navigation', 'dashboard']);
   const { currentLanguage, isRTLMode } = useLocalization();
   const { flexDirection, textAlign } = useRTL();
+
+  const handleDebugRTL = () => {
+    console.log('=== Manual RTL Debug ===');
+    debugRTLState();
+  };
 
   return (
     <RTLWrapper className="min-h-screen bg-gray-50 dark:bg-gray-900 p-8">
@@ -24,7 +30,15 @@ const TestI18n = () => {
               {t('dashboard.welcome')}
             </p>
           </div>
-          <LanguageSwitcher />
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={handleDebugRTL}
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+            >
+              Debug RTL State
+            </button>
+            <LanguageSwitcher />
+          </div>
         </div>
 
         {/* Language Info */}
@@ -34,6 +48,8 @@ const TestI18n = () => {
             <p><strong>Language:</strong> {currentLanguage}</p>
             <p><strong>RTL Mode:</strong> {isRTLMode ? 'Yes' : 'No'}</p>
             <p><strong>Direction:</strong> {isRTLMode ? 'rtl' : 'ltr'}</p>
+            <p><strong>Document Dir:</strong> {document.documentElement?.dir || 'N/A'}</p>
+            <p><strong>Body Classes:</strong> {document.body?.classList ? Array.from(document.body.classList).filter(cls => cls.includes('rtl') || cls.includes('ltr')).join(', ') || 'None' : 'N/A'}</p>
           </div>
         </div>
 

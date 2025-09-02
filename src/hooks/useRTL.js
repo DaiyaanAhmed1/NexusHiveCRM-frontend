@@ -1,3 +1,4 @@
+import React from 'react';
 import { useLocalization } from './useLocalization.jsx';
 import { 
   getFlexDirection, 
@@ -7,14 +8,29 @@ import {
   getBorderRadius,
   getIconPosition,
   getFloatDirection,
-  getTransformDirection
+  getTransformDirection,
+  forceRTLScrollbar,
+  cleanupRTLStyling
 } from '../utils/rtl';
 
 export const useRTL = () => {
-  const { isRTL, currentLanguage } = useLocalization();
+  const { isRTLMode, currentLanguage } = useLocalization();
+
+  // Apply RTL scrollbar when RTL mode is active, clean up when not
+  React.useEffect(() => {
+    if (isRTLMode) {
+      forceRTLScrollbar();
+    } else {
+      // Clean up RTL scrollbar when switching to LTR
+      if (typeof document !== 'undefined') {
+        document.body.classList.remove('rtl-scrollbar');
+        console.log('RTL scrollbar cleaned up');
+      }
+    }
+  }, [isRTLMode]);
 
   return {
-    isRTL,
+    isRTL: isRTLMode,
     language: currentLanguage,
     flexDirection: (defaultDirection = 'row') => getFlexDirection(currentLanguage, defaultDirection),
     textAlign: (defaultAlign = 'left') => getTextAlign(currentLanguage, defaultAlign),
@@ -24,7 +40,7 @@ export const useRTL = () => {
     iconPosition: (leftClass, rightClass) => getIconPosition(currentLanguage, leftClass, rightClass),
     float: (leftValue = 'left', rightValue = 'right') => getFloatDirection(currentLanguage, leftValue, rightValue),
     transform: (leftValue = 'translateX(-100%)', rightValue = 'translateX(100%)') => getTransformDirection(currentLanguage, leftValue, rightValue),
-    className: (baseClass, rtlClass, ltrClass) => isRTL ? `${baseClass} ${rtlClass}` : `${baseClass} ${ltrClass}`,
-    direction: isRTL ? 'rtl' : 'ltr',
+    className: (baseClass, rtlClass, ltrClass) => isRTLMode ? `${baseClass} ${rtlClass}` : `${baseClass} ${ltrClass}`,
+    direction: isRTLMode ? 'rtl' : 'ltr',
   };
 }; 
