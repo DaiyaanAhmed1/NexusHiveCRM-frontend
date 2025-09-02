@@ -835,6 +835,7 @@
     "title": "مساحة العمل",
     "subtitle": "لوحة موحدة لإدارة القبول والامتثال والعمليات اليومية.",
     "complianceQuality": {
+      "title": "الامتثال والجودة",
       "tabs": {
         "regulatoryDashboard": {
           "name": "لوحة الامتثال التنظيمي",
@@ -872,6 +873,24 @@
           "name": "التقارير",
           "description": "تقارير الامتثال والتقديمات"
         }
+      },
+      "qualityAssurance": {
+        "title": "ضمان الجودة",
+        "admissionQualitySelfAssessment": "التقييم الذاتي لجودة القبول",
+        "complianceCoverageAnalysis": "تحليل تغطية الامتثال",
+        "complianceUploads": "رفع الامتثال",
+        "start": "ابدأ",
+        "view": "عرض",
+        "upload": "رفع"
+      },
+      "riskManagement": {
+        "title": "إدارة المخاطر",
+        "delayedAdmissionProcess": "تأخر عملية القبول",
+        "underperformanceInCompliance": "ضعف الأداء في الامتثال",
+        "increasedDropoutTrend": "زيادة اتجاه الانسحاب",
+        "high": "عالي",
+        "medium": "متوسط",
+        "alert": "تنبيه"
       }
     },
     "trainingDevelopment": {

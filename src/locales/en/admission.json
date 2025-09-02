@@ -868,6 +868,7 @@
     "title": "Workspace",
     "subtitle": "Unified dashboard for managing admissions, compliance, and daily operations.",
     "complianceQuality": {
+      "title": "Compliance & Quality",
       "tabs": {
         "regulatoryDashboard": {
           "name": "Regulatory Dashboard",
@@ -905,6 +906,24 @@
           "name": "Reports",
           "description": "Compliance reports and submissions"
         }
+      },
+      "qualityAssurance": {
+        "title": "Quality Assurance",
+        "admissionQualitySelfAssessment": "Admission Quality Self-Assessment",
+        "complianceCoverageAnalysis": "Compliance Coverage Analysis",
+        "complianceUploads": "Compliance Uploads",
+        "start": "Start",
+        "view": "View",
+        "upload": "Upload"
+      },
+      "riskManagement": {
+        "title": "Risk Management",
+        "delayedAdmissionProcess": "Delayed Admission Process",
+        "underperformanceInCompliance": "Underperformance in Compliance",
+        "increasedDropoutTrend": "Increased Dropout Trend",
+        "high": "High",
+        "medium": "Medium",
+        "alert": "Alert"
       }
     },
     "trainingDevelopment": {

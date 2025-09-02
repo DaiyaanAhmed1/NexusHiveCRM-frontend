@@ -68,8 +68,8 @@ const TrainingModules = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h3 className="text-lg font-semibold">Training Modules</h3>
-          <p className="text-sm text-gray-600">Upload and manage training materials</p>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Training Modules</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-300">Upload and manage training materials</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
@@ -92,18 +92,18 @@ const TrainingModules = () => {
 
       {/* Modules List */}
       <div className="space-y-4">
-        <h4 className="font-semibold">Available Modules</h4>
+        <h4 className="font-semibold text-gray-900 dark:text-white">Available Modules</h4>
         <div className="grid gap-4">
           {modules.map((module) => (
-            <div key={module.id} className="bg-white border rounded-lg p-4 hover:shadow-md transition-shadow">
+            <div key={module.id} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow">
               <div className="flex justify-between items-start">
                 <div className="flex items-start gap-4">
-                  <div className={`p-3 rounded-lg ${module.type === 'Document' ? 'bg-blue-100' : module.type === 'Video' ? 'bg-red-100' : 'bg-purple-100'}`}>
+                  <div className={`p-3 rounded-lg ${module.type === 'Document' ? 'bg-blue-100 dark:bg-blue-900' : module.type === 'Video' ? 'bg-red-100 dark:bg-red-900' : 'bg-purple-100 dark:bg-purple-900'}`}>
                     <module.icon className="w-6 h-6" />
                   </div>
                   <div>
-                    <h5 className="font-semibold">{module.title}</h5>
-                    <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
+                    <h5 className="font-semibold text-gray-900 dark:text-white">{module.title}</h5>
+                    <div className="flex items-center gap-4 mt-2 text-sm text-gray-600 dark:text-gray-300">
                       <div className="flex items-center gap-1">
                         <DocumentArrowUpIcon className="w-4 h-4" />
                         {module.format} ({module.size})
@@ -117,25 +117,25 @@ const TrainingModules = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    module.status === 'Published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                    module.status === 'Published' ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' : 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200'
                   }`}>
                     {module.status}
                   </span>
                   <button
                     onClick={() => setSelectedModule(module)}
-                    className="p-1 text-gray-500 hover:text-primary"
+                    className="p-1 text-gray-500 dark:text-gray-400 hover:text-primary"
                   >
                     <PencilIcon className="w-5 h-5" />
                   </button>
                   <button
                     onClick={() => handleDeleteModule(module.id)}
-                    className="p-1 text-gray-500 hover:text-red-600"
+                    className="p-1 text-gray-500 dark:text-gray-400 hover:text-red-600"
                   >
                     <TrashIcon className="w-5 h-5" />
                   </button>
                 </div>
               </div>
-              <div className="mt-3 text-sm text-gray-600">
+              <div className="mt-3 text-sm text-gray-600 dark:text-gray-300">
                 <div className="flex items-center gap-1">
                   <UserGroupIcon className="w-4 h-4" />
                   Assigned to: {module.assignedTo.join(', ')}
@@ -149,62 +149,73 @@ const TrainingModules = () => {
       {/* Add/Edit Module Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-            <h3 className="text-lg font-semibold mb-4">Upload Training Module</h3>
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md">
+            <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Upload Training Module</h3>
             <form className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Title</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Title</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary"
                   placeholder="Enter module title"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Type</label>
-                <select className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Type</label>
+                <select className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary">
                   {moduleTypes.map(type => (
                     <option key={type.name} value={type.name}>{type.name}</option>
                   ))}
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">File</label>
-                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">File</label>
+                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-md">
                   <div className="space-y-1 text-center">
-                    <DocumentArrowUpIcon className="mx-auto h-12 w-12 text-gray-400" />
-                    <div className="flex text-sm text-gray-600">
-                      <label className="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-primary-dark">
+                    <DocumentArrowUpIcon className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" />
+                    <div className="flex text-sm text-gray-600 dark:text-gray-300">
+                      <label className="relative cursor-pointer bg-white dark:bg-gray-700 rounded-md font-medium text-primary hover:text-primary-dark">
                         <span>Upload a file</span>
                         <input type="file" className="sr-only" />
                       </label>
                       <p className="pl-1">or drag and drop</p>
                     </div>
-                    <p className="text-xs text-gray-500">PDF, MP4, PPTX up to 200MB</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">PDF, MP4, PPTX up to 200MB</p>
                   </div>
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Release Date</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Release Date</label>
                 <input
                   type="date"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Assign To</label>
-                <select multiple className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary">
-                  <option value="All Counselors">All Counselors</option>
-                  <option value="New Joiners">New Joiners</option>
-                  <option value="Foreign Applicants Team">Foreign Applicants Team</option>
-                  <option value="Document Verifiers">Document Verifiers</option>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Assign To</label>
+                <select multiple className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary">
+                  <option value="all">All Staff</option>
+                  <option value="counselors">Counselors</option>
+                  <option value="verifiers">Document Verifiers</option>
+                  <option value="managers">Managers</option>
                 </select>
               </div>
-              <div className="flex justify-end gap-2 mt-6">
+              <div className="flex items-center">
+                <input
+                  id="mandatory"
+                  name="mandatory"
+                  type="checkbox"
+                  className="h-4 w-4 text-primary focus:ring-primary border-gray-300 dark:border-gray-600 rounded"
+                />
+                <label htmlFor="mandatory" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                  Mandatory Training
+                </label>
+              </div>
+              <div className="flex justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600"
                 >
                   Cancel
                 </button>

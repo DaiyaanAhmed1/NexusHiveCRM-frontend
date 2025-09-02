@@ -77,8 +77,8 @@ const TrainerManagement = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h3 className="text-lg font-semibold">Trainer Management</h3>
-          <p className="text-sm text-gray-600">Manage trainers and their schedules</p>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Trainer Management</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-300">Manage trainers and their schedules</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
@@ -90,106 +90,60 @@ const TrainerManagement = () => {
       </div>
 
       {/* Trainers List */}
-      <div className="grid gap-6">
-        {trainers.map((trainer) => (
-          <div key={trainer.id} className="bg-white border rounded-lg p-6 hover:shadow-md transition-shadow">
-            <div className="flex justify-between items-start">
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-primary/10 rounded-full">
-                  <UserGroupIcon className="w-8 h-8 text-primary" />
-                </div>
+      <div className="space-y-4">
+        <h4 className="font-semibold text-gray-900 dark:text-white">Active Trainers</h4>
+        <div className="grid gap-4">
+          {trainers.map((trainer) => (
+            <div key={trainer.id} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow">
+              <div className="flex justify-between items-start">
                 <div>
-                  <h4 className="text-lg font-semibold">{trainer.name}</h4>
-                  <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">{trainer.name}</h4>
+                  <div className="flex items-center gap-4 mt-2 text-sm text-gray-600 dark:text-gray-300">
                     <div className="flex items-center gap-1">
                       <AcademicCapIcon className="w-4 h-4" />
-                      {trainer.role}
+                      {trainer.specialization}
                     </div>
                     <div className="flex items-center gap-1">
-                      <StarIcon className="w-4 h-4 text-yellow-400" />
-                      {trainer.rating} ({trainer.sessions} sessions)
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <ClockIcon className="w-4 h-4" />
-                      {trainer.availability}
+                      <UserGroupIcon className="w-4 h-4" />
+                      {trainer.sessionsCompleted} sessions
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setSelectedTrainer(trainer)}
-                  className="p-1 text-gray-500 hover:text-primary"
-                >
-                  <PencilIcon className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={() => handleDeleteTrainer(trainer.id)}
-                  className="p-1 text-gray-500 hover:text-red-600"
-                >
-                  <TrashIcon className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-
-            {/* Expertise */}
-            <div className="mt-4">
-              <h5 className="font-medium mb-2">Areas of Expertise</h5>
-              <div className="flex flex-wrap gap-2">
-                {trainer.expertise.map((skill, index) => (
-                  <span
-                    key={index}
-                    className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm"
-                  >
-                    {skill}
+                <div className="flex items-center gap-2">
+                  <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                    trainer.status === 'Available' ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' : 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200'
+                  }`}>
+                    {trainer.status}
                   </span>
-                ))}
-              </div>
-            </div>
-
-            {/* Contact Information */}
-            <div className="mt-4">
-              <h5 className="font-medium mb-2">Contact Information</h5>
-              <div className="flex items-center gap-4 text-sm text-gray-600">
-                <div className="flex items-center gap-1">
-                  <EnvelopeIcon className="w-4 h-4" />
-                  {trainer.contact.email}
-                </div>
-                <div className="flex items-center gap-1">
-                  <PhoneIcon className="w-4 h-4" />
-                  {trainer.contact.phone}
+                  <button
+                    onClick={() => setSelectedTrainer(trainer)}
+                    className="p-1 text-gray-500 dark:text-gray-400 hover:text-primary"
+                  >
+                    <PencilIcon className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={() => handleDeleteTrainer(trainer.id)}
+                    className="p-1 text-gray-500 dark:text-gray-400 hover:text-red-600"
+                  >
+                    <TrashIcon className="w-5 h-5" />
+                  </button>
                 </div>
               </div>
-            </div>
 
-            {/* Upcoming Sessions */}
-            <div className="mt-6">
-              <h5 className="font-medium mb-3">Upcoming Sessions</h5>
-              <div className="space-y-3">
-                {trainer.upcomingSessions.map((session, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded">
-                    <div>
-                      <span className="font-medium">{session.title}</span>
-                      <div className="flex items-center gap-4 mt-1 text-sm text-gray-600">
-                        <div className="flex items-center gap-1">
-                          <CalendarIcon className="w-4 h-4" />
-                          {session.date}
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <ClockIcon className="w-4 h-4" />
-                          {session.time}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="text-sm text-gray-600">
-                      {session.participants} participants
-                    </div>
+                              {/* Trainer Skills */}
+                <div className="mt-4">
+                  <h5 className="font-medium text-gray-900 dark:text-white mb-2">Skills</h5>
+                  <div className="flex flex-wrap gap-2">
+                    {trainer.expertise.map((skill, index) => (
+                      <span key={index} className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded-full">
+                        {skill}
+                      </span>
+                    ))}
                   </div>
-                ))}
-              </div>
+                </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* Add/Edit Trainer Modal */}

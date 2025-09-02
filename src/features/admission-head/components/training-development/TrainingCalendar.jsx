@@ -71,8 +71,8 @@ const TrainingCalendar = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h3 className="text-lg font-semibold">Training Calendar</h3>
-          <p className="text-sm text-gray-600">Schedule and manage training sessions</p>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Training Calendar</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-300">Schedule and manage training sessions</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
@@ -86,7 +86,7 @@ const TrainingCalendar = () => {
       {/* Session Types */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {sessionTypes.map((type) => (
-          <div key={type.name} className={`p-4 rounded-lg ${type.color} flex items-center gap-3`}>
+          <div key={type.name} className={`p-4 rounded-lg ${type.color} dark:bg-opacity-20 flex items-center gap-3`}>
             <type.icon className="w-6 h-6" />
             <span className="font-medium">{type.name}</span>
           </div>
@@ -95,14 +95,14 @@ const TrainingCalendar = () => {
 
       {/* Upcoming Sessions */}
       <div className="space-y-4">
-        <h4 className="font-semibold">Upcoming Sessions</h4>
+        <h4 className="font-semibold text-gray-900 dark:text-white">Upcoming Sessions</h4>
         <div className="grid gap-4">
           {sessions.map((session) => (
-            <div key={session.id} className="bg-white border rounded-lg p-4 hover:shadow-md transition-shadow">
+            <div key={session.id} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow">
               <div className="flex justify-between items-start">
                 <div>
-                  <h5 className="font-semibold">{session.title}</h5>
-                  <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
+                  <h5 className="font-semibold text-gray-900 dark:text-white">{session.title}</h5>
+                  <div className="flex items-center gap-4 mt-2 text-sm text-gray-600 dark:text-gray-300">
                     <div className="flex items-center gap-1">
                       <CalendarIcon className="w-4 h-4" />
                       {session.date}
@@ -119,20 +119,20 @@ const TrainingCalendar = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    session.mandatory ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'
+                    session.mandatory ? 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200' : 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200'
                   }`}>
                     {session.mandatory ? 'Mandatory' : 'Optional'}
                   </span>
                   <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                    session.format === 'Virtual' ? 'bg-blue-100 text-blue-800' :
-                    session.format === 'In-Person' ? 'bg-green-100 text-green-800' :
-                    'bg-purple-100 text-purple-800'
+                    session.format === 'Virtual' ? 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200' :
+                    session.format === 'In-Person' ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' :
+                    'bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200'
                   }`}>
                     {session.format}
                   </span>
                 </div>
               </div>
-              <div className="mt-3 text-sm text-gray-600">
+              <div className="mt-3 text-sm text-gray-600 dark:text-gray-300">
                 <div className="flex items-center gap-1">
                   <UserGroupIcon className="w-4 h-4" />
                   {session.attendees.join(', ')}
@@ -146,52 +146,52 @@ const TrainingCalendar = () => {
       {/* Add Session Modal */}
       {showAddModal && (
         <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
-            <h3 className="text-lg font-semibold mb-4">Schedule New Training Session</h3>
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md">
+            <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Schedule New Training Session</h3>
             <form className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Title</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Title</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary"
                   placeholder="Enter session title"
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Date</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Date</label>
                   <input
                     type="date"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                    className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Time</label>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Time</label>
                   <input
                     type="time"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                    className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Type</label>
-                <select className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Type</label>
+                <select className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary">
                   {sessionTypes.map(type => (
                     <option key={type.name} value={type.name}>{type.name}</option>
                   ))}
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Trainer</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Trainer</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary"
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary"
                   placeholder="Enter trainer name"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700">Format</label>
-                <select className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary">
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Format</label>
+                <select className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary">
                   <option value="Virtual">Virtual</option>
                   <option value="In-Person">In-Person</option>
                   <option value="Hybrid">Hybrid</option>
@@ -203,7 +203,7 @@ const TrainingCalendar = () => {
                   id="mandatory"
                   className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
                 />
-                <label htmlFor="mandatory" className="ml-2 block text-sm text-gray-700">
+                <label htmlFor="mandatory" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
                   Mandatory Session
                 </label>
               </div>
@@ -211,7 +211,7 @@ const TrainingCalendar = () => {
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600"
                 >
                   Cancel
                 </button>

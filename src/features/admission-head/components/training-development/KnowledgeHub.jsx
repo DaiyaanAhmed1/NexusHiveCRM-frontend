@@ -9,7 +9,8 @@ import {
   PencilIcon,
   TrashIcon,
   ArrowDownTrayIcon,
-  EyeIcon
+  EyeIcon,
+  UserIcon
 } from "@heroicons/react/24/outline";
 
 const initialResources = [
@@ -24,7 +25,9 @@ const initialResources = [
     downloads: 45,
     views: 120,
     tags: ["CRM", "Guide", "Technical"],
-    description: "Comprehensive guide for using the CRM system effectively."
+    description: "Comprehensive guide for using the CRM system effectively.",
+    status: "Published",
+    author: "Admin"
   },
   {
     id: 2,
@@ -37,7 +40,9 @@ const initialResources = [
     downloads: 32,
     views: 98,
     tags: ["Process", "Video", "Training"],
-    description: "Step-by-step video guide for the admission process."
+    description: "Step-by-step video guide for the admission process.",
+    status: "Published",
+    author: "Admin"
   },
   {
     id: 3,
@@ -50,7 +55,9 @@ const initialResources = [
     downloads: 28,
     views: 85,
     tags: ["Policy", "Updates", "Q3"],
-    description: "Latest policy updates and changes for Q3 2024."
+    description: "Latest policy updates and changes for Q3 2024.",
+    status: "Published",
+    author: "Admin"
   }
 ];
 
@@ -81,32 +88,26 @@ const KnowledgeHub = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h3 className="text-lg font-semibold">Knowledge Hub</h3>
-          <p className="text-sm text-gray-600">Access training resources and documentation</p>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Knowledge Hub</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-300">Access training resources and documentation</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
           className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark"
         >
           <PlusIcon className="w-5 h-5" />
-          Upload Resource
+          Add Resource
         </button>
       </div>
 
-      {/* Search and Filters */}
-      <div className="flex gap-4">
-        <div className="flex-1">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search resources..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
-            />
-            <MagnifyingGlassIcon className="w-5 h-5 text-gray-400 absolute left-3 top-2.5" />
-          </div>
-        </div>
+      {/* Search */}
+      <div className="relative">
+        <input
+          type="text"
+          placeholder="Search resources..."
+          className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+        />
+        <MagnifyingGlassIcon className="w-5 h-5 text-gray-400 dark:text-gray-500 absolute left-3 top-2.5" />
       </div>
 
       {/* Resource Types */}
@@ -120,70 +121,60 @@ const KnowledgeHub = () => {
       </div>
 
       {/* Resources List */}
-      <div className="grid gap-6">
-        {filteredResources.map((resource) => (
-          <div key={resource.id} className="bg-white border rounded-lg p-6 hover:shadow-md transition-shadow">
-            <div className="flex justify-between items-start">
-              <div className="flex items-start gap-4">
-                <div className={`p-3 rounded-lg ${
-                  resource.type === 'Document' ? 'bg-blue-100' :
-                  resource.type === 'Video' ? 'bg-red-100' :
-                  'bg-purple-100'
-                }`}>
-                  {resource.type === 'Document' ? <DocumentTextIcon className="w-6 h-6" /> :
-                   resource.type === 'Video' ? <VideoCameraIcon className="w-6 h-6" /> :
-                   <PresentationChartLineIcon className="w-6 h-6" />}
-                </div>
+      <div className="space-y-4">
+        <h4 className="font-semibold text-gray-900 dark:text-white">Available Resources</h4>
+        <div className="grid gap-4">
+          {resources.map((resource) => (
+            <div key={resource.id} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow">
+              <div className="flex justify-between items-start">
                 <div>
-                  <h4 className="text-lg font-semibold">{resource.title}</h4>
-                  <p className="text-sm text-gray-600 mt-1">{resource.description}</p>
-                  <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">{resource.title}</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{resource.description}</p>
+                  <div className="flex items-center gap-4 mt-2 text-sm text-gray-600 dark:text-gray-300">
                     <div className="flex items-center gap-1">
                       <DocumentTextIcon className="w-4 h-4" />
-                      {resource.format} ({resource.size})
+                      {resource.type}
                     </div>
                     <div className="flex items-center gap-1">
-                      <EyeIcon className="w-4 h-4" />
-                      {resource.views} views
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <ArrowDownTrayIcon className="w-4 h-4" />
-                      {resource.downloads} downloads
+                      <UserIcon className="w-4 h-4" />
+                      {resource.author}
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setSelectedResource(resource)}
-                  className="p-1 text-gray-500 hover:text-primary"
-                >
-                  <PencilIcon className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={() => handleDeleteResource(resource.id)}
-                  className="p-1 text-gray-500 hover:text-red-600"
-                >
-                  <TrashIcon className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-
-            {/* Tags */}
-            <div className="mt-4">
-              <div className="flex flex-wrap gap-2">
-                {resource.tags.map((tag, index) => (
-                  <span
-                    key={index}
-                    className="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs"
-                  >
-                    {tag}
+                <div className="flex items-center gap-2">
+                  <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                    resource.status === 'Published' ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' : 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200'
+                  }`}>
+                    {resource.status}
                   </span>
-                ))}
+                  <button
+                    onClick={() => setSelectedResource(resource)}
+                    className="p-1 text-gray-500 dark:text-gray-400 hover:text-primary"
+                  >
+                    <PencilIcon className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={() => handleDeleteResource(resource.id)}
+                    className="p-1 text-gray-500 dark:text-gray-400 hover:text-red-600"
+                  >
+                    <TrashIcon className="w-5 h-5" />
+                  </button>
+                </div>
               </div>
+
+              {/* Tags */}
+              {resource.tags && resource.tags.length > 0 && (
+                <div className="mt-3 flex flex-wrap gap-2">
+                  {resource.tags.map((tag, index) => (
+                    <span key={index} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded-full">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* Add/Edit Resource Modal */}

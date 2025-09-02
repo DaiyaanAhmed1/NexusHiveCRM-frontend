@@ -8,7 +8,8 @@ import {
   PlusIcon,
   PencilIcon,
   TrashIcon,
-  ArrowPathIcon
+  ArrowPathIcon,
+  CalendarIcon
 } from "@heroicons/react/24/outline";
 
 const initialCertifications = [
@@ -40,7 +41,10 @@ const initialCertifications = [
         name: "Mike Johnson",
         status: "Not Started"
       }
-    ]
+    ],
+    expiryDate: "2026-01-15",
+    participants: 15,
+    status: "Active"
   },
   {
     id: 2,
@@ -73,7 +77,10 @@ const initialCertifications = [
         progress: 75,
         remainingRequirements: ["Process 100 Documents"]
       }
-    ]
+    ],
+    expiryDate: "2025-03-01",
+    participants: 10,
+    status: "Inactive"
   }
 ];
 
@@ -91,8 +98,8 @@ const ProgressTracking = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h3 className="text-lg font-semibold">Progress Tracking</h3>
-          <p className="text-sm text-gray-600">Monitor training progress and certifications</p>
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Progress Tracking</h3>
+          <p className="text-sm text-gray-600 dark:text-gray-300">Monitor training progress and certifications</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
@@ -104,107 +111,61 @@ const ProgressTracking = () => {
       </div>
 
       {/* Certifications List */}
-      <div className="space-y-6">
-        {certifications.map((certification) => (
-          <div key={certification.id} className="bg-white border rounded-lg p-6 hover:shadow-md transition-shadow">
-            <div className="flex justify-between items-start">
-              <div>
-                <h4 className="text-lg font-semibold">{certification.name}</h4>
-                <div className="flex items-center gap-4 mt-2 text-sm text-gray-600">
-                  <div className="flex items-center gap-1">
-                    <AcademicCapIcon className="w-4 h-4" />
-                    {certification.type}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <ClockIcon className="w-4 h-4" />
-                    Valid for {certification.validity}
-                  </div>
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => setSelectedCertification(certification)}
-                  className="p-1 text-gray-500 hover:text-primary"
-                >
-                  <PencilIcon className="w-5 h-5" />
-                </button>
-                <button
-                  onClick={() => handleDeleteCertification(certification.id)}
-                  className="p-1 text-gray-500 hover:text-red-600"
-                >
-                  <TrashIcon className="w-5 h-5" />
-                </button>
-              </div>
-            </div>
-
-            {/* Requirements */}
-            <div className="mt-6">
-              <h5 className="font-medium mb-3">Requirements</h5>
-              <div className="space-y-2">
-                {certification.requirements.map((requirement, index) => (
-                  <div key={index} className="flex items-center gap-2 text-sm">
-                    <DocumentCheckIcon className="w-4 h-4 text-gray-400" />
-                    {requirement}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Team Members Progress */}
-            <div className="mt-6">
-              <h5 className="font-medium mb-3">Team Members</h5>
-              <div className="space-y-3">
-                {certification.teamMembers.map((member, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded">
-                    <span className="text-sm font-medium">{member.name}</span>
-                    <div className="flex items-center gap-4">
-                      {member.status === 'Certified' ? (
-                        <>
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm">Score: {member.score}%</span>
-                            <div className="w-24 h-2 bg-gray-200 rounded-full">
-                              <div
-                                className="h-2 rounded-full bg-primary"
-                                style={{ width: `${member.score}%` }}
-                              ></div>
-                            </div>
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            Expires: {member.expiryDate}
-                          </div>
-                        </>
-                      ) : member.status === 'In Progress' ? (
-                        <>
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm">Progress: {member.progress}%</span>
-                            <div className="w-24 h-2 bg-gray-200 rounded-full">
-                              <div
-                                className="h-2 rounded-full bg-primary"
-                                style={{ width: `${member.progress}%` }}
-                              ></div>
-                            </div>
-                          </div>
-                          <div className="text-sm text-gray-600">
-                            Remaining: {member.remainingRequirements.join(', ')}
-                          </div>
-                        </>
-                      ) : (
-                        <span className="text-sm text-gray-600">Not Started</span>
-                      )}
-                      <span className={`text-xs px-2 py-1 rounded-full ${
-                        member.status === 'Certified' ? 'bg-green-100 text-green-800' :
-                        member.status === 'In Progress' ? 'bg-blue-100 text-blue-800' :
-                        'bg-gray-100 text-gray-800'
-                      }`}>
-                        {member.status}
-                      </span>
+      <div className="space-y-4">
+        <h4 className="font-semibold text-gray-900 dark:text-white">Active Certifications</h4>
+        <div className="grid gap-4">
+          {certifications.map((certification) => (
+            <div key={certification.id} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:shadow-md transition-shadow">
+              <div className="flex justify-between items-start">
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">{certification.name}</h4>
+                  <div className="flex items-center gap-4 mt-2 text-sm text-gray-600 dark:text-gray-300">
+                    <div className="flex items-center gap-1">
+                      <CalendarIcon className="w-4 h-4" />
+                      Expires: {certification.expiryDate}
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <UserGroupIcon className="w-4 h-4" />
+                      {certification.participants} Participants
                     </div>
                   </div>
-                ))}
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                    certification.status === 'Active' ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' : 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200'
+                  }`}>
+                    {certification.status}
+                  </span>
+                  <button
+                    onClick={() => setSelectedCertification(certification)}
+                    className="p-1 text-gray-500 dark:text-gray-400 hover:text-primary"
+                  >
+                    <PencilIcon className="w-5 h-5" />
+                  </button>
+                  <button
+                    onClick={() => handleDeleteCertification(certification.id)}
+                    className="p-1 text-gray-500 dark:text-gray-400 hover:text-red-600"
+                  >
+                    <TrashIcon className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+
+              {/* Requirements */}
+              <div className="mt-4">
+                <h5 className="font-medium text-gray-900 dark:text-white mb-2">Requirements</h5>
+                <div className="space-y-1">
+                  {certification.requirements.map((requirement, index) => (
+                    <div key={index} className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                      <DocumentCheckIcon className="w-4 h-4 text-gray-400 dark:text-gray-500" />
+                      {requirement}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
 
       {/* Add/Edit Certification Modal */}
