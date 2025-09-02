@@ -826,16 +826,60 @@
     }
   },
   "payments": {
-    "title": "Payments",
+    "title": "Payments Management",
+    "subtitle": "Manage invoices, track payments, and handle refunds",
     "today": "Today",
     "thisMonth": "This Month",
     "ytd": "YTD",
     "pendingInvoices": "Pending Invoices",
     "awaitingConfirmation": "Awaiting Confirmation",
-    "failedTxns": "Failed Txns",
+    "failedTxns": "Failed Transactions",
     "invoiceManagement": {
       "title": "Invoice Management",
-      "createInvoice": "Create Invoice"
+      "createInvoice": "Create Invoice",
+      "editInvoice": "Edit Invoice",
+      "deleteInvoice": "Delete Invoice"
+    },
+    "onlinePaymentTracking": {
+      "title": "Online Payment Tracking",
+      "subtitle": "Monitor real-time payment transactions"
+    },
+    "paymentHistory": {
+      "title": "Payment History per Applicant",
+      "subtitle": "Track individual applicant payment records"
+    },
+    "bulkPaymentUpload": {
+      "title": "Bulk Payment Upload / Offline Sync",
+      "subtitle": "Upload Excel/CSV of offline transactions. AI will auto-match to pending invoices.",
+      "upload": "Upload"
+    },
+    "paymentReminders": {
+      "title": "Payment Reminders & Notifications",
+      "subtitle": "Configure and send payment reminders",
+      "beforeDue": "Before Due",
+      "onDue": "On Due",
+      "afterDue": "After Due",
+      "email": "Email",
+      "sms": "SMS",
+      "whatsapp": "WhatsApp",
+      "sendReminder": "Send Reminder",
+      "configure": "Configure"
+    },
+    "refundManagement": {
+      "title": "Refund Management",
+      "subtitle": "Process and track refund requests"
+    },
+    "reportsReconciliation": {
+      "title": "Reports & Reconciliation",
+      "subtitle": "Generate financial reports and reconcile payments",
+      "export": "Export"
+    },
+    "aiEnhancements": {
+      "title": "AI-Powered Enhancements",
+      "feeForecast": "Fee Forecast: ₹{amount} expected",
+      "smartReminders": "Smart Reminders: Personalized for {count} students",
+      "fraudDetection": "Fraud Detection: No anomalies",
+      "chatbotHelp": "Chatbot Help: {count} queries resolved"
     },
     "table": {
       "applicant": "Applicant",
@@ -844,24 +888,58 @@
       "status": "Status",
       "dueDate": "Due Date",
       "mode": "Mode",
-      "actions": "Actions"
+      "actions": "Actions",
+      "invoice": "Invoice",
+      "date": "Date",
+      "ref": "Reference",
+      "receipt": "Receipt",
+      "notes": "Notes",
+      "action": "Action",
+      "reason": "Reason"
+    },
+    "types": {
+      "applicationFee": "Application Fee",
+      "admissionFee": "Admission Fee",
+      "securityDeposit": "Security Deposit",
+      "tuitionFee": "Tuition Fee",
+      "hostelFee": "Hostel Fee",
+      "libraryFee": "Library Fee",
+      "laboratoryFee": "Laboratory Fee"
     },
     "status": {
       "paid": "Paid",
       "unpaid": "Unpaid",
       "partial": "Partial",
-      "overdue": "Overdue"
-    },
-    "types": {
-      "applicationFee": "Application Fee",
-      "admissionFee": "Admission Fee",
-      "securityDeposit": "Security Deposit"
+      "overdue": "Overdue",
+      "success": "Success",
+      "pending": "Pending",
+      "failed": "Failed",
+      "requested": "Requested",
+      "processing": "Processing",
+      "issued": "Issued"
     },
     "modes": {
       "online": "Online",
-      "bankTransfer": "Bank Transfer",
       "card": "Card",
-      "upi": "UPI"
+      "bankTransfer": "Bank Transfer",
+      "upi": "UPI",
+      "cash": "Cash",
+      "cheque": "Cheque"
+    },
+    "actions": {
+      "remind": "Remind",
+      "download": "Download",
+      "cancel": "Cancel",
+      "refund": "Refund",
+      "manual": "Manual",
+      "approve": "Approve",
+      "reject": "Reject"
+    },
+    "aiInsights": "AI: No unusual payments flagged.",
+    "reports": {
+      "collected": "Collected",
+      "pending": "Pending",
+      "refunds": "Refunds"
     }
   },
   "workspace": {

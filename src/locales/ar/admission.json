@@ -1135,5 +1135,122 @@
       "views": "مشاهدات",
       "lastUpdated": "آخر تحديث"
     }
+  },
+  "payments": {
+    "title": "إدارة المدفوعات",
+    "subtitle": "إدارة الفواتير وتتبع المدفوعات والتعامل مع الاسترداد",
+    "today": "اليوم",
+    "thisMonth": "هذا الشهر",
+    "ytd": "منذ بداية العام",
+    "pendingInvoices": "الفواتير المعلقة",
+    "awaitingConfirmation": "في انتظار التأكيد",
+    "failedTxns": "المعاملات الفاشلة",
+    "invoiceManagement": {
+      "title": "إدارة الفواتير",
+      "createInvoice": "إنشاء فاتورة",
+      "editInvoice": "تعديل الفاتورة",
+      "deleteInvoice": "حذف الفاتورة"
+    },
+    "onlinePaymentTracking": {
+      "title": "تتبع المدفوعات عبر الإنترنت",
+      "subtitle": "مراقبة المعاملات المالية في الوقت الفعلي"
+    },
+    "paymentHistory": {
+      "title": "سجل المدفوعات لكل مقدم طلب",
+      "subtitle": "تتبع سجلات المدفوعات الفردية للمتقدمين"
+    },
+    "bulkPaymentUpload": {
+      "title": "رفع المدفوعات المجمعة / المزامنة غير المتصلة",
+      "subtitle": "ارفع ملف Excel/CSV للمعاملات غير المتصلة. سيقوم الذكاء الاصطناعي بمطابقتها تلقائياً مع الفواتير المعلقة.",
+      "upload": "رفع"
+    },
+    "paymentReminders": {
+      "title": "تذكيرات المدفوعات والإشعارات",
+      "subtitle": "تكوين وإرسال تذكيرات المدفوعات",
+      "beforeDue": "قبل الاستحقاق",
+      "onDue": "في يوم الاستحقاق",
+      "afterDue": "بعد الاستحقاق",
+      "email": "البريد الإلكتروني",
+      "sms": "الرسائل النصية",
+      "whatsapp": "واتساب",
+      "sendReminder": "إرسال تذكير",
+      "configure": "تكوين"
+    },
+    "refundManagement": {
+      "title": "إدارة الاسترداد",
+      "subtitle": "معالجة وتتبع طلبات الاسترداد"
+    },
+    "reportsReconciliation": {
+      "title": "التقارير والمصالحة",
+      "subtitle": "إنشاء التقارير المالية ومصالحة المدفوعات",
+      "export": "تصدير"
+    },
+    "aiEnhancements": {
+      "title": "التحسينات المدعومة بالذكاء الاصطناعي",
+      "feeForecast": "توقعات الرسوم: ₹{amount} متوقع",
+      "smartReminders": "التذكيرات الذكية: مخصصة لـ {count} طالب",
+      "fraudDetection": "كشف الاحتيال: لا توجد شذوذات",
+      "chatbotHelp": "مساعدة الشات بوت: {count} استفسار تم حلها"
+    },
+    "table": {
+      "applicant": "مقدم الطلب",
+      "type": "النوع",
+      "amount": "المبلغ",
+      "status": "الحالة",
+      "dueDate": "تاريخ الاستحقاق",
+      "mode": "الطريقة",
+      "actions": "الإجراءات",
+      "invoice": "الفاتورة",
+      "date": "التاريخ",
+      "ref": "المرجع",
+      "receipt": "الإيصال",
+      "notes": "ملاحظات",
+      "action": "الإجراء",
+      "reason": "السبب"
+    },
+    "types": {
+      "applicationFee": "رسوم الطلب",
+      "admissionFee": "رسوم القبول",
+      "securityDeposit": "الوديعة الأمنية",
+      "tuitionFee": "الرسوم الدراسية",
+      "hostelFee": "رسوم السكن",
+      "libraryFee": "رسوم المكتبة",
+      "laboratoryFee": "رسوم المختبر"
+    },
+    "status": {
+      "paid": "مدفوع",
+      "unpaid": "غير مدفوع",
+      "partial": "جزئي",
+      "overdue": "متأخر",
+      "success": "نجح",
+      "pending": "في الانتظار",
+      "failed": "فشل",
+      "requested": "مطلوب",
+      "processing": "قيد المعالجة",
+      "issued": "صدر"
+    },
+    "modes": {
+      "online": "عبر الإنترنت",
+      "card": "بطاقة",
+      "bankTransfer": "تحويل بنكي",
+      "upi": "UPI",
+      "cash": "نقداً",
+      "cheque": "شيك"
+    },
+    "actions": {
+      "remind": "تذكير",
+      "download": "تحميل",
+      "cancel": "إلغاء",
+      "refund": "استرداد",
+      "manual": "يدوي",
+      "approve": "موافقة",
+      "reject": "رفض"
+    },
+    "aiInsights": "الذكاء الاصطناعي: لا توجد مدفوعات غير عادية.",
+    "reports": {
+      "collected": "تم تحصيله",
+      "pending": "معلق",
+      "refunds": "الاسترداد"
+    }
   }
 } 

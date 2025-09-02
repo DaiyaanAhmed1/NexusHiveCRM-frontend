@@ -131,9 +131,9 @@ export default function Payments() {
                   <td className="px-4 py-2">{i.due}</td>
                   <td className="px-4 py-2">{i.mode}</td>
                   <td className="px-4 py-2">
-                    <button className="text-blue-600 hover:underline font-semibold transition-colors mr-2">Remind</button>
-                    <button className="text-indigo-600 hover:underline font-semibold transition-colors mr-2">Download</button>
-                    <button className="text-red-600 hover:underline font-semibold transition-colors">Cancel</button>
+                    <button className="text-blue-600 hover:underline font-semibold transition-colors mr-2">{t('payments.actions.remind')}</button>
+                    <button className="text-indigo-600 hover:underline font-semibold transition-colors mr-2">{t('payments.actions.download')}</button>
+                    <button className="text-red-600 hover:underline font-semibold transition-colors">{t('payments.actions.cancel')}</button>
                   </td>
                 </tr>
               ))}
@@ -144,21 +144,21 @@ export default function Payments() {
       {/* Online Payment Tracking */}
       <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
-          <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">Online Payment Tracking</h2>
+          <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('payments.onlinePaymentTracking.title')}</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full text-sm">
             <thead>
               <tr className="bg-gray-100 dark:bg-gray-700">
-                <th className="px-4 py-2 text-left font-semibold">Invoice</th>
-                <th className="px-4 py-2 text-left font-semibold">Applicant</th>
-                <th className="px-4 py-2 text-left font-semibold">Type</th>
-                <th className="px-4 py-2 text-left font-semibold">Amount</th>
-                <th className="px-4 py-2 text-left font-semibold">Status</th>
-                <th className="px-4 py-2 text-left font-semibold">Date</th>
-                <th className="px-4 py-2 text-left font-semibold">Mode</th>
-                <th className="px-4 py-2 text-left font-semibold">Ref</th>
-                <th className="px-4 py-2 text-left font-semibold">Receipt</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.invoice')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.applicant')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.type')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.amount')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.status')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.date')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.mode')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.ref')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.receipt')}</th>
               </tr>
             </thead>
             <tbody>
@@ -172,7 +172,7 @@ export default function Payments() {
                   <td className="px-4 py-2">{p.date}</td>
                   <td className="px-4 py-2">{p.mode}</td>
                   <td className="px-4 py-2">{p.ref}</td>
-                  <td className="px-4 py-2">{p.receipt ? <button className="text-blue-600 hover:underline font-semibold transition-colors">Download</button> : '-'}</td>
+                  <td className="px-4 py-2">{p.receipt ? <button className="text-blue-600 hover:underline font-semibold transition-colors">{t('payments.actions.download')}</button> : '-'}</td>
                 </tr>
               ))}
             </tbody>
@@ -182,22 +182,22 @@ export default function Payments() {
       {/* Payment History per Applicant */}
       <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
-          <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">Payment History per Applicant</h2>
+          <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('payments.paymentHistory.title')}</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full text-sm">
             <thead>
               <tr className="bg-gray-100 dark:bg-gray-700">
-                <th className="px-4 py-2 text-left font-semibold">Applicant</th>
-                <th className="px-4 py-2 text-left font-semibold">Invoice</th>
-                <th className="px-4 py-2 text-left font-semibold">Type</th>
-                <th className="px-4 py-2 text-left font-semibold">Amount</th>
-                <th className="px-4 py-2 text-left font-semibold">Status</th>
-                <th className="px-4 py-2 text-left font-semibold">Date</th>
-                <th className="px-4 py-2 text-left font-semibold">Mode</th>
-                <th className="px-4 py-2 text-left font-semibold">Notes</th>
-                <th className="px-4 py-2 text-left font-semibold">Receipt</th>
-                <th className="px-4 py-2 text-left font-semibold">Action</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.applicant')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.invoice')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.type')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.amount')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.status')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.date')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.mode')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.notes')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.receipt')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.action')}</th>
               </tr>
             </thead>
             <tbody>
@@ -211,10 +211,10 @@ export default function Payments() {
                   <td className="px-4 py-2">{p.date}</td>
                   <td className="px-4 py-2">{p.mode}</td>
                   <td className="px-4 py-2">-</td>
-                  <td className="px-4 py-2">{p.receipt ? <button className="text-blue-600 hover:underline font-semibold transition-colors">Download</button> : '-'}</td>
+                  <td className="px-4 py-2">{p.receipt ? <button className="text-blue-600 hover:underline font-semibold transition-colors">{t('payments.actions.download')}</button> : '-'}</td>
                   <td className="px-4 py-2">
-                    <button className="text-green-600 hover:underline font-semibold transition-colors mr-2">Refund</button>
-                    <button className="text-indigo-600 hover:underline font-semibold transition-colors">Manual</button>
+                    <button className="text-green-600 hover:underline font-semibold transition-colors mr-2">{t('payments.actions.refund')}</button>
+                    <button className="text-indigo-600 hover:underline font-semibold transition-colors">{t('payments.actions.manual')}</button>
                   </td>
                 </tr>
               ))}
@@ -225,45 +225,45 @@ export default function Payments() {
       {/* Bulk Payment Upload / Offline Sync */}
       <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
-          <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">Bulk Payment Upload / Offline Sync</h2>
-          <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold" onClick={() => setShowBulkModal(true)}><FiUpload className="inline mr-1" />Upload</button>
+          <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('payments.bulkPaymentUpload.title')}</h2>
+          <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold" onClick={() => setShowBulkModal(true)}><FiUpload className="inline mr-1" />{t('payments.bulkPaymentUpload.upload')}</button>
         </div>
-        <div className="text-xs text-gray-500">Upload Excel/CSV of offline transactions. AI will auto-match to pending invoices.</div>
+        <div className="text-xs text-gray-500">{t('payments.bulkPaymentUpload.subtitle')}</div>
       </div>
       {/* Payment Reminders & Notifications */}
       <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
-          <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">Payment Reminders & Notifications</h2>
+          <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('payments.paymentReminders.title')}</h2>
         </div>
         <div className="flex flex-wrap gap-2 mb-2">
-          <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-xs">Before Due</span>
-          <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs">On Due</span>
-          <span className="bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full text-xs">After Due</span>
-          <span className="bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full text-xs">Email</span>
-          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full text-xs">SMS</span>
-          <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs">WhatsApp</span>
+          <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-xs">{t('payments.paymentReminders.beforeDue')}</span>
+          <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs">{t('payments.paymentReminders.onDue')}</span>
+          <span className="bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full text-xs">{t('payments.paymentReminders.afterDue')}</span>
+          <span className="bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full text-xs">{t('payments.paymentReminders.email')}</span>
+          <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full text-xs">{t('payments.paymentReminders.sms')}</span>
+          <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-xs">{t('payments.paymentReminders.whatsapp')}</span>
         </div>
         <div className="flex gap-2 mt-2">
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold">Send Reminder</button>
-          <button className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg font-semibold">Configure</button>
+          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold">{t('payments.paymentReminders.sendReminder')}</button>
+          <button className="px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-lg font-semibold">{t('payments.paymentReminders.configure')}</button>
         </div>
       </div>
       {/* Refund Management */}
       <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
-          <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">Refund Management</h2>
+          <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('payments.refundManagement.title')}</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full text-sm">
             <thead>
               <tr className="bg-gray-100 dark:bg-gray-700">
-                <th className="px-4 py-2 text-left font-semibold">Applicant</th>
-                <th className="px-4 py-2 text-left font-semibold">Amount</th>
-                <th className="px-4 py-2 text-left font-semibold">Status</th>
-                <th className="px-4 py-2 text-left font-semibold">Mode</th>
-                <th className="px-4 py-2 text-left font-semibold">Date</th>
-                <th className="px-4 py-2 text-left font-semibold">Reason</th>
-                <th className="px-4 py-2 text-left font-semibold">Action</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.applicant')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.amount')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.status')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.mode')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.date')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.reason')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.action')}</th>
               </tr>
             </thead>
             <tbody>
@@ -276,8 +276,8 @@ export default function Payments() {
                   <td className="px-4 py-2">{r.date}</td>
                   <td className="px-4 py-2">{r.reason}</td>
                   <td className="px-4 py-2">
-                    <button className="text-green-600 hover:underline font-semibold transition-colors mr-2">Approve</button>
-                    <button className="text-red-600 hover:underline font-semibold transition-colors">Reject</button>
+                    <button className="text-green-600 hover:underline font-semibold transition-colors mr-2">{t('payments.actions.approve')}</button>
+                    <button className="text-red-600 hover:underline font-semibold transition-colors">{t('payments.actions.reject')}</button>
                   </td>
                 </tr>
               ))}
@@ -288,43 +288,43 @@ export default function Payments() {
       {/* Reports & Reconciliation */}
       <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
-          <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">Reports & Reconciliation</h2>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold" onClick={() => setShowReportModal(true)}><FiDownload className="inline mr-1" />Export</button>
+          <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('payments.reportsReconciliation.title')}</h2>
+          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold" onClick={() => setShowReportModal(true)}><FiDownload className="inline mr-1" />{t('payments.reportsReconciliation.export')}</button>
         </div>
         <div className="flex flex-col gap-2">
           {reports.map(r => (
             <div key={r.id} className="flex items-center gap-2 bg-gray-100 dark:bg-gray-700 rounded-lg p-3">
               <span className="font-semibold text-gray-700 dark:text-gray-200">{r.label}</span>
-              <span className="text-xs text-green-600">Collected: ₹{r.collected}</span>
-              <span className="text-xs text-yellow-600">Pending: ₹{r.pending}</span>
-              <span className="text-xs text-red-600">Refunds: ₹{r.refunds}</span>
+              <span className="text-xs text-green-600">{t('payments.reports.collected')}: ₹{r.collected}</span>
+              <span className="text-xs text-yellow-600">{t('payments.reports.pending')}: ₹{r.pending}</span>
+              <span className="text-xs text-red-600">{t('payments.reports.refunds')}: ₹{r.refunds}</span>
             </div>
           ))}
         </div>
-        <div className="mt-2 text-xs text-gray-500">AI: No unusual payments flagged.</div>
+        <div className="mt-2 text-xs text-gray-500">{t('payments.aiInsights')}</div>
       </div>
       {/* AI-Powered Enhancements */}
       <div className="bg-gradient-to-br from-yellow-50 to-pink-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-lg p-6 flex flex-col gap-4 mb-8 animate-fade-in">
         <div className="flex items-center gap-2 mb-2">
           <FiZap className="text-pink-500 animate-pulse" size={22} />
-          <span className="font-semibold text-lg text-gray-800 dark:text-gray-100">AI-Powered Enhancements</span>
+          <span className="font-semibold text-lg text-gray-800 dark:text-gray-100">{t('payments.aiEnhancements.title')}</span>
         </div>
         <div className="flex flex-wrap gap-4">
           <div className="flex items-center gap-2 bg-blue-100 dark:bg-blue-900/30 px-3 py-2 rounded-lg">
             <FiPieChart className="text-blue-500" />
-            <span className="font-medium text-blue-800 dark:text-blue-200">Fee Forecast: ₹{ytdCollected + 50000} expected</span>
+            <span className="font-medium text-blue-800 dark:text-blue-200">{t('payments.aiEnhancements.feeForecast', { amount: ytdCollected + 50000 })}</span>
           </div>
           <div className="flex items-center gap-2 bg-yellow-100 dark:bg-yellow-900/30 px-3 py-2 rounded-lg">
             <FiClock className="text-yellow-500" />
-            <span className="font-medium text-yellow-800 dark:text-yellow-200">Smart Reminders: Personalized for 3 students</span>
+            <span className="font-medium text-yellow-800 dark:text-yellow-200">{t('payments.aiEnhancements.smartReminders', { count: 3 })}</span>
           </div>
           <div className="flex items-center gap-2 bg-red-100 dark:bg-red-900/30 px-3 py-2 rounded-lg animate-bounce-in">
             <FiAlertCircle className="text-red-500" />
-            <span className="font-medium text-red-800 dark:text-red-200">Fraud Detection: No anomalies</span>
+            <span className="font-medium text-red-800 dark:text-red-200">{t('payments.aiEnhancements.fraudDetection')}</span>
           </div>
           <div className="flex items-center gap-2 bg-green-100 dark:bg-green-900/30 px-3 py-2 rounded-lg">
             <FiUsers className="text-green-500" />
-            <span className="font-medium text-green-800 dark:text-green-200">Chatbot Help: 5 queries resolved</span>
+            <span className="font-medium text-green-800 dark:text-green-200">{t('payments.aiEnhancements.chatbotHelp', { count: 5 })}</span>
           </div>
         </div>
       </div>
