@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   CalendarIcon,
   BookOpenIcon,
@@ -24,51 +25,52 @@ import KnowledgeHub from "./KnowledgeHub";
 import Gamification from "./Gamification";
 
 const TrainingDevelopment = () => {
+  const { t } = useTranslation(['admission', 'common']);
   const [selectedTab, setSelectedTab] = useState(0);
 
   const tabs = [
     {
-      name: "Training Calendar",
+      name: t('trainingDevelopment.tabs.trainingCalendar'),
       icon: CalendarIcon,
       component: TrainingCalendar
     },
     {
-      name: "Training Modules",
+      name: t('trainingDevelopment.tabs.trainingModules'),
       icon: BookOpenIcon,
       component: TrainingModules
     },
     {
-      name: "Onboarding",
+      name: t('trainingDevelopment.tabs.onboarding'),
       icon: UserGroupIcon,
       component: OnboardingPrograms
     },
     {
-      name: "Skill Gap Analysis",
+      name: t('trainingDevelopment.tabs.skillGapAnalysis'),
       icon: ChartBarIcon,
       component: SkillGapAnalysis
     },
     {
-      name: "Progress Tracking",
+      name: t('trainingDevelopment.tabs.progressTracking'),
       icon: AcademicCapIcon,
       component: ProgressTracking
     },
     {
-      name: "Trainer Management",
+      name: t('trainingDevelopment.tabs.trainerManagement'),
       icon: UserIcon,
       component: TrainerManagement
     },
     {
-      name: "Feedback & Evaluation",
+      name: t('trainingDevelopment.tabs.feedbackEvaluation'),
       icon: ChatBubbleLeftRightIcon,
       component: TrainingFeedback
     },
     {
-      name: "Knowledge Hub",
+      name: t('trainingDevelopment.tabs.knowledgeHub'),
       icon: BookmarkIcon,
       component: KnowledgeHub
     },
     {
-      name: "Gamification",
+      name: t('trainingDevelopment.tabs.gamification'),
       icon: TrophyIcon,
       component: Gamification
     }
@@ -79,12 +81,12 @@ const TrainingDevelopment = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Training & Development</h2>
-          <p className="text-gray-600">Manage and track team training, skills, and development</p>
+          <h2 className="text-2xl font-bold text-gray-900">{t('trainingDevelopment.title')}</h2>
+          <p className="text-gray-600">{t('trainingDevelopment.subtitle')}</p>
         </div>
         <div className="flex items-center gap-2">
           <SparklesIcon className="w-6 h-6 text-primary" />
-          <span className="text-sm text-gray-600">AI-Powered Insights</span>
+          <span className="text-sm text-gray-600">{t('trainingDevelopment.aiPoweredInsights')}</span>
         </div>
       </div>
 

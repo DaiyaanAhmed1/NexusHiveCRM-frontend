@@ -824,5 +824,235 @@
       "admin": "Admin: All Filters",
       "counselor": "Counselor: Assigned Only"
     }
+  },
+  "payments": {
+    "title": "Payments",
+    "today": "Today",
+    "thisMonth": "This Month",
+    "ytd": "YTD",
+    "pendingInvoices": "Pending Invoices",
+    "awaitingConfirmation": "Awaiting Confirmation",
+    "failedTxns": "Failed Txns",
+    "invoiceManagement": {
+      "title": "Invoice Management",
+      "createInvoice": "Create Invoice"
+    },
+    "table": {
+      "applicant": "Applicant",
+      "type": "Type",
+      "amount": "Amount",
+      "status": "Status",
+      "dueDate": "Due Date",
+      "mode": "Mode",
+      "actions": "Actions"
+    },
+    "status": {
+      "paid": "Paid",
+      "unpaid": "Unpaid",
+      "partial": "Partial",
+      "overdue": "Overdue"
+    },
+    "types": {
+      "applicationFee": "Application Fee",
+      "admissionFee": "Admission Fee",
+      "securityDeposit": "Security Deposit"
+    },
+    "modes": {
+      "online": "Online",
+      "bankTransfer": "Bank Transfer",
+      "card": "Card",
+      "upi": "UPI"
+    }
+  },
+  "workspace": {
+    "title": "Workspace",
+    "subtitle": "Unified dashboard for managing admissions, compliance, and daily operations.",
+    "complianceQuality": {
+      "tabs": {
+        "regulatoryDashboard": {
+          "name": "Regulatory Dashboard",
+          "description": "Compliance metrics and alerts"
+        },
+        "documentCompliance": {
+          "name": "Document Compliance",
+          "description": "Document verification and tracking"
+        },
+        "auditTrail": {
+          "name": "Audit Trail",
+          "description": "Action logs and accountability"
+        },
+        "qualityAssessment": {
+          "name": "Quality Assessment",
+          "description": "Internal quality indicators"
+        },
+        "policyCompliance": {
+          "name": "Policy Compliance",
+          "description": "Policy repository and validation"
+        },
+        "feedbackImprovement": {
+          "name": "Feedback & Improvement",
+          "description": "Feedback analysis and improvements"
+        },
+        "riskManagement": {
+          "name": "Risk Management",
+          "description": "Risk identification and mitigation"
+        },
+        "nonComplianceAlerts": {
+          "name": "Non-Compliance Alerts",
+          "description": "Alert management and case handling"
+        },
+        "reportsSubmissions": {
+          "name": "Reports",
+          "description": "Compliance reports and submissions"
+        }
+      }
+    },
+    "trainingDevelopment": {
+      "title": "Training & Development",
+      "teamTraining": {
+        "title": "Team Training",
+        "admissionProcess": "Admission Process Training",
+        "complianceTraining": "Compliance Training",
+        "digitalTools": "Digital Tools Training"
+      },
+      "knowledgeManagement": {
+        "title": "Knowledge Management",
+        "admissionGuidelines": "Admission Guidelines",
+        "complianceProcedures": "Compliance Procedures",
+        "departmentSOPs": "Department SOPs"
+      }
+    },
+    "workplace": {
+      "title": "Workplace",
+      "myProfile": {
+        "title": "My Profile",
+        "description": "View and update your personal information, upload documents."
+      },
+      "myHRBoard": {
+        "title": "My HR Board",
+        "monthlySalarySlip": "Monthly Salary Slip",
+        "leaveBalanceTracker": "Leave Balance Tracker",
+        "performanceReviewForm": "Performance Review Form",
+        "download": "Download"
+      },
+      "myReferral": {
+        "title": "My Referral",
+        "submitReferral": "Submit Referral",
+        "trackReferralStatus": "Track Referral Status"
+      },
+      "taskBox": {
+        "title": "Task Box",
+        "submitDepartmentalBudgetProposal": "Submit departmental budget proposal",
+        "conductInternalAuditForLabEquipment": "Conduct internal audit for lab equipment",
+        "approveStudentResearchApplications": "Approve student research applications"
+      },
+      "events": {
+        "title": "Events",
+        "annualTechSymposiumRegistrationOpen": "Annual Tech Symposium – Registration Open",
+        "internalFDPSchedule": "Internal FDP Schedule"
+      },
+      "attendance": {
+        "title": "Attendance",
+        "present": "Present",
+        "days": {
+          "present": "16 days",
+          "leave": "Leave: 2 days",
+          "absent": "Absent: 1 day"
+        },
+        "submitAttendanceCorrection": "Submit attendance correction for 14th March"
+      },
+      "recruitment": {
+        "title": "Recruitment",
+        "internalOpening": "Internal Opening",
+        "role": {
+          "dean": "Dean - School of Management"
+        },
+        "submitSOPForRoleUpgrade": "Submit SOP for role upgrade"
+      },
+      "geoFencing": {
+        "title": "Geo-Fencing",
+        "checkedIn": "Checked in from Main Campus",
+        "time": "@ 9:02 AM",
+        "alert": "Alert",
+        "outOfZoneAttendanceAttempt": "Out-of-zone attendance attempt"
+      }
+    },
+    "status": {
+      "inProgress": "In Progress",
+      "completed": "Completed",
+      "pending": "Pending"
+    }
+  },
+  "courseManagement": {
+    "title": "Course Management",
+    "subtitle": "Manage and coordinate academic programs across colleges and departments",
+    "tabs": {
+      "courseCatalog": "Course Catalog",
+      "addEditCourses": "Add/Edit Courses",
+      "visibilitySettings": "Visibility Settings",
+      "seatMonitoring": "Seat Monitoring",
+      "linkedApplications": "Linked Applications",
+      "feeMapping": "Fee Mapping",
+      "documentRequirements": "Document Requirements",
+      "academicMetrics": "Academic Metrics",
+      "bulkActions": "Bulk Actions",
+      "marketingReadiness": "Marketing Readiness"
+    }
+  },
+  "complianceQuality": {
+    "tabs": {
+      "regulatoryDashboard": {
+        "name": "Regulatory Dashboard",
+        "description": "Compliance metrics and alerts"
+      },
+      "documentCompliance": {
+        "name": "Document Compliance",
+        "description": "Document verification and tracking"
+      },
+      "auditTrail": {
+        "name": "Audit Trail",
+        "description": "Action logs and accountability"
+      },
+      "qualityAssessment": {
+        "name": "Quality Assessment",
+        "description": "Internal quality indicators"
+      },
+      "policyCompliance": {
+        "name": "Policy Compliance",
+        "description": "Policy repository and validation"
+      },
+      "feedbackImprovement": {
+        "name": "Feedback & Improvement",
+        "description": "Feedback analysis and improvements"
+      },
+      "riskManagement": {
+        "name": "Risk Management",
+        "description": "Risk identification and mitigation"
+      },
+      "nonComplianceAlerts": {
+        "name": "Non-Compliance Alerts",
+        "description": "Alert management and case handling"
+      },
+      "reportsSubmissions": {
+        "name": "Reports",
+        "description": "Compliance reports and submissions"
+      }
+    }
+  },
+  "trainingDevelopment": {
+    "title": "Training & Development",
+    "subtitle": "Manage and track team training, skills, and development",
+    "aiPoweredInsights": "AI-Powered Insights",
+    "tabs": {
+      "trainingCalendar": "Training Calendar",
+      "trainingModules": "Training Modules",
+      "onboarding": "Onboarding",
+      "skillGapAnalysis": "Skill Gap Analysis",
+      "progressTracking": "Progress Tracking",
+      "trainerManagement": "Trainer Management",
+      "feedbackEvaluation": "Feedback & Evaluation",
+      "knowledgeHub": "Knowledge Hub",
+      "gamification": "Gamification"
+    }
   }
 } 

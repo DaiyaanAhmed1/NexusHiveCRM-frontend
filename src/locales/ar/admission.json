@@ -829,5 +829,197 @@
       "admin": "المدير: جميع المرشحات",
       "counselor": "المستشار: المخصص فقط"
     }
+  },
+
+  "workspace": {
+    "title": "مساحة العمل",
+    "subtitle": "لوحة موحدة لإدارة القبول والامتثال والعمليات اليومية.",
+    "complianceQuality": {
+      "tabs": {
+        "regulatoryDashboard": {
+          "name": "لوحة الامتثال التنظيمي",
+          "description": "مقاييس الامتثال والتنبيهات"
+        },
+        "documentCompliance": {
+          "name": "امتثال المستندات",
+          "description": "التحقق من المستندات والتتبع"
+        },
+        "auditTrail": {
+          "name": "مسار المراجعة",
+          "description": "سجلات الإجراءات والمساءلة"
+        },
+        "qualityAssessment": {
+          "name": "تقييم الجودة",
+          "description": "مؤشرات الجودة الداخلية"
+        },
+        "policyCompliance": {
+          "name": "امتثال السياسات",
+          "description": "مستودع السياسات والتحقق"
+        },
+        "feedbackImprovement": {
+          "name": "التعليقات والتحسين",
+          "description": "تحليل التعليقات والتحسينات"
+        },
+        "riskManagement": {
+          "name": "إدارة المخاطر",
+          "description": "تحديد المخاطر والتخفيف منها"
+        },
+        "nonComplianceAlerts": {
+          "name": "تنبيهات عدم الامتثال",
+          "description": "إدارة التنبيهات والتعامل مع الحالات"
+        },
+        "reportsSubmissions": {
+          "name": "التقارير",
+          "description": "تقارير الامتثال والتقديمات"
+        }
+      }
+    },
+    "trainingDevelopment": {
+      "title": "التدريب والتطوير",
+      "teamTraining": {
+        "title": "تدريب الفريق",
+        "admissionProcess": "تدريب عملية القبول",
+        "complianceTraining": "تدريب الامتثال",
+        "digitalTools": "تدريب الأدوات الرقمية"
+      },
+      "knowledgeManagement": {
+        "title": "إدارة المعرفة",
+        "admissionGuidelines": "إرشادات القبول",
+        "complianceProcedures": "إجراءات الامتثال",
+        "departmentSOPs": "إجراءات التشغيل القياسية للأقسام"
+      }
+    },
+    "workplace": {
+      "title": "مكان العمل",
+      "myProfile": {
+        "title": "ملفي الشخصي",
+        "description": "عرض وتحديث معلوماتك الشخصية، رفع المستندات."
+      },
+      "myHRBoard": {
+        "title": "لوحة الموارد البشرية",
+        "monthlySalarySlip": "مسير الراتب الشهري",
+        "leaveBalanceTracker": "متتبع رصيد الإجازة",
+        "performanceReviewForm": "نموذج مراجعة الأداء",
+        "download": "تحميل"
+      },
+      "myReferral": {
+        "title": "إحالتي",
+        "submitReferral": "إرسال الإحالة",
+        "trackReferralStatus": "تتبع حالة الإحالة"
+      },
+      "taskBox": {
+        "title": "صندوق المهام",
+        "submitDepartmentalBudgetProposal": "إرسال اقتراح ميزانية القسم",
+        "conductInternalAuditForLabEquipment": "إجراء تدقيق داخلي لمعدات المختبر",
+        "approveStudentResearchApplications": "الموافقة على طلبات البحث الطلابية"
+      },
+      "events": {
+        "title": "الأحداث",
+        "annualTechSymposiumRegistrationOpen": "الندوة التقنية السنوية – التسجيل مفتوح",
+        "internalFDPSchedule": "جدول التطوير المهني الداخلي"
+      },
+      "attendance": {
+        "title": "الحضور",
+        "present": "حاضر",
+        "days": {
+          "present": "16 يوم",
+          "leave": "إجازة: يومان",
+          "absent": "غائب: يوم واحد"
+        },
+        "submitAttendanceCorrection": "إرسال تصحيح الحضور لـ 14 مارس"
+      },
+      "recruitment": {
+        "title": "التوظيف",
+        "internalOpening": "فتح داخلي",
+        "role": {
+          "dean": "عميد - كلية الإدارة"
+        },
+        "submitSOPForRoleUpgrade": "إرسال إجراءات التشغيل القياسية لترقية الدور"
+      },
+      "geoFencing": {
+        "title": "السياج الجغرافي",
+        "checkedIn": "تم تسجيل الدخول من الحرم الجامعي الرئيسي",
+        "time": "@ 9:02 ص",
+        "alert": "تنبيه",
+        "outOfZoneAttendanceAttempt": "محاولة حضور خارج المنطقة"
+      }
+    },
+    "status": {
+      "inProgress": "قيد التنفيذ",
+      "completed": "مكتمل",
+      "pending": "معلق"
+    }
+  },
+  "courseManagement": {
+    "title": "إدارة الدورات",
+    "subtitle": "إدارة وتنسيق البرامج الأكاديمية عبر الكليات والأقسام",
+    "tabs": {
+      "courseCatalog": "كتالوج الدورات",
+      "addEditCourses": "إضافة/تعديل الدورات",
+      "visibilitySettings": "إعدادات الرؤية",
+      "seatMonitoring": "مراقبة المقاعد",
+      "linkedApplications": "الطلبات المرتبطة",
+      "feeMapping": "تخطيط الرسوم",
+      "documentRequirements": "متطلبات المستندات",
+      "academicMetrics": "المقاييس الأكاديمية",
+      "bulkActions": "الإجراءات الجماعية",
+      "marketingReadiness": "جاهزية التسويق"
+    }
+  },
+  "complianceQuality": {
+    "tabs": {
+      "regulatoryDashboard": {
+        "name": "لوحة الامتثال التنظيمي",
+        "description": "مقاييس الامتثال والتنبيهات"
+      },
+      "documentCompliance": {
+        "name": "امتثال المستندات",
+        "description": "التحقق من المستندات والتتبع"
+      },
+      "auditTrail": {
+        "name": "مسار المراجعة",
+        "description": "سجلات الإجراءات والمساءلة"
+      },
+      "qualityAssessment": {
+        "name": "تقييم الجودة",
+        "description": "مؤشرات الجودة الداخلية"
+      },
+      "policyCompliance": {
+        "name": "امتثال السياسات",
+        "description": "مستودع السياسات والتحقق"
+      },
+      "feedbackImprovement": {
+        "name": "التعليقات والتحسين",
+        "description": "تحليل التعليقات والتحسينات"
+      },
+      "riskManagement": {
+        "name": "إدارة المخاطر",
+        "description": "تحديد المخاطر والتخفيف منها"
+      },
+      "nonComplianceAlerts": {
+        "name": "تنبيهات عدم الامتثال",
+        "description": "إدارة التنبيهات والتعامل مع الحالات"
+      },
+      "reportsSubmissions": {
+        "name": "التقارير",
+        "description": "تقارير الامتثال والتقديمات"
+      }
+    }
+  },
+  "trainingDevelopment": {
+    "title": "التدريب والتطوير",
+    "subtitle": "إدارة وتتبع تدريب الفريق والمهارات والتطوير",
+    "aiPoweredInsights": "رؤى مدعومة بالذكاء الاصطناعي",
+    "tabs": {
+      "trainingCalendar": "تقويم التدريب",
+      "trainingModules": "وحدات التدريب",
+      "onboarding": "التوجيه",
+      "skillGapAnalysis": "تحليل فجوة المهارات",
+      "progressTracking": "تتبع التقدم",
+      "trainerManagement": "إدارة المدربين",
+      "feedbackEvaluation": "التعليقات والتقييم",
+      "knowledgeHub": "مركز المعرفة",
+      "gamification": "التلعيب"
+    }
   }
 } 

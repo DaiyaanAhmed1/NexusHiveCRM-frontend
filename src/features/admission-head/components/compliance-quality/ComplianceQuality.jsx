@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Tab } from '@headlessui/react';
 import {
   ClipboardDocumentCheckIcon,
@@ -27,64 +28,66 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
-const tabs = [
-  {
-    name: 'Regulatory Dashboard',
-    icon: ClipboardDocumentCheckIcon,
-    component: RegulatoryDashboard,
-    description: 'Compliance metrics and alerts'
-  },
-  {
-    name: 'Document Compliance',
-    icon: DocumentTextIcon,
-    component: DocumentCompliance,
-    description: 'Document verification and tracking'
-  },
-  {
-    name: 'Audit Trail',
-    icon: ClipboardDocumentListIcon,
-    component: AuditTrail,
-    description: 'Action logs and accountability'
-  },
-  {
-    name: 'Quality Assessment',
-    icon: ChartBarIcon,
-    component: InternalQualityAssessment,
-    description: 'Internal quality indicators'
-  },
-  {
-    name: 'Policy Compliance',
-    icon: DocumentMagnifyingGlassIcon,
-    component: PolicyCompliance,
-    description: 'Policy repository and validation'
-  },
-  {
-    name: 'Feedback & Improvement',
-    icon: ChatBubbleLeftRightIcon,
-    component: FeedbackImprovement,
-    description: 'Feedback analysis and improvements'
-  },
-  {
-    name: 'Risk Management',
-    icon: ExclamationTriangleIcon,
-    component: RiskManagement,
-    description: 'Risk identification and mitigation'
-  },
-  {
-    name: 'Non-Compliance Alerts',
-    icon: BellAlertIcon,
-    component: NonComplianceAlerts,
-    description: 'Alert management and case handling'
-  },
-  {
-    name: 'Reports',
-    icon: DocumentArrowDownIcon,
-    component: ReportsSubmissions,
-    description: 'Compliance reports and submissions'
-  }
-];
-
 const ComplianceQuality = () => {
+  const { t } = useTranslation(['admission', 'common']);
+  
+  const tabs = [
+    {
+      name: t('complianceQuality.tabs.regulatoryDashboard.name'),
+      icon: ClipboardDocumentCheckIcon,
+      component: RegulatoryDashboard,
+      description: t('complianceQuality.tabs.regulatoryDashboard.description')
+    },
+    {
+      name: t('complianceQuality.tabs.documentCompliance.name'),
+      icon: DocumentTextIcon,
+      component: DocumentCompliance,
+      description: t('complianceQuality.tabs.documentCompliance.description')
+    },
+    {
+      name: t('complianceQuality.tabs.auditTrail.name'),
+      icon: ClipboardDocumentListIcon,
+      component: AuditTrail,
+      description: t('complianceQuality.tabs.auditTrail.description')
+    },
+    {
+      name: t('complianceQuality.tabs.qualityAssessment.name'),
+      icon: ChartBarIcon,
+      component: InternalQualityAssessment,
+      description: t('complianceQuality.tabs.qualityAssessment.description')
+    },
+    {
+      name: t('complianceQuality.tabs.policyCompliance.name'),
+      icon: DocumentMagnifyingGlassIcon,
+      component: PolicyCompliance,
+      description: t('complianceQuality.tabs.policyCompliance.description')
+    },
+    {
+      name: t('complianceQuality.tabs.feedbackImprovement.name'),
+      icon: ChatBubbleLeftRightIcon,
+      component: FeedbackImprovement,
+      description: t('complianceQuality.tabs.feedbackImprovement.description')
+    },
+    {
+      name: t('complianceQuality.tabs.riskManagement.name'),
+      icon: ExclamationTriangleIcon,
+      component: RiskManagement,
+      description: t('complianceQuality.tabs.riskManagement.description')
+    },
+    {
+      name: t('complianceQuality.tabs.nonComplianceAlerts.name'),
+      icon: BellAlertIcon,
+      component: NonComplianceAlerts,
+      description: t('complianceQuality.tabs.nonComplianceAlerts.description')
+    },
+    {
+      name: t('complianceQuality.tabs.reportsSubmissions.name'),
+      icon: DocumentArrowDownIcon,
+      component: ReportsSubmissions,
+      description: t('complianceQuality.tabs.reportsSubmissions.description')
+    }
+  ];
+
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (

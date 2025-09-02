@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { FiCreditCard, FiDollarSign, FiClock, FiCheckCircle, FiXCircle, FiRefreshCw, FiPieChart, FiBarChart2, FiDownload, FiUpload, FiMail, FiAlertCircle, FiZap, FiChevronDown, FiChevronUp, FiPlus, FiEdit2, FiTrash2, FiUser, FiUsers, FiSearch, FiFilter, FiArrowRight } from 'react-icons/fi';
 
 // Mock data
@@ -7,6 +8,8 @@ const mockApplicants = [
   { id: 'A002', name: 'Layla Al-Mansour', dept: 'Business', program: 'MBA', nationality: 'Saudi' },
   { id: 'A003', name: 'Omar Al-Mutairi', dept: 'Engineering', program: 'M.Tech', nationality: 'Saudi' },
 ];
+
+// Mock data will be localized in the component
 const mockInvoices = [
   { id: 'INV001', applicant: mockApplicants[0], type: 'Application Fee', amount: 1500, status: 'Paid', date: '2024-06-10', due: '2024-06-15', mode: 'Online', notes: '', discount: 0 },
   { id: 'INV002', applicant: mockApplicants[1], type: 'Admission Fee', amount: 50000, status: 'Unpaid', date: '2024-06-09', due: '2024-06-20', mode: '', notes: '', discount: 5000 },
@@ -26,9 +29,23 @@ const mockReports = [
 ];
 
 export default function Payments() {
+  const { t } = useTranslation(['admission', 'common']);
+  
+  // Localized mock data
+  const localizedInvoices = [
+    { id: 'INV001', applicant: mockApplicants[0], type: t('payments.types.applicationFee'), amount: 1500, status: t('payments.status.paid'), date: '2024-06-10', due: '2024-06-15', mode: t('payments.modes.online'), notes: '', discount: 0 },
+    { id: 'INV002', applicant: mockApplicants[1], type: t('payments.types.admissionFee'), amount: 50000, status: t('payments.status.unpaid'), date: '2024-06-09', due: '2024-06-20', mode: '', notes: '', discount: 5000 },
+    { id: 'INV003', applicant: mockApplicants[2], type: t('payments.types.securityDeposit'), amount: 10000, status: t('payments.status.partial'), date: '2024-06-08', due: '2024-06-18', mode: t('payments.modes.bankTransfer'), notes: '', discount: 0 },
+  ];
+  const localizedPayments = [
+    { id: 'PAY001', invoice: 'INV001', applicant: mockApplicants[0], type: t('payments.types.applicationFee'), amount: 1500, status: 'Success', date: '2024-06-10', mode: t('payments.modes.card'), ref: 'TXN123', receipt: true },
+    { id: 'PAY002', invoice: 'INV003', applicant: mockApplicants[2], type: t('payments.types.securityDeposit'), amount: 5000, status: 'Pending', date: '2024-06-09', mode: 'UPI', ref: 'TXN124', receipt: false },
+    { id: 'PAY003', invoice: 'INV003', applicant: mockApplicants[2], type: t('payments.types.securityDeposit'), amount: 5000, status: 'Success', date: '2024-06-10', mode: t('payments.modes.bankTransfer'), ref: 'TXN125', receipt: true },
+  ];
+  
   // State
-  const [invoices, setInvoices] = useState(mockInvoices);
-  const [payments, setPayments] = useState(mockPayments);
+  const [invoices, setInvoices] = useState(localizedInvoices);
+  const [payments, setPayments] = useState(localizedPayments);
   const [refunds, setRefunds] = useState(mockRefunds);
   const [reports, setReports] = useState(mockReports);
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
@@ -50,58 +67,57 @@ export default function Payments() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-100 dark:from-gray-900 dark:to-gray-950 p-6 animate-fade-in">
-      <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-8 tracking-tight">Payments</h1>
+      <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-8 tracking-tight">{t('payments.title')}</h1>
       {/* Payments Dashboard */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
         <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-4 flex flex-col items-center gap-1">
           <FiDollarSign className="text-blue-500 mb-1" size={22} />
-          <span className="text-xs text-gray-500">Today</span>
+          <span className="text-xs text-gray-500">{t('payments.today')}</span>
           <span className="text-2xl font-bold text-blue-700 dark:text-blue-300">₹{todayCollected}</span>
         </div>
         <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-4 flex flex-col items-center gap-1">
           <FiDollarSign className="text-purple-500 mb-1" size={22} />
-          <span className="text-xs text-gray-500">This Month</span>
+          <span className="text-xs text-gray-500">{t('payments.thisMonth')}</span>
           <span className="text-2xl font-bold text-purple-700 dark:text-purple-300">₹{monthCollected}</span>
         </div>
         <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-4 flex flex-col items-center gap-1">
           <FiDollarSign className="text-green-500 mb-1" size={22} />
-          <span className="text-xs text-gray-500">YTD</span>
+          <span className="text-xs text-gray-500">{t('payments.ytd')}</span>
           <span className="text-2xl font-bold text-green-700 dark:text-green-300">₹{ytdCollected}</span>
         </div>
         <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-4 flex flex-col items-center gap-1">
           <FiCreditCard className="text-yellow-500 mb-1" size={22} />
-          <span className="text-xs text-gray-500">Pending Invoices</span>
+          <span className="text-xs text-gray-500">{t('payments.pendingInvoices')}</span>
           <span className="text-2xl font-bold text-yellow-700 dark:text-yellow-300">{pendingInvoices}</span>
         </div>
         <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-4 flex flex-col items-center gap-1">
           <FiRefreshCw className="text-pink-500 mb-1" size={22} />
-          <span className="text-xs text-gray-500">Awaiting Confirmation</span>
+          <span className="text-xs text-gray-500">{t('payments.awaitingConfirmation')}</span>
           <span className="text-2xl font-bold text-pink-700 dark:text-pink-300">{awaitingConfirmation}</span>
         </div>
         <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-4 flex flex-col items-center gap-1">
           <FiXCircle className="text-red-500 mb-1" size={22} />
-          <span className="text-xs text-gray-500">Failed Txns</span>
+          <span className="text-xs text-gray-500">{t('payments.failedTxns')}</span>
           <span className="text-2xl font-bold text-red-700 dark:text-red-300">{failedTxns}</span>
         </div>
       </div>
       {/* Invoice Management Panel */}
       <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
-          <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">Invoice Management</h2>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold" onClick={() => setShowInvoiceModal(true)}><FiPlus className="inline mr-1" />Create Invoice</button>
+          <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('payments.invoiceManagement.title')}</h2>
+          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold" onClick={() => setShowInvoiceModal(true)}><FiPlus className="inline mr-1" />{t('payments.invoiceManagement.createInvoice')}</button>
         </div>
         <div className="overflow-x-auto">
           <table className="min-w-full text-sm">
             <thead>
               <tr className="bg-gray-100 dark:bg-gray-700">
-                <th className="px-4 py-2 text-left font-semibold">Applicant</th>
-                <th className="px-4 py-2 text-left font-semibold">Type</th>
-                <th className="px-4 py-2 text-left font-semibold">Amount</th>
-                <th className="px-4 py-2 text-left font-semibold">Status</th>
-                <th className="px-4 py-2 text-left font-semibold">Date</th>
-                <th className="px-4 py-2 text-left font-semibold">Due</th>
-                <th className="px-4 py-2 text-left font-semibold">Mode</th>
-                <th className="px-4 py-2 text-left font-semibold">Action</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.applicant')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.type')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.amount')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.status')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.dueDate')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.mode')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{t('payments.table.actions')}</th>
               </tr>
             </thead>
             <tbody>

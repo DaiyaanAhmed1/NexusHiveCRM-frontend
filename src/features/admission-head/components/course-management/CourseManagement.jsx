@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Tab } from '@headlessui/react';
 import { 
   BookOpenIcon, 
@@ -30,19 +31,20 @@ function classNames(...classes) {
 }
 
 const CourseManagement = () => {
+  const { t } = useTranslation(['admission', 'common']);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const tabs = [
-    { name: 'Course Catalog', icon: BookOpenIcon, component: CourseCatalog },
-    { name: 'Add/Edit Courses', icon: PlusCircleIcon, component: CourseForm },
-    { name: 'Visibility Settings', icon: EyeIcon, component: VisibilitySettings },
-    { name: 'Seat Monitoring', icon: UserGroupIcon, component: SeatMonitoring },
-    { name: 'Linked Applications', icon: LinkIcon, component: LinkedApplications },
-    { name: 'Fee Mapping', icon: CurrencyDollarIcon, component: FeeMapping },
-    { name: 'Document Requirements', icon: DocumentTextIcon, component: DocumentRequirements },
-    { name: 'Academic Metrics', icon: ChartBarIcon, component: AcademicMetrics },
-    { name: 'Bulk Actions', icon: ArrowPathIcon, component: BulkActions },
-    { name: 'Marketing Readiness', icon: MegaphoneIcon, component: MarketingReadiness },
+    { name: t('courseManagement.tabs.courseCatalog'), icon: BookOpenIcon, component: CourseCatalog },
+    { name: t('courseManagement.tabs.addEditCourses'), icon: PlusCircleIcon, component: CourseForm },
+    { name: t('courseManagement.tabs.visibilitySettings'), icon: EyeIcon, component: VisibilitySettings },
+    { name: t('courseManagement.tabs.seatMonitoring'), icon: UserGroupIcon, component: SeatMonitoring },
+    { name: t('courseManagement.tabs.linkedApplications'), icon: LinkIcon, component: LinkedApplications },
+    { name: t('courseManagement.tabs.feeMapping'), icon: CurrencyDollarIcon, component: FeeMapping },
+    { name: t('courseManagement.tabs.documentRequirements'), icon: DocumentTextIcon, component: DocumentRequirements },
+    { name: t('courseManagement.tabs.academicMetrics'), icon: ChartBarIcon, component: AcademicMetrics },
+    { name: t('courseManagement.tabs.bulkActions'), icon: ArrowPathIcon, component: BulkActions },
+    { name: t('courseManagement.tabs.marketingReadiness'), icon: MegaphoneIcon, component: MarketingReadiness },
   ];
 
   return (
@@ -50,10 +52,10 @@ const CourseManagement = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            Course Management
+            {t('courseManagement.title')}
           </h1>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            Manage and coordinate academic programs across colleges and departments
+            {t('courseManagement.subtitle')}
           </p>
         </div>
 
