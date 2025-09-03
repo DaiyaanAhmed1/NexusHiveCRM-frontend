@@ -115,7 +115,7 @@ export default function AdmissionHeadLeadsApplicants() {
   }, {});
 
   return (
-    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-6 animate-fade-in">
+    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-6 animate-fade-in" data-tour="1" data-tour-title-en="Leads & Applicants" data-tour-title-ar="العملاء والطلبات" data-tour-content-en="Filter, view pipeline, and inspect lead details." data-tour-content-ar="رشّح واعرض خط الأنابيب وتصفّح تفاصيل العميل.">
       {/* Tabs */}
       <div className="flex gap-2 border-b border-gray-200 dark:border-gray-700 mb-2">
         {tabs.map(tab => (
@@ -130,7 +130,7 @@ export default function AdmissionHeadLeadsApplicants() {
       </div>
 
       {/* Filter/Search Bar */}
-      <div className="flex flex-wrap gap-2 items-center bg-white dark:bg-gray-800/80 rounded-xl shadow px-4 py-3">
+      <div className="flex flex-wrap gap-2 items-center bg-white dark:bg-gray-800/80 rounded-xl shadow px-4 py-3" data-tour="2" data-tour-title-en="Filters & Search" data-tour-title-ar="المرشحات والبحث" data-tour-content-en="Search and filter candidates by program, geo, officer, status, and source." data-tour-content-ar="ابحث وفلتر المتقدمين حسب البرنامج والمنطقة والمسؤول والحالة والمصدر.">
         <FiFilter className="text-gray-400 mr-2" />
         <input
           type="text"
@@ -172,7 +172,7 @@ export default function AdmissionHeadLeadsApplicants() {
       </div>
 
       {/* Kanban Pipeline */}
-      <div className="overflow-x-auto pb-2">
+      <div className="overflow-x-auto pb-2" data-tour="3" data-tour-title-en="Pipeline" data-tour-title-ar="خط الأنابيب" data-tour-content-en="Stage-wise view of leads across the pipeline." data-tour-content-ar="عرض حسب المراحل للعملاء عبر خط الأنابيب.">
         <div className="flex gap-4 min-w-[900px]">
           {pipelineStages.map(stage => (
             <div key={stage} className="flex-1 min-w-[220px] bg-gray-50 dark:bg-gray-800/60 rounded-xl shadow p-2">
@@ -208,7 +208,7 @@ export default function AdmissionHeadLeadsApplicants() {
 
       {/* Lead Profile Drawer */}
       {selectedLead && (
-        <div className="fixed inset-0 z-40 flex">
+        <div className="fixed inset-0 z-40 flex" data-tour="4" data-tour-title-en="Lead Details" data-tour-title-ar="تفاصيل العميل" data-tour-content-en="Contact info, notes, timeline, and AI prediction." data-tour-content-ar="معلومات التواصل والملاحظات والجدول الزمني وتوقع الذكاء الاصطناعي.">
           <div className="fixed inset-0 bg-black/30" onClick={() => setSelectedLead(null)} />
           <div className="relative w-full max-w-md bg-white dark:bg-gray-900 shadow-xl h-full overflow-y-auto p-6 animate-slide-in-right">
             <button className="absolute top-4 right-4 text-gray-400 hover:text-gray-600" onClick={() => setSelectedLead(null)}><FiX size={22} /></button>
@@ -277,7 +277,7 @@ export default function AdmissionHeadLeadsApplicants() {
       {/* Real Functional Components */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Application Manager */}
-        <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6">
+        <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6" data-tour="5" data-tour-title-en="Application Manager" data-tour-title-ar="مدير الطلبات" data-tour-content-en="Manage applications, statuses, and actions." data-tour-content-ar="أدر الطلبات والحالات والإجراءات.">
           <div className="flex items-center gap-2 mb-4"><FiBarChart2 className="text-blue-500" /><h2 className="text-lg font-semibold">{t('leadsApplicants.sections.applicationManager')}</h2></div>
           <div className="p-4 text-center text-gray-500">
             <p>Application Manager Component</p>
@@ -286,7 +286,7 @@ export default function AdmissionHeadLeadsApplicants() {
         </section>
         
         {/* Communication Triggers */}
-        <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6">
+        <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6" data-tour="6" data-tour-title-en="Communication Triggers" data-tour-title-ar="مشغلات التواصل" data-tour-content-en="Automated messages and follow-ups." data-tour-content-ar="رسائل آلية ومتابعات.">
           <div className="flex items-center gap-2 mb-4"><FiMessageCircle className="text-green-500" /><h2 className="text-lg font-semibold">{t('leadsApplicants.sections.communicationTriggers')}</h2></div>
           <div className="p-4 text-center text-gray-500">
             <p>Communication Triggers Component</p>
@@ -295,7 +295,7 @@ export default function AdmissionHeadLeadsApplicants() {
         </section>
         
         {/* Team Assignment & Workload */}
-        <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6">
+        <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6" data-tour="7" data-tour-title-en="Team Assignment" data-tour-title-ar="تعيين الفريق" data-tour-content-en="Balance counselor workload and assignments." data-tour-content-ar="وازن عبء عمل المستشارين والتعيينات.">
           <div className="flex items-center gap-2 mb-4"><FiUsers className="text-purple-500" /><h2 className="text-lg font-semibold">{t('leadsApplicants.sections.teamAssignmentWorkload')}</h2></div>
           <div className="p-4 text-center text-gray-500">
             <p>Team Workload Component</p>

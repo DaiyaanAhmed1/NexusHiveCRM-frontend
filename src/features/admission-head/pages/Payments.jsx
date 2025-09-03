@@ -63,13 +63,21 @@ export default function Payments() {
   const failedTxns = payments.filter(p => p.status === 'Failed').length;
 
   // Toast
-  useEffect(() => { if (toast) { const t = setTimeout(() => setToast(null), 2000); return () => clearTimeout(t); } }, [toast]);
+  useEffect(() => { if (toast) { const tmr = setTimeout(() => setToast(null), 2000); return () => clearTimeout(tmr); } }, [toast]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-100 dark:from-gray-900 dark:to-gray-950 p-6 animate-fade-in">
-      <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-8 tracking-tight">{t('payments.title')}</h1>
+    <div
+      className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-100 dark:from-gray-900 dark:to-gray-950 p-6 animate-fade-in"
+      data-tour="1"
+      data-tour-title-en="Payments Overview"
+      data-tour-title-ar="نظرة عامة على المدفوعات"
+      data-tour-content-en="KPIs, invoices, online tracking, history, bulk upload, reminders, refunds, reports, and AI."
+      data-tour-content-ar="المؤشرات، الفواتير، التتبع عبر الإنترنت، السجل، الرفع الجماعي، التذكيرات، الاستردادات، التقارير والذكاء."
+      data-tour-position="bottom"
+    >
+      <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-8 tracking-tight" data-tour="2" data-tour-title-en="Page Title" data-tour-title-ar="عنوان الصفحة" data-tour-content-en="Payments Management for admissions." data-tour-content-ar="إدارة المدفوعات للقبول.">{t('payments.title')}</h1>
       {/* Payments Dashboard */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8" data-tour="3" data-tour-title-en="KPIs" data-tour-title-ar="المؤشرات" data-tour-content-en="Collections today, month, YTD, pending invoices, awaiting confirmation, failed." data-tour-content-ar="تحصيلات اليوم، الشهر، منذ بداية العام، الفواتير المعلقة، بانتظار التأكيد، الفاشلة.">
         <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-4 flex flex-col items-center gap-1">
           <FiDollarSign className="text-blue-500 mb-1" size={22} />
           <span className="text-xs text-gray-500">{t('payments.today')}</span>
@@ -102,7 +110,7 @@ export default function Payments() {
         </div>
       </div>
       {/* Invoice Management Panel */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="4" data-tour-title-en="Invoices" data-tour-title-ar="الفواتير" data-tour-content-en="Create, manage, discount, and remind invoices." data-tour-content-ar="إنشاء وإدارة وخصم وتذكير الفواتير.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('payments.invoiceManagement.title')}</h2>
           <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold" onClick={() => setShowInvoiceModal(true)}><FiPlus className="inline mr-1" />{t('payments.invoiceManagement.createInvoice')}</button>
@@ -142,7 +150,7 @@ export default function Payments() {
         </div>
       </div>
       {/* Online Payment Tracking */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="5" data-tour-title-en="Online Tracking" data-tour-title-ar="التتبع عبر الإنترنت" data-tour-content-en="Real-time status, modes, references, and receipts." data-tour-content-ar="حالة فورية، الأوضاع، المراجع والإيصالات.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('payments.onlinePaymentTracking.title')}</h2>
         </div>
@@ -180,7 +188,7 @@ export default function Payments() {
         </div>
       </div>
       {/* Payment History per Applicant */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="6" data-tour-title-en="Payment History" data-tour-title-ar="سجل المدفوعات" data-tour-content-en="Applicant-wise history with actions and receipts." data-tour-content-ar="سجل بحسب المتقدم مع الإجراءات والإيصالات.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('payments.paymentHistory.title')}</h2>
         </div>
@@ -223,7 +231,7 @@ export default function Payments() {
         </div>
       </div>
       {/* Bulk Payment Upload / Offline Sync */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="7" data-tour-title-en="Bulk Upload" data-tour-title-ar="رفع جماعي" data-tour-content-en="Import offline payments and sync." data-tour-content-ar="استيراد المدفوعات دون اتصال والمزامنة.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('payments.bulkPaymentUpload.title')}</h2>
           <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold" onClick={() => setShowBulkModal(true)}><FiUpload className="inline mr-1" />{t('payments.bulkPaymentUpload.upload')}</button>
@@ -231,7 +239,7 @@ export default function Payments() {
         <div className="text-xs text-gray-500">{t('payments.bulkPaymentUpload.subtitle')}</div>
       </div>
       {/* Payment Reminders & Notifications */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="8" data-tour-title-en="Reminders" data-tour-title-ar="التذكيرات" data-tour-content-en="Configure and send payment reminders." data-tour-content-ar="إعداد وإرسال تذكيرات الدفع.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('payments.paymentReminders.title')}</h2>
         </div>
@@ -249,7 +257,7 @@ export default function Payments() {
         </div>
       </div>
       {/* Refund Management */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="9" data-tour-title-en="Refunds" data-tour-title-ar="المبالغ المستردة" data-tour-content-en="Approve, reject, and track refunds." data-tour-content-ar="الموافقة على المبالغ المستردة أو رفضها وتتبعها.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('payments.refundManagement.title')}</h2>
         </div>
@@ -286,7 +294,7 @@ export default function Payments() {
         </div>
       </div>
       {/* Reports & Reconciliation */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="10" data-tour-title-en="Reports & Reconciliation" data-tour-title-ar="التقارير والتسويات" data-tour-content-en="Export summaries and view AI insights." data-tour-content-ar="تصدير الملخصات وعرض رؤى الذكاء.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('payments.reportsReconciliation.title')}</h2>
           <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold" onClick={() => setShowReportModal(true)}><FiDownload className="inline mr-1" />{t('payments.reportsReconciliation.export')}</button>
@@ -304,7 +312,7 @@ export default function Payments() {
         <div className="mt-2 text-xs text-gray-500">{t('payments.aiInsights')}</div>
       </div>
       {/* AI-Powered Enhancements */}
-      <div className="bg-gradient-to-br from-yellow-50 to-pink-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-lg p-6 flex flex-col gap-4 mb-8 animate-fade-in">
+      <div className="bg-gradient-to-br from-yellow-50 to-pink-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-lg p-6 flex flex-col gap-4 mb-8 animate-fade-in" data-tour="11" data-tour-title-en="AI Enhancements" data-tour-title-ar="تحسينات الذكاء" data-tour-content-en="Forecasts, smart reminders, fraud detection, and chatbot help." data-tour-content-ar="التوقعات، التذكيرات الذكية، كشف الاحتيال، ومساعدة الروبوت.">
         <div className="flex items-center gap-2 mb-2">
           <FiZap className="text-pink-500 animate-pulse" size={22} />
           <span className="font-semibold text-lg text-gray-800 dark:text-gray-100">{t('payments.aiEnhancements.title')}</span>

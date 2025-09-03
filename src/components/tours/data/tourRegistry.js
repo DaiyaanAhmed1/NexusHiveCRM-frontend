@@ -48,10 +48,12 @@ export const tourRegistry = {
     documents: true,           // ✅ Has tour
     search: true,              // ✅ Has tour
     tools: true,               // ✅ Has tour
+    workspace: true,           // ✅ Has tour
     'lead-transfer': true,     // ✅ Has tour
     courses: true,             // ✅ Has tour
     training: true,            // ✅ Has tour
-    compliance: true           // ✅ Has tour
+    compliance: true,          // ✅ Has tour
+    support: true              // ✅ Has tour
   }
 };
 

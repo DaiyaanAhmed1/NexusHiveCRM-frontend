@@ -328,9 +328,9 @@ export default function SearchFilters() {
 
   // UI
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 dark:from-gray-900 dark:to-gray-950 p-0 animate-fade-in">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 dark:from-gray-900 dark:to-gray-950 p-0 animate-fade-in" data-tour="1" data-tour-title-en="Advanced Search Overview" data-tour-title-ar="نظرة عامة على البحث المتقدم" data-tour-content-en="Header, smart search, advanced filters, saved views, AI filters, access, results, and bulk actions." data-tour-content-ar="الرأس، البحث الذكي، المرشحات المتقدمة، العروض المحفوظة، مرشحات الذكاء، الوصول، النتائج والإجراءات الجماعية.">
       {/* Hero Header */}
-      <div className="w-full bg-gradient-to-r from-blue-600 to-purple-500 py-10 px-6 md:px-12 flex flex-col md:flex-row items-center gap-6 mb-10 rounded-b-3xl shadow-lg animate-fade-in">
+      <div className="w-full bg-gradient-to-r from-blue-600 to-purple-500 py-10 px-6 md:px-12 flex flex-col md:flex-row items-center gap-6 mb-10 rounded-b-3xl shadow-lg animate-fade-in" data-tour="2" data-tour-title-en="Header" data-tour-title-ar="الرأس" data-tour-content-en="Page title and description of advanced search." data-tour-content-ar="عنوان الصفحة ووصف البحث المتقدم.">
         <div className="flex items-center gap-4">
           <div className="bg-white/20 rounded-full p-4"><FiSearch className="text-white" size={40} /></div>
           <div>
@@ -343,7 +343,7 @@ export default function SearchFilters() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 pb-16">
         {/* Search Bar */}
-        <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 mb-8">
+        <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 mb-8" data-tour="3" data-tour-title-en="Smart Search" data-tour-title-ar="بحث ذكي" data-tour-content-en="Search with suggestions and deep links." data-tour-content-ar="بحث مع اقتراحات وروابط مباشرة.">
           <div className="relative">
             <FiSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
             <input
@@ -364,15 +364,18 @@ export default function SearchFilters() {
           </div>
         </div>
         {/* 2. Quick Filters (Mobile) */}
-        <div className="md:hidden flex flex-wrap gap-2 mb-4">
+        <div className="md:hidden flex flex-wrap gap-2 mb-4" data-tour="4" data-tour-title-en="Quick Filters" data-tour-title-ar="مرشحات سريعة" data-tour-content-en="One-tap filters for mobile." data-tour-content-ar="مرشحات بلمسة واحدة للجوال.">
           {quickFilters.map((q, i) => (
             <button key={i} className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-xs font-semibold" onClick={() => handleSearch(q)}>{q}</button>
           ))}
           <button className="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-semibold" onClick={() => setShowMobileFilters(v => !v)}><FiFilter className="inline mr-1" />{t('searchFilters.filters.mobile')}</button>
         </div>
         {/* 3. Advanced Filter Builder Panel */}
+        <div className="mb-6" data-tour="5" data-tour-title-en="Advanced Filters" data-tour-title-ar="مرشحات متقدمة" data-tour-content-en="Open the builder to combine multiple criteria." data-tour-content-ar="افتح المُنشئ لدمج معايير متعددة.">
+          <button className="px-3 py-2 bg-gray-200 text-gray-700 rounded-lg font-semibold" onClick={() => setShowFilterPanel(true)}><FiFilter className="inline mr-1" />{t('searchFilters.filters.advanced')}</button>
+        </div>
         {(showFilterPanel || showMobileFilters) && (
-          <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/30 animate-fade-in">
+          <div className="fixed inset-0 z-40 flex items-center justify-center bg-black/30 animate-fade-in" data-tour="6" data-tour-title-en="Filter Builder" data-tour-title-ar="منشئ المرشحات" data-tour-content-en="Fields for ID, name, contact, status, program, tags, counselor, date and score ranges." data-tour-content-ar="حقول للمعرف، الاسم، الاتصال، الحالة، البرنامج، الوسوم، المستشار، نطاقي التاريخ والدرجات.">
             <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-6 w-full max-w-2xl relative">
               <button className="absolute top-2 right-2 text-gray-400 hover:text-gray-700" onClick={() => { setShowFilterPanel(false); setShowMobileFilters(false); }}>&times;</button>
               <h2 className="text-lg font-bold mb-4 text-gray-800 dark:text-gray-100 flex items-center gap-2"><FiFilter />{t('searchFilters.filters.advanced')}</h2>
@@ -408,7 +411,7 @@ export default function SearchFilters() {
           </div>
         )}
         {/* 4. Saved Views & Custom Filters */}
-        <div className="mb-6">
+        <div className="mb-6" data-tour="7" data-tour-title-en="Saved Views" data-tour-title-ar="العروض المحفوظة" data-tour-content-en="Reuse, share, or set default views." data-tour-content-ar="أعد الاستخدام أو شارك أو اجعل العرض افتراضياً.">
           <div className="flex items-center gap-2 mb-2">
             <FiSave className="text-green-500" />
             <span className="font-semibold text-gray-700 dark:text-gray-200">{t('searchFilters.savedViews.title')}</span>
@@ -428,7 +431,7 @@ export default function SearchFilters() {
         </div>
         {/* 5. Bulk Action Enablers */}
         {bulkEnabled && (
-          <div className="mb-6 flex flex-wrap gap-2">
+          <div className="mb-6 flex flex-wrap gap-2" data-tour="11" data-tour-title-en="Bulk Actions" data-tour-title-ar="إجراءات جماعية" data-tour-content-en="Assign, tag, export, communicate, schedule, delete." data-tour-content-ar="تعيين، وسم، تصدير، تواصل، جدولة، حذف.">
             <button className="px-3 py-2 bg-blue-600 text-white rounded-lg font-semibold" onClick={() => handleBulkAction('Bulk Email')}><FiMail className="inline mr-1" />{t('searchFilters.bulkActions.bulkEmail')}</button>
             <button className="px-3 py-2 bg-green-600 text-white rounded-lg font-semibold" onClick={() => handleBulkAction('Bulk Approve')}><FiCheckCircle className="inline mr-1" />{t('searchFilters.bulkActions.bulkApprove')}</button>
             <button className="px-3 py-2 bg-red-600 text-white rounded-lg font-semibold" onClick={() => handleBulkAction('Bulk Reject')}><FiXCircle className="inline mr-1" />{t('searchFilters.bulkActions.bulkReject')}</button>
@@ -438,7 +441,7 @@ export default function SearchFilters() {
           </div>
         )}
         {/* 6. Smart Suggestions & AI Filters */}
-        <div className="mb-6">
+        <div className="mb-6" data-tour="8" data-tour-title-en="AI Filters" data-tour-title-ar="مرشحات الذكاء" data-tour-content-en="AI-based segments to search faster." data-tour-content-ar="شرائح معتمدة على الذكاء للبحث أسرع.">
           <div className="flex items-center gap-2 mb-2">
             <FiZap className="text-pink-500 animate-pulse" />
             <span className="font-semibold text-gray-700 dark:text-gray-200">{t('searchFilters.aiFilters.title')}</span>
@@ -450,7 +453,7 @@ export default function SearchFilters() {
           </div>
         </div>
         {/* 7. Access & Control */}
-        <div className="mb-6">
+        <div className="mb-6" data-tour="9" data-tour-title-en="Access & Control" data-tour-title-ar="الوصول والتحكم" data-tour-content-en="Role-based defaults and access hints." data-tour-content-ar="افتراضات حسب الدور ونصائح الوصول.">
           <div className="flex items-center gap-2 mb-2">
             <FiSettings className="text-blue-500" />
             <span className="font-semibold text-gray-700 dark:text-gray-200">{t('searchFilters.accessControl.title')}</span>
@@ -461,18 +464,24 @@ export default function SearchFilters() {
             <span className="bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full text-xs">{t('searchFilters.accessControl.counselor')}</span>
           </div>
         </div>
-        <ResultsTable
-          results={results}
-          onRowClick={profile => setProfileDrawer({ open: true, profile })}
-          selected={selected}
-          setSelected={setSelected}
-        />
+        {/* Results */}
+        <div data-tour="10" data-tour-title-en="Results" data-tour-title-ar="النتائج" data-tour-content-en="Interactive results with profile preview." data-tour-content-ar="نتائج تفاعلية مع معاينة الملف.">
+          <ResultsTable
+            results={results}
+            onRowClick={profile => setProfileDrawer({ open: true, profile })}
+            selected={selected}
+            setSelected={setSelected}
+          />
+        </div>
         <ProfileDrawer
           open={profileDrawer.open}
           onClose={() => setProfileDrawer({ open: false, profile: null })}
           profile={profileDrawer.profile}
         />
-        <BulkActionBar selected={selected} onAction={handleBulkAction} />
+        {/* Bulk Action Bar */}
+        <div data-tour="11" data-tour-title-en="Bulk Actions" data-tour-title-ar="إجراءات جماعية" data-tour-content-en="Assign, tag, export, communicate, schedule, delete." data-tour-content-ar="تعيين، وسم، تصدير، تواصل، جدولة، حذف.">
+          <BulkActionBar selected={selected} onAction={handleBulkAction} />
+        </div>
         {/* Toast */}
         {toast && <div className="fixed bottom-6 right-6 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-fade-in">{toast}</div>}
       </div>

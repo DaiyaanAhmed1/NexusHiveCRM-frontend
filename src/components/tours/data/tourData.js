@@ -358,29 +358,184 @@ export const tourData = {
   // ADMISSION HEAD ROLE TOURS
   'admission-head': {
     dashboard: {
+      autoScan: true,
       title: {
-        en: "Welcome to Admission Dashboard",
-        ar: "مرحباً بك في لوحة تحكم القبول"
+        en: "Admission Dashboard",
+        ar: "لوحة تحكم القبول"
       },
       description: {
-        en: "Let's explore your admission pipeline and student applications",
-        ar: "دعنا نستكشف خط أنابيب القبول وطلبات الطلاب"
+        en: "Explore the pipeline, KPIs, sources, departments, actions, and AI insights",
+        ar: "استكشف خط الأنابيب والمؤشرات والمصادر والأقسام والإجراءات ورؤى الذكاء الاصطناعي"
       },
-      steps: [
-        {
-          id: 1,
-          target: ".admission-header",
-          title: {
-            en: "Admission Overview",
-            ar: "نظرة عامة على القبول"
-          },
-          content: {
-            en: "Monitor applications, track leads, and manage the admission process",
-            ar: "راقب الطلبات وتتبع العملاء المحتملين وأدر عملية القبول"
-          },
-          position: "bottom"
-        }
-      ]
+      steps: []
+    },
+    applications: {
+      autoScan: true,
+      title: {
+        en: "Applications",
+        ar: "الطلبات"
+      },
+      description: {
+        en: "KPIs, status breakdowns, AI insights, tracker, verification, interviews, and offers",
+        ar: "المؤشرات وتقسيم الحالة ورؤى الذكاء والمتعقب والتحقق والمقابلات والعروض"
+      },
+      steps: []
+    },
+    leads: {
+      autoScan: true,
+      title: {
+        en: "Leads Management",
+        ar: "إدارة العملاء المحتملين"
+      },
+      description: {
+        en: "Capture, segment, nurture, and assign leads",
+        ar: "التقاط العملاء وتجزئتهم وتنميتهم وتوزيعهم"
+      },
+      steps: []
+    },
+    schedule: {
+      autoScan: true,
+      title: {
+        en: "Schedule & Appointments",
+        ar: "الجدولة والمواعيد"
+      },
+      description: {
+        en: "Manage calendars, interviews, bookings, and reminders",
+        ar: "إدارة التقويمات والمقابلات والحجوزات والتذكيرات"
+      },
+      steps: []
+    },
+    payments: {
+      autoScan: true,
+      title: {
+        en: "Payments Management",
+        ar: "إدارة المدفوعات"
+      },
+      description: {
+        en: "Invoices, payments, refunds, reminders, and reports",
+        ar: "الفواتير والمدفوعات والمبالغ المستردة والتذكيرات والتقارير"
+      },
+      steps: []
+    },
+    documents: {
+      autoScan: true,
+      title: {
+        en: "Documents & Verification",
+        ar: "الوثائق والتحقق"
+      },
+      description: {
+        en: "Manage requirements, uploads, verification, access, and compliance",
+        ar: "إدارة المتطلبات والرفع والتحقق والوصول والامتثال"
+      },
+      steps: []
+    },
+    courses: {
+      autoScan: true,
+      title: {
+        en: "Course Management",
+        ar: "إدارة الدورات"
+      },
+      description: {
+        en: "Catalog, visibility, seat monitoring, fee mapping, and readiness",
+        ar: "الفهرس، الرؤية، مراقبة المقاعد، تعيين الرسوم، والجاهزية"
+      },
+      steps: []
+    },
+    search: {
+      autoScan: true,
+      title: {
+        en: "Advanced Search & Filters",
+        ar: "البحث المتقدم والمرشحات"
+      },
+      description: {
+        en: "Filter leads and applications, save views, and analyze segments",
+        ar: "تصفية العملاء والطلبات، حفظ العروض، وتحليل الشرائح"
+      },
+      steps: []
+    },
+    tools: {
+      autoScan: true,
+      title: {
+        en: "Tools & Utilities",
+        ar: "الأدوات والمرافق"
+      },
+      description: {
+        en: "Automation, imports, exports, integrations, and logs",
+        ar: "الأتمتة، الاستيراد، التصدير، التكاملات والسجلات"
+      },
+      steps: []
+    },
+    training: {
+      autoScan: true,
+      title: {
+        en: "Training & Development",
+        ar: "التدريب والتطوير"
+      },
+      description: {
+        en: "Calendar, modules, onboarding, skill gaps, progress, trainers, feedback, knowledge hub, and gamification",
+        ar: "التقويم والوحدات والإعداد وفجوات المهارات والتقدم والمدربون والتغذية ومركز المعرفة واللعبية"
+      },
+      steps: []
+    },
+    workspace: {
+      autoScan: true,
+      title: {
+        en: "Workspace",
+        ar: "مساحة العمل"
+      },
+      description: {
+        en: "Quick links to training, compliance, HR, tasks, events, and more",
+        ar: "روابط سريعة للتدريب والامتثال والموارد البشرية والمهام والفعاليات والمزيد"
+      },
+      steps: []
+    },
+    'lead-transfer': {
+      autoScan: true,
+      title: {
+        en: "Lead Transfer Management",
+        ar: "إدارة نقل العملاء"
+      },
+      description: {
+        en: "Bulk transfers, conflict resolution, KPIs, workload, and history",
+        ar: "تحويلات جماعية، حل التعارض، مؤشرات، عبء العمل والسجل"
+      },
+      steps: []
+    },
+    compliance: {
+      autoScan: true,
+      title: {
+        en: "Compliance & Quality",
+        ar: "الامتثال والجودة"
+      },
+      description: {
+        en: "Audit trails, policy checks, risk management, and reports",
+        ar: "مسارات التدقيق، فحوصات السياسات، إدارة المخاطر والتقارير"
+      },
+      steps: []
+    },
+    communication: {
+      autoScan: true,
+      title: {
+        en: "Communication & Logs",
+        ar: "التواصل والسجلات"
+      },
+      description: {
+        en: "Send, track, and audit communications across channels",
+        ar: "إرسال وتتبع وتدقيق الاتصالات عبر القنوات"
+      },
+      steps: []
+    },
+    support: {
+      autoScan: true,
+      title: {
+        en: "Help & Support",
+        ar: "المساعدة والدعم"
+      },
+      description: {
+        en: "Raise tickets, track statuses, and browse knowledge base",
+        ar: "ارفع التذاكر وتابع الحالات وتصفح قاعدة المعرفة"
+      },
+      steps: []
     }
   }
 };

@@ -39,9 +39,9 @@ const LeadTransfer = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900" data-tour="1" data-tour-title-en="Lead Transfer Overview" data-tour-title-ar="نظرة عامة على نقل العملاء" data-tour-content-en="Header, tabs, overview, bulk transfer, conflicts, history, and KPIs." data-tour-content-ar="الرأس، علامات التبويب، النظرة العامة، النقل الجماعي، التعارضات، السجل ومؤشرات الأداء.">
       {/* Header */}
-      <div className="bg-white dark:bg-gray-800 shadow-sm">
+      <div className="bg-white dark:bg-gray-800 shadow-sm" data-tour="2" data-tour-title-en="Header" data-tour-title-ar="الرأس" data-tour-content-en="Module title and summary." data-tour-content-ar="عنوان الوحدة والملخص.">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <h1 className="text-2xl font-semibold text-gray-900 dark:text-white">
             {t('leadTransfer.title')}
@@ -55,7 +55,7 @@ const LeadTransfer = () => {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Tabs */}
-        <div className="border-b border-gray-200 dark:border-gray-700">
+        <div className="border-b border-gray-200 dark:border-gray-700" data-tour="3" data-tour-title-en="Tabs" data-tour-title-ar="علامات التبويب" data-tour-content-en="Switch between overview, bulk transfer, history, conflicts, and KPIs." data-tour-content-ar="التبديل بين النظرة العامة، النقل الجماعي، السجل، التعارضات ومؤشرات الأداء.">
           <nav className="-mb-px flex space-x-8">
             {tabs.map((tab) => (
               <button
@@ -78,11 +78,31 @@ const LeadTransfer = () => {
 
         {/* Tab Content */}
         <div className="mt-6">
-          {activeTab === 'overview' && <LeadOverviewPanel filters={filters} setFilters={setFilters} />}
-          {activeTab === 'bulk-transfer' && <BulkTransferPanel selectedLeads={selectedLeads} setSelectedLeads={setSelectedLeads} />}
-          {activeTab === 'history' && <TransferHistory />}
-          {activeTab === 'conflicts' && <ConflictResolutionPanel />}
-          {activeTab === 'kpi' && <KPIDashboard />}
+          {activeTab === 'overview' && (
+            <div data-tour="4" data-tour-title-en="Overview" data-tour-title-ar="نظرة عامة" data-tour-content-en="Filter and select leads for transfer." data-tour-content-ar="ترشيح واختيار العملاء للنقل.">
+              <LeadOverviewPanel filters={filters} setFilters={setFilters} />
+            </div>
+          )}
+          {activeTab === 'bulk-transfer' && (
+            <div data-tour="5" data-tour-title-en="Bulk Transfer" data-tour-title-ar="نقل جماعي" data-tour-content-en="Transfer multiple leads and assign counselors." data-tour-content-ar="نقل عدة عملاء وتعيين المستشارين.">
+              <BulkTransferPanel selectedLeads={selectedLeads} setSelectedLeads={setSelectedLeads} />
+            </div>
+          )}
+          {activeTab === 'history' && (
+            <div data-tour="6" data-tour-title-en="Transfer History" data-tour-title-ar="سجل النقل" data-tour-content-en="Review past transfers and statuses." data-tour-content-ar="مراجعة التحويلات السابقة والحالات.">
+              <TransferHistory />
+            </div>
+          )}
+          {activeTab === 'conflicts' && (
+            <div data-tour="7" data-tour-title-en="Conflict Resolution" data-tour-title-ar="حل التعارض" data-tour-content-en="Resolve ownership and workload conflicts." data-tour-content-ar="حل تعارضات الملكية وعبء العمل.">
+              <ConflictResolutionPanel />
+            </div>
+          )}
+          {activeTab === 'kpi' && (
+            <div data-tour="8" data-tour-title-en="KPIs Dashboard" data-tour-title-ar="لوحة مؤشرات الأداء" data-tour-content-en="Analyze transfer metrics and workload." data-tour-content-ar="تحليل مقاييس النقل وعبء العمل.">
+              <KPIDashboard />
+            </div>
+          )}
         </div>
       </div>
     </div>

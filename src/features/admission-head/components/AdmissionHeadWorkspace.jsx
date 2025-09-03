@@ -5,15 +5,15 @@ const AdmissionHeadWorkspace = () => {
   const { t } = useTranslation(['admission', 'common']);
   
   return (
-    <div className="min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
+    <div className="min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800" data-tour="1" data-tour-title-en="Workspace Overview" data-tour-title-ar="نظرة عامة على مساحة العمل" data-tour-content-en="Quick access to training, compliance, HR, tasks, events, attendance, recruitment, and geo-fencing." data-tour-content-ar="وصول سريع إلى التدريب والامتثال والموارد البشرية والمهام والفعاليات والحضور والتوظيف وتحديد الموقع.">
       <main className="flex-1 p-4 md:p-6 flex flex-col gap-8 overflow-x-auto">
-        <header>
+        <header data-tour="2" data-tour-title-en="Header" data-tour-title-ar="الرأس" data-tour-content-en="Title and subtitle for your workspace." data-tour-content-ar="العنوان والوصف لمساحة العمل.">
           <h1 className="text-2xl font-bold !text-gray-900 dark:!text-white">{t('workspace.title')}</h1>
           <p className="text-gray-600 dark:text-gray-300">{t('workspace.subtitle')}</p>
         </header>
 
         {/* Training & Development */}
-        <section>
+        <section data-tour="3" data-tour-title-en="Training & Knowledge" data-tour-title-ar="التدريب والمعرفة" data-tour-content-en="Team training status and knowledge base links." data-tour-content-ar="حالة تدريب الفريق وروابط قاعدة المعرفة.">
           <h2 className="text-xl font-semibold !text-gray-900 dark:!text-white mb-4">🎓 {t('workspace.trainingDevelopment.title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Team Training Card */}
@@ -38,7 +38,7 @@ const AdmissionHeadWorkspace = () => {
         </section>
 
         {/* Compliance & Quality */}
-        <section>
+        <section data-tour="4" data-tour-title-en="Compliance & Risk" data-tour-title-ar="الامتثال والمخاطر" data-tour-content-en="Quality assurance activities and risk signals with actions." data-tour-content-ar="أنشطة ضمان الجودة وإشارات المخاطر مع الإجراءات.">
           <h2 className="text-xl font-semibold !text-gray-900 dark:!text-white mb-4">✅ {t('workspace.complianceQuality.title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Quality Assurance Card */}
@@ -63,7 +63,7 @@ const AdmissionHeadWorkspace = () => {
         </section>
 
         {/* Workplace */}
-        <section>
+        <section data-tour="5" data-tour-title-en="Workplace" data-tour-title-ar="بيئة العمل" data-tour-content-en="Profile, HR board, referrals, tasks, events, attendance, recruitment, and geo-fencing." data-tour-content-ar="الملف، لوحة الموارد البشرية، الإحالات، المهام، الفعاليات، الحضور، التوظيف وتحديد الموقع.">
           <h2 className="text-xl font-semibold !text-gray-900 dark:!text-white mb-4">🏢 {t('workspace.workplace.title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* My Profile Card */}

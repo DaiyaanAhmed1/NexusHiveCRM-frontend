@@ -36,64 +36,73 @@ const ComplianceQuality = () => {
       name: t('complianceQuality.tabs.regulatoryDashboard.name'),
       icon: ClipboardDocumentCheckIcon,
       component: RegulatoryDashboard,
-      description: t('complianceQuality.tabs.regulatoryDashboard.description')
+      description: t('complianceQuality.tabs.regulatoryDashboard.description'),
+      tour: { step: 4, titleEn: 'Regulatory Dashboard', titleAr: 'لوحة الجهات التنظيمية', contentEn: 'Compliance status and regulators overview.', contentAr: 'حالة الامتثال ونظرة عامة على الجهات التنظيمية.' }
     },
     {
       name: t('complianceQuality.tabs.documentCompliance.name'),
       icon: DocumentTextIcon,
       component: DocumentCompliance,
-      description: t('complianceQuality.tabs.documentCompliance.description')
+      description: t('complianceQuality.tabs.documentCompliance.description'),
+      tour: { step: 5, titleEn: 'Document Compliance', titleAr: 'امتثال المستندات', contentEn: 'Required docs status and exceptions.', contentAr: 'حالة المستندات المطلوبة والاستثناءات.' }
     },
     {
       name: t('complianceQuality.tabs.auditTrail.name'),
       icon: ClipboardDocumentListIcon,
       component: AuditTrail,
-      description: t('complianceQuality.tabs.auditTrail.description')
+      description: t('complianceQuality.tabs.auditTrail.description'),
+      tour: { step: 6, titleEn: 'Audit Trail', titleAr: 'سجل التدقيق', contentEn: 'Action history and export.', contentAr: 'سجل الإجراءات والتصدير.' }
     },
     {
       name: t('complianceQuality.tabs.qualityAssessment.name'),
       icon: ChartBarIcon,
       component: InternalQualityAssessment,
-      description: t('complianceQuality.tabs.qualityAssessment.description')
+      description: t('complianceQuality.tabs.qualityAssessment.description'),
+      tour: { step: 7, titleEn: 'Quality Assessment', titleAr: 'تقييم الجودة', contentEn: 'Internal assessment metrics.', contentAr: 'مؤشرات التقييم الداخلي.' }
     },
     {
       name: t('complianceQuality.tabs.policyCompliance.name'),
       icon: DocumentMagnifyingGlassIcon,
       component: PolicyCompliance,
-      description: t('complianceQuality.tabs.policyCompliance.description')
+      description: t('complianceQuality.tabs.policyCompliance.description'),
+      tour: { step: 8, titleEn: 'Policy Compliance', titleAr: 'امتثال السياسات', contentEn: 'Policy checks and exceptions.', contentAr: 'فحوصات السياسات والاستثناءات.' }
     },
     {
       name: t('complianceQuality.tabs.feedbackImprovement.name'),
       icon: ChatBubbleLeftRightIcon,
       component: FeedbackImprovement,
-      description: t('complianceQuality.tabs.feedbackImprovement.description')
+      description: t('complianceQuality.tabs.feedbackImprovement.description'),
+      tour: { step: 9, titleEn: 'Feedback & Improvement', titleAr: 'التغذية والتحسين', contentEn: 'Collect feedback and improvements.', contentAr: 'جمع التغذية والتحسينات.' }
     },
     {
       name: t('complianceQuality.tabs.riskManagement.name'),
       icon: ExclamationTriangleIcon,
       component: RiskManagement,
-      description: t('complianceQuality.tabs.riskManagement.description')
+      description: t('complianceQuality.tabs.riskManagement.description'),
+      tour: { step: 10, titleEn: 'Risk Management', titleAr: 'إدارة المخاطر', contentEn: 'Risks, mitigation, and owners.', contentAr: 'المخاطر والتخفيف والملاك.' }
     },
     {
       name: t('complianceQuality.tabs.nonComplianceAlerts.name'),
       icon: BellAlertIcon,
       component: NonComplianceAlerts,
-      description: t('complianceQuality.tabs.nonComplianceAlerts.description')
+      description: t('complianceQuality.tabs.nonComplianceAlerts.description'),
+      tour: { step: 11, titleEn: 'Non-Compliance Alerts', titleAr: 'تنبيهات عدم الامتثال', contentEn: 'Urgent alerts and follow-ups.', contentAr: 'تنبيهات عاجلة والمتابعات.' }
     },
     {
       name: t('complianceQuality.tabs.reportsSubmissions.name'),
       icon: DocumentArrowDownIcon,
       component: ReportsSubmissions,
-      description: t('complianceQuality.tabs.reportsSubmissions.description')
+      description: t('complianceQuality.tabs.reportsSubmissions.description'),
+      tour: { step: 12, titleEn: 'Reports & Submissions', titleAr: 'التقارير والتسليمات', contentEn: 'Generate and submit compliance reports.', contentAr: 'إنشاء وتقديم تقارير الامتثال.' }
     }
   ];
 
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900" data-tour="1" data-tour-title-en="Compliance & Quality Overview" data-tour-title-ar="نظرة عامة على الامتثال والجودة" data-tour-content-en="Header, tabs, regulatory, document compliance, audit, quality, policies, feedback, risks, alerts, and reports." data-tour-content-ar="الرأس، علامات التبويب، الجهات التنظيمية، امتثال المستندات، التدقيق، الجودة، السياسات، التغذية، المخاطر، التنبيهات والتقارير.">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
+        <div className="mb-8" data-tour="2" data-tour-title-en="Header" data-tour-title-ar="الرأس" data-tour-content-en="Module title and description." data-tour-content-ar="عنوان الوحدة والوصف.">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
             {t('complianceQuality.title')}
           </h1>
@@ -104,7 +113,7 @@ const ComplianceQuality = () => {
 
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
           <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
-            <Tab.List className="flex flex-wrap gap-2 border-b border-gray-200 dark:border-gray-700 p-4">
+            <Tab.List className="flex flex-wrap gap-2 border-b border-gray-200 dark:border-gray-700 p-4" data-tour="3" data-tour-title-en="Tabs" data-tour-title-ar="علامات التبويب" data-tour-content-en="Navigate through compliance sections." data-tour-content-ar="التنقل بين أقسام الامتثال.">
               {tabs.map((tab) => (
                 <Tab
                   key={tab.name}
@@ -127,6 +136,11 @@ const ComplianceQuality = () => {
                 <Tab.Panel
                   key={tab.name}
                   className="focus:outline-none"
+                  data-tour={tab.tour.step}
+                  data-tour-title-en={tab.tour.titleEn}
+                  data-tour-title-ar={tab.tour.titleAr}
+                  data-tour-content-en={tab.tour.contentEn}
+                  data-tour-content-ar={tab.tour.contentAr}
                 >
                   <div className="mb-4">
                     <h2 className="text-lg font-semibold text-gray-900 dark:text-white">

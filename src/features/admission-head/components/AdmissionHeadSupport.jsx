@@ -142,7 +142,7 @@ export default function AdmissionHeadSupport() {
   const Modal = ({ ticket, onClose }) => {
     if (!ticket) return null;
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm" data-tour="5" data-tour-title-en="Ticket Details" data-tour-title-ar="تفاصيل التذكرة" data-tour-content-en="View ticket details, status, and comments." data-tour-content-ar="عرض تفاصيل التذكرة والحالة والتعليقات.">
         <div className="absolute inset-0" onClick={onClose} />
         <div className="relative z-10 bg-white dark:bg-gray-800 rounded-xl p-6 max-w-2xl w-full mx-4">
           <button
@@ -212,9 +212,9 @@ export default function AdmissionHeadSupport() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6 animate-fade-in">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6 animate-fade-in" data-tour="1" data-tour-title-en="Help & Support Overview" data-tour-title-ar="نظرة عامة على المساعدة والدعم" data-tour-content-en="Manage support tickets or browse the knowledge base." data-tour-content-ar="إدارة تذاكر الدعم أو تصفح قاعدة المعرفة.">
       <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">{t('helpSupport.title')}</h1>
-      <div className="flex gap-4 mb-6 items-center">
+      <div className="flex gap-4 mb-6 items-center" data-tour="2" data-tour-title-en="Tabs" data-tour-title-ar="علامات التبويب" data-tour-content-en="Switch between Support Tickets and Knowledge Base." data-tour-content-ar="التبديل بين تذاكر الدعم وقاعدة المعرفة.">
         <button
           className={`px-4 py-2 rounded-lg font-semibold ${activeTab === 'tickets' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-700'}`}
           onClick={() => setActiveTab('tickets')}
@@ -232,13 +232,14 @@ export default function AdmissionHeadSupport() {
           <button
             className="ml-auto px-4 py-2 bg-green-600 text-white rounded-lg font-semibold shadow hover:bg-green-700 transition"
             onClick={() => setShowNewTicketModal(true)}
+            data-tour="3" data-tour-title-en="Raise Ticket" data-tour-title-ar="رفع تذكرة" data-tour-content-en="Create a new support ticket here." data-tour-content-ar="أنشئ تذكرة دعم جديدة من هنا."
           >
             {t('helpSupport.actions.raiseTicket')}
           </button>
         )}
       </div>
       {activeTab === 'tickets' && (
-        <div>
+        <div data-tour="4" data-tour-title-en="Tickets" data-tour-title-ar="التذاكر" data-tour-content-en="Browse and open your support tickets." data-tour-content-ar="تصفح وافتح تذاكر الدعم الخاصة بك.">
           <div className="mb-6">
             <h2 className="text-xl font-semibold mb-2">{t('my_tickets')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -269,7 +270,7 @@ export default function AdmissionHeadSupport() {
         </div>
       )}
       {activeTab === 'kb' && (
-        <div>
+        <div data-tour="4" data-tour-title-en="Knowledge Base" data-tour-title-ar="قاعدة المعرفة" data-tour-content-en="Browse helpful articles and guides." data-tour-content-ar="تصفح المقالات والأدلة المفيدة.">
           <h2 className="text-xl font-semibold mb-2">{t('helpSupport.knowledgeBase.title')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {knowledgeBaseArticles.map(article => (

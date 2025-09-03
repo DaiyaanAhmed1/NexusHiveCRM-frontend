@@ -314,11 +314,11 @@ export default function Applications() {
   useEffect(() => { setLS('offers', offers); }, [offers]);
 
   return (
-    <div key={`${i18n.language}-${languageVersion}`} className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-100 dark:from-gray-900 dark:to-gray-950 p-6 animate-fade-in">
+    <div key={`${i18n.language}-${languageVersion}`} className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-100 dark:from-gray-900 dark:to-gray-950 p-6 animate-fade-in" data-tour="1" data-tour-title-en="Applications Overview" data-tour-title-ar="نظرة عامة على الطلبات" data-tour-content-en="Status KPIs, breakdowns, AI insights, and tracker." data-tour-content-ar="مؤشرات الحالة، التقسيمات، رؤى الذكاء الاصطناعي والمتعقب.">
       <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-8 tracking-tight">{t('applications.title')}</h1>
 
       {/* Application Overview Dashboard */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" data-tour="2" data-tour-title-en="KPIs" data-tour-title-ar="المؤشرات" data-tour-content-en="Totals and animated counters by status." data-tour-content-ar="الإجماليات ومؤشرات الحالة المتحركة.">
         <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 flex flex-col items-center gap-2 hover:scale-105 transition-transform duration-300">
           <FiFileText className="text-blue-500 mb-2" size={28} />
           <span className="text-gray-500 text-sm">{t('applications.overview.totalApplications')}</span>
@@ -342,7 +342,7 @@ export default function Applications() {
       </div>
 
       {/* Donut Chart + AI Insights */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10" data-tour="3" data-tour-title-en="Status & AI Insights" data-tour-title-ar="الحالة ورؤى الذكاء الاصطناعي" data-tour-content-en="Status distribution and AI-driven highlights." data-tour-content-ar="توزيع الحالة وأبرز الرؤى المدفوعة بالذكاء الاصطناعي.">
         <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 flex flex-col items-center">
           <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-2">{t('applications.statusBreakdown.title')}</h2>
           <StatusDonutChart data={donutData} t={t} />
@@ -359,7 +359,7 @@ export default function Applications() {
       </div>
 
       {/* Application Tracker */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="4" data-tour-title-en="Application Tracker" data-tour-title-ar="متعقب الطلبات" data-tour-content-en="Switch views, search, filter, and review applications." data-tour-content-ar="بدّل العرض وابحث وفلتر وراجع الطلبات.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('applications.tracker.title')}</h2>
           <div className="flex gap-2">
@@ -473,120 +473,117 @@ export default function Applications() {
         )}
       </div>
 
-      {/* Placeholders for other sections */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fade-in">
-        {/* Document Verification Hub */}
-        <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 flex flex-col gap-4">
-          <div className="flex items-center gap-2 mb-2">
-            <FiFileText className="text-blue-500" size={22} />
-            <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300">{t('applications.documentVerification.title')}</h2>
+      {/* Document Verification Hub */}
+      <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 flex flex-col gap-4" data-tour="5" data-tour-title-en="Document Verification" data-tour-title-ar="التحقق من الوثائق" data-tour-content-en="Pending documents, requests, and verification actions." data-tour-content-ar="الوثائق المعلقة والطلبات وإجراءات التحقق.">
+        <div className="flex items-center gap-2 mb-2">
+          <FiFileText className="text-blue-500" size={22} />
+          <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300">{t('applications.documentVerification.title')}</h2>
+        </div>
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-xs text-gray-500">{t('applications.documentVerification.documentsVerified')}</span>
+          <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden w-32">
+            <div className="h-2 bg-green-400 rounded-full" style={{ width: `${100 - pendingDocs.length * 10}%` }}></div>
           </div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-xs text-gray-500">{t('applications.documentVerification.documentsVerified')}</span>
-            <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden w-32">
-              <div className="h-2 bg-green-400 rounded-full" style={{ width: `${100 - pendingDocs.length * 10}%` }}></div>
-            </div>
-            <span className="text-xs font-bold text-green-600">{100 - pendingDocs.length * 10}%</span>
-          </div>
-          <div className="mb-2">
-            <span className="text-xs text-gray-500">{t('applications.sections.pendingApplicants')}</span>
-            <div className="flex flex-col gap-2 mt-1">
-              {pendingDocs.map(app => (
-                <div key={app.id} className="flex items-center gap-2">
-                  <img src={app.avatar} alt={app.name} className="w-6 h-6 rounded-full border-2 border-blue-200" />
-                  <span className="text-xs font-medium text-gray-700 dark:text-gray-200 cursor-pointer underline" onClick={() => { setDocModalApplicant(app); setShowDocModal(true); }}>{app.name}</span>
-                  <span className="bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full text-xs">{t('applications.sections.missingDocs')}</span>
-                  <button className="text-green-600 text-xs font-bold hover:underline" onClick={() => handleVerifyDoc(app)}>{t('applications.sections.verify')}</button>
-                  <button className="text-blue-600 text-xs font-bold hover:underline" onClick={() => handleRequestDoc(app)}>{t('applications.sections.request')}</button>
-                </div>
-              ))}
-            </div>
+          <span className="text-xs font-bold text-green-600">{100 - pendingDocs.length * 10}%</span>
+        </div>
+        <div className="mb-2">
+          <span className="text-xs text-gray-500">{t('applications.sections.pendingApplicants')}</span>
+          <div className="flex flex-col gap-2 mt-1">
+            {pendingDocs.map(app => (
+              <div key={app.id} className="flex items-center gap-2">
+                <img src={app.avatar} alt={app.name} className="w-6 h-6 rounded-full border-2 border-blue-200" />
+                <span className="text-xs font-medium text-gray-700 dark:text-gray-200 cursor-pointer underline" onClick={() => { setDocModalApplicant(app); setShowDocModal(true); }}>{app.name}</span>
+                <span className="bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded-full text-xs">{t('applications.sections.missingDocs')}</span>
+                <button className="text-green-600 text-xs font-bold hover:underline" onClick={() => handleVerifyDoc(app)}>{t('applications.sections.verify')}</button>
+                <button className="text-blue-600 text-xs font-bold hover:underline" onClick={() => handleRequestDoc(app)}>{t('applications.sections.request')}</button>
+              </div>
+            ))}
           </div>
         </div>
-        {/* Review Workflow Manager */}
-        <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 flex flex-col gap-4">
-          <div className="flex items-center gap-2 mb-2">
-            <FiUsers className="text-purple-500" size={22} />
-            <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300">{t('applications.sections.reviewWorkflow')}</h2>
-          </div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-xs text-gray-500">{t('applications.sections.reviewerWorkload')}</span>
-            <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden w-32">
-              <div className="h-2 bg-indigo-400 rounded-full" style={{ width: `${reviewers.reduce((a, b) => a + b.count, 0) * 5}%` }}></div>
-            </div>
-            <span className="text-xs font-bold text-indigo-600">{reviewers.reduce((a, b) => a + b.count, 0) * 5}%</span>
-          </div>
-          <div className="mb-2">
-            <span className="text-xs text-gray-500">{t('applications.sections.topReviewers')}</span>
-            <div className="flex flex-col gap-2 mt-1">
-              {reviewers.map(rev => (
-                <div key={rev.name} className="flex items-center gap-2">
-                  <img src={rev.avatar} alt={rev.name} className="w-6 h-6 rounded-full border-2 border-purple-200" />
-                  <span className="text-xs font-medium text-gray-700 dark:text-gray-200">{rev.name}</span>
-                  <span className="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full text-xs">{rev.count} {t('applications.sections.apps')}</span>
-                  <button className="text-blue-600 text-xs font-bold hover:underline" onClick={() => { setAssignApplicant(rev); setAssignModal(true); }}>{t('applications.sections.assign')}</button>
-                </div>
-              ))}
-            </div>
-          </div>
-          <button className="mt-2 px-4 py-2 bg-purple-200 text-purple-800 rounded-lg font-semibold" onClick={() => setAssignModal(true)}>{t('applications.sections.bulkAssign')}</button>
+      </div>
+      {/* Review Workflow Manager */}
+      <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 flex flex-col gap-4" data-tour="6" data-tour-title-en="Review Workflow" data-tour-title-ar="سير المراجعة" data-tour-content-en="Reviewer workload and assignments." data-tour-content-ar="عبء عمل المراجعين والتعيينات.">
+        <div className="flex items-center gap-2 mb-2">
+          <FiUsers className="text-purple-500" size={22} />
+          <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300">{t('applications.sections.reviewWorkflow')}</h2>
         </div>
-        {/* Interview Management */}
-        <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 flex flex-col gap-4">
-          <div className="flex items-center gap-2 mb-2">
-            <FiCalendar className="text-pink-500" size={22} />
-            <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300">{t('applications.sections.interviewManagement')}</h2>
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-xs text-gray-500">{t('applications.sections.reviewerWorkload')}</span>
+          <div className="flex-1 h-2 bg-gray-200 rounded-full overflow-hidden w-32">
+            <div className="h-2 bg-indigo-400 rounded-full" style={{ width: `${reviewers.reduce((a, b) => a + b.count, 0) * 5}%` }}></div>
           </div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-xs text-gray-500">{t('applications.sections.interviewsScheduled')}</span>
-            <span className="text-xs font-bold text-pink-600">{interviews.length}</span>
-          </div>
-          <div className="mb-2">
-            <span className="text-xs text-gray-500">{t('applications.sections.upcomingInterviews')}</span>
-            <div className="flex flex-col gap-2 mt-1">
-              {interviews.map(app => (
-                <div key={app.id} className="flex items-center gap-2">
-                  <img src={app.avatar} alt={app.name} className="w-6 h-6 rounded-full border-2 border-pink-200" />
-                  <span className="text-xs font-medium text-gray-700 dark:text-gray-200">{app.name}</span>
-                  <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full text-xs">{app.time}</span>
-                  {!app.completed && <button className="text-green-600 text-xs font-bold hover:underline" onClick={() => handleMarkCompleted(app)}>{t('applications.sections.markCompleted')}</button>}
-                  <button className="text-blue-600 text-xs font-bold hover:underline" onClick={() => handleSendReminder(app)}>{t('applications.sections.sendReminder')}</button>
-                </div>
-              ))}
-            </div>
-          </div>
-          <button className="mt-2 px-4 py-2 bg-pink-200 text-pink-800 rounded-lg font-semibold" onClick={() => setShowInterviewModal(true)}>{t('applications.sections.scheduleInterview')}</button>
+          <span className="text-xs font-bold text-indigo-600">{reviewers.reduce((a, b) => a + b.count, 0) * 5}%</span>
         </div>
-        {/* Offer Management */}
-        <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 flex flex-col gap-4">
-          <div className="flex items-center gap-2 mb-2">
-            <FiSend className="text-green-500" size={22} />
-            <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300">{t('applications.sections.offerManagement')}</h2>
+        <div className="mb-2">
+          <span className="text-xs text-gray-500">{t('applications.sections.topReviewers')}</span>
+          <div className="flex flex-col gap-2 mt-1">
+            {reviewers.map(rev => (
+              <div key={rev.name} className="flex items-center gap-2">
+                <img src={rev.avatar} alt={rev.name} className="w-6 h-6 rounded-full border-2 border-purple-200" />
+                <span className="text-xs font-medium text-gray-700 dark:text-gray-200">{rev.name}</span>
+                <span className="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full text-xs">{rev.count} {t('applications.sections.apps')}</span>
+                <button className="text-blue-600 text-xs font-bold hover:underline" onClick={() => { setAssignApplicant(rev); setAssignModal(true); }}>{t('applications.sections.assign')}</button>
+              </div>
+            ))}
           </div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-xs text-gray-500">{t('applications.sections.offersAccepted')}</span>
-            <svg width="32" height="32">
-              <circle cx="16" cy="16" r="14" fill="#f3f4f6" />
-              <circle cx="16" cy="16" r="14" fill="none" stroke="#22c55e" strokeWidth="3" strokeDasharray="22 44" transform="rotate(-90 16 16)" />
-            </svg>
-            <span className="text-xs font-bold text-green-600">{Math.round((offers.filter(o => o.accepted).length / offers.length) * 100)}%</span>
-          </div>
-          <div className="mb-2">
-            <span className="text-xs text-gray-500">{t('applications.sections.recentOffers')}</span>
-            <div className="flex flex-col gap-2 mt-1">
-              {offers.map(app => (
-                <div key={app.id} className="flex items-center gap-2">
-                  <img src={app.avatar} alt={app.name} className="w-6 h-6 rounded-full border-2 border-green-200" />
-                  <span className="text-xs font-medium text-gray-700 dark:text-gray-200">{app.name}</span>
-                  <span className={`px-2 py-0.5 rounded-full text-xs ${app.accepted ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>{app.accepted ? t('applications.sections.accepted') : t('applications.sections.pending')}</span>
-                  {!app.accepted && <button className="text-blue-600 text-xs font-bold hover:underline" onClick={() => handleSendOffer(app)}>{t('applications.sections.sendOffer')}</button>}
-                  <button className="text-indigo-600 text-xs font-bold hover:underline" onClick={() => handleDownloadOffer(app)}><FiDownload className="inline mr-1" />{t('applications.sections.download')}</button>
-                </div>
-              ))}
-            </div>
-          </div>
-          <button className="mt-2 px-4 py-2 bg-green-200 text-green-800 rounded-lg font-semibold" onClick={() => setBulkOffer(true)}>{t('applications.sections.bulkAssign')}</button>
         </div>
+        <button className="mt-2 px-4 py-2 bg-purple-200 text-purple-800 rounded-lg font-semibold" onClick={() => setAssignModal(true)}>{t('applications.sections.bulkAssign')}</button>
+      </div>
+      {/* Interview Management */}
+      <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 flex flex-col gap-4" data-tour="7" data-tour-title-en="Interview Management" data-tour-title-ar="إدارة المقابلات" data-tour-content-en="Schedule, reminders, and completion tracking." data-tour-content-ar="الجدولة والتذكيرات وتتبع الإكمال.">
+        <div className="flex items-center gap-2 mb-2">
+          <FiCalendar className="text-pink-500" size={22} />
+          <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300">{t('applications.sections.interviewManagement')}</h2>
+        </div>
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-xs text-gray-500">{t('applications.sections.interviewsScheduled')}</span>
+          <span className="text-xs font-bold text-pink-600">{interviews.length}</span>
+        </div>
+        <div className="mb-2">
+          <span className="text-xs text-gray-500">{t('applications.sections.upcomingInterviews')}</span>
+          <div className="flex flex-col gap-2 mt-1">
+            {interviews.map(app => (
+              <div key={app.id} className="flex items-center gap-2">
+                <img src={app.avatar} alt={app.name} className="w-6 h-6 rounded-full border-2 border-pink-200" />
+                <span className="text-xs font-medium text-gray-700 dark:text-gray-200">{app.name}</span>
+                <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded-full text-xs">{app.time}</span>
+                {!app.completed && <button className="text-green-600 text-xs font-bold hover:underline" onClick={() => handleMarkCompleted(app)}>{t('applications.sections.markCompleted')}</button>}
+                <button className="text-blue-600 text-xs font-bold hover:underline" onClick={() => handleSendReminder(app)}>{t('applications.sections.sendReminder')}</button>
+              </div>
+            ))}
+          </div>
+        </div>
+        <button className="mt-2 px-4 py-2 bg-pink-200 text-pink-800 rounded-lg font-semibold" onClick={() => setShowInterviewModal(true)}>{t('applications.sections.scheduleInterview')}</button>
+      </div>
+      {/* Offer Management */}
+      <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 flex flex-col gap-4" data-tour="8" data-tour-title-en="Offer Management" data-tour-title-ar="إدارة العروض" data-tour-content-en="Recent offers, acceptance status, bulk offers." data-tour-content-ar="العروض الأخيرة وحالة القبول والعروض المجمعة.">
+        <div className="flex items-center gap-2 mb-2">
+          <FiSend className="text-green-500" size={22} />
+          <h2 className="text-lg font-semibold text-gray-700 dark:text-gray-300">{t('applications.sections.offerManagement')}</h2>
+        </div>
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-xs text-gray-500">{t('applications.sections.offersAccepted')}</span>
+          <svg width="32" height="32">
+            <circle cx="16" cy="16" r="14" fill="#f3f4f6" />
+            <circle cx="16" cy="16" r="14" fill="none" stroke="#22c55e" strokeWidth="3" strokeDasharray="22 44" transform="rotate(-90 16 16)" />
+          </svg>
+          <span className="text-xs font-bold text-green-600">{Math.round((offers.filter(o => o.accepted).length / offers.length) * 100)}%</span>
+        </div>
+        <div className="mb-2">
+          <span className="text-xs text-gray-500">{t('applications.sections.recentOffers')}</span>
+          <div className="flex flex-col gap-2 mt-1">
+            {offers.map(app => (
+              <div key={app.id} className="flex items-center gap-2">
+                <img src={app.avatar} alt={app.name} className="w-6 h-6 rounded-full border-2 border-green-200" />
+                <span className="text-xs font-medium text-gray-700 dark:text-gray-200">{app.name}</span>
+                <span className={`px-2 py-0.5 rounded-full text-xs ${app.accepted ? 'bg-green-100 text-green-700' : 'bg-yellow-100 text-yellow-700'}`}>{app.accepted ? t('applications.sections.accepted') : t('applications.sections.pending')}</span>
+                {!app.accepted && <button className="text-blue-600 text-xs font-bold hover:underline" onClick={() => handleSendOffer(app)}>{t('applications.sections.sendOffer')}</button>}
+                <button className="text-indigo-600 text-xs font-bold hover:underline" onClick={() => handleDownloadOffer(app)}><FiDownload className="inline mr-1" />{t('applications.sections.download')}</button>
+              </div>
+            ))}
+          </div>
+        </div>
+        <button className="mt-2 px-4 py-2 bg-green-200 text-green-800 rounded-lg font-semibold" onClick={() => setBulkOffer(true)}>{t('applications.sections.bulkAssign')}</button>
       </div>
       {/* Modals and Toasts */}
       <Modal open={showDocModal} onClose={() => setShowDocModal(false)} title={`${t('applications.documentVerification.title')}: ${docModalApplicant?.name}`}>{docModalApplicant && (

@@ -65,13 +65,22 @@ export default function Documents() {
   useEffect(() => { if (toast) { const timeout = setTimeout(() => setToast(null), 2000); return () => clearTimeout(timeout); } }, [toast]);
 
   return (
-    <div key={`${i18n.language}-${languageVersion}`} className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-100 dark:from-gray-900 dark:to-gray-950 p-6 animate-fade-in">
-      <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-8 tracking-tight">
+    <div
+      key={`${i18n.language}-${languageVersion}`}
+      className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-100 dark:from-gray-900 dark:to-gray-950 p-6 animate-fade-in"
+      data-tour="1"
+      data-tour-title-en="Documents Overview"
+      data-tour-title-ar="نظرة عامة على الوثائق"
+      data-tour-content-en="KPIs, repository, upload portal, verification, bulk review, requests, templates, archive, access, and AI."
+      data-tour-content-ar="المؤشرات، المستودع، بوابة الرفع، التحقق، المراجعة الجماعية، الطلبات، القوالب، الأرشيف، الوصول والذكاء."
+      data-tour-position="bottom"
+    >
+      <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-8 tracking-tight" data-tour="2" data-tour-title-en="Page Title" data-tour-title-ar="عنوان الصفحة" data-tour-content-en="Documents & Verification for admissions." data-tour-content-ar="الوثائق والتحقق للقبول.">
         {t('documents.title')}
       </h1>
       
       {/* Document Dashboard */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8" data-tour="3" data-tour-title-en="KPIs" data-tour-title-ar="المؤشرات" data-tour-content-en="Totals, pending, awaiting uploads, invalid, department-wise, completion rate." data-tour-content-ar="الإجمالي، المعلّق، بانتظار الرفع، غير الصالح، حسب القسم، ومعدل الإكمال.">
         <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-4 flex flex-col items-center gap-1">
           <FiFileText className="text-blue-500 mb-1" size={22} />
           <span className="text-xs text-gray-500">{t('documents.dashboard.totalUploaded')}</span>
@@ -105,7 +114,7 @@ export default function Documents() {
       </div>
       
       {/* Quick Actions */}
-      <div className="flex flex-wrap gap-3 mb-8">
+      <div className="flex flex-wrap gap-3 mb-8" data-tour="4" data-tour-title-en="Quick Actions" data-tour-title-ar="إجراءات سريعة" data-tour-content-en="Upload, request missing, view by status, and AI completion." data-tour-content-ar="رفع، طلب المفقود، عرض حسب الحالة، وإكمال بالذكاء.">
         <button className="flex items-center gap-2 px-4 py-2 rounded-full font-semibold shadow bg-blue-100 text-blue-700 hover:scale-105 transition-transform" onClick={() => setShowUploadModal(true)}><FiUpload />{t('documents.quickActions.uploadDocument')}</button>
         <button className="flex items-center gap-2 px-4 py-2 rounded-full font-semibold shadow bg-yellow-100 text-yellow-700 hover:scale-105 transition-transform" onClick={() => setShowRequestModal(true)}><FiAlertCircle />{t('documents.quickActions.requestMissing')}</button>
         <button className="flex items-center gap-2 px-4 py-2 rounded-full font-semibold shadow bg-green-100 text-green-700 hover:scale-105 transition-transform" onClick={() => setShowBulkModal(true)}><FiCheckCircle />{t('documents.quickActions.viewByStatus')}</button>
@@ -113,7 +122,7 @@ export default function Documents() {
       </div>
       
       {/* Applicant Document Repository */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="5" data-tour-title-en="Repository" data-tour-title-ar="المستودع" data-tour-content-en="Search, filter, and take actions on applicant documents." data-tour-content-ar="البحث والفلترة واتخاذ الإجراءات على وثائق المتقدمين.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('documents.sections.applicantDocumentRepository')}</h2>
           <div className="flex gap-2">
@@ -153,7 +162,7 @@ export default function Documents() {
       </div>
       
       {/* Document Upload Portal */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="6" data-tour-title-en="Upload Portal" data-tour-title-ar="بوابة الرفع" data-tour-content-en="Upload single or bulk, set deadlines." data-tour-content-ar="رفع فردي أو جماعي، وتحديد المهل.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('documents.sections.documentUploadPortal')}</h2>
           <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold" onClick={() => setShowUploadModal(true)}><FiUpload className="inline mr-1" />{t('documents.upload.title')}</button>
@@ -166,7 +175,7 @@ export default function Documents() {
       </div>
       
       {/* Verification & Validation */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="7" data-tour-title-en="Verification" data-tour-title-ar="التحقق" data-tour-content-en="Approve, reject, audit logs, and bulk actions." data-tour-content-ar="الموافقة، الرفض، سجلات التدقيق والإجراءات الجماعية.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('documents.sections.verificationValidation')}</h2>
         </div>
@@ -179,7 +188,7 @@ export default function Documents() {
       </div>
       
       {/* Bulk Document Review & Actions */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="8" data-tour-title-en="Bulk Review" data-tour-title-ar="مراجعة جماعية" data-tour-content-en="Send reminders and export data for reviews." data-tour-content-ar="إرسال تذكيرات وتصدير البيانات للمراجعات.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('documents.sections.bulkDocumentReview')}</h2>
         </div>
@@ -191,7 +200,7 @@ export default function Documents() {
       </div>
       
       {/* Document Request System */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="9" data-tour-title-en="Requests" data-tour-title-ar="الطلبات" data-tour-content-en="Request missing documents from applicants." data-tour-content-ar="طلب المستندات المفقودة من المتقدمين.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('documents.sections.documentRequestSystem')}</h2>
           <button className="px-4 py-2 bg-yellow-600 text-white rounded-lg font-semibold" onClick={() => setShowRequestModal(true)}><FiAlertCircle className="inline mr-1" />{t('documents.requestSystem.request')}</button>
@@ -200,7 +209,7 @@ export default function Documents() {
       </div>
       
       {/* Templates & Forms Library */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="10" data-tour-title-en="Templates Library" data-tour-title-ar="مكتبة القوالب" data-tour-content-en="Manage downloadable templates and forms." data-tour-content-ar="إدارة القوالب والنماذج القابلة للتنزيل.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('documents.sections.templatesFormsLibrary')}</h2>
           <button className="px-4 py-2 bg-green-600 text-white rounded-lg font-semibold" onClick={() => setShowTemplateModal(true)}><FiPlus className="inline mr-1" />{t('documents.templates.upload')}</button>
@@ -237,7 +246,7 @@ export default function Documents() {
       </div>
       
       {/* Archive & Retention Management */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="11" data-tour-title-en="Archive" data-tour-title-ar="الأرشيف" data-tour-content-en="Access history and retention policies." data-tour-content-ar="سجل الوصول وسياسات الاحتفاظ.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('documents.sections.archiveRetentionManagement')}</h2>
         </div>
@@ -255,7 +264,7 @@ export default function Documents() {
       </div>
       
       {/* Access Control & Permissions */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="12" data-tour-title-en="Access Control" data-tour-title-ar="التحكم في الوصول" data-tour-content-en="Permissions, encryption, and access logs." data-tour-content-ar="الأذونات، التشفير وسجلات الوصول.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{t('documents.sections.accessControlPermissions')}</h2>
         </div>
@@ -273,7 +282,7 @@ export default function Documents() {
       </div>
       
       {/* AI & Smart Features */}
-      <div className="bg-gradient-to-br from-yellow-50 to-pink-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-lg p-6 flex flex-col gap-4 mb-8 animate-fade-in">
+      <div className="bg-gradient-to-br from-yellow-50 to-pink-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-lg p-6 flex flex-col gap-4 mb-8 animate-fade-in" data-tour="13" data-tour-title-en="AI Features" data-tour-title-ar="ميزات الذكاء" data-tour-content-en="OCR, duplicate detection, reminders, risk flags, completion analytics." data-tour-content-ar="التعرّف البصري، اكتشاف التكرار، التذكيرات، أعلام المخاطر، تحليلات الإكمال.">
         <div className="flex items-center gap-2 mb-2">
           <FiZap className="text-pink-500 animate-pulse" size={22} />
           <span className="font-semibold text-lg text-gray-800 dark:text-gray-100">{t('documents.sections.aiSmartFeatures')}</span>

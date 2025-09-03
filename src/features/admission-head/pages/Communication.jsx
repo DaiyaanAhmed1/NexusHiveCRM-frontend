@@ -101,10 +101,19 @@ export default function Communication() {
   useEffect(() => { if (toast) { const t = setTimeout(() => setToast(null), 2000); return () => clearTimeout(t); } }, [toast]);
 
   return (
-    <div key={`${i18n.language}-${languageVersion}`} className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-100 dark:from-gray-900 dark:to-gray-950 p-6 animate-fade-in">
-      <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-8 tracking-tight">{translate('communication.title')}</h1>
+    <div
+      key={`${i18n.language}-${languageVersion}`}
+      className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-100 dark:from-gray-900 dark:to-gray-950 p-6 animate-fade-in"
+      data-tour="1"
+      data-tour-title-en="Communication Overview"
+      data-tour-title-ar="نظرة عامة على التواصل"
+      data-tour-content-en="KPIs, outbound, inbound logs, tools, templates, notes, calls, integrations, AI, and audit."
+      data-tour-content-ar="المؤشرات، الصادر، سجلات الوارد، الأدوات، القوالب، الملاحظات، المكالمات، التكاملات، الذكاء والاطلاع."
+      data-tour-position="bottom"
+    >
+      <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-8 tracking-tight" data-tour="2" data-tour-title-en="Page Title" data-tour-title-ar="عنوان الصفحة" data-tour-content-en="Communication & Logs module for admission team." data-tour-content-ar="وحدة التواصل والسجلات لفريق القبول.">{translate('communication.title')}</h1>
       {/* Overview Dashboard */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8" data-tour="3" data-tour-title-en="KPIs" data-tour-title-ar="المؤشرات" data-tour-content-en="This week, month, channel-wise counts, and calls logged." data-tour-content-ar="هذا الأسبوع، هذا الشهر، حسب القناة، والمكالمات المسجلة.">
         <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-4 flex flex-col items-center gap-1">
           <FiMail className="text-blue-500 mb-1" size={22} />
           <span className="text-xs text-gray-500">{translate('communication.dashboard.thisWeek')}</span>
@@ -137,7 +146,7 @@ export default function Communication() {
         </div>
       </div>
       {/* Outgoing Communications */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="4" data-tour-title-en="Outgoing" data-tour-title-ar="الصادر" data-tour-content-en="Bulk send, status tracking, and actions." data-tour-content-ar="إرسال جماعي وتتبع الحالة والإجراءات.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{translate('communication.sections.outgoingCommunications')}</h2>
           <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold" onClick={() => setShowBulkModal(true)}><FiSend className="inline mr-1" />{translate('communication.buttons.bulkSend')}</button>
@@ -176,7 +185,7 @@ export default function Communication() {
         </div>
       </div>
       {/* Incoming Messages / Logs */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="5" data-tour-title-en="Incoming Logs" data-tour-title-ar="سجلات الوارد" data-tour-content-en="Inbox with statuses, tags, and follow-ups." data-tour-content-ar="الوارد بالحالات والوسوم والمتابعات.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{translate('communication.sections.incomingMessagesLogs')}</h2>
           <button className="px-4 py-2 bg-green-600 text-white rounded-lg font-semibold" onClick={() => setShowNoteModal(true)}><FiPlus className="inline mr-1" />{translate('communication.buttons.addNote')}</button>
@@ -215,7 +224,7 @@ export default function Communication() {
         </div>
       </div>
       {/* Bulk Communication Tools */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="6" data-tour-title-en="Bulk Tools" data-tour-title-ar="أدوات جماعية" data-tour-content-en="Targets, mode, templates, and scheduling." data-tour-content-ar="الأهداف، الوضع، القوالب والجدولة.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{translate('communication.sections.bulkCommunicationTools')}</h2>
           <button className="px-4 py-2 bg-indigo-600 text-white rounded-lg font-semibold" onClick={() => setShowBulkModal(true)}><FiSend className="inline mr-1" />{translate('communication.buttons.newCampaign')}</button>
@@ -233,7 +242,7 @@ export default function Communication() {
         <div className="mt-4 text-xs text-gray-500">{translate('communication.bulkTools.openRate')}: 78% | {translate('communication.bulkTools.clickRate')}: 42% | {translate('communication.bulkTools.deliveryRate')}: 95%</div>
       </div>
       {/* Templates Manager */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="7" data-tour-title-en="Templates" data-tour-title-ar="القوالب" data-tour-content-en="Create and manage reusable templates." data-tour-content-ar="إنشاء وإدارة القوالب القابلة لإعادة الاستخدام.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{translate('communication.templates.title')}</h2>
           <button className="px-4 py-2 bg-green-600 text-white rounded-lg font-semibold" onClick={() => setShowTemplateModal(true)}><FiPlus className="inline mr-1" />{translate('communication.templates.newTemplate')}</button>
@@ -269,7 +278,7 @@ export default function Communication() {
         </div>
       </div>
       {/* Internal Notes / Logbook */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="8" data-tour-title-en="Notes & Logbook" data-tour-title-ar="الملاحظات والسجل" data-tour-content-en="Add team or private notes tied to candidates." data-tour-content-ar="أضف ملاحظات للفريق أو خاصة مرتبطة بالمرشحين.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{translate('communication.notes.title')}</h2>
           <button className="px-4 py-2 bg-yellow-600 text-white rounded-lg font-semibold" onClick={() => setShowNoteModal(true)}><FiPlus className="inline mr-1" />{translate('communication.notes.addNote')}</button>
@@ -286,7 +295,7 @@ export default function Communication() {
         </div>
       </div>
       {/* Call Logs & Voice Notes */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="9" data-tour-title-en="Call Logs" data-tour-title-ar="سجلات المكالمات" data-tour-content-en="Log calls, durations, AI summaries, and statuses." data-tour-content-ar="سجّل المكالمات، المدد، ملخصات الذكاء والحالات.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{translate('communication.calls.title')}</h2>
           <button className="px-4 py-2 bg-pink-600 text-white rounded-lg font-semibold" onClick={() => setShowCallModal(true)}><FiPlus className="inline mr-1" />{translate('communication.calls.logCall')}</button>
@@ -304,7 +313,7 @@ export default function Communication() {
         </div>
       </div>
       {/* Integration & Channels */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="10" data-tour-title-en="Integrations" data-tour-title-ar="التكاملات" data-tour-content-en="Enable/disable channels: Email, SMS, WhatsApp, Chatbot, In-app." data-tour-content-ar="تفعيل/تعطيل القنوات: البريد، الرسائل، واتساب، chatbot، داخل التطبيق.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{translate('communication.integrations.title')}</h2>
         </div>
@@ -317,7 +326,7 @@ export default function Communication() {
         </div>
       </div>
       {/* AI-Powered Features */}
-      <div className="bg-gradient-to-br from-yellow-50 to-pink-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-lg p-6 flex flex-col gap-4 mb-8 animate-fade-in">
+      <div className="bg-gradient-to-br from-yellow-50 to-pink-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-lg p-6 flex flex-col gap-4 mb-8 animate-fade-in" data-tour="11" data-tour-title-en="AI Features" data-tour-title-ar="ميزات الذكاء" data-tour-content-en="Urgency detection, reply suggestions, reminders, sentiment, bot logs." data-tour-content-ar="كشف الإلحاح، اقتراحات الرد، التذكيرات، المشاعر، سجلات الروبوت.">
         <div className="flex items-center gap-2 mb-2">
           <FiZap className="text-pink-500 animate-pulse" size={22} />
           <span className="font-semibold text-lg text-gray-800 dark:text-gray-100">{translate('communication.aiFeatures.title')}</span>
@@ -346,7 +355,7 @@ export default function Communication() {
         </div>
       </div>
       {/* Audit & History */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in">
+      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="12" data-tour-title-en="Audit & History" data-tour-title-ar="التدقيق والسجل" data-tour-content-en="Export and review communication history." data-tour-content-ar="تصدير ومراجعة سجل الاتصالات.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
           <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{translate('communication.audit.title')}</h2>
           <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold" onClick={() => setShowAuditModal(true)}><FiDownload className="inline mr-1" />{translate('communication.audit.export')}</button>

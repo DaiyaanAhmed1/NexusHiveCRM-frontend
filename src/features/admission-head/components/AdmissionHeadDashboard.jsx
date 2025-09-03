@@ -117,9 +117,9 @@ export default function AdmissionHeadDashboard() {
   }
 
   return (
-    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-6 animate-fade-in bg-transparent dark:bg-transparent">
+    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-6 animate-fade-in bg-transparent dark:bg-transparent" data-tour="1" data-tour-title-en="Dashboard Overview" data-tour-title-ar="نظرة عامة على لوحة التحكم" data-tour-content-en="Filters, KPIs, and quick actions for admissions." data-tour-content-ar="مرشحات ومؤشرات وإجراءات سريعة للقبول.">
       {/* Header with Filters */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-50/60 to-purple-50/40 dark:from-gray-900 dark:to-gray-800 rounded-xl px-4 py-6">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-50/60 to-purple-50/40 dark:from-gray-900 dark:to-gray-800 rounded-xl px-4 py-6" data-tour="2" data-tour-title-en="Header & Filters" data-tour-title-ar="الرأس والمرشحات" data-tour-content-en="Change department, time range, or export data." data-tour-content-ar="غيّر القسم، النطاق الزمني، أو صدّر البيانات.">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('dashboard.title')}</h1>
           <p className="text-sm text-gray-600 dark:text-gray-300">{t('dashboard.subtitle')}</p>
@@ -152,7 +152,7 @@ export default function AdmissionHeadDashboard() {
       </div>
 
       {/* Admission Funnel */}
-      <section className="bg-gray-50 dark:bg-gray-800/80 dark:!bg-gray-800/80 rounded-xl shadow p-6">
+      <section className="bg-gray-50 dark:bg-gray-800/80 dark:!bg-gray-800/80 rounded-xl shadow p-6" data-tour="3" data-tour-title-en="Admission Funnel" data-tour-title-ar="قمع القبول" data-tour-content-en="Track progress from inquiries to enrollments." data-tour-content-ar="تابع التقدم من الاستفسارات إلى التسجيل.">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
             <FiBarChart2 className="text-blue-500" />
@@ -187,7 +187,7 @@ export default function AdmissionHeadDashboard() {
       {/* Lead Sources and Department Status */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Lead Sources */}
-        <section className="bg-gray-50 dark:bg-gray-800/80 dark:!bg-gray-800/80 rounded-xl shadow p-6">
+        <section className="bg-gray-50 dark:bg-gray-800/80 dark:!bg-gray-800/80 rounded-xl shadow p-6" data-tour="4" data-tour-title-en="Lead Sources" data-tour-title-ar="مصادر العملاء" data-tour-content-en="Top-performing channels and conversion trends." data-tour-content-ar="أفضل القنوات واتجاهات التحويل.">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
               <FiPieChart className="text-purple-500" />
@@ -218,7 +218,7 @@ export default function AdmissionHeadDashboard() {
         </section>
 
         {/* Department Status */}
-        <section className="bg-gray-50 dark:bg-gray-800/80 dark:!bg-gray-800/80 rounded-xl shadow p-6">
+        <section className="bg-gray-50 dark:bg-gray-800/80 dark:!bg-gray-800/80 rounded-xl shadow p-6" data-tour="5" data-tour-title-en="Department Status" data-tour-title-ar="حالة الأقسام" data-tour-content-en="Capacity, applications, fill rate, and waitlist by department." data-tour-content-ar="الطاقة الاستيعابية والطلبات ومعدل الملء وقوائم الانتظار حسب القسم.">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
               <FiTarget className="text-green-500" />
@@ -262,7 +262,7 @@ export default function AdmissionHeadDashboard() {
       {/* Demographics and Pending Actions */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Demographics */}
-        <section className="bg-gray-50 dark:bg-gray-800/80 dark:!bg-gray-800/80 rounded-xl shadow p-6">
+        <section className="bg-gray-50 dark:bg-gray-800/80 dark:!bg-gray-800/80 rounded-xl shadow p-6" data-tour="6" data-tour-title-en="Demographics" data-tour-title-ar="التركيبة السكانية" data-tour-content-en="Regional, gender, and age distributions." data-tour-content-ar="التوزيع الإقليمي والجنس والعمر.">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
               <FiGlobe className="text-blue-500" />
@@ -302,7 +302,7 @@ export default function AdmissionHeadDashboard() {
         </section>
 
         {/* Pending Actions & Alerts */}
-        <section className="bg-gray-50 dark:bg-gray-800/80 dark:!bg-gray-800/80 rounded-xl shadow p-6">
+        <section className="bg-gray-50 dark:bg-gray-800/80 dark:!bg-gray-800/80 rounded-xl shadow p-6" data-tour="7" data-tour-title-en="Pending Actions & Alerts" data-tour-title-ar="الإجراءات المعلقة والتنبيهات" data-tour-content-en="Items requiring attention and system alerts." data-tour-content-ar="عناصر تتطلب الانتباه وتنبيهات النظام.">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
               <FiBell className="text-red-500" />
@@ -350,7 +350,7 @@ export default function AdmissionHeadDashboard() {
       </div>
 
       {/* AI Insights Panel */}
-      <section className="bg-gradient-to-r from-purple-50/60 to-blue-50/40 dark:from-gray-900 dark:to-gray-800 rounded-xl shadow p-6">
+      <section className="bg-gradient-to-r from-purple-50/60 to-blue-50/40 dark:from-gray-900 dark:to-gray-800 rounded-xl shadow p-6" data-tour="8" data-tour-title-en="AI Insights" data-tour-title-ar="رؤى الذكاء الاصطناعي" data-tour-content-en="Forecasts, alerts, and planning recommendations." data-tour-content-ar="توقعات وتنبيهات وتوصيات التخطيط.">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-2">
             <FiBook className="text-purple-500" />

@@ -55,7 +55,7 @@ function AISmartPanel({ appointments, staff }) {
   const noShowRisk = appointments.filter(a => a.status === 'No-Show').length > 2 ? 'High' : 'Low';
   const overloaded = staff.find(s => appointments.filter(a => a.staff.name === s.name && isToday(a.date)).length > 3);
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-purple-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-lg p-6 flex flex-col gap-4 mb-8 animate-fade-in">
+    <div className="bg-gradient-to-br from-blue-50 to-purple-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-lg p-6 flex flex-col gap-4 mb-8 animate-fade-in" data-tour="4" data-tour-title-en="AI Smart Suggestions" data-tour-title-ar="اقتراحات ذكية" data-tour-content-en="Smart suggestions for best slot, no-show risk, and load balancing." data-tour-content-ar="اقتراحات ذكية للوقت الأفضل، خطر الإلغاء، وتوزيع الحمل.">
       <div className="flex items-center gap-2 mb-2">
         <FiZap className="text-purple-500 animate-pulse" size={22} />
         <span className="font-semibold text-lg text-gray-800 dark:text-gray-100">AI Smart Suggestions</span>
@@ -92,7 +92,7 @@ function AnalyticsWidgets({ appointments, staff }) {
   const staffCounts = staff.map(s => ({ ...s, count: appointments.filter(a => a.staff.name === s.name && isThisMonth(a.date)).length }));
   staffCounts.sort((a, b) => b.count - a.count);
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" data-tour="3" data-tour-title-en="Analytics Widgets" data-tour-title-ar="واجهات تحليلية" data-tour-content-en="Bar chart for appointment types and pie chart for status breakdown." data-tour-content-ar="رسم بياني لأنواع المواعيد ودائرة لتفصيل الحالة.">
       {/* Bar Chart */}
       <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-4 flex flex-col items-center">
         <span className="font-semibold mb-2 text-gray-700 dark:text-gray-200">Appointments by Type</span>
@@ -233,7 +233,7 @@ export default function Schedule() {
       days.push(new Date(now.getFullYear(), now.getMonth(), d));
     }
     return (
-      <div className="grid grid-cols-7 gap-2">
+      <div className="grid grid-cols-7 gap-2" data-tour="5" data-tour-title-en="Calendar Grid" data-tour-title-ar="شبكة التقويم" data-tour-content-en="Monthly view with scheduled items." data-tour-content-ar="عرض شهري بالعناصر المجدولة.">
         {days.map(day => (
           <div key={day.toISOString()} className={`rounded-xl p-2 min-h-[80px] border ${isToday(day) ? 'border-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/80'} flex flex-col gap-1 relative`}>
             <span className="text-xs font-bold text-gray-500 dark:text-gray-400">{day.getDate()}</span>
@@ -250,9 +250,9 @@ export default function Schedule() {
   useEffect(() => { if (toast) { const t = setTimeout(() => setToast(null), 2000); return () => clearTimeout(t); } }, [toast]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 dark:from-gray-900 dark:to-gray-950 p-0 animate-fade-in">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 dark:from-gray-900 dark:to-gray-950 p-0 animate-fade-in" data-tour="1" data-tour-title-en="Schedule & Appointments" data-tour-title-ar="الجدولة والمواعيد" data-tour-content-en="Dashboard, AI suggestions, analytics, types, and calendar." data-tour-content-ar="لوحة المعلومات، اقتراحات الذكاء، التحليلات، الأنواع والتقويم.">
       {/* Hero Header */}
-      <div className="w-full bg-gradient-to-r from-blue-600 to-purple-500 py-10 px-6 md:px-12 flex flex-col md:flex-row items-center gap-6 mb-10 rounded-b-3xl shadow-lg animate-fade-in">
+      <div className="w-full bg-gradient-to-r from-blue-600 to-purple-500 py-10 px-6 md:px-12 flex flex-col md:flex-row items-center gap-6 mb-10 rounded-b-3xl shadow-lg animate-fade-in" data-tour="2" data-tour-title-en="Header" data-tour-title-ar="الرأس" data-tour-content-en="Page title and overview." data-tour-content-ar="عنوان الصفحة ونظرة عامة.">
         <div className="flex items-center gap-4">
           <div className="bg-white/20 rounded-full p-4"><FiCalendar className="text-white" size={40} /></div>
           <div>
@@ -263,7 +263,7 @@ export default function Schedule() {
       </div>
 
       {/* Dashboard */}
-      <div className="max-w-7xl mx-auto px-4 mb-8">
+      <div className="max-w-7xl mx-auto px-4 mb-8" data-tour="3" data-tour-title-en="KPIs" data-tour-title-ar="المؤشرات" data-tour-content-en="Today, this week, pending and confirmed counts." data-tour-content-ar="أعداد اليوم وهذا الأسبوع والمعلّقة والمؤكدة.">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 flex items-center gap-4">
             <div className="bg-blue-100 rounded-full p-3"><FiCalendar className="text-blue-600" size={24} /></div>
@@ -296,10 +296,12 @@ export default function Schedule() {
         </div>
       </div>
       {/* AI & Analytics widgets */}
-      <AISmartPanel appointments={appointments} staff={mockStaff} />
-      <AnalyticsWidgets appointments={appointments} staff={mockStaff} />
+      <div data-tour="4" data-tour-title-en="AI & Analytics" data-tour-title-ar="الذكاء والتحليلات" data-tour-content-en="Smart suggestions and analytics widgets." data-tour-content-ar="اقتراحات ذكية وواجهات تحليلية.">
+        <AISmartPanel appointments={appointments} staff={mockStaff} />
+        <AnalyticsWidgets appointments={appointments} staff={mockStaff} />
+      </div>
       {/* Appointment Types */}
-      <div className="mb-8">
+      <div className="mb-8" data-tour="6" data-tour-title-en="Appointment Types" data-tour-title-ar="أنواع المواعيد" data-tour-content-en="Quick actions to add different appointment types." data-tour-content-ar="إجراءات سريعة لإضافة أنواع مختلفة من المواعيد.">
         <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">{t('schedule.types.title')}</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
           {mockTypes.map((type, index) => (
@@ -316,7 +318,7 @@ export default function Schedule() {
       </div>
 
       {/* Calendar Controls */}
-      <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 mb-8">
+      <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 mb-8" data-tour="7" data-tour-title-en="Calendar Controls" data-tour-title-ar="عناصر التحكم في التقويم" data-tour-content-en="Navigate months and switch views." data-tour-content-ar="تنقل بين الشهور وغيّر طرق العرض.">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div className="flex items-center gap-4">
             <button onClick={() => setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() - 1))} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
