@@ -87,7 +87,14 @@ export default function DirectorUserManagement() {
   return (
     <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
       <main className="flex-1 p-4 md:p-6 flex flex-col gap-8 overflow-x-auto">
-        <div>
+        <div
+          data-tour="1"
+          data-tour-title-en="User Management Overview"
+          data-tour-title-ar="نظرة عامة على إدارة المستخدمين"
+          data-tour-content-en="Track user metrics, filter by role, search, and manage users."
+          data-tour-content-ar="تتبع مقاييس المستخدمين، وصَفِّ حسب الدور، وابحث، وأدر المستخدمين."
+          data-tour-position="bottom"
+        >
           <h1 className="text-xl font-bold text-gray-900 dark:text-white">
             {t('userManagement.title')}
           </h1>
@@ -97,7 +104,15 @@ export default function DirectorUserManagement() {
         </div>
 
         {/* User Metrics */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"
+          data-tour="2"
+          data-tour-title-en="User Metrics"
+          data-tour-title-ar="مقاييس المستخدمين"
+          data-tour-content-en="Key user stats: total, active, new, and activity levels."
+          data-tour-content-ar="إحصاءات المستخدمين الرئيسية: الإجمالي، النشط، الجديد، ومستويات النشاط."
+          data-tour-position="bottom"
+        >
           {userMetrics.map((metric) => (
             <motion.div
               key={metric.id}
@@ -122,7 +137,14 @@ export default function DirectorUserManagement() {
         </div>
 
         {/* User Filters */}
-        <section className="mb-4">
+        <section className="mb-4"
+          data-tour="3"
+          data-tour-title-en="Filters & Actions"
+          data-tour-title-ar="المرشحات والإجراءات"
+          data-tour-content-en="Filter by role, search by name/email, and add new users."
+          data-tour-content-ar="صَفِّ حسب الدور، وابحث بالاسم/البريد، وأضف مستخدمين جدد."
+          data-tour-position="bottom"
+        >
           <div className="flex flex-wrap gap-2 mb-2">
             <select 
               value={roleFilter} 
@@ -149,7 +171,14 @@ export default function DirectorUserManagement() {
         </section>
 
         {/* User List */}
-        <section>
+        <section
+          data-tour="4"
+          data-tour-title-en="User List"
+          data-tour-title-ar="قائمة المستخدمين"
+          data-tour-content-en="Browse users, check roles and status, and edit user details."
+          data-tour-content-ar="تصفح المستخدمين، راجع الأدوار والحالة، وعدّل تفاصيل المستخدم."
+          data-tour-position="bottom"
+        >
           <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow mb-4">
             <table className="w-full text-xs">
               <thead>

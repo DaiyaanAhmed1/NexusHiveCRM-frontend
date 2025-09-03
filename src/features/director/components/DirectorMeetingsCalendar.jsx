@@ -50,7 +50,14 @@ export default function DirectorMeetingsCalendar() {
   return (
     <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
       <main className="flex-1 p-4 md:p-6 flex flex-col gap-8 overflow-x-auto">
-        <div>
+        <div
+          data-tour="1"
+          data-tour-title-en="Meetings & Calendar Overview"
+          data-tour-title-ar="نظرة عامة على الاجتماعات والتقويم"
+          data-tour-content-en="Review upcoming meetings and manage calendar events."
+          data-tour-content-ar="راجع الاجتماعات القادمة وأدر أحداث التقويم."
+          data-tour-position="bottom"
+        >
           <h1 className="text-xl font-bold text-gray-900 dark:text-white">
             {t('meetingsCalendar.title')}
           </h1>
@@ -60,7 +67,14 @@ export default function DirectorMeetingsCalendar() {
         </div>
 
         {/* Meetings List */}
-        <section>
+        <section
+          data-tour="2"
+          data-tour-title-en="Upcoming Meetings"
+          data-tour-title-ar="الاجتماعات القادمة"
+          data-tour-content-en="See scheduled meetings with participants, status, and agenda."
+          data-tour-content-ar="اطلع على الاجتماعات المجدولة مع المشاركين والحالة والجدول."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
             {t('meetingsCalendar.upcomingMeetings')}
           </h2>
@@ -101,7 +115,14 @@ export default function DirectorMeetingsCalendar() {
         </section>
 
         {/* Calendar */}
-        <section>
+        <section
+          data-tour="3"
+          data-tour-title-en="Calendar"
+          data-tour-title-ar="التقويم"
+          data-tour-content-en="Filter by date, add events, and view key milestones."
+          data-tour-content-ar="قم بالتصفية حسب التاريخ، أضف الأحداث، واعرض المعالم الرئيسية."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
             {t('meetingsCalendar.calendar')}
           </h2>

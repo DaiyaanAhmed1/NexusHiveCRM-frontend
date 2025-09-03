@@ -23,7 +23,14 @@ export default function DirectorWorkspace() {
   return (
     <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
       <main className="flex-1 p-4 md:p-6 flex flex-col gap-8 overflow-x-auto">
-        <header>
+        <header
+          data-tour="1"
+          data-tour-title-en="Workspace Overview"
+          data-tour-title-ar="نظرة عامة على مساحة العمل"
+          data-tour-content-en="Your personalized hub: training, compliance, account tools, tasks, events, and more."
+          data-tour-content-ar="مركزك الشخصي: التدريب، الامتثال، أدوات الحساب، المهام، الأحداث، والمزيد."
+          data-tour-position="bottom"
+        >
           <h1 className="text-2xl font-bold !text-gray-900 dark:!text-white">
             {t('workspace.title')}
           </h1>
@@ -33,7 +40,14 @@ export default function DirectorWorkspace() {
         </header>
 
         {/* Training & Development */}
-        <section>
+        <section
+          data-tour="2"
+          data-tour-title-en="Training & Development"
+          data-tour-title-ar="التدريب والتطوير"
+          data-tour-content-en="Team training progress and knowledge resources for leaders."
+          data-tour-content-ar="تقدم تدريب الفريق ومصادر المعرفة للقادة."
+          data-tour-position="bottom"
+        >
           <h2 className="text-xl font-semibold !text-gray-900 dark:!text-white mb-4">
             🎓 {t('workspace.sections.trainingDevelopment')}
           </h2>
@@ -91,7 +105,14 @@ export default function DirectorWorkspace() {
         </section>
 
         {/* Compliance & Quality */}
-        <section>
+        <section
+          data-tour="3"
+          data-tour-title-en="Compliance & Quality"
+          data-tour-title-ar="الامتثال والجودة"
+          data-tour-content-en="Quality assurance workflows and risk management highlights."
+          data-tour-content-ar="سير عمل ضمان الجودة وأبرز المخاطر."
+          data-tour-position="bottom"
+        >
           <h2 className="text-xl font-semibold !text-gray-900 dark:!text-white mb-4">
             ✅ {t('workspace.sections.complianceQuality')}
           </h2>
@@ -152,7 +173,14 @@ export default function DirectorWorkspace() {
         </section>
 
         {/* Account Management */}
-        <section>
+        <section
+          data-tour="4"
+          data-tour-title-en="Account Management"
+          data-tour-title-ar="إدارة الحساب"
+          data-tour-content-en="Profile, HR board, referrals, tasks, events, attendance, and more."
+          data-tour-content-ar="الملف الشخصي، لوحة الموارد البشرية، الإحالات، المهام، الأحداث، الحضور، والمزيد."
+          data-tour-position="bottom"
+        >
           <h2 className="text-xl font-semibold !text-gray-900 dark:!text-white mb-4">
             🧾 {t('workspace.sections.accountManagement')}
           </h2>

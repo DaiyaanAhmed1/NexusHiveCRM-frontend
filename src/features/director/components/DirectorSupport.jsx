@@ -39,7 +39,14 @@ export default function DirectorSupport() {
   return (
     <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
       <main className="flex-1 p-4 md:p-6 flex flex-col gap-8 overflow-x-auto">
-        <div>
+        <div
+          data-tour="1"
+          data-tour-title-en="Help & Support Overview"
+          data-tour-title-ar="نظرة عامة على المساعدة والدعم"
+          data-tour-content-en="Browse help topics, check FAQs, and find contact details."
+          data-tour-content-ar="تصفح مواضيع المساعدة، واطلع على الأسئلة الشائعة، واعثر على تفاصيل الاتصال."
+          data-tour-position="bottom"
+        >
           <h1 className="text-xl font-bold text-gray-900 dark:text-white">
             {t('support.title')}
           </h1>
@@ -49,7 +56,14 @@ export default function DirectorSupport() {
         </div>
 
         {/* Help Topics */}
-        <section className="mb-4">
+        <section className="mb-4"
+          data-tour="2"
+          data-tour-title-en="Help Topics"
+          data-tour-title-ar="مواضيع المساعدة"
+          data-tour-content-en="Quick guides on user management, data security, and compliance."
+          data-tour-content-ar="أدلة سريعة حول إدارة المستخدمين، أمن البيانات، والامتثال."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
             {t('support.helpTopics')}
           </h2>
@@ -74,7 +88,14 @@ export default function DirectorSupport() {
         </section>
 
         {/* FAQs */}
-        <section>
+        <section
+          data-tour="3"
+          data-tour-title-en="FAQs"
+          data-tour-title-ar="الأسئلة الشائعة"
+          data-tour-content-en="Toggle common questions to find quick answers."
+          data-tour-content-ar="قم بفتح الأسئلة الشائعة للحصول على إجابات سريعة."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
             {t('support.faqs')}
           </h2>
@@ -108,7 +129,14 @@ export default function DirectorSupport() {
         </section>
 
         {/* Contact Support */}
-        <section>
+        <section
+          data-tour="4"
+          data-tour-title-en="Contact Support"
+          data-tour-title-ar="الاتصال بالدعم"
+          data-tour-content-en="Reach support via email, phone, or live chat (coming soon)."
+          data-tour-content-ar="تواصل مع الدعم عبر البريد الإلكتروني أو الهاتف أو الدردشة المباشرة (قريباً)."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
             {t('support.contactSupport')}
           </h2>

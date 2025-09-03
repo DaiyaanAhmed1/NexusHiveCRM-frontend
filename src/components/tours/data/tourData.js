@@ -144,6 +144,90 @@ export const tourData = {
         ar: "قم بمواءمة الأهداف وتتبع مؤشرات الأداء وخطط خارطة الطريق وحلل الاتجاهات"
       },
       steps: []
+    },
+    communication: {
+      autoScan: true,
+      title: {
+        en: "Communication Hub",
+        ar: "مركز التواصل"
+      },
+      description: {
+        en: "Broadcast, collaborate, archive, and analyze communications",
+        ar: "أرسل الإعلانات وتعاون وأرشف وحلل الاتصالات"
+      },
+      steps: []
+    },
+    audit: {
+      autoScan: true,
+      title: {
+        en: "Audit & Compliance",
+        ar: "التدقيق والامتثال"
+      },
+      description: {
+        en: "Compliance overview, audit logs, and risk analytics",
+        ar: "نظرة عامة على الامتثال وسجلات التدقيق وتحليلات المخاطر"
+      },
+      steps: []
+    },
+    calendar: {
+      autoScan: true,
+      title: {
+        en: "Meetings & Calendar",
+        ar: "الاجتماعات والتقويم"
+      },
+      description: {
+        en: "Manage meetings and key calendar events",
+        ar: "إدارة الاجتماعات وأحداث التقويم الرئيسية"
+      },
+      steps: []
+    },
+    users: {
+      autoScan: true,
+      title: {
+        en: "User Management",
+        ar: "إدارة المستخدمين"
+      },
+      description: {
+        en: "Monitor user metrics and manage users across roles",
+        ar: "راقب مقاييس المستخدمين وأدر المستخدمين عبر الأدوار"
+      },
+      steps: []
+    },
+    settings: {
+      autoScan: true,
+      title: {
+        en: "Settings",
+        ar: "الإعدادات"
+      },
+      description: {
+        en: "Manage institutional, academic, access, notifications, and privacy",
+        ar: "أدر إعدادات المؤسسة والأكاديمية والوصول والإشعارات والخصوصية"
+      },
+      steps: []
+    },
+    workspace: {
+      autoScan: true,
+      title: {
+        en: "Workspace",
+        ar: "مساحة العمل"
+      },
+      description: {
+        en: "Central hub for training, compliance, and account tools",
+        ar: "المركز الرئيسي للتدريب والامتثال وأدوات الحساب"
+      },
+      steps: []
+    },
+    support: {
+      autoScan: true,
+      title: {
+        en: "Help & Support",
+        ar: "المساعدة والدعم"
+      },
+      description: {
+        en: "Help topics, FAQs, and contact options",
+        ar: "مواضيع المساعدة والأسئلة الشائعة وخيارات الاتصال"
+      },
+      steps: []
     }
   },
 

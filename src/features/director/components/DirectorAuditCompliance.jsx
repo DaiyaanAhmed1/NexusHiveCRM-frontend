@@ -65,7 +65,14 @@ export default function DirectorAuditCompliance() {
   return (
     <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
       <main className="flex-1 p-4 md:p-6 flex flex-col gap-8 overflow-x-auto">
-        <div>
+        <div
+          data-tour="1"
+          data-tour-title-en="Audit & Compliance Overview"
+          data-tour-title-ar="نظرة عامة على التدقيق والامتثال"
+          data-tour-content-en="Track compliance status, review audit logs, and monitor risks."
+          data-tour-content-ar="تتبع حالة الامتثال، وراجع سجلات التدقيق، وراقب المخاطر."
+          data-tour-position="bottom"
+        >
           <h1 className="text-xl font-bold text-gray-900 dark:text-white">
             {t('auditCompliance.title')}
           </h1>
@@ -75,7 +82,14 @@ export default function DirectorAuditCompliance() {
         </div>
 
         {/* Compliance Status */}
-        <section>
+        <section
+          data-tour="2"
+          data-tour-title-en="Compliance Status"
+          data-tour-title-ar="حالة الامتثال"
+          data-tour-content-en="Snapshot of accreditation and regulatory compliance across areas."
+          data-tour-content-ar="لمحة عن الاعتماد والامتثال التنظيمي عبر المجالات."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
             {t('auditCompliance.complianceStatus')}
           </h2>
@@ -101,7 +115,14 @@ export default function DirectorAuditCompliance() {
         </section>
 
         {/* Audit Logs */}
-        <section>
+        <section
+          data-tour="3"
+          data-tour-title-en="Audit Logs"
+          data-tour-title-ar="سجلات التدقيق"
+          data-tour-content-en="Filter and inspect user actions, statuses, and details."
+          data-tour-content-ar="قم بتصفية وفحص إجراءات المستخدم والحالات والتفاصيل."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
             {t('auditCompliance.auditLogs')}
           </h2>
@@ -149,7 +170,14 @@ export default function DirectorAuditCompliance() {
         </section>
 
         {/* Risk Analytics */}
-        <section>
+        <section
+          data-tour="4"
+          data-tour-title-en="Risk Analytics"
+          data-tour-title-ar="تحليلات المخاطر"
+          data-tour-content-en="Review risk levels and recommended mitigation strategies."
+          data-tour-content-ar="راجع مستويات المخاطر واستراتيجيات التخفيف الموصى بها."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
             {t('auditCompliance.riskAnalytics')}
           </h2>

@@ -123,7 +123,14 @@ export default function DirectorCommunicationHub() {
     <div key={`${i18n.language}-${languageVersion}`} className="w-full">
       <main className="w-full flex flex-col gap-8">
         {/* Header */}
-        <div>
+        <div
+          data-tour="1"
+          data-tour-title-en="Communication Hub Overview"
+          data-tour-title-ar="نظرة عامة على مركز التواصل"
+          data-tour-content-en="Send broadcasts, manage threads, browse archives, and track insights in one place."
+          data-tour-content-ar="أرسل الإعلانات، وأدر المحادثات، وتصفح الأرشيف، وتابع التقارير في مكان واحد."
+          data-tour-position="bottom"
+        >
           <h1 className="text-xl font-bold text-gray-900 dark:text-white">
             {t('communicationHub.title')}
           </h1>
@@ -133,7 +140,14 @@ export default function DirectorCommunicationHub() {
         </div>
 
         {/* 1. Broadcast Messages */}
-        <section>
+        <section
+          data-tour="2"
+          data-tour-title-en="Broadcast Messages"
+          data-tour-title-ar="الرسائل العامة"
+          data-tour-content-en="Compose announcements, pick audience groups, schedule, and send."
+          data-tour-content-ar="صِغ الإعلانات، واختر مجموعات الجمهور، وجدول الإرسال ثم أرسل."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
             {t('communicationHub.broadcastMessages')}
           </h2>
@@ -169,7 +183,14 @@ export default function DirectorCommunicationHub() {
         </section>
 
         {/* 2. Internal Stakeholder Communication */}
-        <section>
+        <section
+          data-tour="3"
+          data-tour-title-en="Stakeholder Threads"
+          data-tour-title-ar="محادثات أصحاب المصلحة"
+          data-tour-content-en="Switch between groups to view and manage internal communication threads."
+          data-tour-content-ar="بدّل بين المجموعات لعرض وإدارة محادثات التواصل الداخلي."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
             {t('communicationHub.internalStakeholderCommunication')}
           </h2>
@@ -207,7 +228,14 @@ export default function DirectorCommunicationHub() {
         </section>
 
         {/* 3. Message Archives */}
-        <section>
+        <section
+          data-tour="4"
+          data-tour-title-en="Message Archives"
+          data-tour-title-ar="أرشيف الرسائل"
+          data-tour-content-en="Search past communications by topic and role, and access attachments."
+          data-tour-content-ar="ابحث في الاتصالات السابقة حسب الموضوع والدور، واطلع على المرفقات."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
             {t('communicationHub.messageArchives')}
           </h2>
@@ -257,7 +285,14 @@ export default function DirectorCommunicationHub() {
         </section>
 
         {/* 4. Incoming Communication */}
-        <section>
+        <section
+          data-tour="5"
+          data-tour-title-en="Incoming Communication"
+          data-tour-title-ar="الاتصالات الواردة"
+          data-tour-content-en="Monitor inbound messages and statuses to prioritize responses."
+          data-tour-content-ar="راقب الرسائل الواردة وحالاتها لتحديد أولويات الردود."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
             {t('communicationHub.incomingCommunication')}
           </h2>
@@ -292,7 +327,14 @@ export default function DirectorCommunicationHub() {
         </section>
 
         {/* 5. Reports & Insights */}
-        <section>
+        <section
+          data-tour="6"
+          data-tour-title-en="Reports & Insights"
+          data-tour-title-ar="التقارير والرؤى"
+          data-tour-content-en="High-level analytics: messages sent, opens, responses, sentiment, and engagement."
+          data-tour-content-ar="تحليلات عامة: الرسائل المرسلة، الفتح، الردود، المشاعر، والتفاعل."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
             {t('communicationHub.reportsInsights')}
           </h2>
@@ -339,7 +381,14 @@ export default function DirectorCommunicationHub() {
         </section>
 
         {/* 6. Secure Messaging */}
-        <section>
+        <section
+          data-tour="7"
+          data-tour-title-en="Secure Messaging"
+          data-tour-title-ar="المراسلة الآمنة"
+          data-tour-content-en="Confidential flags, visibility, and read-receipt information for sensitive messages."
+          data-tour-content-ar="أعلام السرية، الرؤية، ومعلومات إشعار القراءة للرسائل الحساسة."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
             {t('communicationHub.secureMessaging')}
           </h2>
@@ -358,7 +407,14 @@ export default function DirectorCommunicationHub() {
         </section>
 
         {/* 7. AI-Powered Assistant */}
-        <section>
+        <section
+          data-tour="8"
+          data-tour-title-en="AI-Powered Assistant"
+          data-tour-title-ar="المساعد المدعوم بالذكاء الاصطناعي"
+          data-tour-content-en="Draft emails, analyze tone, and insert quick reply suggestions."
+          data-tour-content-ar="صغ رسائل البريد، حلّل النبرة، وأدرج اقتراحات رد سريعة."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
             {t('communicationHub.aiPoweredAssistant')}
           </h2>
@@ -395,7 +451,14 @@ export default function DirectorCommunicationHub() {
         </section>
 
         {/* 8. Integration */}
-        <section>
+        <section
+          data-tour="9"
+          data-tour-title-en="Integrations"
+          data-tour-title-ar="التكاملات"
+          data-tour-content-en="Key systems connected with the Communication Hub (calendar, approvals, LMS/ERP, SMS)."
+          data-tour-content-ar="الأنظمة المتكاملة مع مركز التواصل (التقويم، الموافقات، LMS/ERP، الرسائل القصيرة)."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
             {t('communicationHub.integration')}
           </h2>

@@ -63,7 +63,14 @@ export default function DirectorSettings() {
   return (
     <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
       <main className="flex-1 p-4 md:p-6 flex flex-col gap-8 overflow-x-auto">
-        <div>
+        <div
+          data-tour="1"
+          data-tour-title-en="Settings Overview"
+          data-tour-title-ar="نظرة عامة على الإعدادات"
+          data-tour-content-en="Manage institutional, academic, access, notifications, and data privacy settings."
+          data-tour-content-ar="أدر إعدادات المؤسسة والأكاديمية والوصول والإشعارات وخصوصية البيانات."
+          data-tour-position="bottom"
+        >
           <h1 className="text-xl font-bold text-gray-900 dark:text-white">
             {t('settings.title')}
           </h1>
@@ -73,7 +80,14 @@ export default function DirectorSettings() {
         </div>
 
         {/* Settings Categories */}
-        <section className="mb-4">
+        <section className="mb-4"
+          data-tour="2"
+          data-tour-title-en="Categories"
+          data-tour-title-ar="الفئات"
+          data-tour-content-en="Switch between settings categories using these tabs."
+          data-tour-content-ar="بدّل بين فئات الإعدادات باستخدام هذه الألسنة."
+          data-tour-position="bottom"
+        >
           <div className="flex flex-wrap gap-2 mb-2">
             {settingsCategories.map(cat => (
               <button 
@@ -92,7 +106,14 @@ export default function DirectorSettings() {
         </section>
 
         {/* Settings Options */}
-        <section>
+        <section
+          data-tour="3"
+          data-tour-title-en="Options"
+          data-tour-title-ar="الخيارات"
+          data-tour-content-en="Review and adjust settings values within the selected category."
+          data-tour-content-ar="راجع وعدّل قيم الإعدادات ضمن الفئة المحددة."
+          data-tour-position="bottom"
+        >
           <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow mb-4">
             {settingsCategories.find(cat => cat.name === activeCategory).options.map((opt, idx) => (
               <div key={idx} className="flex justify-between items-center py-2 border-b border-gray-100 dark:border-gray-700 last:border-b-0">
