@@ -906,7 +906,7 @@ export default function MarketingHeadLeadsManagement() {
   };
 
   return (
-    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-10 animate-fade-in">
+    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-10 animate-fade-in" data-tour="1" data-tour-title-en="Leads Overview" data-tour-title-ar="نظرة عامة على العملاء المحتملين" data-tour-content-en="Import, manage, and track leads across stages." data-tour-content-ar="استيراد وإدارة وتتبع العملاء عبر المراحل.">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-gray-200 dark:border-gray-700">
         <div>
@@ -920,7 +920,7 @@ export default function MarketingHeadLeadsManagement() {
       </div>
 
       {/* Lead Table Section */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow overflow-hidden">
+      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6" data-tour="2" data-tour-title-en="Lead Table" data-tour-title-ar="جدول العملاء" data-tour-content-en="Search, filter, and take actions on leads." data-tour-content-ar="ابحث وفلتر واتخذ إجراءات على العملاء.">
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 pb-2 border-b border-gray-200 dark:border-gray-700">
             <div className="flex items-center gap-1">
@@ -1095,50 +1095,8 @@ export default function MarketingHeadLeadsManagement() {
         </div>
       </section>
 
-      {/* 1. Lead Capture & Import */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-        <div className="flex items-center gap-2 mb-4">
-          <FiUpload className="text-blue-500" />
-          <h2 className="text-lg font-semibold">{t('leads.sections.leadCaptureImport.title')}</h2>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('leads.sections.leadCaptureImport.aiQualityScoring')}</span>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">{t('leads.sections.leadCaptureImport.date')}</th>
-                <th className="pb-3 font-medium">{t('leads.sections.leadCaptureImport.source')}</th>
-                <th className="pb-3 font-medium">{t('leads.sections.leadCaptureImport.count')}</th>
-                <th className="pb-3 font-medium">{t('leads.sections.leadCaptureImport.quality')}</th>
-                <th className="pb-3 font-medium">{t('leads.sections.leadCaptureImport.status')}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {importHistory.map((item) => (
-                <tr key={item.id} className="border-b dark:border-gray-700">
-                  <td className="py-3">{item.date}</td>
-                  <td className="py-3">{item.source}</td>
-                  <td className="py-3">{item.count}</td>
-                  <td className="py-3">
-                    <span className={`px-2 py-1 rounded-full text-xs ${
-                      item.quality === "High" ? "bg-green-100 text-green-700" :
-                      "bg-yellow-100 text-yellow-700"
-                    }`}>
-                      {t(`leads.sections.leadCaptureImport.quality.${item.quality.toLowerCase()}`)}
-                    </span>
-                  </td>
-                  <td className="py-3">
-                    <span className="text-green-600">{t(`leads.sections.leadCaptureImport.status.${item.status.toLowerCase()}`)}</span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
       {/* 2. Lead Segmentation & Filters */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6" data-tour="3" data-tour-title-en="Lead Segmentation" data-tour-title-ar="تجزئة العملاء" data-tour-content-en="Segments and filters to analyze your leads." data-tour-content-ar="الشرائح والمرشحات لتحليل العملاء.">
         <div className="flex items-center gap-2 mb-4">
           <FiFilter className="text-purple-500" />
           <h2 className="text-lg font-semibold">{t('leads.sections.leadSegmentation.title')}</h2>
@@ -1171,7 +1129,7 @@ export default function MarketingHeadLeadsManagement() {
       </section>
 
       {/* 3. Lead Nurturing & Workflow Automation */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6" data-tour="4" data-tour-title-en="Lead Nurturing" data-tour-title-ar="تنمية العملاء" data-tour-content-en="Automations and campaigns to nurture leads." data-tour-content-ar="أتمتة وحملات لتنمية العملاء.">
         <div className="flex items-center gap-2 mb-4">
           <FiRefreshCw className="text-yellow-500" />
           <h2 className="text-lg font-semibold">{t('leads.sections.leadNurturing.title')}</h2>
@@ -1211,145 +1169,8 @@ export default function MarketingHeadLeadsManagement() {
         </div>
       </section>
 
-      {/* 4. Communication Center */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-        <div className="flex items-center gap-2 mb-4">
-          <FiMail className="text-blue-400" />
-          <h2 className="text-lg font-semibold">{t('leads.sections.communicationCenter.title')}</h2>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('leads.sections.communicationCenter.aiSentiment')}</span>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">{t('leads.sections.communicationCenter.lead')}</th>
-                <th className="pb-3 font-medium">{t('leads.sections.communicationCenter.type')}</th>
-                <th className="pb-3 font-medium">{t('leads.sections.communicationCenter.date')}</th>
-                <th className="pb-3 font-medium">{t('leads.sections.communicationCenter.status')}</th>
-                <th className="pb-3 font-medium">{t('leads.sections.communicationCenter.response')}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {communicationHistory.map((comm) => (
-                <tr key={comm.id} className="border-b dark:border-gray-700">
-                  <td className="py-3 font-medium">{comm.lead}</td>
-                  <td className="py-3">{comm.type}</td>
-                  <td className="py-3">{comm.date}</td>
-                  <td className="py-3">
-                    <span className={`px-2 py-1 rounded-full text-xs ${
-                      comm.status === "Completed" ? "bg-green-100 text-green-700" :
-                      comm.status === "Sent" ? "bg-blue-100 text-blue-700" :
-                      "bg-yellow-100 text-yellow-700"
-                    }`}>
-                      {t(`leads.sections.communicationCenter.statusOptions.${comm.status.toLowerCase()}`)}
-                    </span>
-                  </td>
-                  <td className="py-3">
-                    <span className={`px-2 py-1 rounded-full text-xs ${
-                      comm.response === "Positive" ? "bg-green-100 text-green-700" :
-                      comm.response === "Neutral" ? "bg-yellow-100 text-yellow-700" :
-                      "bg-gray-100 text-gray-700"
-                    }`}>
-                      {t(`leads.sections.communicationCenter.responseOptions.${comm.response.toLowerCase()}`)}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      {/* 5. Lead Assignment & Routing */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-        <div className="flex items-center gap-2 mb-4">
-          <FiUsers className="text-green-500" />
-          <h2 className="text-lg font-semibold">{t('leads.sections.leadAssignment.title')}</h2>
-          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('leads.sections.leadAssignment.aiRoutingEngine')}</span>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">{t('leads.sections.leadAssignment.counselor')}</th>
-                <th className="pb-3 font-medium">{t('leads.sections.leadAssignment.assigned')}</th>
-                <th className="pb-3 font-medium">{t('leads.sections.leadAssignment.converted')}</th>
-                <th className="pb-3 font-medium">{t('leads.sections.leadAssignment.conversionRate')}</th>
-                <th className="pb-3 font-medium">{t('leads.sections.leadAssignment.avgResponse')}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {counselorPerformance.map((counselor) => (
-                <tr key={counselor.id} className="border-b dark:border-gray-700">
-                  <td className="py-3 font-medium">{counselor.name}</td>
-                  <td className="py-3">{counselor.assigned}</td>
-                  <td className="py-3">{counselor.converted}</td>
-                  <td className="py-3 text-green-600">{counselor.conversion}</td>
-                  <td className="py-3">{counselor.avgResponse}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      {/* 6. Lead Scoring */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-        <div className="flex items-center gap-2 mb-4">
-          <FiStar className="text-pink-500" />
-          <h2 className="text-lg font-semibold">{t('leads.sections.leadScoring.title')}</h2>
-          <span className="ml-2 text-xs bg-pink-100 text-pink-700 px-2 py-1 rounded animate-pulse">{t('leads.sections.leadScoring.aiDynamicScoring')}</span>
-        </div>
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead>
-              <tr className="text-left border-b dark:border-gray-700">
-                <th className="pb-3 font-medium">{t('leads.sections.leadScoring.lead')}</th>
-                <th className="pb-3 font-medium">{t('leads.sections.leadScoring.score')}</th>
-                <th className="pb-3 font-medium">{t('leads.sections.leadScoring.factors')}</th>
-                <th className="pb-3 font-medium">{t('leads.sections.leadScoring.trend')}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {leadScores.map((score) => (
-                <tr key={score.id} className="border-b dark:border-gray-700">
-                  <td className="py-3 font-medium">{score.lead}</td>
-                  <td className="py-3">
-                    <span className={`px-2 py-1 rounded-full text-xs ${
-                      score.score >= 85 ? "bg-green-100 text-green-700" :
-                      score.score >= 70 ? "bg-yellow-100 text-yellow-700" :
-                      "bg-red-100 text-red-700"
-                    }`}>
-                      {score.score}
-                    </span>
-                  </td>
-                  <td className="py-3">
-                    <div className="flex flex-wrap gap-1">
-                      {score.factors.map((factor, index) => (
-                        <span key={index} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded-full text-xs">
-                          {factor}
-                        </span>
-                      ))}
-                    </div>
-                  </td>
-                  <td className="py-3">
-                    <span className={`px-2 py-1 rounded-full text-xs ${
-                      score.trend === "Up" ? "bg-green-100 text-green-700" :
-                      score.trend === "Down" ? "bg-red-100 text-red-700" :
-                      "bg-gray-100 text-gray-700"
-                    }`}>
-                      {t(`leads.sections.leadScoring.trendOptions.${score.trend.toLowerCase()}`)}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
       {/* 7. Analytics & Insights */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6" data-tour="5" data-tour-title-en="Analytics & Insights" data-tour-title-ar="التحليلات والرؤى" data-tour-content-en="Key KPI widgets and deeper analytics." data-tour-content-ar="عناصر مؤشرات الأداء الرئيسية والتحليلات الأعمق.">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <FiBarChart2 className="text-blue-500" />

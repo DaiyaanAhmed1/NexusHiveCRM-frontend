@@ -15,18 +15,34 @@ export default function MarketingHeadWorkspace() {
 
   // Show loading state while translations are loading
   if (!ready) {
-    return <div className="flex items-center justify-center min-h-screen">{t('support.messages.loading')}</div>;
+    return <div className="flex items_center justify_center min_h_screen">{t('support.messages.loading')}</div>;
   }
 
   return (
-    <div key={`${i18n.language}-${languageVersion}`} className="flex-1 p-4 md:p-6 flex flex-col gap-8 overflow-x-auto">
+    <div
+      key={`${i18n.language}-${languageVersion}`}
+      className="flex-1 p-4 md:p-6 flex flex-col gap-8 overflow-x-auto"
+      data-tour="1"
+      data-tour-title-en="Workspace Overview"
+      data-tour-title-ar="نظرة عامة على مساحة العمل"
+      data-tour-content-en="Quick access to training, compliance, assets, tasks, events, and analytics."
+      data-tour-content-ar="وصول سريع إلى التدريب والامتثال والأصول والمهام والفعاليات والتحليلات."
+      data-tour-position="bottom"
+    >
       <header>
         <h1 className="text-2xl font-bold !text-gray-900 dark:!text-white">{t('workspace.title')}</h1>
         <p className="text-gray-600 dark:text-gray-300">{t('workspace.subtitle')}</p>
       </header>
 
       {/* Training & Development */}
-      <section>
+      <section
+        data-tour="2"
+        data-tour-title-en="Training & Knowledge"
+        data-tour-title-ar="التدريب والمعرفة"
+        data-tour-content-en="See team training status and access the knowledge base."
+        data-tour-content-ar="اطّلع على حالة تدريب الفريق وادخل إلى قاعدة المعرفة."
+        data-tour-position="bottom"
+      >
         <h2 className="text-xl font-semibold !text-gray-900 dark:!text-white mb-4">{t('workspace.sections.trainingDevelopment')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Marketing Training Card */}
@@ -35,7 +51,7 @@ export default function MarketingHeadWorkspace() {
             <ul className="space-y-2 text-gray-900 dark:text-gray-200">
               <li>{t('workspace.trainingDevelopment.digitalMarketingBootcamp')} <span className="ml-2 text-xs bg-green-700 text-white px-2 py-1 rounded">{t('workspace.assetCampaignManagement.status.inProgress')}</span></li>
               <li>{t('workspace.trainingDevelopment.brandManagementWorkshop')} <span className="ml-2 text-xs bg-blue-700 text-white px-2 py-1 rounded">{t('workspace.assetCampaignManagement.status.completed')}</span></li>
-              <li>{t('workspace.trainingDevelopment.contentStrategySeminar')} <span className="ml-2 text-xs bg-yellow-700 text-white px-2 py-1 rounded">{t('workspace.assetCampaignManagement.status.pending')}</span></li>
+              <li>{t('workspace.trainingDevelopment.contentStrategySeminar')} <span className="ml-2 text-xs bg-yellow-700 text_white px-2 py-1 rounded">{t('workspace.assetCampaignManagement.status.pending')}</span></li>
             </ul>
           </div>
           {/* Knowledge Base Card */}
@@ -51,7 +67,14 @@ export default function MarketingHeadWorkspace() {
       </section>
 
       {/* Compliance & Quality */}
-      <section>
+      <section
+        data-tour="3"
+        data-tour-title-en="Compliance & Risk"
+        data-tour-title-ar="الامتثال والمخاطر"
+        data-tour-content-en="Run ad content reviews, brand checks, and privacy audits."
+        data-tour-content-ar="أجرِ مراجعات محتوى الإعلانات وفحوصات العلامة التجارية وتدقيقات الخصوصية."
+        data-tour-position="bottom"
+      >
         <h2 className="text-xl font-semibold !text-gray-900 dark:!text-white mb-4">{t('workspace.sections.complianceQuality')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Campaign Compliance Card */}
@@ -76,9 +99,16 @@ export default function MarketingHeadWorkspace() {
       </section>
 
       {/* Asset & Campaign Management */}
-      <section>
+      <section
+        data-tour="4"
+        data-tour-title-en="Assets, Tasks & Events"
+        data-tour-title-ar="الأصول والمهام والفعاليات"
+        data-tour-content-en="Access campaign assets, tasks, events, and performance analytics."
+        data-tour-content-ar="وصول إلى أصول الحملات والمهام والفعاليات وتحليلات الأداء."
+        data-tour-position="bottom"
+      >
         <h2 className="text-xl font-semibold !text-gray-900 dark:!text-white mb-4">{t('workspace.sections.assetCampaignManagement')}</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid_cols_3 gap-6">
           {/* My Campaigns Card */}
           <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow">
             <h3 className="font-bold text-lg text-purple-700 dark:text-purple-300 mb-2">{t('workspace.assetCampaignManagement.myCampaigns.title')}</h3>
@@ -116,7 +146,7 @@ export default function MarketingHeadWorkspace() {
           </div>
           {/* Analytics Card */}
           <div className="bg-white dark:bg-gray-900 rounded-xl p-6 shadow">
-            <h3 className="font-bold text-lg text-green-700 dark:text-green-300 mb-2">{t('workspace.assetCampaignManagement.analytics.title')}</h3>
+            <h3 className="font-bold text-lg text_green_700 dark:text_green_300 mb-2">{t('workspace.assetCampaignManagement.analytics.title')}</h3>
             <ul className="space-y-2 text-gray-900 dark:text-gray-200">
               <li>{t('workspace.assetCampaignManagement.analytics.campaignPerformanceDashboard')}</li>
               <li>{t('workspace.assetCampaignManagement.analytics.leadGenerationTrends')}</li>

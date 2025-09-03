@@ -84,7 +84,7 @@ export default function MarketingHeadResourceManagement() {
 
   // State for modals, filters, etc. can be added as needed
   return (
-    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-10 animate-fade-in">
+    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-10 animate-fade-in" data-tour="1" data-tour-title-en="Resources Overview" data-tour-title-ar="نظرة عامة على الموارد" data-tour-content-en="Team, events, budgets, tools, assets, and vendors." data-tour-content-ar="الفريق والفعاليات والميزانيات والأدوات والأصول والموردون." data-tour-position="bottom">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-50/60 to-purple-50/40 dark:from-gray-900 dark:to-gray-800 rounded-xl px-4 py-6">
         <div>
@@ -94,7 +94,7 @@ export default function MarketingHeadResourceManagement() {
       </div>
 
       {/* 1. Team Allocation */}
-      <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6" data-tour="2" data-tour-title-en="Team Allocation" data-tour-title-ar="توزيع الفريق" data-tour-content-en="Monitor workloads and AI under/over-utilization." data-tour-content-ar="راقب الأحمال وتنبيهات الاستغلال الزائد/المنخفض بالذكاء الاصطناعي.">
         <div className="flex items-center gap-2 mb-4">
           <FiUsers className="text-blue-500" />
           <h2 className="text-lg font-semibold">{t('resources.sections.teamAllocation')}</h2>
@@ -182,7 +182,7 @@ export default function MarketingHeadResourceManagement() {
       </section>
 
       {/* 3. Budget & Cost Allocation */}
-      <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6" data-tour="3" data-tour-title-en="Budget & Costs" data-tour-title-ar="الميزانية والتكاليف" data-tour-content-en="Planned vs spent with ROI and alerts." data-tour-content-ar="المخطط مقابل المنفق مع العائد والتنبيهات.">
         <div className="flex items-center gap-2 mb-4">
           <FiDollarSign className="text-green-500" />
           <h2 className="text-lg font-semibold">{t('resources.sections.budgetCostAllocation')}</h2>
@@ -219,7 +219,7 @@ export default function MarketingHeadResourceManagement() {
       </section>
 
       {/* 4. Tool & Software Management */}
-      <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6" data-tour="4" data-tour-title-en="Tools & Software" data-tour-title-ar="الأدوات والبرمجيات" data-tour-content-en="Subscriptions, renewals, usage insights." data-tour-content-ar="الاشتراكات والتجديدات ورؤى الاستخدام.">
         <div className="flex items-center gap-2 mb-4">
           <FiTool className="text-pink-500" />
           <h2 className="text-lg font-semibold">{t('resources.sections.toolSoftwareManagement')}</h2>
@@ -265,7 +265,7 @@ export default function MarketingHeadResourceManagement() {
       </section>
 
       {/* 5. Asset & Content Repository */}
-      <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800/80 rounded-xl shadow p-6" data-tour="5" data-tour-title-en="Asset Repository" data-tour-title-ar="مستودع الأصول" data-tour-content-en="Manage assets, versions, and usage." data-tour-content-ar="أدر الأصول والإصدارات والاستخدام.">
         <div className="flex items-center gap-2 mb-4">
           <FiArchive className="text-blue-400" />
           <h2 className="text-lg font-semibold">{t('resources.sections.assetContentRepository')}</h2>

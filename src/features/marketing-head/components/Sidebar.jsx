@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useLocalization } from "../../../hooks/useLocalization";
 import SidebarLanguageSwitcher from "../../../components/localization/SidebarLanguageSwitcher";
+import SmartTourButton from '../../../components/tours/SmartTourButton';
 
 export default function Sidebar({ features, userLabel, expanded, setExpanded }) {
   const { t } = useTranslation();
@@ -146,23 +147,11 @@ export default function Sidebar({ features, userLabel, expanded, setExpanded }) 
           {expanded && <span className="text-white whitespace-nowrap">{darkTheme ? t('sidebar.darkMode') : t('sidebar.lightMode')}</span>}
         </button>
         
-        {/* Start Tour Button */}
-        <button
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-300 w-full text-white ${
-            expanded ? 'justify-start' : 'justify-center'
-          } ${
-            darkTheme ? 'hover:bg-gray-700' : 'hover:bg-white/30'
-          }`}
-          style={{ background: "transparent" }}
-          title={t('sidebar.startTour')}
-        >
-          <span className="text-2xl text-yellow-400">
-            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" className="w-5 h-5">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="currentColor"/>
-            </svg>
-          </span>
-          {expanded && <span className="text-white whitespace-nowrap">{t('sidebar.startTour')}</span>}
-        </button>
+        <SmartTourButton
+          role="marketing-head"
+          expanded={expanded}
+          darkTheme={darkTheme}
+        />
         
         <button
           onClick={handleLogout}

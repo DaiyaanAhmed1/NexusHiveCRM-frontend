@@ -227,7 +227,13 @@ export default function MarketingHeadTrainingDevelopment() {
   };
 
   return (
-    <div className="flex flex-col gap-10 animate-fade-in">
+    <div className="flex flex-col gap-10 animate-fade-in"
+         data-tour="1"
+         data-tour-title-en="Training & Development Overview"
+         data-tour-title-ar="نظرة عامة على التدريب والتطوير"
+         data-tour-content-en="Dashboard, calendar, courses, skills, requests, and insights."
+         data-tour-content-ar="لوحة التحكم، التقويم، الدورات، المهارات، الطلبات والرؤى."
+         data-tour-position="bottom">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-gray-200 dark:border-gray-700">
         <div>
@@ -261,7 +267,12 @@ export default function MarketingHeadTrainingDevelopment() {
       </section>
 
       {/* 1. Training Dashboard */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+               data-tour="2"
+               data-tour-title-en="Training Dashboard"
+               data-tour-title-ar="لوحة تدريبية"
+               data-tour-content-en="Upcoming sessions, certification status, and team insights."
+               data-tour-content-ar="الجلسات القادمة، حالة الشهادات ورؤى الفريق.">
         <div className="flex items-center gap-2 mb-4">
           <FiBarChart2 className="text-blue-500" />
           <h2 className="text-lg font-semibold">{t('training.sections.trainingDashboard')}</h2>
@@ -321,7 +332,12 @@ export default function MarketingHeadTrainingDevelopment() {
       </section>
 
       {/* 2. Training Calendar */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+               data-tour="3"
+               data-tour-title-en="Training Calendar"
+               data-tour-title-ar="تقويم التدريب"
+               data-tour-content-en="Plan sessions with smart rescheduling and reminders."
+               data-tour-content-ar="خطط الجلسات مع إعادة الجدولة الذكية والتنبيهات.">
         <div className="flex items-center gap-2 mb-4">
           <FiCalendar className="text-purple-500" />
           <h2 className="text-lg font-semibold">{t('training.sections.trainingCalendar')}</h2>
@@ -376,7 +392,12 @@ export default function MarketingHeadTrainingDevelopment() {
       </section>
 
       {/* 3. Course Library / LMS Integration */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+               data-tour="4"
+               data-tour-title-en="Course Library"
+               data-tour-title-ar="مكتبة الدورات"
+               data-tour-content-en="Internal/external courses and adaptive learning paths."
+               data-tour-content-ar="دورات داخلية/خارجية ومسارات تعلم تكيفية.">
         <div className="flex items-center gap-2 mb-4">
           <FiBookOpen className="text-green-500" />
           <h2 className="text-lg font-semibold">{t('training.sections.courseLibrary')}</h2>
@@ -418,7 +439,12 @@ export default function MarketingHeadTrainingDevelopment() {
       </section>
 
       {/* 4. Team Member Skill Profiles */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+               data-tour="5"
+               data-tour-title-en="Skill Profiles"
+               data-tour-title-ar="ملفات المهارات"
+               data-tour-content-en="Skill scores, goals, feedback, and readiness."
+               data-tour-content-ar="درجات المهارات والأهداف والتغذية الراجعة والجاهزية.">
         <div className="flex items-center gap-2 mb-4">
           <FiUser className="text-blue-400" />
           <h2 className="text-lg font-semibold">{t('training.sections.skillProfiles')}</h2>
@@ -468,7 +494,12 @@ export default function MarketingHeadTrainingDevelopment() {
       </section>
 
       {/* 5. Training Requests & Approvals */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+               data-tour="6"
+               data-tour-title-en="Training Requests"
+               data-tour-title-ar="طلبات التدريب"
+               data-tour-content-en="Requests, approvals, and cost impact analyzer."
+               data-tour-content-ar="طلبات وموافقات التدريب ومحلل تأثير التكلفة.">
         <div className="flex items-center gap-2 mb-4">
           <FiClipboard className="text-purple-500" />
           <h2 className="text-lg font-semibold">{t('training.sections.trainingRequests')}</h2>
@@ -580,7 +611,12 @@ export default function MarketingHeadTrainingDevelopment() {
       </section>
 
       {/* 8. Reports & Insights */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+               data-tour="7"
+               data-tour-title-en="Reports & Insights"
+               data-tour-title-ar="التقارير والرؤى"
+               data-tour-content-en="Weekly reports, engagement analyzer, and heatmaps."
+               data-tour-content-ar="تقارير أسبوعية، محلل المشاركة وخرائط الحرارة.">
         <div className="flex items-center gap-2 mb-4">
           <FiBarChart2 className="text-blue-500" />
           <h2 className="text-lg font-semibold">{t('training.sections.reportsInsights')}</h2>

@@ -38,6 +38,9 @@ const SmartTourButton = ({
       if (segments.includes('analytics')) return 'analytics';
       if (segments.includes('campaigns')) return 'campaigns';
       if (segments.includes('leads')) return 'leads';
+      if (segments.includes('resources')) return 'resources';
+      if (segments.includes('communication')) return 'communication';
+      if (segments.includes('training')) return 'training';
       if (segments.includes('content')) return 'content';
       if (segments.includes('social')) return 'social';
       if (segments.includes('events')) return 'events';

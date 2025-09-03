@@ -83,7 +83,7 @@ export default function MarketingHeadReportingAnalytics() {
   ];
 
   return (
-    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-10 animate-fade-in">
+    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-10 animate-fade-in" data-tour="1" data-tour-title-en="Analytics Overview" data-tour-title-ar="نظرة عامة على التحليلات" data-tour-content-en="Funnel, spend vs ROI, campaign, and engagement analytics." data-tour-content-ar="القُمع والإنفاق مقابل العائد وتحليلات الحملات والتفاعل." data-tour-position="bottom">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-gray-200 dark:border-gray-700">
         <div>
@@ -93,7 +93,7 @@ export default function MarketingHeadReportingAnalytics() {
       </div>
 
       {/* 1. Lead Funnel Analytics */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6" data-tour="2" data-tour-title-en="Lead Funnel" data-tour-title-ar="قُمع العملاء" data-tour-content-en="Track drop-offs and conversion rates." data-tour-content-ar="تتبع نقاط الانخفاض ومعدلات التحويل.">
         <div className="flex items-center gap-2 mb-4">
           <FiTrendingUp className="text-blue-500" />
           <h2 className="text-lg font-semibold">{t('analytics.sections.leadFunnelAnalytics')}</h2>
@@ -151,7 +151,7 @@ export default function MarketingHeadReportingAnalytics() {
       </section>
 
       {/* 2. Marketing Spend vs ROI */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6" data-tour="3" data-tour-title-en="Spend vs ROI" data-tour-title-ar="الإنفاق مقابل العائد" data-tour-content-en="Analyze budgets, CPA, ROI, and revenue." data-tour-content-ar="حلّل الميزانيات وتكلفة الاكتساب والعائد والإيراد.">
         <div className="flex items-center gap-2 mb-4">
           <FiDollarSign className="text-green-500" />
           <h2 className="text-lg font-semibold">{t('analytics.sections.marketingSpendVsRoi')}</h2>
@@ -200,7 +200,7 @@ export default function MarketingHeadReportingAnalytics() {
       </section>
 
       {/* 3. Campaign Performance Reports */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6" data-tour="4" data-tour-title-en="Campaign Reports" data-tour-title-ar="تقارير الحملات" data-tour-content-en="Compare performance and best times." data-tour-content-ar="قارن الأداء وأفضل الأوقات.">
         <div className="flex items-center gap-2 mb-4">
           <FiPieChart className="text-purple-500" />
           <h2 className="text-lg font-semibold">{t('analytics.sections.campaignPerformanceReports')}</h2>
@@ -248,7 +248,7 @@ export default function MarketingHeadReportingAnalytics() {
       </section>
 
       {/* 4. Audience & Engagement Analytics */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6" data-tour="5" data-tour-title-en="Audience & Engagement" data-tour-title-ar="الجمهور والتفاعل" data-tour-content-en="Demographics, device, and engagement levels." data-tour-content-ar="الخصائص السكانية والجهاز ومستويات التفاعل.">
         <div className="flex items-center gap-2 mb-4">
           <FiUsers className="text-pink-500" />
           <h2 className="text-lg font-semibold">{t('analytics.sections.audienceEngagementAnalytics')}</h2>

@@ -131,19 +131,35 @@ export default function MarketingHeadTeamManagement() {
   return (
     <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-10 animate-fade-in">
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-gray-200 dark:border-gray-700">
+      <div
+        className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-gray-200 dark:border-gray-700"
+        data-tour="1"
+        data-tour-title-en="Team Management Overview"
+        data-tour-title-ar="نظرة عامة على إدارة الفريق"
+        data-tour-content-en="Add members, export reports, and manage team operations."
+        data-tour-content-ar="أضف الأعضاء، صدّر التقارير، وأدر عمليات الفريق."
+        data-tour-position="bottom"
+      >
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">{t('team.title')} <FiUsers className="text-blue-500" /></h1>
           <p className="text-sm text-gray-600 dark:text-gray-300">{t('team.subtitle')}</p>
         </div>
         <div className="flex gap-3">
-          <button className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700">{t('team.addTeamMember')}</button>
-          <button className="px-4 py-2 text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600">{t('team.exportReport')}</button>
+          <button className="px-4 py-2 text_sm bg-blue-600 text-white rounded-lg hover:bg-blue-700">{t('team.addTeamMember')}</button>
+          <button className="px-4 py-2 text_sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600">{t('team.exportReport')}</button>
         </div>
       </div>
 
       {/* 1. Team Structure & Hierarchy */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section
+        className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+        data-tour="2"
+        data-tour-title-en="Team Structure & Hierarchy"
+        data-tour-title-ar="هيكل الفريق والتسلسل الهرمي"
+        data-tour-content-en="View roles and reporting lines with AI workload suggestions."
+        data-tour-content-ar="اعرض الأدوار وخطوط التقارير مع اقتراحات عبء العمل بالذكاء الاصطناعي."
+        data-tour-position="bottom"
+      >
         <div className="flex items-center gap-2 mb-2"><FiUsers className="text-blue-500" /><h2 className="text-lg font-semibold">{t('team.sections.teamStructure.title')}</h2><span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('team.sections.teamStructure.aiSuggestion')}</span></div>
         {/* Demo: Grouped by role, hierarchy tree, assign supervisors */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -167,7 +183,15 @@ export default function MarketingHeadTeamManagement() {
       </section>
 
       {/* 2. Role-based Access & Permissions */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section
+        className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+        data-tour="3"
+        data-tour-title-en="Role-based Access & Permissions"
+        data-tour-title-ar="الوصول المستند إلى الدور والأذونات"
+        data-tour-content-en="Review roles, permissions, and edit access."
+        data-tour-content-ar="راجع الأدوار والأذونات وعدّل الوصول."
+        data-tour-position="bottom"
+      >
         <div className="flex items-center gap-2 mb-2"><FiSettings className="text-purple-500" /><h2 className="text-lg font-semibold">{t('team.sections.roleAccess.title')}</h2></div>
         {/* Demo: Table of roles and permissions */}
         <table className="w-full text-sm mt-2">
@@ -186,8 +210,16 @@ export default function MarketingHeadTeamManagement() {
       </section>
 
       {/* 3. Task Assignment & Tracking */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-        <div className="flex items-center gap-2 mb-2"><FiClipboard className="text-green-500" /><h2 className="text-lg font-semibold">{t('team.sections.taskAssignment.title')}</h2><span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('team.sections.taskAssignment.aiSmartAssignment')}</span></div>
+      <section
+        className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+        data-tour="4"
+        data-tour-title-en="Task Assignment & Tracking"
+        data-tour-title-ar="تعيين المهام وتتبعها"
+        data-tour-content-en="Assign tasks, track progress, and view AI suggestions."
+        data-tour-content-ar="قم بتعيين المهام وتتبع التقدم واعرض اقتراحات الذكاء الاصطناعي."
+        data-tour-position="bottom"
+      >
+        <div className="flex items_center gap-2 mb-2"><FiClipboard className="text-green-500" /><h2 className="text-lg font-semibold">{t('team.sections.taskAssignment.title')}</h2><span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('team.sections.taskAssignment.aiSmartAssignment')}</span></div>
         {/* Demo: Task list, status, progress, AI suggestions */}
         <table className="w-full text-sm mt-2">
           <thead><tr><th>{t('team.sections.taskAssignment.task')}</th><th>{t('team.sections.taskAssignment.assignedTo')}</th><th>{t('team.sections.taskAssignment.status')}</th><th>{t('team.sections.taskAssignment.progress')}</th><th>{t('team.sections.taskAssignment.deadline')}</th><th>{t('team.sections.roleAccess.actions')}</th></tr></thead>
@@ -201,7 +233,15 @@ export default function MarketingHeadTeamManagement() {
       </section>
 
       {/* 4. Performance Dashboard */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section
+        className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+        data-tour="5"
+        data-tour-title-en="Performance Dashboard"
+        data-tour-title-ar="لوحة الأداء"
+        data-tour-content-en="KPIs, leaderboard, and burnout predictions."
+        data-tour-content-ar="مؤشرات الأداء، لوحة الصدارة، وتنبؤات الإرهاق."
+        data-tour-position="bottom"
+      >
         <div className="flex items-center gap-2 mb-2"><FiBarChart2 className="text-pink-500" /><h2 className="text-lg font-semibold">{t('team.sections.performanceDashboard.title')}</h2><span className="ml-2 text-xs bg-pink-100 text-pink-700 px-2 py-1 rounded animate-pulse">{t('team.sections.performanceDashboard.aiLeaderboard')}</span></div>
         {/* Demo: KPIs, comparison, leaderboard, appraisal */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -226,7 +266,15 @@ export default function MarketingHeadTeamManagement() {
       </section>
 
       {/* 5. Training & Development Tracker */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section
+        className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+        data-tour="6"
+        data-tour-title-en="Training & Development Tracker"
+        data-tour-title-ar="متابعة التدريب والتطوير"
+        data-tour-content-en="Training attendance, certifications, and AI recommendations."
+        data-tour-content-ar="حضور التدريب والشهادات وتوصيات الذكاء الاصطناعي."
+        data-tour-position="bottom"
+      >
         <div className="flex items-center gap-2 mb-2"><FiBookOpen className="text-yellow-500" /><h2 className="text-lg font-semibold">{t('team.sections.trainingDevelopment.title')}</h2><span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">{t('team.sections.trainingDevelopment.aiRecommendations')}</span></div>
         {/* Demo: Training attendance, badges, feedback */}
         <ul className="space-y-1 text-sm">
@@ -238,7 +286,15 @@ export default function MarketingHeadTeamManagement() {
       </section>
 
       {/* 6. Communication Center */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section
+        className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+        data-tour="7"
+        data-tour-title-en="Communication Center"
+        data-tour-title-ar="مركز الاتصال"
+        data-tour-content-en="Announcements, reminders, and SOP briefs."
+        data-tour-content-ar="الإعلانات والتذكيرات والموجزات."
+        data-tour-position="bottom"
+      >
         <div className="flex items-center gap-2 mb-2"><FiMessageCircle className="text-blue-400" /><h2 className="text-lg font-semibold">{t('team.sections.communicationCenter.title')}</h2><span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('team.sections.communicationCenter.aiSummary')}</span></div>
         {/* Demo: Announcements, reminders, briefs */}
         <ul className="space-y-1 text-sm">
@@ -250,7 +306,15 @@ export default function MarketingHeadTeamManagement() {
       </section>
 
       {/* 7. Issue Escalation Panel */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section
+        className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+        data-tour="8"
+        data-tour-title-en="Issue Escalation"
+        data-tour-title-ar="تصعيد المشكلات"
+        data-tour-content-en="Monitor issues, statuses, and prioritization."
+        data-tour-content-ar="راقب المشكلات والحالات وتحديد الأولويات."
+        data-tour-position="bottom"
+      >
         <div className="flex items-center gap-2 mb-2"><FiAlertCircle className="text-red-500" /><h2 className="text-lg font-semibold">{t('team.sections.issueEscalation.title')}</h2><span className="ml-2 text-xs bg-red-100 text-red-700 px-2 py-1 rounded animate-pulse">{t('team.sections.issueEscalation.aiPrioritization')}</span></div>
         {/* Demo: Issue list, status, escalation */}
         <ul className="space-y-1 text-sm">
@@ -261,7 +325,15 @@ export default function MarketingHeadTeamManagement() {
       </section>
 
       {/* 8. Attendance & Availability */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section
+        className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+        data-tour="9"
+        data-tour-title-en="Attendance & Availability"
+        data-tour-title-ar="الحضور والتوفر"
+        data-tour-content-en="Check-ins, leaves, and roster overview."
+        data-tour-content-ar="تسجيلات الحضور والإجازات ونظرة عامة على المناوبات."
+        data-tour-position="bottom"
+      >
         <div className="flex items-center gap-2 mb-2"><FiCalendar className="text-green-500" /><h2 className="text-lg font-semibold">{t('team.sections.attendanceAvailability.title')}</h2><span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('team.sections.attendanceAvailability.aiForecast')}</span></div>
         {/* Demo: Check-ins, leaves, roster */}
         <ul className="space-y-1 text-sm">
@@ -273,7 +345,15 @@ export default function MarketingHeadTeamManagement() {
       </section>
 
       {/* 9. Goal Planning & Reviews */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section
+        className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+        data-tour="10"
+        data-tour-title-en="Goal Planning & Reviews"
+        data-tour-title-ar="تخطيط الأهداف والمراجعات"
+        data-tour-content-en="Goals, reviews, and AI goal suggestions."
+        data-tour-content-ar="الأهداف والمراجعات واقتراحات الأهداف بالذكاء الاصطناعي."
+        data-tour-position="bottom"
+      >
         <div className="flex items-center gap-2 mb-2"><FiTarget className="text-purple-500" /><h2 className="text-lg font-semibold">{t('team.sections.goalPlanning.title')}</h2><span className="ml-2 text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded animate-pulse">{t('team.sections.goalPlanning.aiGoalSetting')}</span></div>
         {/* Demo: Goals, reviews, feedback */}
         <ul className="space-y-1 text-sm">

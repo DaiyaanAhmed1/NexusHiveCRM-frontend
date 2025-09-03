@@ -24,6 +24,9 @@ export const tourRegistry = {
     analytics: true,           // ✅ Has tour
     campaigns: true,           // ✅ Has tour
     leads: true,               // ✅ Has tour
+    resources: true,           // ✅ Has tour
+    communication: true,       // ✅ Has tour
+    training: true,            // ✅ Has tour
     content: true,             // ✅ Has tour
     social: true,              // ✅ Has tour
     events: true,              // ✅ Has tour

@@ -293,7 +293,13 @@ export default function MarketingHeadSupport() {
   };
 
   return (
-    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-8">
+    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-8"
+         data-tour="1"
+         data-tour-title-en="Help & Support Overview"
+         data-tour-title-ar="نظرة عامة على المساعدة والدعم"
+         data-tour-content-en="Create tickets, view status, and browse the knowledge base."
+         data-tour-content-ar="أنشئ التذاكر واعرض حالتها وتصفح قاعدة المعرفة."
+         data-tour-position="bottom">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
@@ -311,7 +317,13 @@ export default function MarketingHeadSupport() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-4 border-b dark:border-gray-700">
+      <div className="flex gap-4 border-b dark:border-gray-700"
+           data-tour="2"
+           data-tour-title-en="Tickets vs Knowledge"
+           data-tour-title-ar="التذاكر مقابل المعرفة"
+           data-tour-content-en="Switch between ticket management and the knowledge base."
+           data-tour-content-ar="بدّل بين إدارة التذاكر وقاعدة المعرفة."
+           data-tour-position="bottom">
         <button
           className={`pb-2 px-1 ${
             activeTab === 'tickets'
@@ -336,7 +348,13 @@ export default function MarketingHeadSupport() {
 
       {/* Content */}
       {activeTab === 'tickets' ? (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden"
+             data-tour="3"
+             data-tour-title-en="Tickets Table"
+             data-tour-title-ar="جدول التذاكر"
+             data-tour-content-en="Track ticket details, priority, status, and actions."
+             data-tour-content-ar="تابع تفاصيل التذاكر والأولوية والحالة والإجراءات."
+             data-tour-position="top">
           <div className="p-6">
             <h2 className="text-lg font-semibold mb-4">{t('support.tickets.title')}</h2>
             <div className="overflow-x-auto">
@@ -400,7 +418,13 @@ export default function MarketingHeadSupport() {
           </div>
         </div>
       ) : (
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden"
+             data-tour="4"
+             data-tour-title-en="Knowledge Base"
+             data-tour-title-ar="قاعدة المعرفة"
+             data-tour-content-en="Browse help articles and best practices."
+             data-tour-content-ar="تصفح مقالات المساعدة وأفضل الممارسات."
+             data-tour-position="top">
           <div className="p-6">
             <h2 className="text-lg font-semibold mb-4">{t('support.knowledge.title')}</h2>
             <div className="grid gap-4">

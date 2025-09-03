@@ -78,7 +78,15 @@ export default function MarketingHeadDashboard() {
   return (
     <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-8">
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div
+        className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+        data-tour="1"
+        data-tour-title-en="Marketing Dashboard Overview"
+        data-tour-title-ar="نظرة عامة على لوحة تحكم التسويق"
+        data-tour-content-en="Launch campaigns, export reports, and view a quick summary."
+        data-tour-content-ar="ابدأ الحملات، صدّر التقارير، واعرض ملخصاً سريعاً."
+        data-tour-position="bottom"
+      >
         <div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('title')}</h1>
           <p className="text-sm text-gray-600 dark:text-gray-300">{t('welcome')}</p> 
@@ -95,7 +103,15 @@ export default function MarketingHeadDashboard() {
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4"
+        data-tour="2"
+        data-tour-title-en="KPI Summary"
+        data-tour-title-ar="ملخص مؤشرات الأداء"
+        data-tour-content-en="Track qualified leads, conversion rate, active campaigns, team size, and ROI."
+        data-tour-content-ar="تتبع العملاء المحتملين المؤهلين، معدل التحويل، الحملات النشطة، حجم الفريق، والعائد على الاستثمار."
+        data-tour-position="bottom"
+      >
         {getKPIs(t).map((kpi, index) => (
           <motion.div
             key={index}
@@ -114,7 +130,15 @@ export default function MarketingHeadDashboard() {
       </div>
 
       {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div
+        className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+        data-tour="3"
+        data-tour-title-en="Analytics Charts"
+        data-tour-title-ar="مخططات التحليلات"
+        data-tour-content-en="Analyze lead trends and marketing channel performance."
+        data-tour-content-ar="حلّل اتجاهات العملاء وأداء قنوات التسويق."
+        data-tour-position="bottom"
+      >
         {/* Lead Trend Chart */}
         <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm">
           <h2 className="text-lg font-semibold mb-4">{t('charts.leadGenerationActionable')}</h2>
@@ -161,7 +185,15 @@ export default function MarketingHeadDashboard() {
       </div>
 
       {/* Recent Activity and Tasks */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div
+        className="grid grid-cols-1 lg:grid-cols-2 gap-6"
+        data-tour="4"
+        data-tour-title-en="Activity & Follow-ups"
+        data-tour-title-ar="النشاط والمتابعات"
+        data-tour-content-en="Keep track of team activity and upcoming follow-ups."
+        data-tour-content-ar="تابع نشاط الفريق والمتابعات القادمة."
+        data-tour-position="bottom"
+      >
         <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm">
           <h2 className="text-lg font-semibold mb-4">{t('activityLog.title')}</h2>
           <div className="space-y-4">

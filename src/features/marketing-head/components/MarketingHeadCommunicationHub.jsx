@@ -207,7 +207,7 @@ export default function MarketingHeadCommunicationHub() {
   };
 
   return (
-    <div className="flex flex-col gap-10 animate-fade-in">
+    <div className="flex flex-col gap-10 animate-fade-in" data-tour="1" data-tour-title-en="Communication Overview" data-tour-title-ar="نظرة عامة على التواصل" data-tour-content-en="Lead comms, team collaboration, messaging, and calendar." data-tour-content-ar="تواصل العملاء، تعاون الفريق، الرسائل، والتقويم." data-tour-position="bottom">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-gray-200 dark:border-gray-700">
         <div>
@@ -217,7 +217,7 @@ export default function MarketingHeadCommunicationHub() {
       </div>
 
       {/* 1. Lead Communication Panel */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6" data-tour="2" data-tour-title-en="Lead Communication" data-tour-title-ar="تواصل العملاء" data-tour-content-en="Recent lead conversations and AI suggestions." data-tour-content-ar="محادثات العملاء الأخيرة واقتراحات الذكاء الاصطناعي.">
         <div className="flex items-center gap-2 mb-4">
           <FiMail className="text-blue-500" />
           <h2 className="text-lg font-semibold">{t('communication.sections.leadCommunicationPanel')}</h2>
@@ -267,7 +267,7 @@ export default function MarketingHeadCommunicationHub() {
       </section>
 
       {/* 2. Team Collaboration Channel */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6" data-tour="3" data-tour-title-en="Team Collaboration" data-tour-title-ar="تعاون الفريق" data-tour-content-en="Rooms, announcements, and AI summaries." data-tour-content-ar="الغرف والإعلانات وملخصات الذكاء الاصطناعي.">
         <div className="flex items-center gap-2 mb-4">
           <FiUsers className="text-purple-500" />
           <h2 className="text-lg font-semibold">{t('communication.sections.teamCollaborationChannel')}</h2>
@@ -307,7 +307,7 @@ export default function MarketingHeadCommunicationHub() {
       </section>
 
       {/* 3. Campaign Messaging Center */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6" data-tour="4" data-tour-title-en="Messaging Center" data-tour-title-ar="مركز الرسائل" data-tour-content-en="Outbound messages, segments, and best times." data-tour-content-ar="الرسائل الصادرة والشرائح وأفضل الأوقات.">
         <div className="flex items-center gap-2 mb-4">
           <FiSend className="text-green-500" />
           <h2 className="text-lg font-semibold">{t('communication.sections.campaignMessagingCenter')}</h2>
@@ -402,7 +402,7 @@ export default function MarketingHeadCommunicationHub() {
       </section>
 
       {/* 5. Integrated Communication Calendar */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6" data-tour="5" data-tour-title-en="Communication Calendar" data-tour-title-ar="تقويم التواصل" data-tour-content-en="Scheduled comms and smart suggestions." data-tour-content-ar="التواصل المجدول والاقتراحات الذكية.">
         <div className="flex items-center gap-2 mb-4">
           <FiCalendar className="text-blue-400" />
           <h2 className="text-lg font-semibold">{t('communication.sections.integratedCommunicationCalendar')}</h2>
@@ -444,7 +444,7 @@ export default function MarketingHeadCommunicationHub() {
       </section>
 
       {/* 6. Notification & Alert Center */}
-      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+      <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6" data-tour="6" data-tour-title-en="Notifications & Alerts" data-tour-title-ar="الإشعارات والتنبيهات" data-tour-content-en="Urgency, priorities, and follow-ups." data-tour-content-ar="مدى الإلحاح والأولويات والمتابعات.">
         <div className="flex items-center gap-2 mb-4">
           <FiBell className="text-green-500" />
           <h2 className="text-lg font-semibold">{t('communication.sections.notificationAlertCenter')}</h2>

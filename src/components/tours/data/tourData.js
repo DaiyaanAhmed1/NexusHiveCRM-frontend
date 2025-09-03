@@ -234,29 +234,124 @@ export const tourData = {
   // MARKETING HEAD ROLE TOURS
   'marketing-head': {
     dashboard: {
+      autoScan: true,
       title: {
-        en: "Welcome to Marketing Dashboard",
-        ar: "مرحباً بك في لوحة تحكم التسويق"
+        en: "Marketing Dashboard",
+        ar: "لوحة تحكم التسويق"
       },
       description: {
-        en: "Let's explore your marketing performance and campaign insights",
-        ar: "دعنا نستكشف أداء التسويق ورؤى الحملات"
+        en: "Track KPIs, analyze performance, and manage team follow-ups",
+        ar: "تتبع مؤشرات الأداء، حلّل الأداء، وأدر متابعات الفريق"
       },
-      steps: [
-        {
-          id: 1,
-          target: ".marketing-header",
-          title: {
-            en: "Marketing Overview",
-            ar: "نظرة عامة على التسويق"
-          },
-          content: {
-            en: "Track your marketing campaigns, lead generation, and conversion rates",
-            ar: "تتبع حملاتك التسويقية وتوليد العملاء المحتملين ومعدلات التحويل"
-          },
-          position: "bottom"
-        }
-      ]
+      steps: []
+    },
+    analytics: {
+      autoScan: true,
+      title: {
+        en: "Reporting & Analytics",
+        ar: "التقارير والتحليلات"
+      },
+      description: {
+        en: "Campaign analytics, ROI reports, and lead statistics",
+        ar: "تحليلات الحملات وتقارير العائد وإحصاءات العملاء"
+      },
+      steps: []
+    },
+    team: {
+      autoScan: true,
+      title: {
+        en: "Team Management",
+        ar: "إدارة الفريق"
+      },
+      description: {
+        en: "Structure, permissions, tasks, performance, and more",
+        ar: "الهيكل، الأذونات، المهام، الأداء، والمزيد"
+      },
+      steps: []
+    },
+    leads: {
+      autoScan: true,
+      title: {
+        en: "Leads Management",
+        ar: "إدارة العملاء المحتملين"
+      },
+      description: {
+        en: "Upload and manage leads with bulk actions",
+        ar: "قم برفع العملاء وإدارتهم مع الإجراءات المجمعة"
+      },
+      steps: []
+    },
+    campaigns: {
+      autoScan: true,
+      title: {
+        en: "Campaign Management",
+        ar: "إدارة الحملات"
+      },
+      description: {
+        en: "Plan campaigns, budgets, ROI, and metrics",
+        ar: "خطط الحملات والميزانيات والعائد والمقاييس"
+      },
+      steps: []
+    },
+    resources: {
+      autoScan: true,
+      title: {
+        en: "Resource Management",
+        ar: "إدارة الموارد"
+      },
+      description: {
+        en: "Manage budgets, assets, tools, and allocations",
+        ar: "إدارة الميزانيات والأصول والأدوات والتوزيعات"
+      },
+      steps: []
+    },
+    communication: {
+      autoScan: true,
+      title: {
+        en: "Communication Hub",
+        ar: "مركز التواصل"
+      },
+      description: {
+        en: "Broadcast, collaborate, archive, and analyze communications",
+        ar: "أرسل الإعلانات وتعاون وأرشف وحلل الاتصالات"
+      },
+      steps: []
+    },
+    training: {
+      autoScan: true,
+      title: {
+        en: "Training & Development",
+        ar: "التدريب والتطوير"
+      },
+      description: {
+        en: "Team training, skills, schedules, and learning resources",
+        ar: "تدريب الفريق والمهارات والجداول والموارد التعليمية"
+      },
+      steps: []
+    },
+    workspace: {
+      autoScan: true,
+      title: {
+        en: "Workspace",
+        ar: "مساحة العمل"
+      },
+      description: {
+        en: "Quick access to training, compliance, assets, tasks, and analytics",
+        ar: "وصول سريع إلى التدريب والامتثال والأصول والمهام والتحليلات"
+      },
+      steps: []
+    },
+    support: {
+      autoScan: true,
+      title: {
+        en: "Help & Support",
+        ar: "المساعدة والدعم"
+      },
+      description: {
+        en: "Create tickets, track status, and browse knowledge base",
+        ar: "أنشئ التذاكر وتابع الحالة وتصفح قاعدة المعرفة"
+      },
+      steps: []
     }
   },
 

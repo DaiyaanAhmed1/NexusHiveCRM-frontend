@@ -3,6 +3,34 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useLocalization } from '../../hooks/useLocalization';
 
+// Find nearest scrollable ancestor (overflow auto/scroll and scrollable content)
+const getScrollableAncestor = (element) => {
+  if (!element) return null;
+  let node = element.parentElement;
+  while (node && node !== document.body) {
+    const style = window.getComputedStyle(node);
+    const overflowY = style.overflowY;
+    const canScrollY = (overflowY === 'auto' || overflowY === 'scroll') && node.scrollHeight > node.clientHeight;
+    const overflowX = style.overflowX;
+    const canScrollX = (overflowX === 'auto' || overflowX === 'scroll') && node.scrollWidth > node.clientWidth;
+    if (canScrollY || canScrollX) return node;
+    node = node.parentElement;
+  }
+  return document.scrollingElement || document.documentElement;
+};
+
+const isMostlyInViewWithin = (targetEl, containerEl) => {
+  if (!targetEl || !containerEl) return true;
+  const tRect = targetEl.getBoundingClientRect();
+  const cRect = containerEl === document.scrollingElement || containerEl === document.documentElement
+    ? { top: 0, left: 0, right: window.innerWidth, bottom: window.innerHeight }
+    : containerEl.getBoundingClientRect();
+  const buffer = 40;
+  const verticalInView = tRect.top >= cRect.top - buffer && tRect.bottom <= cRect.bottom + buffer;
+  const horizontalInView = tRect.left >= cRect.left - buffer && tRect.right <= cRect.right + buffer;
+  return verticalInView && horizontalInView;
+};
+
 const TourStep = ({ 
   step, 
   onNext, 
@@ -23,6 +51,7 @@ const TourStep = ({
   const [autoScrollComplete, setAutoScrollComplete] = useState(false);
   const [spotlightRect, setSpotlightRect] = useState({ top: 0, left: 0, width: 0, height: 0 });
   const [viewport, setViewport] = useState({ w: typeof window !== 'undefined' ? window.innerWidth : 0, h: typeof window !== 'undefined' ? window.innerHeight : 0 });
+  const scrollContainerRef = useRef(null);
 
   // Calculate optimal position based on target element and available space
   const calculateOptimalPosition = (targetElement, stepElement) => {
@@ -158,22 +187,31 @@ const TourStep = ({
   // Auto-scroll to bring target element into view (fast)
   const scrollToTarget = (targetElement) => {
     if (!targetElement) return;
-    
-    const rect = targetElement.getBoundingClientRect();
-    const vh = window.innerHeight;
-    const vw = window.innerWidth;
+    const container = scrollContainerRef.current || getScrollableAncestor(targetElement);
+    scrollContainerRef.current = container;
 
-    // If already mostly in view, skip smooth scroll wait
-    const mostlyInView = rect.top >= -40 && rect.bottom <= vh + 40 && rect.left >= -40 && rect.right <= vw + 40;
-    if (mostlyInView) {
+    // If already mostly in view within the container, finish
+    if (isMostlyInViewWithin(targetElement, container)) {
       setAutoScrollComplete(true);
       return;
     }
 
-    const scrollTop = rect.top + window.scrollY - (vh / 2) + (rect.height / 2);
-    const scrollLeft = rect.left + window.scrollX - (vw / 2) + (rect.width / 2);
-    window.scrollTo({ top: Math.max(0, scrollTop), left: Math.max(0, scrollLeft), behavior: 'smooth' });
-    setTimeout(() => setAutoScrollComplete(true), 250); // faster
+    // Scroll container to center target
+    if (container === document.scrollingElement || container === document.documentElement) {
+      const rect = targetElement.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const vw = window.innerWidth;
+      const scrollTop = rect.top + window.scrollY - (vh / 2) + (rect.height / 2);
+      const scrollLeft = rect.left + window.scrollX - (vw / 2) + (rect.width / 2);
+      window.scrollTo({ top: Math.max(0, scrollTop), left: Math.max(0, scrollLeft), behavior: 'smooth' });
+    } else {
+      const containerRect = container.getBoundingClientRect();
+      const targetRect = targetElement.getBoundingClientRect();
+      const deltaY = (targetRect.top - containerRect.top) - (container.clientHeight / 2) + (targetRect.height / 2);
+      const deltaX = (targetRect.left - containerRect.left) - (container.clientWidth / 2) + (targetRect.width / 2);
+      container.scrollTo({ top: container.scrollTop + deltaY, left: container.scrollLeft + deltaX, behavior: 'smooth' });
+    }
+    setTimeout(() => setAutoScrollComplete(true), 250);
   };
 
   useEffect(() => {
@@ -233,11 +271,20 @@ const TourStep = ({
       }
     };
 
+    const container = scrollContainerRef.current || getScrollableAncestor(document.querySelector(step.target));
+    scrollContainerRef.current = container;
+
     window.addEventListener('resize', handleResize);
     window.addEventListener('scroll', handleResize, { passive: true });
+    if (container && container !== window && container !== document.scrollingElement && container !== document.documentElement) {
+      container.addEventListener('scroll', handleResize, { passive: true });
+    }
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleResize);
+      if (container && container !== window && container !== document.scrollingElement && container !== document.documentElement) {
+        container.removeEventListener('scroll', handleResize);
+      }
     };
   }, [step.target]);
 

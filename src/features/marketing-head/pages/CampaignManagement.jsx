@@ -41,13 +41,13 @@ export default function CampaignManagement() {
     : campaigns.filter(c => c.status === campaignFilter);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6" data-tour="1" data-tour-title-en="Campaign Management" data-tour-title-ar="إدارة الحملات" data-tour-content-en="Plan campaigns, manage budgets, track ROI, and review metrics." data-tour-content-ar="خطط الحملات وأدر الميزانيات وتتبع العائد وراجع المقاييس." data-tour-position="bottom">
       <div className="flex justify-between items-center">
         <h1 className="text-3xl font-bold">Campaign Management</h1>
         <Button>Create New Campaign</Button>
       </div>
 
-      <Tabs defaultValue="planning" className="space-y-6">
+      <Tabs defaultValue="planning" className="space-y-6" data-tour="2" data-tour-title-en="Campaign Tabs" data-tour-title-ar="علامات تبويب الحملة" data-tour-content-en="Navigate planning, budget, ROI tracking, and success metrics." data-tour-content-ar="تنقل بين التخطيط والميزانية وتتبع العائد ومقاييس النجاح.">
         <TabsList>
           <TabsTrigger value="planning">Campaign Planning</TabsTrigger>
           <TabsTrigger value="budget">Budget Planning</TabsTrigger>
@@ -57,7 +57,7 @@ export default function CampaignManagement() {
 
         {/* Campaign Planning */}
         <TabsContent value="planning">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6" data-tour="3" data-tour-title-en="Planning Overview" data-tour-title-ar="نظرة عامة على التخطيط" data-tour-content-en="Active campaigns list with filters and timeline." data-tour-content-ar="قائمة الحملات النشطة مع المرشحات والجدول الزمني.">
             <Card>
               <CardHeader>
                 <div className="flex justify-between items-center">
@@ -128,7 +128,7 @@ export default function CampaignManagement() {
 
         {/* Budget Planning */}
         <TabsContent value="budget">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6" data-tour="4" data-tour-title-en="Budget Planning" data-tour-title-ar="تخطيط الميزانية" data-tour-content-en="Allocation by channel and budget vs actuals." data-tour-content-ar="التوزيع حسب القناة والميزانية مقابل الفعلي.">
             <Card>
               <CardHeader>
                 <CardTitle>Budget Allocation</CardTitle>
@@ -142,7 +142,7 @@ export default function CampaignManagement() {
                     { category: 'Social Media', allocated: 25000, spent: 18000 },
                   ].map((item, index) => (
                     <div key={index} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                      <div className="flex justify-between items-center mb-2">
+                      <div className="flex justify_between items-center mb-2">
                         <h3 className="font-medium">{item.category}</h3>
                         <p className="text-sm text-gray-500">
                           ${item.spent.toLocaleString()} / ${item.allocated.toLocaleString()}
@@ -183,7 +183,8 @@ export default function CampaignManagement() {
 
         {/* ROI Tracking */}
         <TabsContent value="roi">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6" data-tour="5" data-tour-title-en="ROI Tracking" data-tour-title-ar="تتبع العائد" data-tour-content-en="Campaign ROI list and quarterly trend."
+               data-tour-content-ar="قائمة عوائد الحملة والاتجاه الفصلي.">
             <Card>
               <CardHeader>
                 <CardTitle>Campaign ROI</CardTitle>
@@ -196,7 +197,7 @@ export default function CampaignManagement() {
                     { campaign: 'Alumni Engagement', investment: 20000, revenue: 120000, roi: '6x' },
                   ].map((item, index) => (
                     <div key={index} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                      <div className="flex justify-between items-center">
+                      <div className="flex justify_between items-center">
                         <div>
                           <h3 className="font-medium">{item.campaign}</h3>
                           <p className="text-sm text-gray-500">
@@ -239,7 +240,8 @@ export default function CampaignManagement() {
 
         {/* Success Metrics */}
         <TabsContent value="metrics">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6" data-tour="6" data-tour-title-en="Success Metrics" data-tour-title-ar="مقاييس النجاح" data-tour-content-en="KPIs and campaign performance."
+               data-tour-content-ar="مؤشرات الأداء وأداء الحملة.">
             <Card>
               <CardHeader>
                 <CardTitle>Key Performance Indicators</CardTitle>
@@ -253,7 +255,7 @@ export default function CampaignManagement() {
                     { metric: 'Response Time', target: 24, achieved: 20, unit: 'hours' },
                   ].map((item, index) => (
                     <div key={index} className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
-                      <div className="flex justify-between items-center">
+                      <div className="flex justify_between items-center">
                         <div>
                           <h3 className="font-medium">{item.metric}</h3>
                           <p className="text-sm text-gray-500">
@@ -264,7 +266,7 @@ export default function CampaignManagement() {
                           <p className="font-medium">
                             {item.achieved}{item.unit}
                           </p>
-                          <p className={`text-sm ${item.achieved >= item.target ? 'text-green-500' : 'text-red-500'}`}>
+                          <p className={`${item.achieved >= item.target ? 'text-green-500' : 'text-red-500'} text-sm`}>
                             {((item.achieved / item.target) * 100).toFixed(1)}% of target
                           </p>
                         </div>

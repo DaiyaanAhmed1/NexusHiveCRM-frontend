@@ -265,7 +265,7 @@ export default function MarketingHeadCampaignManagement() {
   };
 
   return (
-    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-8">
+    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-8" data-tour="1" data-tour-title-en="Campaigns Overview" data-tour-title-ar="نظرة عامة على الحملات" data-tour-content-en="Create, track, and analyze campaigns." data-tour-content-ar="أنشئ وتتبع وحلل الحملات." data-tour-position="bottom">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
@@ -283,7 +283,7 @@ export default function MarketingHeadCampaignManagement() {
       </div>
 
       {/* Campaign Performance Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4" data-tour="2" data-tour-title-en="Performance KPIs" data-tour-title-ar="مؤشرات الأداء" data-tour-content-en="Key metrics across all campaigns." data-tour-content-ar="مقاييس رئيسية عبر جميع الحملات.">
         {campaignPerformance.map((metric, index) => (
           <motion.div
             key={index}
@@ -306,7 +306,7 @@ export default function MarketingHeadCampaignManagement() {
       </div>
 
       {/* Channel Performance */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm">
+      <div className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm" data-tour="3" data-tour-title-en="Channels Performance" data-tour-title-ar="أداء القنوات" data-tour-content-en="Compare spend and outcomes by channel." data-tour-content-ar="قارن الإنفاق والنتائج حسب القناة.">
         <h2 className="text-lg font-semibold mb-4">{t('campaigns.channelPerformance.title')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {channelPerformance.map((channel, index) => (
@@ -336,7 +336,7 @@ export default function MarketingHeadCampaignManagement() {
       </div>
 
       {/* Campaigns List */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden" data-tour="4" data-tour-title-en="Campaigns List" data-tour-title-ar="قائمة الحملات" data-tour-content-en="Browse and manage individual campaigns." data-tour-content-ar="تصفح وأدر الحملات الفردية.">
         <div className="p-6">
           <div className="flex justify-between items-center mb-4">
             <h2 className="text-lg font-semibold">{t('campaigns.allCampaigns.title')}</h2>
