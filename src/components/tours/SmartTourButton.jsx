@@ -11,7 +11,7 @@ const SmartTourButton = ({
 }) => {
   const { t } = useTranslation();
   const location = useLocation();
-  const { getTourStatus, startTour, handleTourComingSoon } = useTour();
+  const { getTourStatus, startTour, handleTourComingSoon, isLoading } = useTour();
 
   // Extract current page from location
   const getCurrentPage = () => {
@@ -78,6 +78,7 @@ const SmartTourButton = ({
 
   // Handle button click
   const handleClick = () => {
+    if (isLoading) return; // prevent multiple clicks while loading
     console.log('Tour button clicked!', { role, currentPage, tourStatus });
     
     if (tourStatus.available) {
@@ -114,6 +115,14 @@ const SmartTourButton = ({
 
   // Get icon based on tour status
   const getIcon = () => {
+    if (isLoading) {
+      return (
+        <svg width="20" height="20" viewBox="0 0 24 24" className="w-5 h-5 animate-spin">
+          <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" fill="none" opacity="0.25" />
+          <path d="M22 12a10 10 0 0 1-10 10" stroke="currentColor" strokeWidth="3" fill="none" />
+        </svg>
+      );
+    }
     if (tourStatus.available) {
       return (
         <svg width="20" height="20" fill="none" viewBox="0 0 24 24" className="w-5 h-5">
@@ -135,13 +144,14 @@ const SmartTourButton = ({
       className={getButtonStyles()}
       style={{ background: "transparent" }}
       title={tourStatus.text}
+      disabled={isLoading}
     >
       <span className={`text-2xl ${tourStatus.available ? 'text-yellow-400' : 'text-gray-400'}`}>
         {getIcon()}
       </span>
       {expanded && (
         <span className="whitespace-nowrap text-white">
-          {tourStatus.text}
+          {isLoading ? t('common.loading') : tourStatus.text}
         </span>
       )}
     </button>

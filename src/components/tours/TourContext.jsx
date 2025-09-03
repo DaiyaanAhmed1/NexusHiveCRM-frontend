@@ -18,6 +18,7 @@ export const TourProvider = ({ children }) => {
   const [tourSteps, setTourSteps] = useState([]);
   const [tourTitle, setTourTitle] = useState('');
   const [tourDescription, setTourDescription] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   // Build steps from DOM [data-tour] markers
   const buildAutoSteps = useCallback((language) => {
@@ -66,10 +67,12 @@ export const TourProvider = ({ children }) => {
   // Start tour for a specific role and page
   const startTour = useCallback((role, page) => {
     console.log('TourContext: Starting tour for', role, page);
+    setIsLoading(true);
     
     // Check if tour exists
     if (!checkTourAvailability(role, page)) {
       console.warn(`No tour available for ${role}/${page}`);
+      setIsLoading(false);
       return false;
     }
 
@@ -77,6 +80,7 @@ export const TourProvider = ({ children }) => {
     const tour = getTourData(role, page);
     if (!tour) {
       console.warn(`Tour data not found for ${role}/${page}`);
+      setIsLoading(false);
       return false;
     }
 
@@ -91,6 +95,7 @@ export const TourProvider = ({ children }) => {
 
     if (!steps || steps.length === 0) {
       console.warn('TourContext: No steps found for tour');
+      setIsLoading(false);
       return false;
     }
 
@@ -102,6 +107,8 @@ export const TourProvider = ({ children }) => {
     setTourDescription(tour.description[currentLanguage] || tour.description.en);
     setCurrentStep(1); // Start at step 1
     setIsActive(true);
+    // Defer turning off loading so UI can render spinner
+    setTimeout(() => setIsLoading(false), 150);
 
     console.log(`TourContext: Tour started for ${role}/${page} in ${currentLanguage}`);
     return true;
@@ -198,6 +205,7 @@ export const TourProvider = ({ children }) => {
     tourSteps,
     tourTitle,
     tourDescription,
+    isLoading,
     
     // Actions
     startTour,
