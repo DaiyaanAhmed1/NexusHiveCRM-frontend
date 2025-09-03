@@ -146,6 +146,7 @@
     "support": "Support",
     "sageAI": "Sage AI",
     "startTour": "Start Tour",
+    "tourComingSoon": "Tour Coming Soon",
     "sageAIDescription": "AI-powered assistance and insights",
     "startTourDescription": "Begin guided tour of the application"
   },
@@ -222,5 +223,16 @@
     "trainingDevelopment": "Training & Development",
         "workspace": "Workspace",
     "helpSupport": "Help & Support"
+  },
+  "tours": {
+    "next": "Next",
+    "previous": "Previous",
+    "skip": "Skip",
+    "finish": "Finish",
+    "close": "Close",
+    "comingSoon": "Tour coming soon for this page!",
+    "step": "Step",
+    "of": "of",
+    "progress": "Progress"
   }
 } 

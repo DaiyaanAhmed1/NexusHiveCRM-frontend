@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, BarChart, Bar, Legend, AreaChart, Area, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from "recharts";
 import { directorFeatures } from './directorFeatures';
 import DirectorAnalyticsReports from '../features/director/components/DirectorAnalyticsReports';
@@ -191,6 +192,7 @@ const studentDemographicsData = {
 
 export default function DirectorDashboard() {
   const { t, ready } = useTranslation('director');
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('rbac_current_user'));
   const [modalCard, setModalCard] = useState(null);
   const [modalChart, setModalChart] = useState(null);
@@ -923,8 +925,34 @@ export default function DirectorDashboard() {
   return (
     <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
       <main className="flex-1 p-6 md:p-10 flex flex-col gap-8 overflow-x-auto">
+        {/* Dashboard Header - Tour Target */}
+        <div
+          className="dashboard-header"
+          data-tour="1"
+          data-tour-title-en="Dashboard Header"
+          data-tour-content-en="Your page title and context"
+          data-tour-title-ar="رأس اللوحة"
+          data-tour-content-ar="عنوان الصفحة والسياق"
+          data-tour-position="bottom"
+        >
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+            {t('dashboard.title') || 'Director Dashboard'}
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300">
+            {t('dashboard.subtitle') || 'University Performance Overview & Analytics'}
+          </p>
+        </div>
+        
         {/* Slim, Colorful Summary Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div
+          className="summary-cards grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"
+          data-tour="2"
+          data-tour-title-en="KPI Cards"
+          data-tour-content-en="Instant insights. Click any card for details."
+          data-tour-title-ar="بطاقات مؤشرات الأداء"
+          data-tour-content-ar="رؤى فورية. اضغط على بطاقة للتفاصيل."
+          data-tour-position="top"
+        >
           {summaryCards.map((card, i) => (
             <motion.div
               key={card.label}
@@ -990,8 +1018,18 @@ export default function DirectorDashboard() {
           ))}
         </div>
 
+        {/* Quick Actions removed per request */}
+
         {/* Animated KPI Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6"
+          data-tour="3"
+          data-tour-title-en="KPI Grid"
+          data-tour-content-en="Deeper metrics with interactive cards. Click any to expand."
+          data-tour-title-ar="شبكة مؤشرات الأداء"
+          data-tour-content-ar="مقاييس أعمق ببطاقات تفاعلية. اضغط للتوسيع."
+          data-tour-position="bottom"
+        >
           {kpis.map((kpi, i) => (
             <motion.div
               key={kpi.label}
@@ -1017,7 +1055,15 @@ export default function DirectorDashboard() {
         </div>
 
         {/* Animated Charts Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          data-tour="4"
+          data-tour-title-en="Admissions & Finance Charts"
+          data-tour-content-en="Visualize admissions trends and finance distribution."
+          data-tour-title-ar="مخططات القبول والمالية"
+          data-tour-content-ar="عرض اتجاهات القبول وتوزيع المالية."
+          data-tour-position="top"
+        >
           {/* Admissions Trend */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -1063,6 +1109,12 @@ export default function DirectorDashboard() {
 
         {/* Department Performance Bar Chart */}
         <motion.div
+          data-tour="5"
+          data-tour-title-en="Department Performance"
+          data-tour-content-en="Compare department KPIs at a glance."
+          data-tour-title-ar="أداء الأقسام"
+          data-tour-content-ar="قارن مؤشرات الأقسام بسرعة."
+          data-tour-position="top"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
@@ -1082,7 +1134,15 @@ export default function DirectorDashboard() {
         </motion.div>
 
         {/* Academic Insights Section */}
-        <section className="mt-8">
+        <section
+          className="mt-8"
+          data-tour="6"
+          data-tour-title-en="Academic Insights"
+          data-tour-content-en="Longer-term academic trends and top departments."
+          data-tour-title-ar="رؤى أكاديمية"
+          data-tour-content-ar="اتجاهات أكاديمية طويلة الأجل وأفضل الأقسام."
+          data-tour-position="bottom"
+        >
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xl">🧪</span>
             <h2 className="text-lg font-bold tracking-wide">{t('dashboard.sections.academicInsights')}</h2>
@@ -1120,7 +1180,15 @@ export default function DirectorDashboard() {
         </section>
 
         {/* Financial Overview Section */}
-        <section className="mt-8">
+        <section
+          className="mt-8"
+          data-tour="7"
+          data-tour-title-en="Financial Overview"
+          data-tour-content-en="Monthly fees and budget usage overview."
+          data-tour-title-ar="نظرة عامة مالية"
+          data-tour-content-ar="الرسوم الشهرية واستخدام الميزانية."
+          data-tour-position="top"
+        >
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xl">💸</span>
             <h2 className="text-lg font-bold tracking-wide">{t('dashboard.sections.financialOverview')}</h2>
@@ -1163,7 +1231,15 @@ export default function DirectorDashboard() {
         </section>
 
         {/* HR & Staff Analytics Section */}
-        <section className="mt-8">
+        <section
+          className="mt-8"
+          data-tour="8"
+          data-tour-title-en="HR & Staff Analytics"
+          data-tour-content-en="Staff mix and attrition trends."
+          data-tour-title-ar="تحليلات الموارد البشرية والموظفين"
+          data-tour-content-ar="مزيج الموظفين واتجاهات التسرب."
+          data-tour-position="bottom"
+        >
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xl">🧑‍💼</span>
             <h2 className="text-lg font-bold tracking-wide">{t('dashboard.sections.hrStaffAnalytics')}</h2>
@@ -1202,7 +1278,15 @@ export default function DirectorDashboard() {
         </section>
 
         {/* Alerts & Notifications Widget */}
-        <section className="mt-8">
+        <section
+          className="mt-8"
+          data-tour="9"
+          data-tour-title-en="Alerts & Notifications"
+          data-tour-content-en="System alerts and important updates."
+          data-tour-title-ar="التنبيهات والإشعارات"
+          data-tour-content-ar="تنبيهات النظام والتحديثات المهمة."
+          data-tour-position="top"
+        >
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xl">🔔</span>
             <h2 className="text-lg font-bold tracking-wide">{t('dashboard.sections.alertsNotifications')}</h2>
@@ -1220,7 +1304,15 @@ export default function DirectorDashboard() {
         </section>
 
         {/* AI Widgets: Modern Side-by-Side Layout */}
-        <section className="mt-8">
+        <section
+          className="mt-8"
+          data-tour="10"
+          data-tour-title-en="AI-Powered Forecasts"
+          data-tour-content-en="Predictive insights: admissions, dropout risk, surplus forecasts."
+          data-tour-title-ar="توقعات مدعومة بالذكاء الاصطناعي"
+          data-tour-content-ar="رؤى تنبؤية: القبول، مخاطر الانسحاب، الفائض."
+          data-tour-position="bottom"
+        >
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xl">🤖</span>
             <h2 className="text-lg font-bold tracking-wide flex items-center gap-2">
@@ -1449,7 +1541,15 @@ export default function DirectorDashboard() {
         </div>
 
         {/* --- New Section: AI-Powered Revenue & Conversion Analytics --- */}
-        <section className="mt-12">
+        <section
+          className="mt-12"
+          data-tour="11"
+          data-tour-title-en="AI-Powered Revenue & Conversion"
+          data-tour-content-en="Revenue projections and conversion analytics powered by AI."
+          data-tour-title-ar="تحليلات الإيرادات والتحويلات المدعومة بالذكاء الاصطناعي"
+          data-tour-content-ar="توقعات الإيرادات وتحليلات التحويل باستخدام الذكاء الاصطناعي."
+          data-tour-position="top"
+        >
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xl">📈</span>
             <h2 className="text-lg font-bold tracking-wide flex items-center gap-2">

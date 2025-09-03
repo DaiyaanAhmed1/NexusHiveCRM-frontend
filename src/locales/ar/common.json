@@ -146,6 +146,7 @@
     "support": "الدعم",
     "sageAI": "سايج الذكي",
     "startTour": "ابدأ الجولة",
+    "tourComingSoon": "الجولة قادمة قريباً",
     "sageAIDescription": "مساعدة ورؤى مدعومة بالذكاء الاصطناعي",
     "startTourDescription": "ابدأ جولة موجهة للتطبيق"
   },
@@ -210,5 +211,16 @@
     "trainingDevelopment": "التدريب والتطوير",
         "workspace": "مساحة العمل",
     "helpSupport": "المساعدة والدعم"
+  },
+  "tours": {
+    "next": "التالي",
+    "previous": "السابق",
+    "skip": "تخطي",
+    "finish": "إنهاء",
+    "close": "إغلاق",
+    "comingSoon": "الجولة قادمة قريباً لهذه الصفحة!",
+    "step": "خطوة",
+    "of": "من",
+    "progress": "التقدم"
   }
 } 

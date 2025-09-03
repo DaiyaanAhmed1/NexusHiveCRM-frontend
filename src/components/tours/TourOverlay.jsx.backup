@@ -1,0 +1,114 @@
+import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTour } from './TourContext';
+import TourStep from './TourStep';
+
+const TourOverlay = () => {
+  const { 
+    isActive, 
+    currentRole, 
+    currentPage, 
+    tourSteps, 
+    currentStep, 
+    totalSteps,
+    tourTitle,
+    tourDescription,
+    startTour,
+    stopTour,
+    nextStep,
+    prevStep,
+    getCurrentStep
+  } = useTour();
+
+  // Debug logging
+  console.log('TourOverlay: Render state', { 
+    isActive, 
+    tourSteps: tourSteps.length, 
+    currentStep, 
+    totalSteps,
+    tourTitle,
+    tourDescription,
+    currentRole,
+    currentPage
+  });
+
+  // Get current step data
+  const currentStepData = getCurrentStep();
+  console.log('TourOverlay: Current step data', currentStepData);
+
+  // Handle tour actions
+  const handleNext = () => {
+    console.log('TourOverlay: Next step requested');
+    nextStep();
+  };
+
+  const handlePrevious = () => {
+    console.log('TourOverlay: Previous step requested');
+    prevStep();
+  };
+
+  const handleSkip = () => {
+    console.log('TourOverlay: Tour skipped');
+    stopTour();
+  };
+
+  const handleClose = () => {
+    console.log('TourOverlay: Tour closed');
+    stopTour();
+  };
+
+  // Don't render anything if tour is not active
+  if (!isActive) {
+    console.log('TourOverlay: Not rendering - tour not active');
+    return null;
+  }
+
+  // Don't render if no tour steps or current step data
+  if (tourSteps.length === 0 || !currentStepData) {
+    console.log('TourOverlay: Not rendering - no tour steps or step data', { 
+      tourSteps: tourSteps.length, 
+      currentStepData,
+      currentStep,
+      totalSteps
+    });
+    return null;
+  }
+
+  console.log('TourOverlay: Rendering tour step', { 
+    stepId: currentStepData.id, 
+    target: currentStepData.target,
+    position: currentStepData.position
+  });
+
+  return (
+    <AnimatePresence>
+      {isActive && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[9997]"
+            onClick={handleClose}
+          />
+
+          {/* Tour Step - This is the main tour content */}
+          <TourStep
+            step={currentStepData}
+            currentStep={currentStep}
+            totalSteps={totalSteps}
+            isFirstStep={currentStep === 1}
+            isLastStep={currentStep === totalSteps}
+            onNext={handleNext}
+            onPrevious={handlePrevious}
+            onSkip={handleSkip}
+            onClose={handleClose}
+          />
+        </>
+      )}
+    </AnimatePresence>
+  );
+};
+
+export default TourOverlay; 
