@@ -401,7 +401,15 @@ export default function DirectorApprovalCenter() {
     <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
       <main className="flex-1 p-4 md:p-6 flex flex-col gap-4 overflow-x-auto">
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div
+          className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+          data-tour="1"
+          data-tour-title-en="Approval Center Filters"
+          data-tour-title-ar="مرشحات مركز الموافقات"
+          data-tour-content-en="Filter by category, status, and priority to focus on relevant requests."
+          data-tour-content-ar="قم بالتصفية حسب الفئة والحالة والأولوية للتركيز على الطلبات ذات الصلة."
+          data-tour-position="bottom"
+        >
           <div>
             <h1 className="text-xl font-bold text-gray-900 dark:text-white">{t('approvalCenter.title')}</h1>
             <p className="text-sm text-gray-600 dark:text-gray-300">{t('approvalCenter.subtitle')}</p>
@@ -443,7 +451,15 @@ export default function DirectorApprovalCenter() {
 
         {/* Bulk Actions */}
         {selectedRequests.length > 0 && (
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg">
+          <div
+            className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
+            data-tour="2"
+            data-tour-title-en="Bulk Actions"
+            data-tour-title-ar="إجراءات جماعية"
+            data-tour-content-en="Approve or reject multiple requests at once when selected."
+            data-tour-content-ar="قم بالموافقة على عدة طلبات أو رفضها دفعة واحدة عند تحديدها."
+            data-tour-position="bottom"
+          >
             <div className="flex items-center justify-between">
               <p className="text-sm text-gray-600 dark:text-gray-300">
                 {selectedRequests.length} {t('approvalCenter.bulkActions.requestsSelected')}
@@ -468,7 +484,29 @@ export default function DirectorApprovalCenter() {
 
         {/* Content Section */}
         <div className="flex-1">
-          {selectedRequest ? renderApprovalDetails() : renderApprovalList()}
+          {selectedRequest ? (
+            <div
+              data-tour="4"
+              data-tour-title-en="Request Details"
+              data-tour-title-ar="تفاصيل الطلب"
+              data-tour-content-en="Review status, amount, attachments, and comments. Approve, reject, or request revision."
+              data-tour-content-ar="راجع الحالة والمبلغ والمرفقات والتعليقات. قم بالاعتماد أو الرفض أو طلب التعديل."
+              data-tour-position="left"
+            >
+              {renderApprovalDetails()}
+            </div>
+          ) : (
+            <div
+              data-tour="3"
+              data-tour-title-en="Approval Requests List"
+              data-tour-title-ar="قائمة طلبات الموافقات"
+              data-tour-content-en="Browse and select requests. Click to view details and take action."
+              data-tour-content-ar="تصفح واختر الطلبات. انقر لعرض التفاصيل واتخاذ الإجراء."
+              data-tour-position="bottom"
+            >
+              {renderApprovalList()}
+            </div>
+          )}
         </div>
       </main>
     </div>

@@ -109,7 +109,15 @@ export default function DirectorStrategicPlanning() {
     <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
       <main className="flex-1 p-4 md:p-6 flex flex-col gap-8 overflow-x-auto">
         {/* Filters */}
-        <div className="flex flex-wrap gap-4 items-center mb-2">
+        <div
+          className="flex flex-wrap gap-4 items-center mb-2"
+          data-tour="1"
+          data-tour-title-en="Planning Filters"
+          data-tour-title-ar="مرشحات التخطيط"
+          data-tour-content-en="Filter by department and year to focus the strategic plan."
+          data-tour-content-ar="قم بالتصفية حسب القسم والسنة للتركيز على الخطة الإستراتيجية."
+          data-tour-position="bottom"
+        >
           <select value={selectedDept} onChange={e => setSelectedDept(e.target.value)} className="px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
             {departments.map(d => <option key={d}>{d}</option>)}
           </select>
@@ -119,7 +127,14 @@ export default function DirectorStrategicPlanning() {
         </div>
 
         {/* 1. Key Performance Indicators */}
-        <section>
+        <section
+          data-tour="2"
+          data-tour-title-en="Key Performance Indicators"
+          data-tour-title-ar="مؤشرات الأداء الرئيسية"
+          data-tour-content-en="Track KPIs versus targets to ensure alignment with strategic goals."
+          data-tour-content-ar="تتبع مؤشرات الأداء مقابل الأهداف لضمان التوافق مع الأهداف الإستراتيجية."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{t('strategicPlanning.sections.keyPerformanceIndicators')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {kpis.map((kpi, i) => (
@@ -147,7 +162,14 @@ export default function DirectorStrategicPlanning() {
         </section>
 
         {/* 2. Strategic Goals & Roadmap */}
-        <section>
+        <section
+          data-tour="3"
+          data-tour-title-en="Strategic Goals & Roadmap"
+          data-tour-title-ar="الأهداف الإستراتيجية وخارطة الطريق"
+          data-tour-content-en="Monitor goal progress and view the multi-year strategic roadmap."
+          data-tour-content-ar="راقب تقدم الأهداف واعرض خارطة الطريق الإستراتيجية لعدة سنوات."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{t('strategicPlanning.sections.strategicGoalsRoadmap')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow">
@@ -182,7 +204,14 @@ export default function DirectorStrategicPlanning() {
         </section>
 
         {/* 3. Academic Planning Tools */}
-        <section>
+        <section
+          data-tour="4"
+          data-tour-title-en="Academic Planning Tools"
+          data-tour-title-ar="أدوات التخطيط الأكاديمي"
+          data-tour-content-en="Curriculum development matrix and program evaluation cycles."
+          data-tour-content-ar="مصفوفة تطوير المناهج ودورات تقييم البرامج."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{t('strategicPlanning.sections.academicPlanningTools')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow">
@@ -218,7 +247,14 @@ export default function DirectorStrategicPlanning() {
         </section>
 
         {/* 4. SWOT Analysis */}
-        <section>
+        <section
+          data-tour="5"
+          data-tour-title-en="SWOT Analysis"
+          data-tour-title-ar="تحليل سوات"
+          data-tour-content-en="Strengths, Weaknesses, Opportunities, and Threats overview."
+          data-tour-content-ar="نظرة عامة على نقاط القوة والضعف والفرص والتهديدات."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{t('strategicPlanning.sections.swotAnalysis')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {Object.entries(swot).map(([category, items]) => (
@@ -238,7 +274,14 @@ export default function DirectorStrategicPlanning() {
         </section>
 
         {/* 5. Trend Analysis */}
-        <section>
+        <section
+          data-tour="6"
+          data-tour-title-en="Trend Analysis"
+          data-tour-title-ar="تحليل الاتجاهات"
+          data-tour-content-en="Analyze trends across enrollment, placements, research funding, and more."
+          data-tour-content-ar="حلل الاتجاهات عبر التسجيلات، التوظيف، تمويل البحث، والمزيد."
+          data-tour-position="bottom"
+        >
           <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">{t('strategicPlanning.sections.trendAnalysis')}</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {trends.map((trend, i) => {

@@ -302,7 +302,7 @@ export default function DirectorAnalyticsReports() {
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* Conversion Funnel */}
-        <motion.div
+        <motion.div data-tour="3"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
@@ -320,7 +320,7 @@ export default function DirectorAnalyticsReports() {
         </motion.div>
 
         {/* Program-wise Enrollment */}
-        <motion.div
+        <motion.div data-tour="4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
@@ -340,7 +340,7 @@ export default function DirectorAnalyticsReports() {
         </motion.div>
 
         {/* Geographic Distribution */}
-        <motion.div
+        <motion.div data-tour="5"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -429,7 +429,15 @@ export default function DirectorAnalyticsReports() {
 
   const renderFinancialSection = () => (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+        data-tour="6"
+        data-tour-title-en="Financial Overview (Row 1)"
+        data-tour-title-ar="نظرة عامة مالية (الصف الأول)"
+        data-tour-content-en="Revenue by department, cost analysis, and monthly trends give you a snapshot of financial health."
+        data-tour-content-ar="يوفر الإيرادات حسب القسم، وتحليل التكاليف، والاتجاهات الشهرية لمحة عن الصحة المالية."
+        data-tour-position="bottom"
+      >
         {/* Revenue by Department */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -492,7 +500,15 @@ export default function DirectorAnalyticsReports() {
         </motion.div>
       </div>
       {/* Second Row */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4"
+        data-tour="7"
+        data-tour-title-en="Financial Overview (Row 2)"
+        data-tour-title-ar="نظرة عامة مالية (الصف الثاني)"
+        data-tour-content-en="Profit by department, budget utilization, and year-over-year growth help you track performance."
+        data-tour-content-ar="يساعد الربح حسب القسم، واستخدام الميزانية، والنمو السنوي على تتبع الأداء."
+        data-tour-position="bottom"
+      >
         {/* Profit Margin by Department */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -1046,7 +1062,7 @@ export default function DirectorAnalyticsReports() {
     <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
       <main className="flex-1 p-4 md:p-6 flex flex-col gap-8 overflow-x-auto">
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4" data-tour="1">
           <div>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('analyticsReports.title')}</h1>
             <p className="text-sm text-gray-600 dark:text-gray-300">{t('analyticsReports.subtitle')}</p>
@@ -1078,7 +1094,7 @@ export default function DirectorAnalyticsReports() {
         </div>
 
         {/* Navigation Tabs */}
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-2" data-tour="2">
           {["admissions", "financial", "academic", "engagement", "placement", "compliance"].map((tab) => (
             <button
               key={tab}
