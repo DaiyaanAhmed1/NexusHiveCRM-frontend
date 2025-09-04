@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const SageAIButton = ({ expanded, darkTheme, isRTLMode = false }) => {
+const SageAIButton = ({ expanded, darkTheme, isRTLMode = false, role }) => {
+  const navigate = useNavigate();
   const [isHovered, setIsHovered] = useState(false);
   const [glowAnimation, setGlowAnimation] = useState(false);
   const [nodeAnimation, setNodeAnimation] = useState(false);
@@ -23,6 +25,20 @@ const SageAIButton = ({ expanded, darkTheme, isRTLMode = false }) => {
     return () => clearInterval(interval);
   }, []);
 
+  const handleSageAIClick = () => {
+    // Navigate to role-specific AI chat page
+    const routes = {
+      'director': '/rbac/director/ai-chat',
+      'marketing-head': '/rbac/marketing-head/ai-chat',
+      'admission-head': '/rbac/admission-head/ai-chat'
+    };
+    
+    const targetRoute = routes[role];
+    if (targetRoute) {
+      navigate(targetRoute);
+    }
+  };
+
   return (
     <button
       className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-300 w-full text-white group relative overflow-hidden ${
@@ -34,6 +50,7 @@ const SageAIButton = ({ expanded, darkTheme, isRTLMode = false }) => {
       title="Sage AI"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onClick={handleSageAIClick}
     >
       {/* Enhanced tooltip for collapsed mode */}
       {!expanded && (

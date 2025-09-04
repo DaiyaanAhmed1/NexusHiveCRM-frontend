@@ -101,6 +101,11 @@ import DirectorSupport from './features/director/components/DirectorSupport';
 import { LocalizationProvider } from './hooks/useLocalization.jsx';
 import './utils/i18n'; // Initialize i18n
 
+// AI Chat Components
+import DirectorAIChat from "./features/director/pages/DirectorAIChat";
+import MarketingHeadAIChat from "./features/marketing-head/pages/MarketingHeadAIChat";
+import AdmissionHeadAIChat from "./features/admission-head/pages/AdmissionHeadAIChat";
+
 export default function App() {
   return (
     <LocalizationProvider>
@@ -129,6 +134,7 @@ export default function App() {
           <Route path="training" element={<MarketingHeadTrainingDevelopment />} />
           <Route path="workspace" element={<MarketingHeadWorkspace />} />
           <Route path="support" element={<MarketingHeadSupport />} />
+          <Route path="ai-chat" element={<MarketingHeadAIChat />} />
         </Route>
 
         <Route path="/rbac/marketing-manager" element={<MarketingManagerDashboard />} />
@@ -150,6 +156,7 @@ export default function App() {
           <Route path="tickets" element={<PlaceholderPage title='Tickets' />} />
           <Route path="account" element={<AdmissionHeadAccountManagement />} />
           <Route path="help" element={<AdmissionHeadSupport />} />
+          <Route path="ai-chat" element={<AdmissionHeadAIChat />} />
         </Route>
         <Route path="/rbac/admission-spoc" element={<AdmissionSpocDashboard />} />
         <Route path="/rbac/hr-head" element={<HRHeadLayout />}>
@@ -180,6 +187,7 @@ export default function App() {
           <Route path="settings" element={<DirectorSettings />} />
           <Route path="workspace" element={<DirectorWorkspace />} />
           <Route path="support" element={<DirectorSupport />} />
+          <Route path="ai-chat" element={<DirectorAIChat />} />
         </Route>
         <Route path="/rbac/marketing-head/support" element={<MarketingHeadSupport />} />
         <Route path="/rbac/dean" element={<DeanDashboard />} />

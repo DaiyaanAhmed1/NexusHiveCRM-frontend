@@ -102,7 +102,7 @@ export default function Sidebar({ features, userLabel }) {
         darkTheme ? 'border-gray-700' : 'border-white/20'
       }`}>
         {/* Sage AI Button */}
-        <SageAIButton expanded={expanded} darkTheme={darkTheme} />
+        <SageAIButton expanded={expanded} darkTheme={darkTheme} role="admission-head" />
         
         {/* Language Switcher */}
         <SidebarLanguageSwitcher expanded={expanded} darkTheme={darkTheme} />

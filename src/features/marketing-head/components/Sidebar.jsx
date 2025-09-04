@@ -101,7 +101,7 @@ export default function Sidebar({ features, userLabel, expanded, setExpanded }) 
         darkTheme ? 'border-gray-700' : 'border-white/20'
       }`}>
         {/* Enhanced Sage AI Button */}
-        <SageAIButton expanded={expanded} darkTheme={darkTheme} />
+        <SageAIButton expanded={expanded} darkTheme={darkTheme} role="marketing-head" />
         
         {/* Language Switcher */}
         <SidebarLanguageSwitcher expanded={expanded} darkTheme={darkTheme} />

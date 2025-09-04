@@ -234,5 +234,63 @@
     "step": "Step",
     "of": "of",
     "progress": "Progress"
+  },
+  "ai": {
+    "sageChatTitle": "Sage AI Assistant",
+    "thinking": "Thinking...",
+    "readyToHelp": "Ready to help you",
+    "newChat": "New Chat",
+    "chatHistory": "Chat History",
+    "attach": "Attach",
+    "attachFile": "Attach File",
+    "attachImage": "Attach Image", 
+    "messagePlaceholder": "Type your message...",
+    "send": "Send",
+    "welcomeTitle": "Welcome to Sage AI",
+    "welcomeMessage": "I'm here to help you with your {role} tasks. Ask me anything!",
+    "recentChats": "Recent Chats",
+    "director": {
+      "quickActions": "Quick Actions",
+      "strategicAnalysis": "Strategic Analysis",
+      "departmentOverview": "Department Overview",
+      "budgetPlanning": "Budget Planning",
+      "riskAssessment": "Risk Assessment",
+      "complianceCheck": "Compliance Check",
+      "meetingPrep": "Meeting Preparation",
+      "tools": "Director Tools",
+      "dashboard": "Dashboard View",
+      "reports": "Reports",
+      "analytics": "Analytics"
+    },
+    "marketing": {
+      "quickActions": "Marketing Actions", 
+      "campaignStrategy": "Campaign Strategy",
+      "leadAnalysis": "Lead Analysis",
+      "contentIdeas": "Content Ideas",
+      "competitorAnalysis": "Competitor Analysis",
+      "budgetAllocation": "Budget Allocation",
+      "eventPlanning": "Event Planning",
+      "tools": "Marketing Tools",
+      "campaigns": "Campaigns",
+      "analytics": "Analytics", 
+      "leads": "Leads",
+      "social": "Social Media",
+      "performance": "Performance"
+    },
+    "admission": {
+      "quickActions": "Admission Actions",
+      "applicationReview": "Application Review",
+      "enrollmentForecast": "Enrollment Forecast", 
+      "documentVerification": "Document Verification",
+      "waitlistManagement": "Waitlist Management",
+      "scholarshipAllocation": "Scholarship Allocation",
+      "complianceCheck": "Compliance Check",
+      "tools": "Admission Tools",
+      "applications": "Applications",
+      "analytics": "Analytics",
+      "verification": "Verification",
+      "scholarships": "Scholarships",
+      "status": "Application Status"
+    }
   }
 } 
