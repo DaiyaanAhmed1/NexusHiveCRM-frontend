@@ -1,0 +1,156 @@
+{
+  "university": {
+    "name": "MBSC - Prince Mohammed Bin Salman College",
+    "motto": "Excellence in Business Education, Innovation in Leadership",
+    "established": "2018",
+    "type": "Private Business College",
+    "accreditation": "AACSB Accredited",
+    "location": "Riyadh, Kingdom of Saudi Arabia",
+    "website": "www.mbsc.edu.sa",
+    "phone": "+966 11 520 0000",
+    "email": "info@mbsc.edu.sa",
+    "vision2030": "Vision 2030 Initiative",
+    "campusAlt": "MBSC Campus",
+    "campusViewAlt": "MBSC Campus View",
+    "logoAlt": "MBSC Logo",
+    "bannerText": {
+      "excellence": "Excellence in Business Education",
+      "shaping": "Shaping Future Business Leaders of Saudi Arabia"
+    },
+    "navigation": {
+      "back": "Back",
+      "overview": "Overview",
+      "colleges": "Colleges",
+      "achievements": "Achievements",
+      "leadership": "Leadership",
+      "contact": "Contact"
+    },
+    "stats": {
+      "totalStudents": {
+        "label": "Total Students",
+        "value": "2,400+"
+      },
+      "facultyMembers": {
+        "label": "Faculty Members",
+        "value": "180+"
+      },
+      "programsOffered": {
+        "label": "Programs Offered",
+        "value": "25+"
+      },
+      "researchCenters": {
+        "label": "Research Centers",
+        "value": "8+"
+      },
+      "internationalPartners": {
+        "label": "International Partners",
+        "value": "50+"
+      },
+      "employmentRate": {
+        "label": "Employment Rate",
+        "value": "98%"
+      }
+    },
+    "about": {
+      "title": "About MBSC",
+      "description1": "Mohammed Bin Salman College (MBSC) is a premier business institution in the heart of Riyadh, established as part of Saudi Arabia's Vision 2030 initiative. We are committed to developing world-class business leaders who will drive the Kingdom's economic transformation.",
+      "description2": "Our college offers cutting-edge business programs designed to meet the evolving needs of the global business landscape. With state-of-the-art facilities and partnerships with leading international institutions, MBSC provides an exceptional learning environment.",
+      "description3": "Rooted in Saudi Arabian values while embracing global business practices, MBSC prepares students to excel in both local and international markets, contributing to the Kingdom's ambitious economic goals.",
+      "details": {
+        "type": "Type:",
+        "location": "Location:",
+        "accreditation": "Accreditation:",
+        "website": "Website:"
+      }
+    },
+    "colleges": {
+      "title": "Our Colleges & Programs",
+      "list": [
+        {
+          "name": "College of Business Administration",
+          "programs": 12,
+          "students": 1200
+        },
+        {
+          "name": "College of Finance & Economics", 
+          "programs": 8,
+          "students": 600
+        },
+        {
+          "name": "College of Entrepreneurship",
+          "programs": 5,
+          "students": 400
+        },
+        {
+          "name": "College of Digital Business",
+          "programs": 6,
+          "students": 300
+        },
+        {
+          "name": "College of Leadership & Management",
+          "programs": 4,
+          "students": 200
+        }
+      ],
+      "programsLabel": "Programs:",
+      "studentsLabel": "Students:"
+    },
+    "achievements": {
+      "title": "College Achievements",
+      "list": [
+        "Ranked #1 Business College in Saudi Arabia",
+        "AACSB International Accreditation",
+        "Winner of Best Innovation Award 2024",
+        "Partnership with MIT Sloan School of Management",
+        "Accredited by 12 International Bodies",
+        "Research Excellence Award 2023"
+      ]
+    },
+    "leadership": {
+      "title": "College Leadership",
+      "members": [
+        {
+          "name": "Dr. Abdullah Al-Rashid",
+          "position": "Dean"
+        },
+        {
+          "name": "Dr. Noura Al-Zahra",
+          "position": "Associate Dean Academic"
+        },
+        {
+          "name": "Dr. Khalid Al-Sayed",
+          "position": "Associate Dean Research"
+        },
+        {
+          "name": "Dr. Aisha Al-Hassan",
+          "position": "Director of Student Affairs"
+        }
+      ]
+    },
+    "contact": {
+      "title": "Contact Information",
+      "getInTouch": "Get in Touch",
+      "labels": {
+        "email": "Email",
+        "phone": "Phone",
+        "website": "Website",
+        "address": "Address"
+      },
+      "officeHours": {
+        "title": "Office Hours",
+        "schedule": {
+          "sundayThursday": "Sunday - Thursday",
+          "friday": "Friday",
+          "saturday": "Saturday"
+        },
+        "times": {
+          "sundayThursday": "8:00 AM - 4:00 PM",
+          "friday": "Closed",
+          "saturday": "9:00 AM - 1:00 PM"
+        },
+        "note": "Note:",
+        "emergencyNote": "For urgent matters outside office hours, please contact our emergency hotline."
+      }
+    }
+  }
+} 

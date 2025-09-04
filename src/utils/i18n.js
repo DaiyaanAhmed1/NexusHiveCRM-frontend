@@ -21,6 +21,7 @@ import enProfessor from '../locales/en/professor.json';
 import enParent from '../locales/en/parent.json';
 import enSettings from '../locales/en/settings.json';
 import enAuth from '../locales/en/auth.json';
+import enUniversity from '../locales/en/university.json';
 
 import arCommon from '../locales/ar/common.json';
 import arNavigation from '../locales/ar/navigation.json';
@@ -40,6 +41,7 @@ import arProfessor from '../locales/ar/professor.json';
 import arParent from '../locales/ar/parent.json';
 import arSettings from '../locales/ar/settings.json';
 import arAuth from '../locales/ar/auth.json';
+import arUniversity from '../locales/ar/university.json';
 
 const resources = {
   en: {
@@ -61,6 +63,7 @@ const resources = {
     parent: enParent,
     settings: enSettings,
     auth: enAuth,
+    university: enUniversity,
   },
   ar: {
     common: arCommon,
@@ -81,6 +84,7 @@ const resources = {
     parent: arParent,
     settings: arSettings,
     auth: arAuth,
+    university: arUniversity,
   },
 };
 
@@ -104,7 +108,7 @@ i18n
     ns: [
       'common', 'navigation', 'forms', 'messages', 'validation',
                     'dashboard', 'admission', 'marketing', 'hr', 'director', 'admin',
-      'student', 'professor', 'parent', 'settings', 'auth'
+      'student', 'professor', 'parent', 'settings', 'auth', 'university'
     ],
     defaultNS: 'common',
   });
