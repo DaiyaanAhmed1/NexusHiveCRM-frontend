@@ -1,11 +1,55 @@
 import React, { useState } from "react";
 import Sidebar from "./Sidebar";
 import { directorFeatures } from "./directorFeatures";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { useLocalization } from "../../../hooks/useLocalization";
 import { useTranslation } from "react-i18next";
 import TourOverlay from "../../../components/tours/TourOverlay";
 import { TourProvider } from "../../../components/tours/TourContext";
+import { useTour } from "../../../components/tours/TourContext";
+
+function AutoStartTour({ role }) {
+  const location = useLocation();
+  const { startTour, getTourStatus, isActive } = useTour();
+  const user = JSON.parse(localStorage.getItem('rbac_current_user'));
+
+  const getCurrentPage = (pathname) => {
+    const segments = pathname.split('/');
+    if (segments.includes('director')) {
+      if (segments.includes('analytics')) return 'analytics';
+      if (segments.includes('departments')) return 'departments';
+      if (segments.includes('approvals')) return 'approvals';
+      if (segments.includes('strategic-planning')) return 'strategic-planning';
+      if (segments.includes('communication')) return 'communication';
+      if (segments.includes('audit')) return 'audit';
+      if (segments.includes('calendar')) return 'calendar';
+      if (segments.includes('users')) return 'users';
+      if (segments.includes('settings')) return 'settings';
+      if (segments.includes('workspace')) return 'workspace';
+      if (segments.includes('support')) return 'support';
+      return 'dashboard';
+    }
+    return 'dashboard';
+  };
+
+  React.useEffect(() => {
+    const page = getCurrentPage(location.pathname);
+    const userKey = (user?.id || user?.email || user?.username || user?.displayName || 'guest') + '';
+    const seenKey = `tour_seen_${userKey}_${role}_${page}`;
+    const status = getTourStatus(role, page);
+    if (!isActive && status.available && !localStorage.getItem(seenKey)) {
+      const timer = setTimeout(() => {
+        const started = startTour(role, page);
+        if (started) {
+          try { localStorage.setItem(seenKey, 'true'); } catch {}
+        }
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [location.pathname, role, isActive]);
+
+  return null;
+}
 
 export default function DirectorLayout() {
   const user = JSON.parse(localStorage.getItem('rbac_current_user'));
@@ -33,6 +77,7 @@ export default function DirectorLayout() {
             ? (isRTLMode ? 'mr-56' : 'ml-56') 
             : (isRTLMode ? 'mr-12' : 'ml-12')
         }`}>
+          <AutoStartTour role="director" />
           <Outlet />
         </main>
         
