@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useLocalization } from "../hooks/useLocalization";
 import SidebarLanguageSwitcher from "./localization/SidebarLanguageSwitcher";
 import SmartTourButton from '../components/tours/SmartTourButton';
+import SageAIButton from './ui/SageAIButton';
+import ThemeToggleButton from './ui/ThemeToggleButton';
 
 export default function Sidebar({ features, userLabel }) {
   const location = useLocation();
@@ -100,53 +102,13 @@ export default function Sidebar({ features, userLabel }) {
         darkTheme ? 'border-gray-700' : 'border-white/20'
       }`}>
         {/* Sage AI Button */}
-        <button
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-300 w-full ${
-            expanded ? 'justify-start' : 'justify-center'
-          } ${
-            darkTheme ? 'hover:bg-gray-700' : 'hover:bg-white/30'
-          }`}
-          style={{ background: "linear-gradient(135deg, #3b82f6, #1d4ed8)" }}
-          title="Sage AI"
-        >
-          <span className="text-2xl">
-            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" className="w-5 h-5">
-              <path d="M9.5 2C7.01 2 5 4.01 5 6.5S7.01 11 9.5 11 14 8.99 14 6.5 11.99 2 9.5 2zM9.5 9C8.12 9 7 7.88 7 6.5S8.12 4 9.5 4 12 5.12 12 6.5 10.88 9 9.5 9z" fill="currentColor"/>
-              <path d="M19 15.5c0-2.49-2.01-4.5-4.5-4.5s-4.5 2.01-4.5 4.5S12.01 20 14.5 20s4.5-2.01 4.5-4.5zM14.5 18c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
-              <path d="M9.5 13c-1.38 0-2.5 1.12-2.5 2.5S8.12 18 9.5 18s2.5-1.12 2.5-2.5S10.88 13 9.5 13z" fill="currentColor"/>
-              <path d="M14.5 13c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z" fill="currentColor"/>
-            </svg>
-          </span>
-          {expanded && <span className="text-white whitespace-nowrap">Sage AI</span>}
-        </button>
+        <SageAIButton expanded={expanded} darkTheme={darkTheme} />
         
         {/* Language Switcher */}
         <SidebarLanguageSwitcher expanded={expanded} darkTheme={darkTheme} />
         
         {/* Theme Toggle Button */}
-        <button
-          onClick={handleThemeToggle}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-300 w-full text-white ${
-            expanded ? 'justify-start' : 'justify-center'
-          } ${
-            darkTheme ? 'hover:bg-gray-700' : 'hover:bg-white/30'
-          }`}
-          style={{ background: "transparent" }}
-          title={darkTheme ? t('sidebar.switchToLightMode') : t('sidebar.switchToDarkMode')}
-        >
-          <span className="text-2xl">
-            {darkTheme ? (
-              <svg width="20" height="20" fill="none" viewBox="0 0 24 24" className="w-5 h-5">
-                <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z" fill="currentColor"/>
-              </svg>
-            ) : (
-              <svg width="20" height="20" fill="none" viewBox="0 0 24 24" className="w-5 h-5">
-                <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z" fill="currentColor"/>
-              </svg>
-            )}
-          </span>
-          {expanded && <span className="text-white whitespace-nowrap">{darkTheme ? t('sidebar.darkMode') : t('sidebar.lightMode')}</span>}
-        </button>
+                 <ThemeToggleButton expanded={expanded} darkTheme={darkTheme} onToggle={handleThemeToggle} />
         
         {/* Start Tour Button (Smart) */}
         <SmartTourButton role="admission-head" expanded={expanded} darkTheme={darkTheme} />

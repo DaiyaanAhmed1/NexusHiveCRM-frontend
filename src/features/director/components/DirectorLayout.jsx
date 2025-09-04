@@ -59,7 +59,7 @@ export default function DirectorLayout() {
 
   return (
     <TourProvider>
-      <div className="bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 min-h-screen">
+      <div className="bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 min-h-screen" dir={isRTLMode ? 'rtl' : 'ltr'}>
         {/* Fixed Sidebar */}
         <div className={`${expanded ? "w-56" : "w-12"} flex-shrink-0 transition-all duration-300 fixed top-0 h-screen z-30 ${
           isRTLMode ? 'right-0' : 'left-0'

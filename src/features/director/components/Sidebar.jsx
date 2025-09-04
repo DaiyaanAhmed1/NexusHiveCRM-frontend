@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next";
 import { useLocalization } from "../../../hooks/useLocalization";
 import SidebarLanguageSwitcher from "../../../components/localization/SidebarLanguageSwitcher";
 import SmartTourButton from "../../../components/tours/SmartTourButton";
+import SageAIButton from "../../../components/ui/SageAIButton";
+import ThemeToggleButton from "../../../components/ui/ThemeToggleButton";
 
 export default function Sidebar({ features, userLabel, expanded, setExpanded }) {
   const { t } = useTranslation();
@@ -46,12 +48,13 @@ export default function Sidebar({ features, userLabel, expanded, setExpanded }) 
     <aside
       className={`${darkTheme ? 'bg-gray-900' : 'bg-gradient-to-b from-[#4f3cc9] to-[#6c5dd3]'} text-white flex flex-col shadow-lg h-screen transition-all duration-300 ${expanded ? 'w-56' : 'w-12'}`}
       style={{ zIndex: 20 }}
+      dir={isRTLMode ? 'rtl' : 'ltr'}
     >
       {/* Fixed Logo at Top */}
       <div className="flex items-center justify-center py-6 px-2">
         <button
           onClick={() => navigate('/university-info')}
-          className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
+          className={`flex items-center hover:opacity-80 transition-opacity ${isRTLMode ? 'space-x-reverse space-x-3' : 'space-x-3'}`}
         >
           <img
             src="https://lms-frontend-resources.s3.ap-south-1.amazonaws.com/college1/collage1.png"
@@ -59,7 +62,7 @@ export default function Sidebar({ features, userLabel, expanded, setExpanded }) 
             className={`transition-all duration-300 ${expanded ? 'w-12 h-12' : 'w-10 h-10'}`}
           />
           {expanded && (
-            <span className="ml-3 text-2xl font-bold tracking-wide text-white">{userLabel}</span>
+            <span className={`text-2xl font-bold tracking-wide text-white ${isRTLMode ? 'mr-3' : 'ml-3'}`}>{userLabel}</span>
           )}
         </button>
       </div>
@@ -73,10 +76,11 @@ export default function Sidebar({ features, userLabel, expanded, setExpanded }) 
               <button
                 key={f.label}
                 onClick={() => navigate(f.route)}
-                className={`group flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 text-lg font-medium text-left relative
+                className={`group flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-200 text-lg font-medium relative
                   ${isActive ? (darkTheme ? 'bg-gray-700 shadow-lg' : 'bg-white/20 shadow-lg') : ''}
                   ${expanded ? 'justify-start' : 'justify-center'}
                   ${!isActive ? (darkTheme ? 'hover:bg-gray-700' : 'hover:bg-white/10') : ''}
+                  ${isRTLMode ? 'text-right' : 'text-left'}
                 `}
                 title={!expanded ? t(f.label) : undefined}
               >
@@ -84,7 +88,9 @@ export default function Sidebar({ features, userLabel, expanded, setExpanded }) 
                 {expanded && <span className="whitespace-nowrap text-white">{t(f.label)}</span>}
                 {/* Tooltip for collapsed */}
                 {!expanded && (
-                  <span className="absolute left-full ml-2 top-1/2 -translate-y-1/2 bg-black text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50 shadow-lg">
+                  <span className={`absolute top-1/2 -translate-y-1/2 bg-black text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50 shadow-lg ${
+                    isRTLMode ? 'right-full mr-2' : 'left-full ml-2'
+                  }`}>
                     {t(f.label)}
                   </span>
                 )}
@@ -98,54 +104,19 @@ export default function Sidebar({ features, userLabel, expanded, setExpanded }) 
       <div className={`flex flex-col items-center gap-2 p-4 border-t ${
         darkTheme ? 'border-gray-700' : 'border-white/20'
       }`}>
-        {/* Sage AI Button */}
-        <button
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-300 w-full ${
-            expanded ? 'justify-start' : 'justify-center'
-          } ${
-            darkTheme ? 'hover:bg-gray-700' : 'hover:bg-white/30'
-          }`}
-          style={{ background: "linear-gradient(135deg, #3b82f6, #1d4ed8)" }}
-          title="Sage AI"
-        >
-          <span className="text-2xl">
-            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" className="w-5 h-5">
-              <path d="M9.5 2C7.01 2 5 4.01 5 6.5S7.01 11 9.5 11 14 8.99 14 6.5 11.99 2 9.5 2zM9.5 9C8.12 9 7 7.88 7 6.5S8.12 4 9.5 4 12 5.12 12 6.5 10.88 9 9.5 9z" fill="currentColor"/>
-              <path d="M19 15.5c0-2.49-2.01-4.5-4.5-4.5s-4.5 2.01-4.5 4.5S12.01 20 14.5 20s4.5-2.01 4.5-4.5zM14.5 18c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="currentColor"/>
-              <path d="M9.5 13c-1.38 0-2.5 1.12-2.5 2.5S8.12 18 9.5 18s2.5-1.12 2.5-2.5S10.88 13 9.5 13z" fill="currentColor"/>
-              <path d="M14.5 13c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5 2.5-1.12 2.5-2.5-1.12-2.5-2.5-2.5z" fill="currentColor"/>
-            </svg>
-          </span>
-          {expanded && <span className="text-white whitespace-nowrap">Sage AI</span>}
-        </button>
+        {/* Enhanced Sage AI Button */}
+        <SageAIButton expanded={expanded} darkTheme={darkTheme} isRTLMode={isRTLMode} />
         
         {/* Language Switcher */}
         <SidebarLanguageSwitcher expanded={expanded} darkTheme={darkTheme} />
         
         {/* Theme Toggle Button */}
-        <button
-          onClick={handleThemeToggle}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-300 w-full text-white ${
-            expanded ? 'justify-start' : 'justify-center'
-          } ${
-            darkTheme ? 'hover:bg-gray-700' : 'hover:bg-white/30'
-          }`}
-          style={{ background: "transparent" }}
-          title={darkTheme ? t('sidebar.switchToLightMode') : t('sidebar.switchToDarkMode')}
-        >
-          <span className="text-2xl">
-            {darkTheme ? (
-              <svg width="20" height="20" fill="none" viewBox="0 0 24 24" className="w-5 h-5">
-                <path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z" fill="currentColor"/>
-              </svg>
-            ) : (
-              <svg width="20" height="20" fill="none" viewBox="0 0 24 24" className="w-5 h-5">
-                <path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z" fill="currentColor"/>
-              </svg>
-            )}
-          </span>
-          {expanded && <span className="text-white whitespace-nowrap">{darkTheme ? t('sidebar.darkMode') : t('sidebar.lightMode')}</span>}
-        </button>
+        <ThemeToggleButton
+          expanded={expanded}
+          darkTheme={darkTheme}
+          isRTLMode={isRTLMode}
+          onToggle={handleThemeToggle}
+        />
         
         {/* Smart Tour Button */}
         <SmartTourButton
@@ -157,8 +128,8 @@ export default function Sidebar({ features, userLabel, expanded, setExpanded }) 
         
         <button
           onClick={handleLogout}
-          className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all duration-300 w-full text-white ${
-            expanded ? 'justify-start' : 'justify-center'
+          className={`flex items-center rounded-lg font-semibold transition-all duration-300 w-full text-white ${
+            expanded ? (isRTLMode ? 'justify-end gap-2 px-4 py-2' : 'justify-start gap-2 px-4 py-2') : 'justify-center px-4 py-2'
           } ${
             darkTheme ? 'hover:bg-gray-700' : 'hover:bg-white/30'
           }`}
