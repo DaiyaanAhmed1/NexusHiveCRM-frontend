@@ -76,7 +76,7 @@ export default function LandingPage() {
           {/* Logo */}
           <div className="flex items-center gap-3">
             <img
-              src="https://lms-frontend-resources.s3.ap-south-1.amazonaws.com/NexusHiveCRM/NexusHive-Logo.png"
+              src="https://lms-frontend-resources.s3.ap-south-1.amazonaws.com/marlnlogopng.png"
               alt="NexusHive Logo"
               className="h-12 w-12 object-contain"
             />
@@ -226,7 +226,7 @@ export default function LandingPage() {
           <div className="border-2 border-[#B388FF] rounded-lg overflow-hidden shadow-sm w-full max-w-lg">
             <video
               controls
-              poster="https://lms-frontend-resources.s3.ap-south-1.amazonaws.com/NexusHiveCRM/NexusHive-Logo.png"
+              poster="https://lms-frontend-resources.s3.ap-south-1.amazonaws.com/marlnlogopng.png"
               className="w-full h-[300px] object-cover bg-black"
               src="https://lms-frontend-resources.s3.ap-south-1.amazonaws.com/NexusHiveCRM/CollaborativeLearningwithNexusHive.mp4"
             />
@@ -410,7 +410,7 @@ function CustomVideoPlayer() {
       <video
         ref={videoRef}
         src="https://lms-frontend-resources.s3.ap-south-1.amazonaws.com/NexusHiveCRM/NexusHive-LandingPage-AI-Video.mp4"
-        poster="https://lms-frontend-resources.s3.ap-south-1.amazonaws.com/NexusHiveCRM/NexusHive-Logo.png"
+        poster="https://lms-frontend-resources.s3.ap-south-1.amazonaws.com/marlnlogopng.png"
         className="w-full h-[500px] object-contain rounded-xl bg-[#F6F7FA]"
         style={{outline: 'none'}}
         onClick={handlePlayPause}

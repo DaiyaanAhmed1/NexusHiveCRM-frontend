@@ -156,7 +156,7 @@ function LoginPageContent() {
         {/* Left Side - Logo & Tagline */}
         <div className={`hidden md:flex flex-col items-center justify-center w-1/2 bg-white/10 p-10 ${isRTL ? 'rounded-r-3xl' : 'rounded-l-3xl'}`}>
           <img
-            src="https://lms-frontend-resources.s3.ap-south-1.amazonaws.com/NexusHiveCRM/NexusHive-Logo.png"
+            src="https://lms-frontend-resources.s3.ap-south-1.amazonaws.com/marlnlogopng.png"
             alt="NexusHiveCRM Logo"
             className="w-28 h-28 mb-6"
           />
