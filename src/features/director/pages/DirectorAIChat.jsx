@@ -1,13 +1,41 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLocalization } from '../../../hooks/useLocalization';
 import ChatLayout from '../../../components/ai-chat/ChatLayout';
+import aiService from '../../../services/aiService';
+import chatHistoryService from '../../../services/chatHistoryService';
 
 const DirectorAIChat = () => {
   const { t } = useTranslation();
   const { isRTLMode } = useLocalization();
   const [chatHistory, setChatHistory] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [apiStatus, setApiStatus] = useState(null);
+  const [currentChatId, setCurrentChatId] = useState(null);
+  const [showChatHistory, setShowChatHistory] = useState(false);
+
+  // Check API configuration on component mount
+  useEffect(() => {
+    const checkApiStatus = async () => {
+      try {
+        const status = aiService.getConfigStatus();
+        setApiStatus(status);
+      } catch (error) {
+        console.error('Error checking API status:', error);
+        setApiStatus({ configured: false });
+      }
+    };
+    checkApiStatus();
+  }, []);
+
+  useEffect(() => {
+    // Create a new chat if none exists
+    if (!currentChatId) {
+      const newChat = chatHistoryService.createNewChat('director');
+      setCurrentChatId(newChat.id);
+    }
+  }, [currentChatId]);
 
   // Director-specific quick actions
   const directorQuickActions = [
@@ -52,63 +80,199 @@ const DirectorAIChat = () => {
   const handleSendMessage = async (message) => {
     const timestamp = new Date().toLocaleTimeString();
     
-    // Add user message
+    // Add user message to chat history
+    if (currentChatId) {
+      chatHistoryService.addMessage('director', currentChatId, {
+        sender: 'user',
+        content: message,
+        timestamp
+      });
+    }
+    
+    // Add user message to local state
     setChatHistory(prev => [...prev, {
       sender: 'user',
       content: message,
       timestamp
     }]);
-
+  
     setIsLoading(true);
-
-    // Simulate AI response (replace with actual AI integration)
-    setTimeout(() => {
-      const aiResponse = generateDirectorResponse(message);
+    setError(null);
+  
+    try {
+      // Check if API is configured
+      if (!aiService.isAPIConfigured()) {
+        throw new Error('OpenRoute API key not configured. Please set VITE_OPENROUTE_API_KEY in your .env file.');
+      }
+  
+      // Convert chat history to API format
+      const apiChatHistory = chatHistory.map(msg => ({
+        role: msg.sender === 'user' ? 'user' : 'assistant',
+        content: msg.content
+      }));
+  
+      // Generate AI response
+      const response = await aiService.generateResponse(message, 'director', apiChatHistory);
+      
+      // Add AI response to chat history
+      if (currentChatId) {
+        chatHistoryService.addMessage('director', currentChatId, {
+          sender: 'ai',
+          content: response.content,
+          timestamp: new Date().toLocaleTimeString(),
+          usage: response.usage,
+          model: response.model
+        });
+      }
+      
+      // Add AI response to local state
       setChatHistory(prev => [...prev, {
         sender: 'ai',
-        content: aiResponse,
-        timestamp: new Date().toLocaleTimeString()
+        content: response.content,
+        timestamp: new Date().toLocaleTimeString(),
+        usage: response.usage,
+        model: response.model
       }]);
+  
+      // Update chat title if this is the first message
+      if (currentChatId && chatHistory.length === 0) {
+        const newTitle = generateChatTitle(message);
+        chatHistoryService.updateChatTitle('director', currentChatId, newTitle);
+      }
+  
+    } catch (error) {
+      console.error('Error generating AI response:', error);
+      setError(error.message);
+      
+      // Add error message to chat history
+      if (currentChatId) {
+        chatHistoryService.addMessage('director', currentChatId, {
+          sender: 'ai',
+          content: `Sorry, I encountered an error: ${error.message}. Please check your API configuration and try again.`,
+          timestamp: new Date().toLocaleTimeString(),
+          isError: true
+        });
+      }
+      
+      // Add error message to local state
+      setChatHistory(prev => [...prev, {
+        sender: 'ai',
+        content: `Sorry, I encountered an error: ${error.message}. Please check your API configuration and try again.`,
+        timestamp: new Date().toLocaleTimeString(),
+        isError: true
+      }]);
+    } finally {
       setIsLoading(false);
-    }, 1500);
-  };
-
-  const generateDirectorResponse = (message) => {
-    // Simple response generation (replace with actual AI)
-    const responses = [
-      "As your AI assistant, I've analyzed the data and here are my recommendations for director-level decision making...",
-      "Based on current institutional metrics, I suggest focusing on these strategic priorities...",
-      "From a leadership perspective, here's what the data tells us about departmental performance...",
-      "I've reviewed the compliance requirements and budget allocations. Here's my executive summary..."
-    ];
-    return responses[Math.floor(Math.random() * responses.length)];
+    }
   };
 
   const handleNewChat = () => {
     setChatHistory([]);
+    setError(null);
+    // Create a new chat with a better default title
+    const newChat = chatHistoryService.createNewChat('director', 'New Conversation');
+    setCurrentChatId(newChat.id);
   };
 
   const handleAttach = (type) => {
     console.log('Attach type:', type);
-    // Handle file attachment
+    // Handle file attachment - TODO: Implement file upload
   };
 
   const handleQuickAction = (action) => {
     handleSendMessage(action.prompt);
   };
 
+  const generateChatTitle = (message) => {
+  // Extract key words from the message to create a meaningful title
+  const words = message.toLowerCase().split(' ');
+  
+  // Common director-related keywords
+  const keywords = {
+    'strategic': 'Strategic Planning',
+    'budget': 'Budget Planning',
+    'department': 'Department Analysis',
+    'risk': 'Risk Assessment',
+    'compliance': 'Compliance Review',
+    'meeting': 'Meeting Preparation',
+    'performance': 'Performance Analysis',
+    'quarterly': 'Quarterly Review',
+    'annual': 'Annual Planning',
+    'forecast': 'Forecasting',
+    'analysis': 'Data Analysis',
+    'report': 'Report Generation',
+    'dashboard': 'Dashboard Review',
+    'metrics': 'Metrics Analysis',
+    'kpi': 'KPI Review',
+    'financial': 'Financial Analysis',
+    'operational': 'Operational Review',
+    'staff': 'Staff Management',
+    'training': 'Training & Development',
+    'policy': 'Policy Review',
+    'goals': 'Goal Setting',
+    'objectives': 'Objective Planning'
+  };
+  
+  // Find matching keywords
+  for (const [key, title] of Object.entries(keywords)) {
+    if (words.some(word => word.includes(key))) {
+      return title;
+    }
+  }
+  
+  // If no keywords found, create title from first few words
+  const firstWords = words.slice(0, 3).join(' ');
+  return firstWords.charAt(0).toUpperCase() + firstWords.slice(1);
+};
+const handleToggleChatHistory = () => {
+  setShowChatHistory(!showChatHistory);
+};
+const handleLoadChatHistory = (formattedMessages, chatId) => {
+  setChatHistory(formattedMessages);
+  setCurrentChatId(chatId);
+};
   return (
     <ChatLayout
-      roleName={t('roles.director')}
-      roleColor="blue"
-      chatHistory={chatHistory}
-      onSendMessage={handleSendMessage}
-      onNewChat={handleNewChat}
-      onAttach={handleAttach}
-      isLoading={isLoading}
-    >
+  roleName={t('roles.director')}
+  roleColor="blue"
+  chatHistory={chatHistory}
+  onSendMessage={handleSendMessage}
+  onNewChat={handleNewChat}
+  onAttach={handleAttach}
+  isLoading={isLoading}
+  showChatHistory={showChatHistory}
+  onToggleChatHistory={handleToggleChatHistory}
+  onLoadChatHistory={handleLoadChatHistory}
+>
       {/* Director-specific sidebar */}
       <div className="p-6">
+        {/* API Status */}
+        {apiStatus && (
+          <div className="mb-6 p-3 rounded-lg border">
+            <div className="flex items-center gap-2 mb-2">
+              <div className={`w-2 h-2 rounded-full ${apiStatus.configured ? 'bg-green-500' : 'bg-red-500'}`}></div>
+              <span className="text-sm font-medium text-gray-900 dark:text-white">
+                {apiStatus.configured ? 'API Connected' : 'API Not Configured'}
+              </span>
+            </div>
+            {apiStatus.configured && (
+              <div className="text-xs text-gray-500 dark:text-gray-400">
+                <div>Model: Sage AI</div>
+                <div>Streaming: {apiStatus.streaming ? 'Enabled' : 'Disabled'}</div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Error Display */}
+        {error && (
+          <div className="mb-6 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+            <div className="text-sm text-red-800 dark:text-red-200">
+              <strong>Error:</strong> {error}
+            </div>
+          </div>
+        )}
+
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
           {t('ai.director.quickActions')}
         </h3>
@@ -118,7 +282,8 @@ const DirectorAIChat = () => {
             <button
               key={action.id}
               onClick={() => handleQuickAction(action)}
-              className="w-full p-3 text-left bg-gray-50 dark:bg-gray-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200 hover:scale-[1.02] border border-gray-200 dark:border-gray-600"
+              disabled={isLoading || !apiStatus?.configured}
+              className="w-full p-3 text-left bg-gray-50 dark:bg-gray-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200 hover:scale-[1.02] border border-gray-200 dark:border-gray-600 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
               <div className="flex items-start gap-3">
                 <span className="text-xl">{action.icon}</span>
@@ -172,29 +337,62 @@ const DirectorAIChat = () => {
         </div>
 
         {/* Recent Chats */}
-        <div className="mt-8">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            {t('ai.recentChats')}
-          </h3>
-          
-          <div className="space-y-2">
-            <div className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <p className="text-sm text-gray-900 dark:text-white font-medium mb-1">Strategic Planning Q4</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">2 hours ago</p>
-            </div>
-            <div className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <p className="text-sm text-gray-900 dark:text-white font-medium mb-1">Budget Review</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Yesterday</p>
-            </div>
-            <div className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <p className="text-sm text-gray-900 dark:text-white font-medium mb-1">Department Analysis</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">3 days ago</p>
-            </div>
-          </div>
+        {/* Chat History */}
+{/* Chat History */}
+<div className="mt-8">
+  <div className="flex items-center justify-between mb-4">
+    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+      {t('ai.chatHistory')}
+    </h3>
+    <button
+  onClick={handleToggleChatHistory}
+  className="text-xs text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300"
+>
+  {showChatHistory ? 'Hide History' : 'View All'}
+</button>
+  </div>
+  
+  <div className="space-y-2">
+    {(() => {
+      const recentChats = chatHistoryService.getRecentChats('director', 5);
+      return recentChats.length === 0 ? (
+        <div className="p-3 text-center text-gray-500 dark:text-gray-400 text-sm">
+          No chat history yet
         </div>
+      ) : (
+        recentChats.map((chat) => (
+          <div
+            key={chat.id}
+            onClick={() => {
+              // Load this chat
+              const formattedMessages = chat.messages.map(msg => ({
+                sender: msg.sender,
+                content: msg.content,
+                timestamp: new Date(msg.timestamp).toLocaleTimeString(),
+                usage: msg.usage,
+                model: msg.model,
+                isError: msg.isError
+              }));
+              setChatHistory(formattedMessages);
+              setCurrentChatId(chat.id);
+            }}
+            className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors"
+          >
+            <p className="text-sm text-gray-900 dark:text-white font-medium mb-1 truncate">
+              {chat.title}
+            </p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              {new Date(chat.updatedAt).toLocaleDateString()} • {chat.messages.length} messages
+            </p>
+          </div>
+        ))
+      );
+    })()}
+  </div>
+</div>
       </div>
     </ChatLayout>
   );
 };
 
-export default DirectorAIChat; 
+export default DirectorAIChat;
