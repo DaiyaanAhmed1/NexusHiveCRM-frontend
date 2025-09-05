@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useLocalization } from '../../../hooks/useLocalization';
 import ChatLayout from '../../../components/ai-chat/ChatLayout';
 import aiService from '../../../services/aiService';
+import chatHistoryService from '../../../services/chatHistoryService';
 
 const MarketingHeadAIChat = () => {
   const { t } = useTranslation();
@@ -11,12 +12,30 @@ const MarketingHeadAIChat = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [apiStatus, setApiStatus] = useState(null);
+  const [currentChatId, setCurrentChatId] = useState(null);
+  const [showChatHistory, setShowChatHistory] = useState(false);
 
   // Check API configuration on component mount
   useEffect(() => {
-    const configStatus = aiService.getConfigStatus();
-    setApiStatus(configStatus);
+    const checkApiStatus = async () => {
+      try {
+        const status = aiService.getConfigStatus();
+        setApiStatus(status);
+      } catch (error) {
+        console.error('Error checking API status:', error);
+        setApiStatus({ configured: false });
+      }
+    };
+    checkApiStatus();
   }, []);
+
+  useEffect(() => {
+    // Create a new chat if none exists
+    if (!currentChatId) {
+      const newChat = chatHistoryService.createNewChat('marketing-head');
+      setCurrentChatId(newChat.id);
+    }
+  }, [currentChatId]);
 
   // Marketing-specific quick actions
   const marketingQuickActions = [
@@ -61,7 +80,16 @@ const MarketingHeadAIChat = () => {
   const handleSendMessage = async (message) => {
     const timestamp = new Date().toLocaleTimeString();
     
-    // Add user message
+    // Add user message to chat history
+    if (currentChatId) {
+      chatHistoryService.addMessage('marketing-head', currentChatId, {
+        sender: 'user',
+        content: message,
+        timestamp
+      });
+    }
+    
+    // Add user message to local state
     setChatHistory(prev => [...prev, {
       sender: 'user',
       content: message,
@@ -87,6 +115,17 @@ const MarketingHeadAIChat = () => {
       const response = await aiService.generateResponse(message, 'marketing-head', apiChatHistory);
       
       // Add AI response to chat history
+      if (currentChatId) {
+        chatHistoryService.addMessage('marketing-head', currentChatId, {
+          sender: 'ai',
+          content: response.content,
+          timestamp: new Date().toLocaleTimeString(),
+          usage: response.usage,
+          model: response.model
+        });
+      }
+      
+      // Add AI response to local state
       setChatHistory(prev => [...prev, {
         sender: 'ai',
         content: response.content,
@@ -95,11 +134,27 @@ const MarketingHeadAIChat = () => {
         model: response.model
       }]);
 
+      // Update chat title if this is the first message
+      if (currentChatId && chatHistory.length === 0) {
+        const newTitle = generateChatTitle(message);
+        chatHistoryService.updateChatTitle('marketing-head', currentChatId, newTitle);
+      }
+
     } catch (error) {
       console.error('Error generating AI response:', error);
       setError(error.message);
       
-      // Add error message to chat
+      // Add error message to chat history
+      if (currentChatId) {
+        chatHistoryService.addMessage('marketing-head', currentChatId, {
+          sender: 'ai',
+          content: `Sorry, I encountered an error: ${error.message}. Please check your API configuration and try again.`,
+          timestamp: new Date().toLocaleTimeString(),
+          isError: true
+        });
+      }
+      
+      // Add error message to local state
       setChatHistory(prev => [...prev, {
         sender: 'ai',
         content: `Sorry, I encountered an error: ${error.message}. Please check your API configuration and try again.`,
@@ -114,6 +169,9 @@ const MarketingHeadAIChat = () => {
   const handleNewChat = () => {
     setChatHistory([]);
     setError(null);
+    // Create a new chat with a better default title
+    const newChat = chatHistoryService.createNewChat('marketing-head', 'New Conversation');
+    setCurrentChatId(newChat.id);
   };
 
   const handleAttach = (type) => {
@@ -125,6 +183,50 @@ const MarketingHeadAIChat = () => {
     handleSendMessage(action.prompt);
   };
 
+  const generateChatTitle = (message) => {
+    // Extract key words from the message to create a meaningful title
+    const words = message.toLowerCase().split(' ');
+    
+    // Common marketing-related keywords
+    const keywords = {
+      'campaign': 'Campaign Strategy',
+      'marketing': 'Marketing Analysis',
+      'lead': 'Lead Generation',
+      'content': 'Content Planning',
+      'social': 'Social Media',
+      'digital': 'Digital Marketing',
+      'budget': 'Budget Planning',
+      'event': 'Event Planning',
+      'brand': 'Brand Strategy',
+      'analytics': 'Analytics Review',
+      'competitor': 'Competitor Analysis',
+      'strategy': 'Strategic Planning',
+      'promotion': 'Promotional Campaign',
+      'advertising': 'Advertising Strategy',
+      'recruitment': 'Student Recruitment'
+    };
+    
+    // Find matching keywords
+    for (const [key, title] of Object.entries(keywords)) {
+      if (words.some(word => word.includes(key))) {
+        return title;
+      }
+    }
+    
+    // If no keywords found, create title from first few words
+    const firstWords = words.slice(0, 3).join(' ');
+    return firstWords.charAt(0).toUpperCase() + firstWords.slice(1);
+  };
+
+  const handleToggleChatHistory = () => {
+    setShowChatHistory(!showChatHistory);
+  };
+
+  const handleLoadChatHistory = (formattedMessages, chatId) => {
+    setChatHistory(formattedMessages);
+    setCurrentChatId(chatId);
+  };
+
   return (
     <ChatLayout
       roleName={t('roles.marketingHead')}
@@ -134,6 +236,9 @@ const MarketingHeadAIChat = () => {
       onNewChat={handleNewChat}
       onAttach={handleAttach}
       isLoading={isLoading}
+      showChatHistory={showChatHistory}
+      onToggleChatHistory={handleToggleChatHistory}
+      onLoadChatHistory={handleLoadChatHistory}
     >
       {/* Marketing-specific sidebar */}
       <div className="p-6">
@@ -227,25 +332,56 @@ const MarketingHeadAIChat = () => {
           </div>
         </div>
 
-        {/* Recent Chats */}
+        {/* Chat History */}
         <div className="mt-8">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
-            {t('ai.recentChats')}
-          </h3>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+              {t('ai.chatHistory')}
+            </h3>
+            <button
+              onClick={handleToggleChatHistory}
+              className="text-xs text-blue-500 hover:text-blue-600 dark:text-blue-400 dark:hover:text-blue-300"
+            >
+              {showChatHistory ? 'Hide History' : 'View All'}
+            </button>
+          </div>
           
           <div className="space-y-2">
-            <div className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <p className="text-sm text-gray-900 dark:text-white font-medium mb-1">Campaign Strategy Q4</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">1 hour ago</p>
-            </div>
-            <div className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <p className="text-sm text-gray-900 dark:text-white font-medium mb-1">Lead Analysis</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Yesterday</p>
-            </div>
-            <div className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <p className="text-sm text-gray-900 dark:text-white font-medium mb-1">Content Planning</p>
-              <p className="text-xs text-gray-500 dark:text-gray-400">2 days ago</p>
-            </div>
+            {(() => {
+              const recentChats = chatHistoryService.getRecentChats('marketing-head', 5);
+              return recentChats.length === 0 ? (
+                <div className="p-3 text-center text-gray-500 dark:text-gray-400 text-sm">
+                  No chat history yet
+                </div>
+              ) : (
+                recentChats.map((chat) => (
+                  <div
+                    key={chat.id}
+                    onClick={() => {
+                      // Load this chat
+                      const formattedMessages = chat.messages.map(msg => ({
+                        sender: msg.sender,
+                        content: msg.content,
+                        timestamp: new Date(msg.timestamp).toLocaleTimeString(),
+                        usage: msg.usage,
+                        model: msg.model,
+                        isError: msg.isError
+                      }));
+                      setChatHistory(formattedMessages);
+                      setCurrentChatId(chat.id);
+                    }}
+                    className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg cursor-pointer hover:bg-orange-50 dark:hover:bg-orange-900/20 transition-colors"
+                  >
+                    <p className="text-sm text-gray-900 dark:text-white font-medium mb-1 truncate">
+                      {chat.title}
+                    </p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      {new Date(chat.updatedAt).toLocaleDateString()} • {chat.messages.length} messages
+                    </p>
+                  </div>
+                ))
+              );
+            })()}
           </div>
         </div>
       </div>

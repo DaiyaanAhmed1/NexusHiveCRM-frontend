@@ -217,7 +217,105 @@ const formatAIResponse = (content) => {
         </h4>
       );
     }
-    
+        // Check for standalone bold headers like "**Public Awareness Campaigns**"
+    if (paragraph.match(/^\*\*[^*]+\*\*$/)) {
+      const text = paragraph.replace(/^\*\*([^*]+)\*\*$/, '$1');
+      return (
+        <h4 key={index} className="font-bold text-gray-900 dark:text-white mb-3 mt-4 text-base border-l-4 border-green-500 pl-3 bg-green-50 dark:bg-green-900/20 py-2 rounded-r-lg">
+          {text}
+        </h4>
+      );
+    }
+
+    // Check for header followed by numbered list (like "Sweet Mango Varieties 1. **Item**")
+    if (paragraph.includes(':') && paragraph.match(/\d+\./)) {
+      const lines = paragraph.split('\n');
+      const firstLine = lines[0];
+      const remainingLines = lines.slice(1);
+      
+      // Check if first line is a header
+      if (firstLine.includes(':') && !firstLine.match(/^\d+\./)) {
+        const headerText = firstLine.replace(':', '');
+        const isBoldHeader = headerText.includes('**');
+        
+        return (
+          <div key={index} className="mb-4">
+            {/* Header */}
+            <h4 className={`font-bold text-gray-900 dark:text-white mb-3 mt-4 text-base border-l-4 border-purple-500 pl-3 bg-purple-50 dark:bg-purple-900/20 py-2 rounded-r-lg`}>
+              {isBoldHeader ? headerText.replace(/\*\*/g, '') : headerText}
+            </h4>
+            
+            {/* Numbered List */}
+            <div className="ml-4">
+              {remainingLines.map((line, lineIndex) => {
+                if (line.match(/^\d+\./)) {
+                  const number = line.match(/^(\d+)\./)[1];
+                  const cleanText = line.replace(/^\d+\.\s*/, '');
+                  const hasBoldText = cleanText.includes('**');
+                  
+                  return (
+                    <div key={lineIndex} className="flex items-start gap-3 mb-2">
+                      <span className="bg-purple-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center mt-0.5 flex-shrink-0 font-medium">
+                        {number}
+                      </span>
+                      <div className="flex-1">
+                        {hasBoldText ? (
+                          <span className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                            {cleanText.split('**').map((part, partIndex) => {
+                              if (partIndex % 2 === 1) { // Odd indices are bold text
+                                return <strong key={partIndex} className="font-semibold text-gray-900 dark:text-white">{part}</strong>;
+                              }
+                              return part;
+                            })}
+                          </span>
+                        ) : (
+                          <span className="text-gray-700 dark:text-gray-300 leading-relaxed">{cleanText}</span>
+                        )}
+                      </div>
+                    </div>
+                  );
+                }
+                return (
+                  <p key={lineIndex} className="text-gray-700 dark:text-gray-300 mb-2 leading-relaxed">
+                    {line}
+                  </p>
+                );
+              })}
+            </div>
+          </div>
+        );
+      }
+    }
+
+    // Check for header with inline numbered list (like "Sweet Mango Varieties 1. **Alphonso**")
+    if (paragraph.match(/^[^:]+:\s*\d+\./)) {
+      const match = paragraph.match(/^([^:]+):\s*(\d+\.\s*.+)/);
+      if (match) {
+        const headerText = match[1].trim();
+        const listContent = match[2];
+        
+        return (
+          <div key={index} className="mb-4">
+            {/* Header */}
+            <h4 className="font-bold text-gray-900 dark:text-white mb-3 mt-4 text-base border-l-4 border-orange-500 pl-3 bg-orange-50 dark:bg-orange-900/20 py-2 rounded-r-lg">
+              {headerText}
+            </h4>
+            
+            {/* Inline List Content */}
+            <div className="ml-4">
+              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                {listContent.split('**').map((part, partIndex) => {
+                  if (partIndex % 2 === 1) { // Odd indices are bold text
+                    return <strong key={partIndex} className="font-semibold text-gray-900 dark:text-white">{part}</strong>;
+                  }
+                  return part;
+                })}
+              </p>
+            </div>
+          </div>
+        );
+      }
+    }
     // Check for bold text with colon (like "**Key**: Value")
     if (paragraph.includes('**') && paragraph.includes(':')) {
       const lines = paragraph.split('\n');
@@ -340,31 +438,50 @@ if (paragraph.includes('•') || paragraph.includes('-') || paragraph.includes('
   );
 }
     // Check if paragraph is a numbered list
-    if (paragraph.match(/^\d+\./)) {
-      const lines = paragraph.split('\n');
-      return (
-        <div key={index} className="mb-3">
-          {lines.map((line, lineIndex) => {
-            if (line.match(/^\d+\./)) {
-              const number = line.match(/^(\d+)\./)[1];
-              return (
-                <div key={lineIndex} className="flex items-start gap-2 mb-1">
-                  <span className="bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center mt-0.5 flex-shrink-0">
-                    {number}
-                  </span>
-                  <span className="text-gray-700 dark:text-gray-300">{line.replace(/^\d+\.\s*/, '')}</span>
-                </div>
-              );
-            }
+    // Check if paragraph is a numbered list
+  if (paragraph.match(/^\d+\./)) {
+    const lines = paragraph.split('\n');
+    return (
+      <div key={index} className="mb-4">
+        {lines.map((line, lineIndex) => {
+          if (line.match(/^\d+\./)) {
+            const number = line.match(/^(\d+)\./)[1];
+            const cleanText = line.replace(/^\d+\.\s*/, '');
+            
+            // Check if the text contains bold formatting
+            const hasBoldText = cleanText.includes('**');
+            
             return (
-              <p key={lineIndex} className="text-gray-700 dark:text-gray-300 mb-2">
-                {line}
-              </p>
+              <div key={lineIndex} className="flex items-start gap-3 mb-2">
+                <span className="bg-blue-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center mt-0.5 flex-shrink-0 font-medium">
+                  {number}
+                </span>
+                <div className="flex-1">
+                  {hasBoldText ? (
+                    <span className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                      {cleanText.split('**').map((part, partIndex) => {
+                        if (partIndex % 2 === 1) { // Odd indices are bold text
+                          return <strong key={partIndex} className="font-semibold text-gray-900 dark:text-white">{part}</strong>;
+                        }
+                        return part;
+                      })}
+                    </span>
+                  ) : (
+                    <span className="text-gray-700 dark:text-gray-300 leading-relaxed">{cleanText}</span>
+                  )}
+                </div>
+              </div>
             );
-          })}
-        </div>
-      );
-    }
+          }
+          return (
+            <p key={lineIndex} className="text-gray-700 dark:text-gray-300 mb-2 leading-relaxed">
+              {line}
+            </p>
+          );
+        })}
+      </div>
+    );
+  }
     
     // Check for key-value pairs (like "Key: Value")
     if (paragraph.includes(':') && paragraph.split('\n').length > 1) {
@@ -544,7 +661,7 @@ if (paragraph.includes('•') || paragraph.includes('-') || paragraph.includes('
                           {msg.usage && (
                             <div className="mt-3 pt-2 border-t border-gray-200 dark:border-gray-600">
                               <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-                              <span>Sage AI</span>
+                                <span>Sage AI</span>
                                 <span>Tokens: {msg.usage.total_tokens}</span>
                               </div>
                             </div>
