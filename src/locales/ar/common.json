@@ -267,7 +267,13 @@
     "info": "معلومات",
     "copyCode": "📋 نسخ",
     "comingSoon": "قريباً",
-
+    "fileSizeError": "حجم الملف كبير جداً. يرجى اختيار ملف أصغر من 10 ميجابايت.",
+    "unsupportedFileType": "نوع الملف غير مدعوم. يرجى اختيار ملف نصي أو markdown أو CSV أو JSON أو XML أو RTF.",
+    "dropFile": "اسحب الملف هنا",
+    "dropFileDescription": "اتركه لإرفاق الملف",
+    "supportedFormats": "الصيغ المدعومة",
+    "maxFileSize": "الحد الأقصى لحجم الملف",
+    "attachInstructions": "انقر للتصفح أو اسحب وأفلت الملفات هنا",
     "language": {
     "auto": "تلقائي (حسب الواجهة)",
     "english": "الإنجليزية",

@@ -282,7 +282,13 @@
 "enabled": "Enabled",
 "disabled": "Disabled",
 "comingSoon": "Coming Soon",
-
+"fileSizeError": "File size too large. Please select a file smaller than 10MB.",
+"unsupportedFileType": "Unsupported file type. Please select a text, markdown, CSV, JSON, XML, or RTF file.",
+"dropFile": "Drop file here",
+"dropFileDescription": "Release to attach the file",
+"supportedFormats": "Supported formats",
+"maxFileSize": "Max file size",
+"attachInstructions": "Click to browse or drag & drop files here",
 "language": {
   "auto": "Auto (Follow UI)",
   "english": "English",

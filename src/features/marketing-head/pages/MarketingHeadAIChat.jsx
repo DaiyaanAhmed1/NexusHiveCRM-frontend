@@ -5,6 +5,7 @@ import ChatLayout from '../../../components/ai-chat/ChatLayout';
 import aiService from '../../../services/aiService';
 import chatHistoryService from '../../../services/chatHistoryService';
 import trialService from '../../../services/trialService';
+import aiLanguageService from '../../../services/aiLanguageService';
 
 const MarketingHeadAIChat = () => {
   const { t } = useTranslation();
@@ -187,9 +188,73 @@ const MarketingHeadAIChat = () => {
     setCurrentChatId(newChat.id);
   };
 
-  const handleAttach = (type) => {
-    console.log('Attach type:', type);
-    // Handle file attachment - TODO: Implement file upload
+  const handleAttach = async (type, file = null) => {
+    console.log('Processing file:', file.name, file.type);
+    
+    if (type === 'file' && file) {
+      try {
+        console.log('Processing file:', file.name, file.type);
+        
+        // Check trial limit
+        if (!trialService.canAskQuestion()) {
+          alert(t('ai.trial.limitReached'));
+          return;
+        }
+  
+        // Record the question
+        trialService.recordQuestion();
+        window.dispatchEvent(new CustomEvent('trialUpdated'));
+  
+        setIsLoading(true);
+        setError(null);
+  
+        // Add file info to chat history
+        const fileMessage = `📎 Attached file: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)}MB)`;
+        setChatHistory(prev => [...prev, {
+          sender: 'user',
+          content: fileMessage,
+          timestamp: new Date().toLocaleTimeString()
+        }]);
+  
+        // Convert chat history to API format
+        const apiChatHistory = chatHistory.map(msg => ({
+          role: msg.sender === 'user' ? 'user' : 'assistant',
+          content: msg.content
+        }));
+  
+        console.log('Calling AI service with file...');
+  
+        // Generate AI response with file
+        const response = await aiService.generateResponseWithFile(
+          `Please analyze this file: ${file.name}`, 
+          file, 
+          'marketing-head', 
+          apiChatHistory, 
+          isRTLMode ? 'ar' : 'en'
+        );
+  
+        console.log('AI response received:', response);
+  
+        // Add response to chat history
+        setChatHistory(prev => [...prev, {
+          sender: 'ai',
+          content: response.content,
+          timestamp: new Date().toLocaleTimeString(),
+          usage: response.usage,
+          model: response.model,
+          hasAttachment: true,
+          attachmentName: file.name
+        }]);
+  
+      } catch (error) {
+        console.error('Error processing file:', error);
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      console.log('Attach type:', type);
+    }
   };
 
   const handleQuickAction = (action) => {

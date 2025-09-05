@@ -30,6 +30,7 @@ const ChatLayout = ({
   const fileInputRef = useRef(null);
   const [aiLanguage, setAiLanguage] = useState(aiLanguageService.getCurrentLanguage());
   const [isToggling, setIsToggling] = useState(false);
+  const [isDragOver, setIsDragOver] = useState(false);
 // Add this useEffect to sync with UI language (around line 53):
 useEffect(() => {
   // Auto-sync AI language with UI language when in auto mode
@@ -62,6 +63,19 @@ useEffect(() => {
       window.removeEventListener('trialUpdated', updateTrialStatus);
     };
   }, []); 
+// Close attach menu when clicking outside
+useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (showAttachMenu && !event.target.closest('.attach-menu-container')) {
+      setShowAttachMenu(false);
+    }
+  };
+
+  document.addEventListener('mousedown', handleClickOutside);
+  return () => {
+    document.removeEventListener('mousedown', handleClickOutside);
+  };
+}, [showAttachMenu]);
 
   const handleSendMessage = () => {
     if (message.trim() && !isLoading) {
@@ -100,6 +114,52 @@ useEffect(() => {
     }
     onAttach(type);
   };
+
+// Drag and drop handlers
+const handleDragOver = (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  if (!isDragOver) {
+    setIsDragOver(true);
+  }
+};
+
+const handleDragLeave = (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  // Only set to false if we're leaving the main container
+  if (e.currentTarget === e.target) {
+    setIsDragOver(false);
+  }
+};
+
+const handleDrop = (e) => {
+  e.preventDefault();
+  e.stopPropagation();
+  setIsDragOver(false);
+  
+  const files = e.dataTransfer.files;
+  if (files.length > 0) {
+    const file = files[0];
+    
+    // Check file size (max 10MB)
+    if (file.size > 10 * 1024 * 1024) {
+      alert(t('ai.fileSizeError'));
+      return;
+    }
+    
+    // Check file extension
+    const allowedExtensions = ['.txt', '.md', '.csv', '.json', '.xml', '.rtf'];
+    const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+    
+    if (!allowedExtensions.includes(fileExtension)) {
+      alert(t('ai.unsupportedFileType'));
+      return;
+    }
+    
+    onAttach('file', file);
+  }
+};
 
   const handleNewChat = () => {
     const newChat = chatHistoryService.createNewChat(roleName.toLowerCase().replace(' ', '-'));
@@ -568,7 +628,31 @@ const handleToggleAILanguage = () => {
   };
 
   return (
-    <div className={`flex flex-col h-screen bg-gray-50 dark:bg-gray-900 ${isRTLMode ? 'rtl' : 'ltr'}`} dir={isRTLMode ? 'rtl' : 'ltr'}>
+    <div 
+    className={`flex flex-col h-screen bg-gray-50 dark:bg-gray-900 ${isRTLMode ? 'rtl' : 'ltr'} ${isDragOver ? 'bg-blue-50 dark:bg-blue-900/20' : ''}`} 
+    dir={isRTLMode ? 'rtl' : 'ltr'}
+    onDragOver={handleDragOver}
+    onDragLeave={handleDragLeave}
+    onDrop={handleDrop}
+  >
+    {/* Drag and Drop Overlay */}
+{isDragOver && (
+  <div className="fixed inset-0 bg-blue-500/20 dark:bg-blue-600/20 backdrop-blur-sm z-50 flex items-center justify-center">
+    <div className="bg-white dark:bg-gray-800 rounded-lg p-8 shadow-xl border-2 border-dashed border-blue-500 dark:border-blue-400">
+      <div className="text-center">
+        <svg width="48" height="48" className="mx-auto mb-4 text-blue-500 dark:text-blue-400" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
+        </svg>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+          {t('ai.dropFile')}
+        </h3>
+        <p className="text-gray-500 dark:text-gray-400">
+          {t('ai.dropFileDescription')}
+        </p>
+      </div>
+    </div>
+  </div>
+)}
 {/* Header */}
 <div className={`bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-3 sm:px-6 py-3 sm:py-4 shadow-sm`}>
   <div className="flex items-center justify-between">
@@ -754,22 +838,28 @@ const handleToggleAILanguage = () => {
           {/* Input Area */}
           <div className="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4">
             <div className="flex items-end gap-3">
-              {/* Attach Button */}
-              <div className="relative">
-                <button
-                  onClick={() => setShowAttachMenu(!showAttachMenu)}
-                  className="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
-                  title={t('ai.attach')}
-                >
-                  <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12.5 2c-2.5 0-4.5 2-4.5 4.5v9c0 1.5 1 2.5 2.5 2.5s2.5-1 2.5-2.5v-8.5c0-.5-.5-1-1-1s-1 .5-1 1v8c0 .25-.25.5-.5.5s-.5-.25-.5-.5v-8.5c0-1.5 1-2.5 2.5-2.5s2.5 1 2.5 2.5v9c0 3.5-3 6.5-6.5 6.5S2 19.5 2 16v-9.5c0-.5.5-1 1-1s1 .5 1 1V16c0 2.5 2 4.5 4.5 4.5S13 18.5 13 16v-9c0-3.5-3-6.5-6.5-6.5"/>
-                  </svg>
-                </button>
+{/* Attach Button */}
+<div className="relative attach-menu-container">
+  <button
+    onClick={() => setShowAttachMenu(!showAttachMenu)}
+    className="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+    title={t('ai.attach')}
+  >
+    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+      <path d="M12.5 2c-2.5 0-4.5 2-4.5 4.5v9c0 1.5 1 2.5 2.5 2.5s2.5-1 2.5-2.5v-8.5c0-.5-.5-1-1-1s-1 .5-1 1v8c0 .25-.25.5-.5.5s-.5-.25-.5-.5v-8.5c0-1.5 1-2.5 2.5-2.5s2.5 1 2.5 2.5v9c0 3.5-3 6.5-6.5 6.5S2 19.5 2 16v-9.5c0-.5.5-1 1-1s1 .5 1 1V16c0 2.5 2 4.5 4.5 4.5S13 18.5 13 16v-9c0-3.5-3-6.5-6.5-6.5"/>
+    </svg>
+  </button>
 
-                {/* Attach Menu */}
 {/* Attach Menu */}
 {showAttachMenu && (
   <div className={`absolute bottom-full mb-2 ${isRTLMode ? 'right-0' : 'left-0'} bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg py-2 min-w-48 z-10`}>
+    {/* Instructions */}
+    <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-600">
+      <div className="text-xs text-gray-500 dark:text-gray-400 text-center">
+        {t('ai.attachInstructions')}
+      </div>
+    </div>
+    
     <button
       onClick={() => handleAttachFile('file')}
       className={`w-full px-4 py-2 ${isRTLMode ? 'text-right' : 'text-left'} hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white flex items-center ${isRTLMode ? 'gap-2 flex-row-reverse' : 'gap-2'}`}
@@ -779,6 +869,24 @@ const handleToggleAILanguage = () => {
       </svg>
       {t('ai.attachFile')}
     </button>
+    
+    {/* File Type Support Info */}
+    <div className="px-4 py-2 border-t border-gray-200 dark:border-gray-600">
+      <div className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+        {t('ai.supportedFormats')}:
+      </div>
+      <div className="flex flex-wrap gap-1">
+        {['.txt', '.md', '.csv', '.json', '.xml', '.rtf'].map((ext) => (
+          <span key={ext} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-xs font-mono">
+            {ext}
+          </span>
+        ))}
+      </div>
+      <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+        {t('ai.maxFileSize')}: 10MB
+      </div>
+    </div>
+    
     <button
       onClick={() => handleAttachFile('image')}
       className={`w-full px-4 py-2 ${isRTLMode ? 'text-right' : 'text-left'} hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400 flex items-center ${isRTLMode ? 'gap-2 flex-row-reverse' : 'gap-2'} cursor-not-allowed`}
@@ -793,6 +901,7 @@ const handleToggleAILanguage = () => {
     </button>
   </div>
 )}
+
               </div>
 
               {/* Message Input */}

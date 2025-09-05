@@ -5,6 +5,7 @@ import ChatLayout from '../../../components/ai-chat/ChatLayout';
 import aiService from '../../../services/aiService';
 import chatHistoryService from '../../../services/chatHistoryService';
 import trialService from '../../../services/trialService';
+import aiLanguageService from '../../../services/aiLanguageService';
 
 const DirectorAIChat = () => {
   const { t } = useTranslation();
