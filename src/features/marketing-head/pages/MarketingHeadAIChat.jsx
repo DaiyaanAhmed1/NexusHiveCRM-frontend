@@ -4,6 +4,7 @@ import { useLocalization } from '../../../hooks/useLocalization';
 import ChatLayout from '../../../components/ai-chat/ChatLayout';
 import aiService from '../../../services/aiService';
 import chatHistoryService from '../../../services/chatHistoryService';
+import trialService from '../../../services/trialService';
 
 const MarketingHeadAIChat = () => {
   const { t } = useTranslation();
@@ -80,6 +81,18 @@ const MarketingHeadAIChat = () => {
   const handleSendMessage = async (message) => {
     const timestamp = new Date().toLocaleTimeString();
     
+    // Check trial limit before sending
+    if (!trialService.canAskQuestion()) {
+      alert(t('ai.trial.limitReached'));
+      return;
+    }
+  
+    // Record the question
+    trialService.recordQuestion();
+    
+    // Dispatch event to update trial counter
+    window.dispatchEvent(new CustomEvent('trialUpdated'));
+    
     // Add user message to chat history
     if (currentChatId) {
       chatHistoryService.addMessage('marketing-head', currentChatId, {
@@ -95,7 +108,7 @@ const MarketingHeadAIChat = () => {
       content: message,
       timestamp
     }]);
-
+  
     setIsLoading(true);
     setError(null);
 
@@ -112,7 +125,7 @@ const MarketingHeadAIChat = () => {
       }));
 
       // Generate AI response
-      const response = await aiService.generateResponse(message, 'marketing-head', apiChatHistory);
+      const response = await aiService.generateResponse(message, 'marketing-head', apiChatHistory, isRTLMode ? 'ar' : 'en');
       
       // Add AI response to chat history
       if (currentChatId) {
@@ -297,7 +310,7 @@ const MarketingHeadAIChat = () => {
         </div>
 
         {/* Marketing Tools */}
-        <div className="mt-8">
+        {/* <div className="mt-8">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
             {t('ai.marketing.tools')}
           </h3>
@@ -330,7 +343,7 @@ const MarketingHeadAIChat = () => {
               </div>
             </button>
           </div>
-        </div>
+        </div> */}
 
         {/* Chat History */}
         <div className="mt-8">

@@ -5,7 +5,7 @@ import TrialCounter from './TrialCounter';
 import trialService from '../../services/trialService';
 import ChatHistory from './ChatHistory';
 import chatHistoryService from '../../services/chatHistoryService';
-
+import aiLanguageService from '../../services/aiLanguageService';
 const ChatLayout = ({ 
   roleName, 
   roleColor = 'blue', 
@@ -28,47 +28,59 @@ const ChatLayout = ({
   const [trialStatus, setTrialStatus] = useState(trialService.getTrialStatus());
   const messagesEndRef = useRef(null);
   const fileInputRef = useRef(null);
+  const [aiLanguage, setAiLanguage] = useState(aiLanguageService.getCurrentLanguage());
+  const [isToggling, setIsToggling] = useState(false);
+// Add this useEffect to sync with UI language (around line 53):
+useEffect(() => {
+  // Auto-sync AI language with UI language when in auto mode
+  if (aiLanguage === 'auto') {
+    const currentUILanguage = isRTLMode ? 'ar' : 'en';
+    // Trigger re-render to update AI language
+    setAiLanguage('auto');
+  }
+}, [isRTLMode]);
 
   useEffect(() => {
     setShowChatHistory(externalShowChatHistory);
   }, [externalShowChatHistory]);
+
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatHistory]);
 
- // Update trial status
-useEffect(() => {
-  const updateTrialStatus = () => {
-    setTrialStatus(trialService.getTrialStatus());
-  };
+  // Update trial status
+  useEffect(() => {
+    const updateTrialStatus = () => {
+      setTrialStatus(trialService.getTrialStatus());
+    };
 
-  window.addEventListener('trialUpdated', updateTrialStatus);
-  updateTrialStatus();
+    window.addEventListener('trialUpdated', updateTrialStatus);
+    updateTrialStatus();
 
-  return () => {
-    window.removeEventListener('trialUpdated', updateTrialStatus);
-  };
-}, []); 
+    return () => {
+      window.removeEventListener('trialUpdated', updateTrialStatus);
+    };
+  }, []); 
 
-const handleSendMessage = () => {
-  if (message.trim() && !isLoading) {
-    // Check trial limit before sending
-    if (!trialService.canAskQuestion()) {
-      alert('You have reached your free trial limit of 20 questions. Please upgrade to continue using AI chat.');
-      return;
+  const handleSendMessage = () => {
+    if (message.trim() && !isLoading) {
+      // Check trial limit before sending
+      if (!trialService.canAskQuestion()) {
+        alert(t('ai.trial.limitReached'));
+        return;
+      }
+
+      // Record the question
+      trialService.recordQuestion();
+      
+      // Dispatch event to update trial counter
+      window.dispatchEvent(new CustomEvent('trialUpdated'));
+      
+      onSendMessage(message.trim());
+      setMessage('');
     }
-
-    // Record the question
-    trialService.recordQuestion();
-    
-    // Dispatch event to update trial counter
-    window.dispatchEvent(new CustomEvent('trialUpdated'));
-    
-    onSendMessage(message.trim());
-    setMessage('');
-  }
-};
+  };
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter' && !e.shiftKey) {
@@ -81,9 +93,14 @@ const handleSendMessage = () => {
     setShowAttachMenu(false);
     if (type === 'file') {
       fileInputRef.current?.click();
+    } else if (type === 'image') {
+      // Show coming soon message
+      alert(t('ai.comingSoon'));
+      return;
     }
     onAttach(type);
   };
+
   const handleNewChat = () => {
     const newChat = chatHistoryService.createNewChat(roleName.toLowerCase().replace(' ', '-'));
     setCurrentChatId(newChat.id);
@@ -109,12 +126,29 @@ const handleSendMessage = () => {
     }
   };
 
+// Add this function (around line 120):
+const handleToggleAILanguage = () => {
+  if (isToggling) return; // Prevent rapid clicking
+  
+  setIsToggling(true);
+  const newLanguage = aiLanguage === 'en' ? 'ar' : 'en';
+  
+  // Update state immediately for instant UI feedback
+  setAiLanguage(newLanguage);
+  
+  // Save to localStorage asynchronously (non-blocking)
+  setTimeout(() => {
+    aiLanguageService.setLanguage(newLanguage);
+    setIsToggling(false);
+  }, 0);
+};
   const handleDeleteChat = (chatId) => {
     if (currentChatId === chatId) {
       setCurrentChatId(null);
       onNewChat(); // Clear current chat
     }
   };
+
   const getColorClasses = (color) => {
     const colors = {
       blue: 'from-blue-500 to-blue-600 hover:from-blue-400 hover:to-blue-500',
@@ -126,478 +160,512 @@ const handleSendMessage = () => {
   };
 
   // Format AI response content with better styling
-const formatAIResponse = (content) => {
-  // Split content into paragraphs
-  const paragraphs = content.split('\n\n');
-  
-  return paragraphs.map((paragraph, index) => {
-    // Check for code blocks (```code```)
-    if (paragraph.includes('```')) {
-      const codeBlocks = paragraph.split('```');
-      return (
-        <div key={index} className="mb-4">
-          {codeBlocks.map((block, blockIndex) => {
-            if (blockIndex % 2 === 1) { // Odd indices are code blocks
-              const lines = block.split('\n');
-              const language = lines[0] || '';
-              const code = lines.slice(1).join('\n');
-              return (
-                <div key={blockIndex} className="bg-gray-900 dark:bg-gray-800 rounded-lg p-4 mb-3">
-                  {language && (
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-xs text-gray-400 font-mono">{language}</span>
-                      <button
-                        onClick={() => navigator.clipboard.writeText(code)}
-                        className="text-xs text-gray-400 hover:text-white transition-colors"
-                        title="Copy code"
-                      >
-                        📋 Copy
-                      </button>
-                    </div>
-                  )}
-                  <pre className="text-sm text-gray-100 overflow-x-auto">
-                    <code className="font-mono">{code}</code>
-                  </pre>
-                </div>
-              );
-            } else if (block.trim()) {
-              return (
-                <p key={blockIndex} className="text-gray-700 dark:text-gray-300 mb-2">
-                  {block}
-                </p>
-              );
-            }
-            return null;
-          })}
-        </div>
-      );
-    }
+  const formatAIResponse = (content) => {
+    // Split content into paragraphs
+    const paragraphs = content.split('\n\n');
     
-    // Check for inline code (`code`)
-    if (paragraph.includes('`') && !paragraph.includes('```')) {
-      const parts = paragraph.split('`');
-      return (
-        <p key={index} className="text-gray-700 dark:text-gray-300 mb-3 leading-relaxed">
-          {parts.map((part, partIndex) => {
-            if (partIndex % 2 === 1) { // Odd indices are inline code
-              return (
-                <code key={partIndex} className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm font-mono text-gray-800 dark:text-gray-200">
-                  {part}
-                </code>
-              );
-            }
-            return part;
-          })}
-        </p>
-      );
-    }
-    
-    // Check for markdown headers (### Header, ## Header, # Header)
-    if (paragraph.match(/^#{1,6}\s+/)) {
-      const level = paragraph.match(/^(#{1,6})/)[1].length;
-      const text = paragraph.replace(/^#{1,6}\s+/, '');
-      const HeaderTag = level === 1 ? 'h2' : level === 2 ? 'h3' : level === 3 ? 'h4' : 'h5';
-      return (
-        <HeaderTag key={index} className={`font-bold text-gray-900 dark:text-white mb-3 mt-4 ${
-          level === 1 ? 'text-xl border-b border-gray-300 dark:border-gray-600 pb-2' : 
-          level === 2 ? 'text-lg' : 
-          level === 3 ? 'text-base' : 'text-sm'
-        }`}>
-          {text}
-        </HeaderTag>
-      );
-    }
-    
-    // Check for bold headers like "**Legal Requirements**:"
-    if (paragraph.match(/^\*\*[^*]+\*\*:\s*$/)) {
-      const text = paragraph.replace(/^\*\*([^*]+)\*\*:\s*$/, '$1');
-      return (
-        <h4 key={index} className="font-bold text-gray-900 dark:text-white mb-2 mt-4 text-base border-l-4 border-blue-500 pl-3 bg-blue-50 dark:bg-blue-900/20 py-2 rounded-r-lg">
-          {text}
-        </h4>
-      );
-    }
-        // Check for standalone bold headers like "**Public Awareness Campaigns**"
-    if (paragraph.match(/^\*\*[^*]+\*\*$/)) {
-      const text = paragraph.replace(/^\*\*([^*]+)\*\*$/, '$1');
-      return (
-        <h4 key={index} className="font-bold text-gray-900 dark:text-white mb-3 mt-4 text-base border-l-4 border-green-500 pl-3 bg-green-50 dark:bg-green-900/20 py-2 rounded-r-lg">
-          {text}
-        </h4>
-      );
-    }
-
-    // Check for header followed by numbered list (like "Sweet Mango Varieties 1. **Item**")
-    if (paragraph.includes(':') && paragraph.match(/\d+\./)) {
-      const lines = paragraph.split('\n');
-      const firstLine = lines[0];
-      const remainingLines = lines.slice(1);
-      
-      // Check if first line is a header
-      if (firstLine.includes(':') && !firstLine.match(/^\d+\./)) {
-        const headerText = firstLine.replace(':', '');
-        const isBoldHeader = headerText.includes('**');
-        
+    return paragraphs.map((paragraph, index) => {
+      // Check for code blocks (```code```)
+      if (paragraph.includes('```')) {
+        const codeBlocks = paragraph.split('```');
         return (
           <div key={index} className="mb-4">
-            {/* Header */}
-            <h4 className={`font-bold text-gray-900 dark:text-white mb-3 mt-4 text-base border-l-4 border-purple-500 pl-3 bg-purple-50 dark:bg-purple-900/20 py-2 rounded-r-lg`}>
-              {isBoldHeader ? headerText.replace(/\*\*/g, '') : headerText}
-            </h4>
-            
-            {/* Numbered List */}
-            <div className="ml-4">
-              {remainingLines.map((line, lineIndex) => {
-                if (line.match(/^\d+\./)) {
-                  const number = line.match(/^(\d+)\./)[1];
-                  const cleanText = line.replace(/^\d+\.\s*/, '');
-                  const hasBoldText = cleanText.includes('**');
-                  
-                  return (
-                    <div key={lineIndex} className="flex items-start gap-3 mb-2">
-                      <span className="bg-purple-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center mt-0.5 flex-shrink-0 font-medium">
-                        {number}
-                      </span>
-                      <div className="flex-1">
-                        {hasBoldText ? (
-                          <span className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                            {cleanText.split('**').map((part, partIndex) => {
-                              if (partIndex % 2 === 1) { // Odd indices are bold text
-                                return <strong key={partIndex} className="font-semibold text-gray-900 dark:text-white">{part}</strong>;
-                              }
-                              return part;
-                            })}
-                          </span>
-                        ) : (
-                          <span className="text-gray-700 dark:text-gray-300 leading-relaxed">{cleanText}</span>
-                        )}
-                      </div>
-                    </div>
-                  );
-                }
+            {codeBlocks.map((block, blockIndex) => {
+              if (blockIndex % 2 === 1) { // Odd indices are code blocks
+                const lines = block.split('\n');
+                const language = lines[0] || '';
+                const code = lines.slice(1).join('\n');
                 return (
-                  <p key={lineIndex} className="text-gray-700 dark:text-gray-300 mb-2 leading-relaxed">
-                    {line}
+                  <div key={blockIndex} className="bg-gray-900 dark:bg-gray-800 rounded-lg p-4 mb-3">
+                    {language && (
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-xs text-gray-400 font-mono">{language}</span>
+                        <button
+  onClick={() => navigator.clipboard.writeText(code)}
+  className="text-xs text-gray-400 hover:text-white transition-colors"
+  title={t('ai.copyCode')}
+>
+  {t('ai.copyCode')}
+</button>
+                      </div>
+                    )}
+                    <pre className="text-sm text-gray-100 overflow-x-auto">
+                      <code className="font-mono">{code}</code>
+                    </pre>
+                  </div>
+                );
+              } else if (block.trim()) {
+                return (
+                  <p key={blockIndex} className="text-gray-700 dark:text-gray-300 mb-2">
+                    {block}
                   </p>
                 );
-              })}
-            </div>
+              }
+              return null;
+            })}
           </div>
         );
       }
-    }
-
-    // Check for header with inline numbered list (like "Sweet Mango Varieties 1. **Alphonso**")
-    if (paragraph.match(/^[^:]+:\s*\d+\./)) {
-      const match = paragraph.match(/^([^:]+):\s*(\d+\.\s*.+)/);
-      if (match) {
-        const headerText = match[1].trim();
-        const listContent = match[2];
-        
+      
+      // Check for inline code (`code`)
+      if (paragraph.includes('`') && !paragraph.includes('```')) {
+        const parts = paragraph.split('`');
         return (
-          <div key={index} className="mb-4">
-            {/* Header */}
-            <h4 className="font-bold text-gray-900 dark:text-white mb-3 mt-4 text-base border-l-4 border-orange-500 pl-3 bg-orange-50 dark:bg-orange-900/20 py-2 rounded-r-lg">
-              {headerText}
-            </h4>
-            
-            {/* Inline List Content */}
-            <div className="ml-4">
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                {listContent.split('**').map((part, partIndex) => {
-                  if (partIndex % 2 === 1) { // Odd indices are bold text
-                    return <strong key={partIndex} className="font-semibold text-gray-900 dark:text-white">{part}</strong>;
-                  }
-                  return part;
-                })}
-              </p>
-            </div>
-          </div>
-        );
-      }
-    }
-    // Check for bold text with colon (like "**Key**: Value")
-    if (paragraph.includes('**') && paragraph.includes(':')) {
-      const lines = paragraph.split('\n');
-      return (
-        <div key={index} className="mb-3">
-          {lines.map((line, lineIndex) => {
-            if (line.includes('**') && line.includes(':')) {
-              const parts = line.split(':');
-              const boldPart = parts[0].trim();
-              const valuePart = parts.slice(1).join(':').trim();
-              
-              return (
-                <div key={lineIndex} className="mb-2">
-                  <span className="font-bold text-gray-900 dark:text-white">
-                    {boldPart.replace(/\*\*/g, '')}:
-                  </span>
-                  <span className="text-gray-700 dark:text-gray-300 ml-2">
-                    {valuePart}
-                  </span>
-                </div>
-              );
-            }
-            return (
-              <p key={lineIndex} className="text-gray-700 dark:text-gray-300 mb-2">
-                {line}
-              </p>
-            );
-          })}
-        </div>
-      );
-    }
-    
-    // Check for tabular data (rows with | separators)
-    if (paragraph.includes('|') && paragraph.split('\n').length > 2) {
-      const lines = paragraph.split('\n').filter(line => line.trim());
-      if (lines.length >= 2) {
-        const rows = lines.map(line => 
-          line.split('|').map(cell => cell.trim()).filter(cell => cell)
-        );
-        
-        // Check if it's a proper table (has header separator)
-        const hasHeaderSeparator = lines[1].includes('---') || lines[1].includes('===');
-        
-        if (hasHeaderSeparator && rows.length > 2) {
-          const headers = rows[0];
-          const dataRows = rows.slice(2);
-          
-          return (
-            <div key={index} className="mb-4 overflow-x-auto">
-              <table className="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm">
-                <thead className="bg-gray-50 dark:bg-gray-700">
-                  <tr>
-                    {headers.map((header, headerIndex) => (
-                      <th key={headerIndex} className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider border-b border-gray-200 dark:border-gray-600">
-                        {header}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-600">
-                  {dataRows.map((row, rowIndex) => (
-                    <tr key={rowIndex} className="hover:bg-gray-50 dark:hover:bg-gray-700">
-                      {row.map((cell, cellIndex) => (
-                        <td key={cellIndex} className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
-                          {cell}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          );
-        }
-      }
-    }
-    
-    // Check if paragraph is a list
-    // Check if paragraph is a list
-if (paragraph.includes('•') || paragraph.includes('-') || paragraph.includes('*')) {
-  const lines = paragraph.split('\n');
-  return (
-    <div key={index} className="mb-4">
-      {lines.map((line, lineIndex) => {
-        const trimmedLine = line.trim();
-        if (trimmedLine.startsWith('•') || trimmedLine.startsWith('-') || trimmedLine.startsWith('*')) {
-          // Remove the bullet point and clean up the text
-          const cleanText = trimmedLine.replace(/^[•\-*]\s*/, '');
-          
-          // Check if the text contains bold formatting
-          const hasBoldText = cleanText.includes('**');
-          
-          return (
-            <div key={lineIndex} className="flex items-start gap-3 mb-2">
-              <span className="text-blue-500 dark:text-blue-400 mt-1 flex-shrink-0 text-lg">•</span>
-              <div className="flex-1">
-                {hasBoldText ? (
-                  <span className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                    {cleanText.split('**').map((part, partIndex) => {
-                      if (partIndex % 2 === 1) { // Odd indices are bold text
-                        return <strong key={partIndex} className="font-semibold text-gray-900 dark:text-white">{part}</strong>;
-                      }
-                      return part;
-                    })}
-                  </span>
-                ) : (
-                  <span className="text-gray-700 dark:text-gray-300 leading-relaxed">{cleanText}</span>
-                )}
-              </div>
-            </div>
-          );
-        }
-        return (
-          <p key={lineIndex} className="text-gray-700 dark:text-gray-300 mb-2 leading-relaxed">
-            {line}
+          <p key={index} className="text-gray-700 dark:text-gray-300 mb-3 leading-relaxed">
+            {parts.map((part, partIndex) => {
+              if (partIndex % 2 === 1) { // Odd indices are inline code
+                return (
+                  <code key={partIndex} className="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded text-sm font-mono text-gray-800 dark:text-gray-200">
+                    {part}
+                  </code>
+                );
+              }
+              return part;
+            })}
           </p>
         );
-      })}
-    </div>
-  );
-}
-    // Check if paragraph is a numbered list
-    // Check if paragraph is a numbered list
-  if (paragraph.match(/^\d+\./)) {
-    const lines = paragraph.split('\n');
-    return (
-      <div key={index} className="mb-4">
-        {lines.map((line, lineIndex) => {
-          if (line.match(/^\d+\./)) {
-            const number = line.match(/^(\d+)\./)[1];
-            const cleanText = line.replace(/^\d+\.\s*/, '');
-            
-            // Check if the text contains bold formatting
-            const hasBoldText = cleanText.includes('**');
-            
-            return (
-              <div key={lineIndex} className="flex items-start gap-3 mb-2">
-                <span className="bg-blue-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center mt-0.5 flex-shrink-0 font-medium">
-                  {number}
-                </span>
-                <div className="flex-1">
-                  {hasBoldText ? (
-                    <span className="text-gray-700 dark:text-gray-300 leading-relaxed">
-                      {cleanText.split('**').map((part, partIndex) => {
-                        if (partIndex % 2 === 1) { // Odd indices are bold text
-                          return <strong key={partIndex} className="font-semibold text-gray-900 dark:text-white">{part}</strong>;
-                        }
-                        return part;
-                      })}
-                    </span>
-                  ) : (
-                    <span className="text-gray-700 dark:text-gray-300 leading-relaxed">{cleanText}</span>
-                  )}
-                </div>
-              </div>
-            );
-          }
-          return (
-            <p key={lineIndex} className="text-gray-700 dark:text-gray-300 mb-2 leading-relaxed">
-              {line}
-            </p>
-          );
-        })}
-      </div>
-    );
-  }
-    
-    // Check for key-value pairs (like "Key: Value")
-    if (paragraph.includes(':') && paragraph.split('\n').length > 1) {
-      const lines = paragraph.split('\n');
-      const isKeyValue = lines.every(line => line.includes(':') && line.split(':').length === 2);
+      }
       
-      if (isKeyValue) {
+      // Check for markdown headers (### Header, ## Header, # Header)
+      if (paragraph.match(/^#{1,6}\s+/)) {
+        const level = paragraph.match(/^(#{1,6})/)[1].length;
+        const text = paragraph.replace(/^#{1,6}\s+/, '');
+        const HeaderTag = level === 1 ? 'h2' : level === 2 ? 'h3' : level === 3 ? 'h4' : 'h5';
         return (
-          <div key={index} className="mb-4 bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+          <HeaderTag key={index} className={`font-bold text-gray-900 dark:text-white mb-3 mt-4 ${
+            level === 1 ? 'text-xl border-b border-gray-300 dark:border-gray-600 pb-2' : 
+            level === 2 ? 'text-lg' : 
+            level === 3 ? 'text-base' : 'text-sm'
+          }`}>
+            {text}
+          </HeaderTag>
+        );
+      }
+      
+      // Check for bold headers like "**Legal Requirements**:"
+      if (paragraph.match(/^\*\*[^*]+\*\*:\s*$/)) {
+        const text = paragraph.replace(/^\*\*([^*]+)\*\*:\s*$/, '$1');
+        return (
+          <h4 key={index} className="font-bold text-gray-900 dark:text-white mb-2 mt-4 text-base border-l-4 border-blue-500 pl-3 bg-blue-50 dark:bg-blue-900/20 py-2 rounded-r-lg">
+            {text}
+          </h4>
+        );
+      }
+
+      // Check for standalone bold headers like "**Public Awareness Campaigns**"
+      if (paragraph.match(/^\*\*[^*]+\*\*$/)) {
+        const text = paragraph.replace(/^\*\*([^*]+)\*\*$/, '$1');
+        return (
+          <h4 key={index} className="font-bold text-gray-900 dark:text-white mb-3 mt-4 text-base border-l-4 border-green-500 pl-3 bg-green-50 dark:bg-green-900/20 py-2 rounded-r-lg">
+            {text}
+          </h4>
+        );
+      }
+
+      // Check for header followed by numbered list (like "Sweet Mango Varieties 1. **Item**")
+      if (paragraph.includes(':') && paragraph.match(/\d+\./)) {
+        const lines = paragraph.split('\n');
+        const firstLine = lines[0];
+        const remainingLines = lines.slice(1);
+        
+        // Check if first line is a header
+        if (firstLine.includes(':') && !firstLine.match(/^\d+\./)) {
+          const headerText = firstLine.replace(':', '');
+          const isBoldHeader = headerText.includes('**');
+          
+          return (
+            <div key={index} className="mb-4">
+              {/* Header */}
+              <h4 className={`font-bold text-gray-900 dark:text-white mb-3 mt-4 text-base border-l-4 border-purple-500 pl-3 bg-purple-50 dark:bg-purple-900/20 py-2 rounded-r-lg`}>
+                {isBoldHeader ? headerText.replace(/\*\*/g, '') : headerText}
+              </h4>
+              
+              {/* Numbered List */}
+              <div className="ml-4">
+                {remainingLines.map((line, lineIndex) => {
+                  if (line.match(/^\d+\./)) {
+                    const number = line.match(/^(\d+)\./)[1];
+                    const cleanText = line.replace(/^\d+\.\s*/, '');
+                    const hasBoldText = cleanText.includes('**');
+                    
+                    return (
+                      <div key={lineIndex} className="flex items-start gap-3 mb-2">
+                        <span className="bg-purple-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center mt-0.5 flex-shrink-0 font-medium">
+                          {number}
+                        </span>
+                        <div className="flex-1">
+                          {hasBoldText ? (
+                            <span className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                              {cleanText.split('**').map((part, partIndex) => {
+                                if (partIndex % 2 === 1) { // Odd indices are bold text
+                                  return <strong key={partIndex} className="font-semibold text-gray-900 dark:text-white">{part}</strong>;
+                                }
+                                return part;
+                              })}
+                            </span>
+                          ) : (
+                            <span className="text-gray-700 dark:text-gray-300 leading-relaxed">{cleanText}</span>
+                          )}
+                        </div>
+                      </div>
+                    );
+                  }
+                  return (
+                    <p key={lineIndex} className="text-gray-700 dark:text-gray-300 mb-2 leading-relaxed">
+                      {line}
+                    </p>
+                  );
+                })}
+              </div>
+            </div>
+          );
+        }
+      }
+
+      // Check for header with inline numbered list (like "Sweet Mango Varieties 1. **Alphonso**")
+      if (paragraph.match(/^[^:]+:\s*\d+\./)) {
+        const match = paragraph.match(/^([^:]+):\s*(\d+\.\s*.+)/);
+        if (match) {
+          const headerText = match[1].trim();
+          const listContent = match[2];
+          
+          return (
+            <div key={index} className="mb-4">
+              {/* Header */}
+              <h4 className="font-bold text-gray-900 dark:text-white mb-3 mt-4 text-base border-l-4 border-orange-500 pl-3 bg-orange-50 dark:bg-orange-900/20 py-2 rounded-r-lg">
+                {headerText}
+              </h4>
+              
+              {/* Inline List Content */}
+              <div className="ml-4">
+                <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                  {listContent.split('**').map((part, partIndex) => {
+                    if (partIndex % 2 === 1) { // Odd indices are bold text
+                      return <strong key={partIndex} className="font-semibold text-gray-900 dark:text-white">{part}</strong>;
+                    }
+                    return part;
+                  })}
+                </p>
+              </div>
+            </div>
+          );
+        }
+      }
+
+      // Check for bold text with colon (like "**Key**: Value")
+      if (paragraph.includes('**') && paragraph.includes(':')) {
+        const lines = paragraph.split('\n');
+        return (
+          <div key={index} className="mb-3">
             {lines.map((line, lineIndex) => {
-              const [key, value] = line.split(':');
+              if (line.includes('**') && line.includes(':')) {
+                const parts = line.split(':');
+                const boldPart = parts[0].trim();
+                const valuePart = parts.slice(1).join(':').trim();
+                
+                return (
+                  <div key={lineIndex} className="mb-2">
+                    <span className="font-bold text-gray-900 dark:text-white">
+                      {boldPart.replace(/\*\*/g, '')}:
+                    </span>
+                    <span className="text-gray-700 dark:text-gray-300 ml-2">
+                      {valuePart}
+                    </span>
+                  </div>
+                );
+              }
               return (
-                <div key={lineIndex} className="flex mb-2 last:mb-0">
-                  <span className="font-medium text-gray-900 dark:text-white w-1/3 flex-shrink-0">
-                    {key.trim()}:
-                  </span>
-                  <span className="text-gray-700 dark:text-gray-300 flex-1">
-                    {value.trim()}
-                  </span>
-                </div>
+                <p key={lineIndex} className="text-gray-700 dark:text-gray-300 mb-2">
+                  {line}
+                </p>
               );
             })}
           </div>
         );
       }
-    }
-    
-    // Check for quotes (lines starting with >)
-    if (paragraph.startsWith('>')) {
-      const lines = paragraph.split('\n');
+      
+      // Check for tabular data (rows with | separators)
+      if (paragraph.includes('|') && paragraph.split('\n').length > 2) {
+        const lines = paragraph.split('\n').filter(line => line.trim());
+        if (lines.length >= 2) {
+          const rows = lines.map(line => 
+            line.split('|').map(cell => cell.trim()).filter(cell => cell)
+          );
+          
+          // Check if it's a proper table (has header separator)
+          const hasHeaderSeparator = lines[1].includes('---') || lines[1].includes('===');
+          
+          if (hasHeaderSeparator && rows.length > 2) {
+            const headers = rows[0];
+            const dataRows = rows.slice(2);
+            
+            return (
+              <div key={index} className="mb-4 overflow-x-auto">
+                <table className="min-w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-sm">
+                  <thead className="bg-gray-50 dark:bg-gray-700">
+                    <tr>
+                      {headers.map((header, headerIndex) => (
+                        <th key={headerIndex} className="px-4 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider border-b border-gray-200 dark:border-gray-600">
+                          {header}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200 dark:divide-gray-600">
+                    {dataRows.map((row, rowIndex) => (
+                      <tr key={rowIndex} className="hover:bg-gray-50 dark:hover:bg-gray-700">
+                        {row.map((cell, cellIndex) => (
+                          <td key={cellIndex} className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">
+                            {cell}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            );
+          }
+        }
+      }
+      
+      // Check if paragraph is a list
+      if (paragraph.includes('•') || paragraph.includes('-') || paragraph.includes('*')) {
+        const lines = paragraph.split('\n');
+        return (
+          <div key={index} className="mb-4">
+            {lines.map((line, lineIndex) => {
+              const trimmedLine = line.trim();
+              if (trimmedLine.startsWith('•') || trimmedLine.startsWith('-') || trimmedLine.startsWith('*')) {
+                // Remove the bullet point and clean up the text
+                const cleanText = trimmedLine.replace(/^[•\-*]\s*/, '');
+                
+                // Check if the text contains bold formatting
+                const hasBoldText = cleanText.includes('**');
+                
+                return (
+                  <div key={lineIndex} className="flex items-start gap-3 mb-2">
+                    <span className="text-blue-500 dark:text-blue-400 mt-1 flex-shrink-0 text-lg">•</span>
+                    <div className="flex-1">
+                      {hasBoldText ? (
+                        <span className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                          {cleanText.split('**').map((part, partIndex) => {
+                            if (partIndex % 2 === 1) { // Odd indices are bold text
+                              return <strong key={partIndex} className="font-semibold text-gray-900 dark:text-white">{part}</strong>;
+                            }
+                            return part;
+                          })}
+                        </span>
+                      ) : (
+                        <span className="text-gray-700 dark:text-gray-300 leading-relaxed">{cleanText}</span>
+                      )}
+                    </div>
+                  </div>
+                );
+              }
+              return (
+                <p key={lineIndex} className="text-gray-700 dark:text-gray-300 mb-2 leading-relaxed">
+                  {line}
+                </p>
+              );
+            })}
+          </div>
+        );
+      }
+
+      // Check if paragraph is a numbered list
+      if (paragraph.match(/^\d+\./)) {
+        const lines = paragraph.split('\n');
+        return (
+          <div key={index} className="mb-4">
+            {lines.map((line, lineIndex) => {
+              if (line.match(/^\d+\./)) {
+                const number = line.match(/^(\d+)\./)[1];
+                const cleanText = line.replace(/^\d+\.\s*/, '');
+                
+                // Check if the text contains bold formatting
+                const hasBoldText = cleanText.includes('**');
+                
+                return (
+                  <div key={lineIndex} className="flex items-start gap-3 mb-2">
+                    <span className="bg-blue-500 text-white text-xs rounded-full w-6 h-6 flex items-center justify-center mt-0.5 flex-shrink-0 font-medium">
+                      {number}
+                    </span>
+                    <div className="flex-1">
+                      {hasBoldText ? (
+                        <span className="text-gray-700 dark:text-gray-300 leading-relaxed">
+                          {cleanText.split('**').map((part, partIndex) => {
+                            if (partIndex % 2 === 1) { // Odd indices are bold text
+                              return <strong key={partIndex} className="font-semibold text-gray-900 dark:text-white">{part}</strong>;
+                            }
+                            return part;
+                          })}
+                        </span>
+                      ) : (
+                        <span className="text-gray-700 dark:text-gray-300 leading-relaxed">{cleanText}</span>
+                      )}
+                    </div>
+                  </div>
+                );
+              }
+              return (
+                <p key={lineIndex} className="text-gray-700 dark:text-gray-300 mb-2 leading-relaxed">
+                  {line}
+                </p>
+              );
+            })}
+          </div>
+        );
+      }
+      
+      // Check for key-value pairs (like "Key: Value")
+      if (paragraph.includes(':') && paragraph.split('\n').length > 1) {
+        const lines = paragraph.split('\n');
+        const isKeyValue = lines.every(line => line.includes(':') && line.split(':').length === 2);
+        
+        if (isKeyValue) {
+          return (
+            <div key={index} className="mb-4 bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
+              {lines.map((line, lineIndex) => {
+                const [key, value] = line.split(':');
+                return (
+                  <div key={lineIndex} className="flex mb-2 last:mb-0">
+                    <span className="font-medium text-gray-900 dark:text-white w-1/3 flex-shrink-0">
+                      {key.trim()}:
+                    </span>
+                    <span className="text-gray-700 dark:text-gray-300 flex-1">
+                      {value.trim()}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          );
+        }
+      }
+      
+      // Check for quotes (lines starting with >)
+      if (paragraph.startsWith('>')) {
+        const lines = paragraph.split('\n');
+        return (
+          <div key={index} className="mb-4 border-l-4 border-blue-500 pl-4 bg-blue-50 dark:bg-blue-900/20 py-2 rounded-r-lg">
+            {lines.map((line, lineIndex) => (
+              <p key={lineIndex} className="text-gray-700 dark:text-gray-300 italic">
+                {line.replace(/^>\s*/, '')}
+              </p>
+            ))}
+          </div>
+        );
+      }
+      
+      // Regular paragraph
       return (
-        <div key={index} className="mb-4 border-l-4 border-blue-500 pl-4 bg-blue-50 dark:bg-blue-900/20 py-2 rounded-r-lg">
-          {lines.map((line, lineIndex) => (
-            <p key={lineIndex} className="text-gray-700 dark:text-gray-300 italic">
-              {line.replace(/^>\s*/, '')}
-            </p>
-          ))}
-        </div>
+        <p key={index} className="text-gray-700 dark:text-gray-300 mb-3 leading-relaxed">
+          {paragraph}
+        </p>
       );
-    }
-    
-    // Regular paragraph
-    return (
-      <p key={index} className="text-gray-700 dark:text-gray-300 mb-3 leading-relaxed">
-        {paragraph}
-      </p>
-    );
-  });
-};
+    });
+  };
 
   return (
     <div className={`flex flex-col h-screen bg-gray-50 dark:bg-gray-900 ${isRTLMode ? 'rtl' : 'ltr'}`} dir={isRTLMode ? 'rtl' : 'ltr'}>
-      {/* Header */}
-      <div className={`bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 shadow-sm`}>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            {/* AI Avatar */}
-            <div className={`w-10 h-10 rounded-full bg-gradient-to-r ${getColorClasses(roleColor)} flex items-center justify-center shadow-lg`}>
-              <svg width="20" height="20" fill="white" viewBox="0 0 24 24" className="w-5 h-5">
-                <circle cx="6" cy="6" r="2" />
-                <circle cx="18" cy="6" r="2" />
-                <circle cx="6" cy="18" r="2" />
-                <circle cx="18" cy="18" r="2" />
-                <rect x="10" y="10" width="4" height="4" />
-              </svg>
-            </div>
-            
-            <div>
-              <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-                {t('ai.sageChatTitle')} - {roleName}
-              </h1>
-              <p className="text-sm text-gray-500 dark:text-gray-400">
-                {isLoading ? t('ai.thinking') : t('ai.readyToHelp')}
-              </p>
-            </div>
-          </div>
+{/* Header */}
+<div className={`bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-3 sm:px-6 py-3 sm:py-4 shadow-sm`}>
+  <div className="flex items-center justify-between">
+    <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+      {/* AI Avatar */}
+      <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-gradient-to-r ${getColorClasses(roleColor)} flex items-center justify-center shadow-lg flex-shrink-0`}>
+        <svg width="16" height="16" className="sm:w-5 sm:h-5" fill="white" viewBox="0 0 24 24">
+          <circle cx="6" cy="6" r="2" />
+          <circle cx="18" cy="6" r="2" />
+          <circle cx="6" cy="18" r="2" />
+          <circle cx="18" cy="18" r="2" />
+          <rect x="10" y="10" width="4" height="4" />
+        </svg>
+      </div>
+      
+      <div className="min-w-0 flex-1">
+        <h1 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white truncate">
+          Sage AI - {roleName}
+        </h1>
+        <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate">
+          {isLoading ? t('ai.thinking') : t('ai.readyToHelp')}
+        </p>
+      </div>
+    </div>
 
-          {/* Header Actions */}
-          <div className="flex items-center gap-3">
-            {/* Trial Counter */}
-            <TrialCounter roleColor={roleColor} />
-            
-            {/* New Chat Button */}
-            <button
-              onClick={onNewChat}
-              className={`px-4 py-2 bg-gradient-to-r ${getColorClasses(roleColor)} text-white rounded-lg font-medium transition-all duration-200 hover:scale-105 shadow-md`}
-              title={t('ai.newChat')}
-            >
-              <div className="flex items-center gap-2">
-                <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2v20M2 12h20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
-                <span className="hidden sm:inline">{t('ai.newChat')}</span>
-              </div>
-            </button>
-
-            {/* Chat History Toggle */}
-           {/* Chat History Toggle */}
-<button
-  onClick={() => {
-    if (onToggleChatHistory) {
-      onToggleChatHistory();
-    } else {
-      setShowChatHistory(!showChatHistory);
-    }
-  }}
-  className="p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
-  title={showChatHistory ? 'Hide Chat History' : 'Show Chat History'}
->
-  <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
-    <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
-  </svg>
-</button>
+    {/* Header Actions */}
+    <div className="flex items-center gap-1 sm:gap-3 flex-shrink-0">
+      {/* Trial Counter - Hidden on mobile */}
+      <div className="hidden sm:block">
+        <TrialCounter roleColor={roleColor} />
+      </div>
+      
+      {/* Mobile Trial Counter - Compact Version */}
+      <div className="sm:hidden">
+        <div className="flex items-center gap-1 px-2 py-1 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md">
+          <div className={`w-4 h-4 rounded-full bg-gradient-to-r ${getColorClasses(roleColor)} flex items-center justify-center`}>
+            <svg width="10" height="10" fill="white" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
           </div>
+          <span className="text-xs font-semibold text-gray-900 dark:text-white">
+            {trialStatus.remaining}/{trialStatus.maxQuestions}
+          </span>
         </div>
       </div>
+      
+      {/* AI Language Toggle */}
+      <button
+        onClick={handleToggleAILanguage}
+        disabled={isToggling}
+        className={`p-1.5 sm:p-2 rounded-lg transition-all duration-100 transform active:scale-95 ${
+          isToggling 
+            ? 'opacity-50 cursor-not-allowed'
+            : aiLanguage === 'ar'
+              ? 'bg-green-100 dark:bg-green-900/20 text-green-600 dark:text-green-400 shadow-md'
+              : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'
+        } hover:bg-gray-200 dark:hover:bg-gray-600 hover:shadow-sm`}
+        title={aiLanguage === 'ar' ? t('ai.language.arabic') : t('ai.language.english')}
+      >
+        <svg width="18" height="18" className="sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
+        </svg>
+      </button>
+      
+      {/* New Chat Button */}
+      <button
+        onClick={onNewChat}
+        className={`px-2 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r ${getColorClasses(roleColor)} text-white rounded-lg font-medium transition-all duration-200 hover:scale-105 shadow-md`}
+        title={t('ai.newChat')}
+      >
+        <div className="flex items-center gap-1 sm:gap-2">
+          <svg width="14" height="14" className="sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2v20M2 12h20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
+          <span className="hidden sm:inline text-sm sm:text-base">{t('ai.newChat')}</span>
+        </div>
+      </button>
+
+      {/* Chat History Toggle */}
+      <button
+        onClick={() => {
+          if (onToggleChatHistory) {
+            onToggleChatHistory();
+          } else {
+            setShowChatHistory(!showChatHistory);
+          }
+        }}
+        className="p-1.5 sm:p-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+        title={showChatHistory ? t('ai.hideHistory') : t('ai.showHistory')}
+      >
+        <svg width="18" height="18" className="sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
 
       {/* Main Content */}
       <div className="flex flex-1 overflow-hidden">
@@ -625,7 +693,7 @@ if (paragraph.includes('•') || paragraph.includes('-') || paragraph.includes('
                 {trialStatus.isExpired && (
                   <div className="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
                     <p className="text-red-800 dark:text-red-200 font-medium">
-                      Your free trial has expired. Please upgrade to continue using AI chat.
+                    {t('ai.trial.expiredDescription')}
                     </p>
                   </div>
                 )}
@@ -662,7 +730,7 @@ if (paragraph.includes('•') || paragraph.includes('-') || paragraph.includes('
                             <div className="mt-3 pt-2 border-t border-gray-200 dark:border-gray-600">
                               <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
                                 <span>Sage AI</span>
-                                <span>Tokens: {msg.usage.total_tokens}</span>
+                                <span>{t('ai.tokens')}: {msg.usage.total_tokens}</span>
                               </div>
                             </div>
                           )}
@@ -699,44 +767,47 @@ if (paragraph.includes('•') || paragraph.includes('-') || paragraph.includes('
                 </button>
 
                 {/* Attach Menu */}
-                {showAttachMenu && (
-                  <div className="absolute bottom-full mb-2 left-0 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg py-2 min-w-48 z-10">
-                    <button
-                      onClick={() => handleAttachFile('file')}
-                      className="w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white flex items-center gap-2"
-                    >
-                      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
-                      </svg>
-                      {t('ai.attachFile')}
-                    </button>
-                    <button
-                      onClick={() => handleAttachFile('image')}
-                      className="w-full px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white flex items-center gap-2"
-                    >
-                      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                        <circle cx="8.5" cy="8.5" r="1.5"/>
-                        <path d="M21 15l-5-5L5 21"/>
-                      </svg>
-                      {t('ai.attachImage')}
-                    </button>
-                  </div>
-                )}
+{/* Attach Menu */}
+{showAttachMenu && (
+  <div className={`absolute bottom-full mb-2 ${isRTLMode ? 'right-0' : 'left-0'} bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg shadow-lg py-2 min-w-48 z-10`}>
+    <button
+      onClick={() => handleAttachFile('file')}
+      className={`w-full px-4 py-2 ${isRTLMode ? 'text-right' : 'text-left'} hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-white flex items-center ${isRTLMode ? 'gap-2 flex-row-reverse' : 'gap-2'}`}
+    >
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
+      </svg>
+      {t('ai.attachFile')}
+    </button>
+    <button
+      onClick={() => handleAttachFile('image')}
+      className={`w-full px-4 py-2 ${isRTLMode ? 'text-right' : 'text-left'} hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-500 dark:text-gray-400 flex items-center ${isRTLMode ? 'gap-2 flex-row-reverse' : 'gap-2'} cursor-not-allowed`}
+      disabled
+    >
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+        <circle cx="8.5" cy="8.5" r="1.5"/>
+        <path d="M21 15l-5-5L5 21"/>
+      </svg>
+      {t('ai.attachImage')} - {t('ai.comingSoon')}
+    </button>
+  </div>
+)}
               </div>
 
               {/* Message Input */}
               <div className="flex-1">
-                <textarea
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  placeholder={trialStatus.isExpired ? "Trial expired - Please upgrade" : t('ai.messagePlaceholder')}
-                  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg resize-none bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  rows="1"
-                  style={{ minHeight: '40px', maxHeight: '120px' }}
-                  disabled={isLoading || trialStatus.isExpired}
-                />
+              <textarea
+  value={message}
+  onChange={(e) => setMessage(e.target.value)}
+  onKeyPress={handleKeyPress}
+  placeholder={trialStatus.isExpired ? t('ai.trial.expired') + ' - ' + t('ai.trial.upgrade') : t('ai.messagePlaceholder')}
+  title={trialStatus.isExpired ? t('ai.trial.expired') : t('ai.send')}
+  className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg resize-none bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+  rows="1"
+  style={{ minHeight: '40px', maxHeight: '120px' }}
+  disabled={isLoading || trialStatus.isExpired}
+/>
               </div>
 
               {/* Send Button */}
@@ -744,7 +815,7 @@ if (paragraph.includes('•') || paragraph.includes('-') || paragraph.includes('
                 onClick={handleSendMessage}
                 disabled={!message.trim() || isLoading || trialStatus.isExpired}
                 className={`p-2 bg-gradient-to-r ${getColorClasses(roleColor)} text-white rounded-lg transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 shadow-md`}
-                title={trialStatus.isExpired ? "Trial expired" : t('ai.send')}
+                title={trialStatus.isExpired ? t('ai.trial.expired') : t('ai.send')}
               >
                 {isLoading ? (
                   <svg width="20" height="20" viewBox="0 0 24 24" className="animate-spin">
@@ -763,34 +834,61 @@ if (paragraph.includes('•') || paragraph.includes('-') || paragraph.includes('
 
         {/* Role-specific Sidebar */}
         {children && (
-  <div className="w-80 bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 overflow-y-auto">
-    {showChatHistory ? (
-      <ChatHistory
-        role={roleName.toLowerCase().replace(' ', '-')}
-        currentChatId={currentChatId}
-        onSelectChat={handleSelectChat}
-        onNewChat={handleNewChat}
-        onDeleteChat={handleDeleteChat}
-        isOpen={showChatHistory}
-        onClose={() => setShowChatHistory(false)}
-      />
-    ) : (
-      children
-    )}
-  </div>
-)}
+          <div className="w-80 bg-white dark:bg-gray-800 border-l border-gray-200 dark:border-gray-700 overflow-y-auto">
+            {showChatHistory ? (
+              <ChatHistory
+                role={roleName.toLowerCase().replace(' ', '-')}
+                currentChatId={currentChatId}
+                onSelectChat={handleSelectChat}
+                onNewChat={handleNewChat}
+                onDeleteChat={handleDeleteChat}
+                isOpen={showChatHistory}
+                onClose={() => setShowChatHistory(false)}
+              />
+            ) : (
+              children
+            )}
+          </div>
+        )}
       </div>
 
-      {/* Hidden file input */}
-      <input
-        ref={fileInputRef}
-        type="file"
-        className="hidden"
-        onChange={(e) => {
-          // Handle file upload
-          console.log('File selected:', e.target.files[0]);
-        }}
-      />
+{/* Hidden file input */}
+<input
+  ref={fileInputRef}
+  type="file"
+  accept=".pdf,.txt,.doc,.docx,.csv,.json,.xml,.md,.rtf"
+  className="hidden"
+  onChange={(e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // Check file size (max 10MB)
+      if (file.size > 10 * 1024 * 1024) {
+        alert('File size too large. Please select a file smaller than 10MB.');
+        return;
+      }
+      
+      // Check file type
+      const allowedTypes = [
+        'application/pdf',
+        'text/plain',
+        'text/csv',
+        'application/json',
+        'text/xml',
+        'text/markdown',
+        'application/rtf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+      ];
+      
+      if (!allowedTypes.includes(file.type)) {
+        alert('Unsupported file type. Please select a PDF, text, or document file.');
+        return;
+      }
+      
+      onAttach('file', file);
+    }
+  }}
+/>
     </div>
   );
 };

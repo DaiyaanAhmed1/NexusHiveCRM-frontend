@@ -1,4 +1,5 @@
 ﻿import axios from 'axios';
+import aiLanguageService from './aiLanguageService';
 
 // OpenRoute API Configuration
 const OPENROUTE_CONFIG = {
@@ -52,13 +53,15 @@ class AIService {
   }
 
   // Generate AI response
-  async generateResponse(message, role = 'director', chatHistory = []) {
+  async generateResponse(message, role = 'director', chatHistory = [], currentUILanguage = 'en') {
     if (!this.isConfigured) {
       throw new Error('OpenRoute API key not configured. Please set VITE_OPENROUTE_API_KEY in your .env file.');
     }
 
     try {
-      const systemPrompt = ROLE_PROMPTS[role] || ROLE_PROMPTS.director;
+      const basePrompt = ROLE_PROMPTS[role] || ROLE_PROMPTS.director;
+      const languagePrompt = aiLanguageService.getLanguagePrompt(currentUILanguage);
+      const systemPrompt = basePrompt + languagePrompt;
       
       // Build conversation context
       const messages = [
@@ -115,19 +118,157 @@ class AIService {
     }
   }
 
+  // Generate AI response with file attachment
+  async generateResponseWithFile(message, file, role = 'director', chatHistory = [], currentUILanguage = 'en') {
+    console.log('generateResponseWithFile called with:', file.name, file.type);
+    
+    if (!this.isConfigured) {
+      throw new Error('OpenRoute API key not configured. Please set VITE_OPENROUTE_API_KEY in your .env file.');
+    }
+
+    try {
+      const basePrompt = ROLE_PROMPTS[role] || ROLE_PROMPTS.director;
+      const languagePrompt = aiLanguageService.getLanguagePrompt(currentUILanguage);
+      const systemPrompt = basePrompt + languagePrompt;
+      
+      // Process file content
+      const fileContent = await this.processFile(file);
+      console.log('File content processed:', fileContent.substring(0, 100) + '...');
+      
+      // Build conversation context with file
+      const messages = [
+        { role: 'system', content: systemPrompt },
+        ...chatHistory.slice(-10),
+        { 
+          role: 'user', 
+          content: `${message}\n\n[Attached file: ${file.name}]\n${fileContent}` 
+        }
+      ];
+
+      const requestData = {
+        model: OPENROUTE_CONFIG.model,
+        messages: messages,
+        max_tokens: 1500, // Increased for file content
+        temperature: 0.7,
+        top_p: 0.9,
+        frequency_penalty: 0.1,
+        presence_penalty: 0.1
+      };
+
+      const response = await apiClient.post('/chat/completions', requestData);
+      
+      if (response.data && response.data.choices && response.data.choices.length > 0) {
+        return {
+          content: response.data.choices[0].message.content,
+          usage: response.data.usage,
+          model: response.data.model,
+          hasAttachment: true,
+          attachmentName: file.name,
+          attachmentType: file.type
+        };
+      } else {
+        throw new Error('Invalid response format from OpenRoute API');
+      }
+
+    } catch (error) {
+      console.error('AI Service Error with file:', error);
+      throw error;
+    }
+  }
+
+  // Process different file types
+  async processFile(file) {
+    const fileType = file.type;
+    const fileName = file.name;
+    const fileSize = (file.size / 1024 / 1024).toFixed(2); // Size in MB
+    
+    console.log(`Processing file: ${fileName}, Type: ${fileType}, Size: ${fileSize}MB`);
+    
+    try {
+      if (fileType === 'application/pdf') {
+        return `PDF File: ${fileName}\nSize: ${fileSize}MB\n\nNote: PDF content extraction requires additional setup. Please convert to text format for full analysis.`;
+      } else if (fileType.startsWith('text/')) {
+        return await this.readTextFile(file);
+      } else if (fileType.includes('csv')) {
+        return await this.processCSV(file);
+      } else if (fileType.includes('json')) {
+        return await this.processJSON(file);
+      } else if (fileType.includes('xml')) {
+        return await this.processXML(file);
+      } else if (fileType.includes('markdown')) {
+        return await this.readTextFile(file);
+      } else if (fileType.includes('rtf')) {
+        return await this.readTextFile(file);
+      } else if (fileType.includes('document') || fileType.includes('word')) {
+        return `Document File: ${fileName}\nSize: ${fileSize}MB\n\nNote: Document content extraction requires additional setup. Please convert to text format for full analysis.`;
+      } else {
+        return `[File: ${fileName} - ${fileSize}MB, Type: ${fileType}]\nNote: This file type is not fully supported for content analysis.`;
+      }
+    } catch (error) {
+      console.error('Error processing file:', error);
+      return `[File: ${fileName} - ${fileSize}MB, Type: ${fileType}]\nError: Could not process file content.`;
+    }
+  }
+
+  // Read text file content
+  async readTextFile(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target.result;
+        // Limit content length for AI processing
+        const maxLength = 5000;
+        if (content.length > maxLength) {
+          resolve(content.substring(0, maxLength) + '\n\n[Content truncated - file too long]');
+        } else {
+          resolve(content);
+        }
+      };
+      reader.onerror = (e) => reject(e);
+      reader.readAsText(file);
+    });
+  }
+
+  // Process CSV files
+  async processCSV(file) {
+    const content = await this.readTextFile(file);
+    const lines = content.split('\n');
+    const preview = lines.slice(0, 10).join('\n'); // First 10 lines
+    return `CSV File Content (Preview):\n${preview}\n\n[Total rows: ${lines.length}]`;
+  }
+
+  // Process JSON files
+  async processJSON(file) {
+    const content = await this.readTextFile(file);
+    try {
+      const jsonData = JSON.parse(content);
+      return `JSON File Content:\n${JSON.stringify(jsonData, null, 2)}`;
+    } catch (error) {
+      return `JSON File Content (Raw):\n${content}`;
+    }
+  }
+
+  // Process XML files
+  async processXML(file) {
+    const content = await this.readTextFile(file);
+    return `XML File Content:\n${content}`;
+  }
+
   // Generate streaming response (for future implementation)
-  async generateStreamingResponse(message, role = 'director', chatHistory = [], onChunk) {
+  async generateStreamingResponse(message, role = 'director', chatHistory = [], onChunk, currentUILanguage = 'en') {
     if (!this.isConfigured) {
       throw new Error('OpenRoute API key not configured. Please set VITE_OPENROUTE_API_KEY in your .env file.');
     }
 
     if (!OPENROUTE_CONFIG.streaming) {
       // Fallback to non-streaming
-      return await this.generateResponse(message, role, chatHistory);
+      return await this.generateResponse(message, role, chatHistory, currentUILanguage);
     }
 
     try {
-      const systemPrompt = ROLE_PROMPTS[role] || ROLE_PROMPTS.director;
+      const basePrompt = ROLE_PROMPTS[role] || ROLE_PROMPTS.director;
+      const languagePrompt = aiLanguageService.getLanguagePrompt(currentUILanguage);
+      const systemPrompt = basePrompt + languagePrompt;
       
       const messages = [
         { role: 'system', content: systemPrompt },

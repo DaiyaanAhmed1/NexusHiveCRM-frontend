@@ -4,6 +4,7 @@ import { useLocalization } from '../../../hooks/useLocalization';
 import ChatLayout from '../../../components/ai-chat/ChatLayout';
 import aiService from '../../../services/aiService';
 import chatHistoryService from '../../../services/chatHistoryService';
+import trialService from '../../../services/trialService';
 
 const DirectorAIChat = () => {
   const { t } = useTranslation();
@@ -112,7 +113,7 @@ const DirectorAIChat = () => {
       }));
   
       // Generate AI response
-      const response = await aiService.generateResponse(message, 'director', apiChatHistory);
+const response = await aiService.generateResponse(message, 'director', apiChatHistory);
       
       // Add AI response to chat history
       if (currentChatId) {
@@ -174,9 +175,65 @@ const DirectorAIChat = () => {
     setCurrentChatId(newChat.id);
   };
 
-  const handleAttach = (type) => {
-    console.log('Attach type:', type);
-    // Handle file attachment - TODO: Implement file upload
+  const handleAttach = async (type, file = null) => {
+    if (type === 'file' && file) {
+      try {
+        // Check trial limit
+        if (!trialService.canAskQuestion()) {
+          alert(t('ai.trial.limitReached'));
+          return;
+        }
+  
+        // Record the question
+        trialService.recordQuestion();
+        window.dispatchEvent(new CustomEvent('trialUpdated'));
+  
+        setIsLoading(true);
+        setError(null);
+  
+        // Add file info to chat history
+        const fileMessage = `📎 Attached file: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)}MB)`;
+        setChatHistory(prev => [...prev, {
+          sender: 'user',
+          content: fileMessage,
+          timestamp: new Date().toLocaleTimeString()
+        }]);
+  
+        // Convert chat history to API format
+        const apiChatHistory = chatHistory.map(msg => ({
+          role: msg.sender === 'user' ? 'user' : 'assistant',
+          content: msg.content
+        }));
+  
+        // Generate AI response with file
+        const response = await aiService.generateResponseWithFile(
+          `Please analyze this file: ${file.name}`, 
+          file, 
+          'director', 
+          apiChatHistory, 
+          isRTLMode ? 'ar' : 'en'
+        );
+  
+        // Add response to chat history
+        setChatHistory(prev => [...prev, {
+          sender: 'ai',
+          content: response.content,
+          timestamp: new Date().toLocaleTimeString(),
+          usage: response.usage,
+          model: response.model,
+          hasAttachment: true,
+          attachmentName: file.name
+        }]);
+  
+      } catch (error) {
+        console.error('Error processing file:', error);
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    } else {
+      console.log('Attach type:', type);
+    }
   };
 
   const handleQuickAction = (action) => {
@@ -301,7 +358,7 @@ const handleLoadChatHistory = (formattedMessages, chatId) => {
         </div>
 
         {/* Director Tools */}
-        <div className="mt-8">
+        {/* <div className="mt-8">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
             {t('ai.director.tools')}
           </h3>
@@ -334,7 +391,7 @@ const handleLoadChatHistory = (formattedMessages, chatId) => {
               </div>
             </button>
           </div>
-        </div>
+        </div> */}
 
         {/* Recent Chats */}
         {/* Chat History */}

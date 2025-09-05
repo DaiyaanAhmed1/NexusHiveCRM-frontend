@@ -31,7 +31,7 @@ const ChatHistory = ({
 
   const handleDeleteChat = (chatId, e) => {
     e.stopPropagation();
-    if (window.confirm('Are you sure you want to delete this chat?')) {
+    if (window.confirm(t('ai.history.deleteConfirm'))) {
       chatHistoryService.deleteChat(role, chatId);
       loadChats();
       if (onDeleteChat) onDeleteChat(chatId);
@@ -44,18 +44,18 @@ const ChatHistory = ({
     const diffInHours = (now - date) / (1000 * 60 * 60);
 
     if (diffInHours < 1) {
-      return 'Just now';
+      return t('ai.history.justNow');
     } else if (diffInHours < 24) {
-      return `${Math.floor(diffInHours)}h ago`;
+      return t('ai.history.hoursAgo', { hours: Math.floor(diffInHours) });
     } else if (diffInHours < 48) {
-      return 'Yesterday';
+      return t('ai.history.yesterday');
     } else {
       return date.toLocaleDateString();
     }
   };
 
   const getLastMessage = (chat) => {
-    if (chat.messages.length === 0) return 'No messages yet';
+    if (chat.messages.length === 0) return t('ai.history.noMessages');
     const lastMsg = chat.messages[chat.messages.length - 1];
     return lastMsg.content.length > 50 
       ? lastMsg.content.substring(0, 50) + '...'
@@ -74,7 +74,7 @@ const ChatHistory = ({
       <div className="p-4 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Chat History
+            {t('ai.chatHistory')}
           </h3>
           <button
             onClick={onClose}
@@ -90,7 +90,7 @@ const ChatHistory = ({
         <div className="relative">
           <input
             type="text"
-            placeholder="Search chats..."
+            placeholder={t('ai.history.search')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full px-3 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -115,7 +115,7 @@ const ChatHistory = ({
           <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 2v20M2 12h20" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
           </svg>
-          New Chat
+          {t('ai.newChat')}
         </button>
       </div>
 
@@ -123,7 +123,7 @@ const ChatHistory = ({
       <div className="flex-1 overflow-y-auto">
         {filteredChats.length === 0 ? (
           <div className="p-4 text-center text-gray-500 dark:text-gray-400">
-            {searchQuery ? 'No chats found' : 'No chat history yet'}
+            {searchQuery ? t('ai.history.noResults') : t('ai.history.noChats')}
           </div>
         ) : (
           <div className="p-2 space-y-1">
@@ -150,14 +150,14 @@ const ChatHistory = ({
                         {formatDate(chat.updatedAt)}
                       </span>
                       <span className="text-xs text-gray-400">
-                        {chat.messages.length} messages
+                        {t('ai.history.messageCount', { count: chat.messages.length })}
                       </span>
                     </div>
                   </div>
                   <button
                     onClick={(e) => handleDeleteChat(chat.id, e)}
                     className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-red-500 transition-all"
-                    title="Delete chat"
+                    title={t('ai.history.delete')}
                   >
                     <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
@@ -173,7 +173,7 @@ const ChatHistory = ({
       {/* Stats */}
       <div className="p-4 border-t border-gray-200 dark:border-gray-700">
         <div className="text-xs text-gray-500 dark:text-gray-400">
-          {chats.length} chats • {chats.reduce((sum, chat) => sum + chat.messages.length, 0)} messages
+          {t('ai.history.chatCount', { count: chats.length })} • {t('ai.history.totalMessages', { count: chats.reduce((sum, chat) => sum + chat.messages.length, 0) })}
         </div>
       </div>
     </div>
