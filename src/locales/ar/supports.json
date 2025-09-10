@@ -1,0 +1,44 @@
+{
+    "searchPlaceholder": "ابحث في مقالات المساعدة والأسئلة الشائعة...",
+    "allCategories": "جميع الفئات",
+    "categories": {
+      "account": "الحساب",
+      "technical": "تقني",
+      "compliance": "الامتثال",
+      "data": "البيانات"
+    },
+    "downloadGuide": "تحميل الدليل",
+    "viewArticles": "عرض المقالات",
+    "contactNow": "تواصل الآن",
+    "helpArticles": "مقالات المساعدة",
+    "articles": "مقالات",
+    "priority": "أولوية",
+    "priorities": {
+      "high": "عالية",
+      "medium": "متوسطة",
+      "low": "منخفضة"
+    },
+    "response": "الاستجابة",
+    "responseTime": {
+      "hours": "2-4 ساعات",
+      "immediate": "فوري",
+      "realTime": "في الوقت الفعلي"
+    },
+    "comingSoon": "قريباً",
+    "topics": {
+      "systemSettings": {
+        "title": "إعدادات النظام",
+        "description": "أدلة تكوين النظام والتخصيص"
+      }
+    },
+    "faqItems": {
+      "dataExport": {
+        "question": "كيف يمكنني تصدير البيانات؟",
+        "answer": "يمكنك تصدير البيانات من خلال قسم التصدير في كل صفحة أو استخدام أدوات التصدير المتقدمة."
+      },
+      "userPermissions": {
+        "question": "كيف يمكنني إدارة أذونات المستخدمين؟",
+        "answer": "يمكنك إدارة أذونات المستخدمين من خلال قسم إدارة المستخدمين وتخصيص الأدوار."
+      }
+    }
+  }

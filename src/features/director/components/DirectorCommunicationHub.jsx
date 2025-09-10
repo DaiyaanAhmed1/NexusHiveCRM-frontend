@@ -1,6 +1,30 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useLocalization } from "../../../hooks/useLocalization";
+import { 
+  FiSend, 
+  FiUsers, 
+  FiArchive, 
+  FiInbox, 
+  FiBarChart2, 
+  FiShield, 
+  FiZap, 
+  FiLink,
+  FiSearch,
+  FiFilter,
+  FiClock,
+  FiCheckCircle,
+  FiAlertCircle,
+  FiMessageSquare,
+  FiMail,
+  FiDownload,
+  FiEye,
+  FiEdit3,
+  FiPlus,
+  FiChevronDown,
+  FiChevronRight
+} from "react-icons/fi";
 
 export default function DirectorCommunicationHub() {
   const [selectedGroup, setSelectedGroup] = useState("all");
@@ -8,6 +32,7 @@ export default function DirectorCommunicationHub() {
   const [selectedDepartment, setSelectedDepartment] = useState('all');
   const [selectedTimeframe, setSelectedTimeframe] = useState('week');
   const { t, ready, i18n } = useTranslation('director');
+  const { isRTLMode } = useLocalization();
 
   // Force re-render when language changes
   const [languageVersion, setLanguageVersion] = useState(0);
@@ -28,10 +53,11 @@ export default function DirectorCommunicationHub() {
   // Show loading state if i18n is not ready
   if (!ready) {
     return (
-      <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
-        <main className="flex-1 p-4 md:p-6 flex flex-col gap-8 overflow-x-auto">
+      <div className="flex min-h-screen bg-gray-50 dark:bg-gray-900">
+        <main className="flex-1 p-6 flex items-center justify-center">
           <div className="text-center">
-            <h1 className="text-xl font-bold text-gray-900 dark:text-white">{t('communicationHub.loading')}</h1>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <h1 className="text-lg font-semibold text-gray-900 dark:text-white">{t('communicationHub.loading')}</h1>
           </div>
         </main>
       </div>
@@ -49,21 +75,24 @@ export default function DirectorCommunicationHub() {
       roleKey: "groups.deans", 
       topicKey: "archiveData.annualReport.topic", 
       subjectKey: "archiveData.annualReport.subject", 
-      attachmentKey: "attachments.reportGuidelines" 
+      attachmentKey: "attachments.reportGuidelines",
+      priority: "high"
     },
     { 
       date: "2024-03-08", 
       roleKey: "groups.students", 
       topicKey: "archiveData.feeUpdate.topic", 
       subjectKey: "archiveData.feeUpdate.subject", 
-      attachmentKey: "attachments.feeCircular" 
+      attachmentKey: "attachments.feeCircular",
+      priority: "medium"
     },
     { 
       date: "2024-03-05", 
       roleKey: "groups.faculty", 
       topicKey: "archiveData.policy.topic", 
       subjectKey: "archiveData.policy.subject", 
-      attachmentKey: "attachments.attendancePolicy" 
+      attachmentKey: "attachments.attendancePolicy",
+      priority: "low"
     },
   ];
 
@@ -71,59 +100,94 @@ export default function DirectorCommunicationHub() {
     { 
       fromKey: "incomingData.researchCenter.from", 
       subjectKey: "incomingData.researchCenter.subject", 
-      statusKey: "statuses.awaiting" 
+      statusKey: "statuses.awaiting",
+      priority: "high",
+      time: "2h ago"
     },
     { 
       fromKey: "incomingData.labEquipment.from", 
       subjectKey: "incomingData.labEquipment.subject", 
-      statusKey: "statuses.responded" 
+      statusKey: "statuses.responded",
+      priority: "medium",
+      time: "1d ago"
     },
     { 
       fromKey: "incomingData.newElective.from", 
       subjectKey: "incomingData.newElective.subject", 
-      statusKey: "statuses.awaiting" 
+      statusKey: "statuses.awaiting",
+      priority: "low",
+      time: "3d ago"
     },
   ];
 
   const analytics = [
-    { labelKey: "analytics.messagesSent", value: 128 },
-    { labelKey: "analytics.opened", value: 112 },
-    { labelKey: "analytics.responded", value: 87 },
+    { labelKey: "analytics.messagesSent", value: 128, icon: FiSend, color: "blue" },
+    { labelKey: "analytics.opened", value: 112, icon: FiEye, color: "green" },
+    { labelKey: "analytics.responded", value: 87, icon: FiCheckCircle, color: "purple" },
   ];
 
   const engagement = [
-    { roleKey: "groups.deans", value: 90 },
-    { roleKey: "groups.hods", value: 80 },
-    { roleKey: "groups.faculty", value: 70 },
-    { roleKey: "groups.students", value: 60 },
+    { roleKey: "groups.deans", value: 90, color: "bg-blue-500" },
+    { roleKey: "groups.hods", value: 80, color: "bg-green-500" },
+    { roleKey: "groups.faculty", value: 70, color: "bg-yellow-500" },
+    { roleKey: "groups.students", value: 60, color: "bg-red-500" },
   ];
 
   const integrations = [
     { 
       nameKey: "integrations.academicCalendar.name", 
-      descKey: "integrations.academicCalendar.description" 
+      descKey: "integrations.academicCalendar.description",
+      icon: FiClock,
+      status: "connected"
     },
     { 
       nameKey: "integrations.approvalCenter.name", 
-      descKey: "integrations.approvalCenter.description" 
+      descKey: "integrations.approvalCenter.description",
+      icon: FiCheckCircle,
+      status: "connected"
     },
     { 
       nameKey: "integrations.lmsErp.name", 
-      descKey: "integrations.lmsErp.description" 
+      descKey: "integrations.lmsErp.description",
+      icon: FiLink,
+      status: "pending"
     },
     { 
       nameKey: "integrations.smsGateway.name", 
-      descKey: "integrations.smsGateway.description" 
+      descKey: "integrations.smsGateway.description",
+      icon: FiMessageSquare,
+      status: "connected"
     },
   ];
 
   const aiReplies = ["thankYou", "willComply", "noted"];
 
+  const getPriorityColor = (priority) => {
+    switch(priority) {
+      case 'high': return 'text-red-600 bg-red-50 dark:bg-red-900/20 dark:text-red-400';
+      case 'medium': return 'text-yellow-600 bg-yellow-50 dark:bg-yellow-900/20 dark:text-yellow-400';
+      case 'low': return 'text-green-600 bg-green-50 dark:bg-green-900/20 dark:text-green-400';
+      default: return 'text-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-gray-400';
+    }
+  };
+
+  const getStatusColor = (status) => {
+    switch(status) {
+      case 'awaiting': return 'text-yellow-600 bg-yellow-50 dark:bg-yellow-900/20 dark:text-yellow-400';
+      case 'responded': return 'text-green-600 bg-green-50 dark:bg-green-900/20 dark:text-green-400';
+      default: return 'text-gray-600 bg-gray-50 dark:bg-gray-700 dark:text-gray-400';
+    }
+  };
+
   return (
     <div key={`${i18n.language}-${languageVersion}`} className="w-full">
-      <main className="w-full flex flex-col gap-8">
+      <main className="w-full space-y-8">
         {/* Header */}
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700"
           data-tour="1"
           data-tour-title-en="Communication Hub Overview"
           data-tour-title-ar="نظرة عامة على مركز التواصل"
@@ -131,16 +195,55 @@ export default function DirectorCommunicationHub() {
           data-tour-content-ar="أرسل الإعلانات، وأدر المحادثات، وتصفح الأرشيف، وتابع التقارير في مكان واحد."
           data-tour-position="bottom"
         >
-          <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-            {t('communicationHub.title')}
-          </h1>
-          <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
-            {t('communicationHub.subtitle')}
-          </p>
-        </div>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-3">
+                <FiMessageSquare className="w-7 h-7 text-blue-600 dark:text-blue-400" />
+                {t('communicationHub.title')}
+              </h1>
+              <p className="text-gray-600 dark:text-gray-300 mt-2">
+                {t('communicationHub.subtitle')}
+              </p>
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="text-right">
+                <div className="text-sm text-gray-500 dark:text-gray-400">Active Conversations</div>
+                <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">24</div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
 
-        {/* 1. Broadcast Messages */}
-        <section
+        {/* Quick Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-6"
+        >
+          {analytics.map((stat, index) => (
+            <div key={stat.labelKey} className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
+              <div className="flex items-center justify-between">
+                <div>
+                  <div className="text-3xl font-bold text-gray-900 dark:text-white">{stat.value}</div>
+                  <div className="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                    {t(`communicationHub.${stat.labelKey}`)}
+                  </div>
+                </div>
+                <div className={`p-3 rounded-xl bg-${stat.color}-50 dark:bg-${stat.color}-900/20`}>
+                  <stat.icon className={`w-6 h-6 text-${stat.color}-600 dark:text-${stat.color}-400`} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Broadcast Messages */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700"
           data-tour="2"
           data-tour-title-en="Broadcast Messages"
           data-tour-title-ar="الرسائل العامة"
@@ -148,19 +251,23 @@ export default function DirectorCommunicationHub() {
           data-tour-content-ar="صِغ الإعلانات، واختر مجموعات الجمهور، وجدول الإرسال ثم أرسل."
           data-tour-position="bottom"
         >
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
-            {t('communicationHub.broadcastMessages')}
-          </h2>
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow mb-4 flex flex-col gap-4">
-            <div className="flex flex-col md:flex-row gap-4">
+          <div className="flex items-center gap-3 mb-6">
+            <FiSend className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+              {t('communicationHub.broadcastMessages')}
+            </h2>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <input 
-                className="flex-1 px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" 
+                className="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
                 placeholder={t('communicationHub.placeholders.announcementSubject')} 
               />
               <select 
                 value={selectedGroup} 
                 onChange={e => setSelectedGroup(e.target.value)} 
-                className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+                className="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
               >
                 {groups.map(g => (
                   <option key={g} value={g}>
@@ -170,20 +277,26 @@ export default function DirectorCommunicationHub() {
               </select>
               <input 
                 type="datetime-local" 
-                className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" 
+                className="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
               />
-              <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+              <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-medium transition-colors flex items-center justify-center gap-2">
+                <FiSend className="w-4 h-4" />
                 {t('communicationHub.send')}
               </button>
             </div>
-            <div className="text-xs text-gray-500 dark:text-gray-400">
+            <div className="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
+              <FiAlertCircle className="w-4 h-4" />
               {t('communicationHub.notifications.description')}
             </div>
           </div>
-        </section>
+        </motion.section>
 
-        {/* 2. Internal Stakeholder Communication */}
-        <section
+        {/* Stakeholder Communication */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700"
           data-tour="3"
           data-tour-title-en="Stakeholder Threads"
           data-tour-title-ar="محادثات أصحاب المصلحة"
@@ -191,44 +304,53 @@ export default function DirectorCommunicationHub() {
           data-tour-content-ar="بدّل بين المجموعات لعرض وإدارة محادثات التواصل الداخلي."
           data-tour-position="bottom"
         >
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
-            {t('communicationHub.internalStakeholderCommunication')}
-          </h2>
-          <div className="flex gap-2 mb-2">
+          <div className="flex items-center gap-3 mb-6">
+            <FiUsers className="w-6 h-6 text-green-600 dark:text-green-400" />
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+              {t('communicationHub.internalStakeholderCommunication')}
+            </h2>
+          </div>
+          
+          <div className="flex flex-wrap gap-2 mb-6">
             {stakeholders.map(st => (
               <button 
                 key={st} 
                 onClick={() => setStakeTab(st)} 
-                className={`px-3 py-1 rounded-lg text-xs font-semibold ${
+                className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                   stakeTab === st 
-                    ? "bg-blue-600 text-white" 
-                    : "bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200"
+                    ? "bg-blue-600 text-white shadow-md" 
+                    : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-600"
                 }`}
               >
                 {t(`communicationHub.stakeholders.${st}`)}
               </button>
             ))}
           </div>
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex flex-col gap-2">
-            <div className="text-xs font-semibold mb-1">
+          
+          <div className="space-y-3">
+            <div className="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3">
               {t(`communicationHub.stakeholders.${stakeTab}`)} {t('communicationHub.thread')}
             </div>
-            <div className="flex flex-col gap-1">
-              <div className="bg-blue-50 dark:bg-blue-900 text-blue-900 dark:text-blue-200 rounded-lg p-2 text-xs">
+            <div className="space-y-2">
+              <div className="bg-blue-50 dark:bg-blue-900/20 text-blue-900 dark:text-blue-200 rounded-xl p-4 text-sm border-l-4 border-blue-500">
                 {t('communicationHub.messages.directorAnnualReports')}
               </div>
-              <div className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg p-2 text-xs">
+              <div className="bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-xl p-4 text-sm">
                 {t('communicationHub.messages.deanResponse')}
               </div>
-              <div className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg p-2 text-xs">
+              <div className="bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-xl p-4 text-sm">
                 {t('communicationHub.messages.hodTemplate')}
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
 
-        {/* 3. Message Archives */}
-        <section
+        {/* Message Archives */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700"
           data-tour="4"
           data-tour-title-en="Message Archives"
           data-tour-title-ar="أرشيف الرسائل"
@@ -236,16 +358,23 @@ export default function DirectorCommunicationHub() {
           data-tour-content-ar="ابحث في الاتصالات السابقة حسب الموضوع والدور، واطلع على المرفقات."
           data-tour-position="bottom"
         >
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
-            {t('communicationHub.messageArchives')}
-          </h2>
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow mb-4">
-            <div className="flex flex-wrap gap-2 mb-2">
-              <input 
-                className="px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" 
-                placeholder={t('communicationHub.placeholders.searchByTopic')} 
-              />
-              <select className="px-3 py-1.5 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
+          <div className="flex items-center gap-3 mb-6">
+            <FiArchive className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+              {t('communicationHub.messageArchives')}
+            </h2>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="flex flex-wrap gap-3">
+              <div className="relative flex-1 min-w-64">
+                <FiSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                <input 
+                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all" 
+                  placeholder={t('communicationHub.placeholders.searchByTopic')} 
+                />
+              </div>
+              <select className="px-4 py-3 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
                 <option>{t('userManagement.allRoles')}</option>
                 <option>{t('communicationHub.groups.deans')}</option>
                 <option>{t('communicationHub.groups.hods')}</option>
@@ -253,39 +382,53 @@ export default function DirectorCommunicationHub() {
                 <option>{t('communicationHub.groups.students')}</option>
               </select>
             </div>
-            <table className="w-full text-xs">
-              <thead>
-                <tr className="text-left">
-                  <th>{t('communicationHub.archiveHeaders.date')}</th>
-                  <th>{t('communicationHub.archiveHeaders.role')}</th>
-                  <th>{t('communicationHub.archiveHeaders.topic')}</th>
-                  <th>{t('communicationHub.archiveHeaders.subject')}</th>
-                  <th>{t('communicationHub.archiveHeaders.attachment')}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {archiveDemo.map((msg, idx) => (
-                  <tr key={idx} className="border-b border-gray-100 dark:border-gray-700">
-                    <td>{msg.date}</td>
-                    <td>{t(`communicationHub.${msg.roleKey}`)}</td>
-                    <td>{t(`communicationHub.${msg.topicKey}`)}</td>
-                    <td>{t(`communicationHub.${msg.subjectKey}`)}</td>
-                    <td>
-                      {msg.attachmentKey && (
-                        <a href="#" className="text-blue-600 underline">
-                          {t(`communicationHub.${msg.attachmentKey}`)}
-                        </a>
-                      )}
-                    </td>
+            
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-gray-200 dark:border-gray-600">
+                    <th className="text-left py-3 px-2 font-semibold text-gray-700 dark:text-gray-300">{t('communicationHub.archiveHeaders.date')}</th>
+                    <th className="text-left py-3 px-2 font-semibold text-gray-700 dark:text-gray-300">{t('communicationHub.archiveHeaders.role')}</th>
+                    <th className="text-left py-3 px-2 font-semibold text-gray-700 dark:text-gray-300">{t('communicationHub.archiveHeaders.topic')}</th>
+                    <th className="text-left py-3 px-2 font-semibold text-gray-700 dark:text-gray-300">{t('communicationHub.archiveHeaders.subject')}</th>
+                    <th className="text-left py-3 px-2 font-semibold text-gray-700 dark:text-gray-300">{t('communicationHub.archiveHeaders.attachment')}</th>
+                    <th className="text-left py-3 px-2 font-semibold text-gray-700 dark:text-gray-300">Priority</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {archiveDemo.map((msg, idx) => (
+                    <tr key={idx} className="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                      <td className="py-3 px-2 text-gray-600 dark:text-gray-400">{msg.date}</td>
+                      <td className="py-3 px-2 text-gray-900 dark:text-white">{t(`communicationHub.${msg.roleKey}`)}</td>
+                      <td className="py-3 px-2 text-gray-900 dark:text-white">{t(`communicationHub.${msg.topicKey}`)}</td>
+                      <td className="py-3 px-2 text-gray-900 dark:text-white">{t(`communicationHub.${msg.subjectKey}`)}</td>
+                      <td className="py-3 px-2">
+                        {msg.attachmentKey && (
+                          <a href="#" className="text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
+                            <FiDownload className="w-3 h-3" />
+                            {t(`communicationHub.${msg.attachmentKey}`)}
+                          </a>
+                        )}
+                      </td>
+                      <td className="py-3 px-2">
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(msg.priority)}`}>
+                          {msg.priority}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </section>
+        </motion.section>
 
-        {/* 4. Incoming Communication */}
-        <section
+        {/* Incoming Communication */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700"
           data-tour="5"
           data-tour-title-en="Incoming Communication"
           data-tour-title-ar="الاتصالات الواردة"
@@ -293,41 +436,53 @@ export default function DirectorCommunicationHub() {
           data-tour-content-ar="راقب الرسائل الواردة وحالاتها لتحديد أولويات الردود."
           data-tour-position="bottom"
         >
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
-            {t('communicationHub.incomingCommunication')}
-          </h2>
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow mb-4">
-            <table className="w-full text-xs">
+          <div className="flex items-center gap-3 mb-6">
+            <FiInbox className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+              {t('communicationHub.incomingCommunication')}
+            </h2>
+          </div>
+          
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
               <thead>
-                <tr className="text-left">
-                  <th>{t('communicationHub.incomingHeaders.from')}</th>
-                  <th>{t('communicationHub.incomingHeaders.subject')}</th>
-                  <th>{t('communicationHub.incomingHeaders.status')}</th>
+                <tr className="border-b border-gray-200 dark:border-gray-600">
+                  <th className="text-left py-3 px-2 font-semibold text-gray-700 dark:text-gray-300">{t('communicationHub.incomingHeaders.from')}</th>
+                  <th className="text-left py-3 px-2 font-semibold text-gray-700 dark:text-gray-300">{t('communicationHub.incomingHeaders.subject')}</th>
+                  <th className="text-left py-3 px-2 font-semibold text-gray-700 dark:text-gray-300">{t('communicationHub.incomingHeaders.status')}</th>
+                  <th className="text-left py-3 px-2 font-semibold text-gray-700 dark:text-gray-300">Priority</th>
+                  <th className="text-left py-3 px-2 font-semibold text-gray-700 dark:text-gray-300">Time</th>
                 </tr>
               </thead>
               <tbody>
                 {inboxDemo.map((msg, idx) => (
-                  <tr key={idx} className="border-b border-gray-100 dark:border-gray-700">
-                    <td>{t(`communicationHub.${msg.fromKey}`)}</td>
-                    <td>{t(`communicationHub.${msg.subjectKey}`)}</td>
-                    <td>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                        msg.statusKey === "statuses.awaiting" 
-                          ? "bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300" 
-                          : "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
-                      }`}>
+                  <tr key={idx} className="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                    <td className="py-3 px-2 text-gray-900 dark:text-white">{t(`communicationHub.${msg.fromKey}`)}</td>
+                    <td className="py-3 px-2 text-gray-900 dark:text-white">{t(`communicationHub.${msg.subjectKey}`)}</td>
+                    <td className="py-3 px-2">
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(msg.statusKey)}`}>
                         {t(`communicationHub.${msg.statusKey}`)}
                       </span>
                     </td>
+                    <td className="py-3 px-2">
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(msg.priority)}`}>
+                        {msg.priority}
+                      </span>
+                    </td>
+                    <td className="py-3 px-2 text-gray-500 dark:text-gray-400">{msg.time}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-        </section>
+        </motion.section>
 
-        {/* 5. Reports & Insights */}
-        <section
+        {/* Reports & Insights */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.6 }}
+          className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700"
           data-tour="6"
           data-tour-title-en="Reports & Insights"
           data-tour-title-ar="التقارير والرؤى"
@@ -335,42 +490,39 @@ export default function DirectorCommunicationHub() {
           data-tour-content-ar="تحليلات عامة: الرسائل المرسلة، الفتح، الردود، المشاعر، والتفاعل."
           data-tour-position="bottom"
         >
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
-            {t('communicationHub.reportsInsights')}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-            {analytics.map(a => (
-              <div key={a.labelKey} className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex flex-col items-center">
-                <div className="text-2xl font-bold text-blue-700 dark:text-blue-300 mb-1">{a.value}</div>
-                <div className="text-xs text-gray-600 dark:text-gray-300">
-                  {t(`communicationHub.${a.labelKey}`)}
-                </div>
-              </div>
-            ))}
+          <div className="flex items-center gap-3 mb-6">
+            <FiBarChart2 className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+              {t('communicationHub.reportsInsights')}
+            </h2>
           </div>
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow mb-4 flex flex-col md:flex-row gap-4">
-            <div className="flex-1">
-              <h3 className="font-semibold mb-2 text-xs">
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="space-y-4">
+              <h3 className="font-semibold text-gray-900 dark:text-white">
                 {t('communicationHub.sentimentSummary')}
               </h3>
-              <div className="w-full h-4 bg-gray-200 dark:bg-gray-700 rounded-full">
-                <div className="h-4 rounded-full bg-green-500" style={{ width: `70%` }}></div>
-              </div>
-              <div className="text-xs mt-1">
-                {t('communicationHub.sentimentBreakdown')}
+              <div className="space-y-3">
+                <div className="w-full h-3 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-green-500 to-blue-500 rounded-full" style={{ width: `70%` }}></div>
+                </div>
+                <div className="text-sm text-gray-600 dark:text-gray-300">
+                  {t('communicationHub.sentimentBreakdown')}
+                </div>
               </div>
             </div>
-            <div className="flex-1">
-              <h3 className="font-semibold mb-2 text-xs">
+            
+            <div className="space-y-4">
+              <h3 className="font-semibold text-gray-900 dark:text-white">
                 {t('communicationHub.engagementHeatmap')}
               </h3>
-              <div className="flex gap-2">
+              <div className="grid grid-cols-2 gap-4">
                 {engagement.map(e => (
-                  <div key={e.roleKey} className="flex flex-col items-center">
-                    <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-700 dark:text-blue-200 font-bold">
+                  <div key={e.roleKey} className="text-center">
+                    <div className={`w-12 h-12 rounded-full ${e.color} flex items-center justify-center text-white font-bold text-lg mb-2 mx-auto`}>
                       {e.value}%
                     </div>
-                    <div className="text-xs mt-1">
+                    <div className="text-sm text-gray-600 dark:text-gray-300">
                       {t(`communicationHub.${e.roleKey}`)}
                     </div>
                   </div>
@@ -378,36 +530,14 @@ export default function DirectorCommunicationHub() {
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
 
-        {/* 6. Secure Messaging */}
-        <section
-          data-tour="7"
-          data-tour-title-en="Secure Messaging"
-          data-tour-title-ar="المراسلة الآمنة"
-          data-tour-content-en="Confidential flags, visibility, and read-receipt information for sensitive messages."
-          data-tour-content-ar="أعلام السرية، الرؤية، ومعلومات إشعار القراءة للرسائل الحساسة."
-          data-tour-position="bottom"
-        >
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
-            {t('communicationHub.secureMessaging')}
-          </h2>
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex items-center gap-4">
-            <span className="inline-flex items-center px-3 py-1 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 rounded-full text-xs">
-              <span className="mr-1">🔒</span>
-              {t('communicationHub.secureMessage.confidential')}
-            </span>
-            <span className="text-xs">
-              {t('communicationHub.secureMessage.visibleTo')}
-            </span>
-            <span className="text-xs text-green-600">
-              {t('communicationHub.secureMessage.readReceipt')}
-            </span>
-          </div>
-        </section>
-
-        {/* 7. AI-Powered Assistant */}
-        <section
+        {/* AI-Powered Assistant */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.7 }}
+          className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-6 border border-blue-200 dark:border-blue-700"
           data-tour="8"
           data-tour-title-en="AI-Powered Assistant"
           data-tour-title-ar="المساعد المدعوم بالذكاء الاصطناعي"
@@ -415,43 +545,62 @@ export default function DirectorCommunicationHub() {
           data-tour-content-ar="صغ رسائل البريد، حلّل النبرة، وأدرج اقتراحات رد سريعة."
           data-tour-position="bottom"
         >
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
-            {t('communicationHub.aiPoweredAssistant')}
-          </h2>
-          <div className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex flex-col gap-2">
-            <div>
-              <span className="font-semibold text-xs">
-                {t('communicationHub.aiAssistant.draftAssistant')}:
-              </span>
-              <div className="bg-blue-50 dark:bg-blue-900 text-blue-900 dark:text-blue-200 rounded-lg p-2 text-xs mt-1">
+          <div className="flex items-center gap-3 mb-6">
+            <FiZap className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+              {t('communicationHub.aiPoweredAssistant')}
+            </h2>
+          </div>
+          
+          <div className="space-y-4">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-blue-200 dark:border-blue-700">
+              <div className="flex items-center gap-2 mb-2">
+                <FiEdit3 className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                <span className="font-semibold text-sm text-gray-900 dark:text-white">
+                  {t('communicationHub.aiAssistant.draftAssistant')}:
+                </span>
+              </div>
+              <div className="bg-blue-50 dark:bg-blue-900/20 text-blue-900 dark:text-blue-200 rounded-lg p-3 text-sm">
                 {t('communicationHub.aiAssistant.draftSample')}
               </div>
             </div>
-            <div>
-              <span className="font-semibold text-xs">
-                {t('communicationHub.aiAssistant.toneAnalyzer')}:
-              </span>
-              <div className="bg-yellow-50 dark:bg-yellow-900 text-yellow-900 dark:text-yellow-200 rounded-lg p-2 text-xs mt-1">
+            
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-yellow-200 dark:border-yellow-700">
+              <div className="flex items-center gap-2 mb-2">
+                <FiBarChart2 className="w-4 h-4 text-yellow-600 dark:text-yellow-400" />
+                <span className="font-semibold text-sm text-gray-900 dark:text-white">
+                  {t('communicationHub.aiAssistant.toneAnalyzer')}:
+                </span>
+              </div>
+              <div className="bg-yellow-50 dark:bg-yellow-900/20 text-yellow-900 dark:text-yellow-200 rounded-lg p-3 text-sm">
                 {t('communicationHub.aiAssistant.toneSample')}
               </div>
             </div>
-            <div>
-              <span className="font-semibold text-xs">
-                {t('communicationHub.aiAssistant.autoReplySuggestions')}:
-              </span>
-              <div className="flex gap-2 mt-1">
+            
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-4 border border-gray-200 dark:border-gray-600">
+              <div className="flex items-center gap-2 mb-3">
+                <FiMessageSquare className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                <span className="font-semibold text-sm text-gray-900 dark:text-white">
+                  {t('communicationHub.aiAssistant.autoReplySuggestions')}:
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-2">
                 {aiReplies.map((r, i) => (
-                  <span key={i} className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full px-3 py-1 text-xs">
+                  <span key={i} className="bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full px-3 py-1 text-sm hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors cursor-pointer">
                     {t(`communicationHub.aiAssistant.replies.${r}`)}
                   </span>
                 ))}
               </div>
             </div>
           </div>
-        </section>
+        </motion.section>
 
-        {/* 8. Integration */}
-        <section
+        {/* Integrations */}
+        <motion.section
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.8 }}
+          className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-100 dark:border-gray-700"
           data-tour="9"
           data-tour-title-en="Integrations"
           data-tour-title-ar="التكاملات"
@@ -459,13 +608,21 @@ export default function DirectorCommunicationHub() {
           data-tour-content-ar="الأنظمة المتكاملة مع مركز التواصل (التقويم، الموافقات، LMS/ERP، الرسائل القصيرة)."
           data-tour-position="bottom"
         >
-          <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
-            {t('communicationHub.integration')}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+          <div className="flex items-center gap-3 mb-6">
+            <FiLink className="w-6 h-6 text-green-600 dark:text-green-400" />
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+              {t('communicationHub.integration')}
+            </h2>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {integrations.map(card => (
-              <div key={card.nameKey} className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow flex flex-col gap-1">
-                <div className="font-semibold text-xs mb-1">
+              <div key={card.nameKey} className="bg-gray-50 dark:bg-gray-700 rounded-xl p-4 border border-gray-200 dark:border-gray-600 hover:shadow-md transition-shadow">
+                <div className="flex items-center gap-3 mb-2">
+                  <card.icon className={`w-5 h-5 ${card.status === 'connected' ? 'text-green-600 dark:text-green-400' : 'text-yellow-600 dark:text-yellow-400'}`} />
+                  <span className={`w-2 h-2 rounded-full ${card.status === 'connected' ? 'bg-green-500' : 'bg-yellow-500'}`}></span>
+                </div>
+                <div className="font-semibold text-sm text-gray-900 dark:text-white mb-1">
                   {t(`communicationHub.${card.nameKey}`)}
                 </div>
                 <div className="text-xs text-gray-600 dark:text-gray-300">
@@ -474,8 +631,8 @@ export default function DirectorCommunicationHub() {
               </div>
             ))}
           </div>
-        </section>
+        </motion.section>
       </main>
     </div>
   );
-} 
+}

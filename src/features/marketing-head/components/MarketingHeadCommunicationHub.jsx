@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { FiMail, FiMessageCircle, FiPhone, FiUsers, FiBell, FiCalendar, FiZap, FiFileText, FiSend, FiUser, FiChevronRight, FiSearch, FiDownload, FiPlus, FiAlertCircle, FiStar, FiInbox, FiClock, FiTrendingUp, FiTrendingDown, FiSettings } from 'react-icons/fi';
+import React, { useState, useEffect, useRef } from 'react';
+import { useLocalization } from "/src/hooks/useLocalization";
+import { FiTarget } from 'react-icons/fi';
+import MarketingReplySuggestions from './ai/MarketingReplySuggestions';
 import { useTranslation } from 'react-i18next';
-
+import { FiMail, FiMessageCircle, FiPhone, FiUsers, FiBell, FiCalendar, FiZap, FiFileText, FiSend, FiUser, FiChevronRight, FiSearch, FiDownload, FiPlus, FiAlertCircle, FiStar, FiInbox, FiClock, FiTrendingUp, FiTrendingDown, FiSettings, FiCheck } from 'react-icons/fi';
 // Demo data for communication channels
 const communicationChannels = [
   {
@@ -105,10 +106,24 @@ const commLogs = [
   { id: 3, name: "Saudi Arabia", channel: "SMS", outcome: "Delivered", date: "2025-06-08" },
 ];
 
+
+
+
 export default function MarketingHeadCommunicationHub() {
   const { t, ready, i18n } = useTranslation('marketing');
   const [languageVersion, setLanguageVersion] = useState(0);
+  const { isRTLMode } = useLocalization();
   
+  // AI Features State
+const [showReplySuggestions, setShowReplySuggestions] = useState(false);
+const [selectedLeadForReply, setSelectedLeadForReply] = useState(null);
+const [showConfirmation, setShowConfirmation] = useState(false);
+const [confirmationMessage, setConfirmationMessage] = useState('');
+const [confirmationType, setConfirmationType] = useState('');
+
+// Refs for auto-scroll functionality
+const replySuggestionsRef = useRef(null);
+
   useEffect(() => {
     setLanguageVersion(prev => prev + 1);
   }, [i18n.language]);
@@ -134,6 +149,24 @@ export default function MarketingHeadCommunicationHub() {
     setSelectedChannel(channel);
     setShowModal(true);
   };
+
+  // Auto-scroll to AI sections
+const scrollToAISection = (sectionRef) => {
+  if (sectionRef.current) {
+    sectionRef.current.scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'start' 
+    });
+  }
+};
+
+// Handle AI button clicks with auto-scroll
+const handleShowReplySuggestions = () => {
+  setShowReplySuggestions(!showReplySuggestions);
+  if (!showReplySuggestions) {
+    setTimeout(() => scrollToAISection(replySuggestionsRef), 100);
+  }
+};
 
   const Modal = ({ channel, onClose }) => {
     if (!channel) return null;
@@ -207,18 +240,66 @@ export default function MarketingHeadCommunicationHub() {
   };
 
   return (
-    <div className="flex flex-col gap-10 animate-fade-in" data-tour="1" data-tour-title-en="Communication Overview" data-tour-title-ar="نظرة عامة على التواصل" data-tour-content-en="Lead comms, team collaboration, messaging, and calendar." data-tour-content-ar="تواصل العملاء، تعاون الفريق، الرسائل، والتقويم." data-tour-position="bottom">
-      {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-gray-200 dark:border-gray-700">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">{t('communication.title')} <FiMessageCircle className="text-blue-500" /></h1>
-          <p className="text-sm text-gray-600 dark:text-gray-300">{t('communication.subtitle')}</p>
-        </div>
-      </div>
+    <div className={`flex flex-col gap-10 animate-fade-in ${isRTLMode ? 'rtl' : 'ltr'}`} data-tour="1" data-tour-title-en="Communication Overview" data-tour-title-ar="نظرة عامة على التواصل" data-tour-content-en="Lead comms, team collaboration, messaging, and calendar." data-tour-content-ar="تواصل العملاء، تعاون الفريق، الرسائل، والتقويم." data-tour-position="bottom">
+{/* Header */}
+<div className={`flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-gray-200 dark:border-gray-700 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+  <div className={isRTLMode ? 'text-right' : 'text-left'}>
+    <h1 className={`text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+      {isRTLMode && <FiMessageCircle className="text-blue-500" />}
+      {t('communication.title')}
+      {!isRTLMode && <FiMessageCircle className="text-blue-500" />}
+    </h1>
+    <p className="text-sm text-gray-600 dark:text-gray-300">{t('communication.subtitle')}</p>
+  </div>
+  
+  {/* AI Features Button */}
+  <button 
+    className={`px-4 py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 flex items-center gap-2 ${isRTLMode ? 'flex-row-reverse' : ''}`}
+    onClick={handleShowReplySuggestions}
+  >
+    <FiTarget /> 
+    {isRTLMode ? 'اقتراحات الرد بالذكاء الاصطناعي' : 'AI Reply Suggestions'}
+  </button>
+</div>
+
+{/* AI Reply Suggestions Section */}
+{showReplySuggestions && (
+  <section 
+    ref={replySuggestionsRef}
+    className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+    dir={isRTLMode ? 'rtl' : 'ltr'}
+  >
+    <div className={`flex items-center gap-2 mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+      <FiTarget className="text-purple-500" />
+      <h2 className="text-lg font-semibold">
+        {isRTLMode ? 'اقتراحات الرد بالذكاء الاصطناعي' : 'AI Reply Suggestions'}
+      </h2>
+    </div>
+    <MarketingReplySuggestions 
+      leadContext={{
+        name: "Saudi Arabia",
+        lastMessage: "Interested in MBA program",
+        channel: "Email",
+        engagement: 0.85
+      }}
+      onSelectSuggestion={(suggestion) => {
+        console.log('Selected suggestion:', suggestion);
+        setConfirmationMessage(`Reply suggestion "${suggestion}" has been applied successfully!`);
+        setConfirmationType('success');
+        setShowConfirmation(true);
+      }}
+      onShowConfirmation={(message, type) => {
+        setConfirmationMessage(message);
+        setConfirmationType(type);
+        setShowConfirmation(true);
+      }}
+    />
+  </section>
+)}
 
       {/* 1. Lead Communication Panel */}
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6" data-tour="2" data-tour-title-en="Lead Communication" data-tour-title-ar="تواصل العملاء" data-tour-content-en="Recent lead conversations and AI suggestions." data-tour-content-ar="محادثات العملاء الأخيرة واقتراحات الذكاء الاصطناعي.">
-        <div className="flex items-center gap-2 mb-4">
+      <div className={`flex items-center gap-2 mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
           <FiMail className="text-blue-500" />
           <h2 className="text-lg font-semibold">{t('communication.sections.leadCommunicationPanel')}</h2>
           <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('communication.aiFeatures.aiResponseSuggestions')}</span>
@@ -228,7 +309,7 @@ export default function MarketingHeadCommunicationHub() {
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
-              <tr className="text-left border-b dark:border-gray-700">
+            <tr className={`border-b dark:border-gray-700 ${isRTLMode ? 'text-right' : 'text-left'}`}>
                 <th className="pb-3 font-medium">{t('communication.leadCommunication.lead')}</th>
                 <th className="pb-3 font-medium">{t('communication.leadCommunication.channel')}</th>
                 <th className="pb-3 font-medium">{t('communication.leadCommunication.lastMessage')}</th>
@@ -486,6 +567,34 @@ export default function MarketingHeadCommunicationHub() {
           </div>
         </div>
       </section>
+{/* Confirmation Modal */}
+{showConfirmation && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+    <div className="absolute inset-0" onClick={() => setShowConfirmation(false)} />
+    <div className={`relative z-10 bg-white dark:bg-gray-800 rounded-xl p-6 max-w-md w-full mx-4 ${isRTLMode ? 'text-right' : 'text-left'}`}>
+      <div className={`flex items-center gap-3 mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+        <div className={`p-2 rounded-full ${confirmationType === 'success' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
+          {confirmationType === 'success' ? <FiCheck className="w-5 h-5" /> : <FiAlertCircle className="w-5 h-5" />}
+        </div>
+        <h3 className="text-lg font-semibold">
+          {confirmationType === 'success' ? 
+            (isRTLMode ? 'تم بنجاح!' : 'Success!') : 
+            (isRTLMode ? 'تنبيه' : 'Alert')
+          }
+        </h3>
+      </div>
+      <p className="text-gray-600 dark:text-gray-300 mb-6">{confirmationMessage}</p>
+      <div className={`flex gap-3 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+        <button
+          onClick={() => setShowConfirmation(false)}
+          className={`px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2 ${isRTLMode ? 'flex-row-reverse' : ''}`}
+        >
+          {isRTLMode ? 'حسناً' : 'OK'}
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
       {/* 7. Communication Logs & Analytics */}
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">

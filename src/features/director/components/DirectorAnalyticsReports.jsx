@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useLocalization } from "../../../hooks/useLocalization";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, BarChart, Bar, Legend, AreaChart, Area,
@@ -8,6 +9,17 @@ import {
   ComposedChart, Scatter
 } from "recharts";
 import { directorFeatures } from '../../../components/directorFeatures';
+import DirectorFinancialIntelligence from './ai/DirectorFinancialIntelligence';
+import { 
+  FiDollarSign, 
+  FiTarget, 
+  FiZap, 
+  FiBarChart2,
+  FiTrendingUp,
+  FiUsers,
+  FiShield,
+  FiAward
+} from 'react-icons/fi';
 
 // Demo data for various charts
 const departmentPerformance = [
@@ -287,10 +299,36 @@ const COLORS = ["#6366f1", "#22c55e", "#f59e42", "#eab308", "#a3a3a3"];
 
 export default function DirectorAnalyticsReports() {
   const { t, ready } = useTranslation('director');
+  const { isRTLMode } = useLocalization();
   const [selectedDepartment, setSelectedDepartment] = useState("All");
   const [timeRange, setTimeRange] = useState("6M");
   const [activeTab, setActiveTab] = useState("admissions");
   const user = JSON.parse(localStorage.getItem('rbac_current_user'));
+
+  // AI Features State
+  const [showFinancialIntelligence, setShowFinancialIntelligence] = useState(false);
+  const [financialAnalysis, setFinancialAnalysis] = useState(null);
+
+  // Refs for auto-scroll functionality
+  const financialRef = useRef(null);
+
+  // Auto-scroll to AI sections
+  const scrollToAISection = (sectionRef) => {
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    }
+  };
+
+  // Handle AI button clicks with auto-scroll
+  const handleShowFinancialIntelligence = () => {
+    setShowFinancialIntelligence(!showFinancialIntelligence);
+    if (!showFinancialIntelligence) {
+      setTimeout(() => scrollToAISection(financialRef), 100);
+    }
+  };
 
   if (!ready) {
     return <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 items-center justify-center">
@@ -1059,42 +1097,92 @@ export default function DirectorAnalyticsReports() {
   );
 
   return (
-    <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
+    <div className={`flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 ${isRTLMode ? 'rtl' : 'ltr'}`}>
       <main className="flex-1 p-4 md:p-6 flex flex-col gap-8 overflow-x-auto">
         {/* Header Section */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4" data-tour="1">
-          <div>
+        <div className={`flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 ${isRTLMode ? 'flex-row-reverse' : ''}`} data-tour="1">
+          <div className={`flex-1 min-w-0 ${isRTLMode ? 'text-right' : 'text-left'}`}>
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('analyticsReports.title')}</h1>
             <p className="text-sm text-gray-600 dark:text-gray-300">{t('analyticsReports.subtitle')}</p>
           </div>
-          <div className="flex flex-wrap gap-2">
-            <select
-              value={selectedDepartment}
-              onChange={(e) => setSelectedDepartment(e.target.value)}
-              className="px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-            >
-              <option value="All">{t('analyticsReports.allDepartments')}</option>
-              {admissionMetrics.programEnrollment.map((dept) => (
-                <option key={dept.program} value={dept.program}>
-                  {dept.program}
-                </option>
-              ))}
-            </select>
-            <select
-              value={timeRange}
-              onChange={(e) => setTimeRange(e.target.value)}
-              className="px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-            >
-              <option value="1M">{t('analyticsReports.lastMonth')}</option>
-              <option value="3M">{t('analyticsReports.last3Months')}</option>
-              <option value="6M">{t('analyticsReports.last6Months')}</option>
-              <option value="1Y">{t('analyticsReports.lastYear')}</option>
-            </select>
+          
+          <div className={`flex flex-col sm:flex-row gap-3 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+            {/* AI Features Button */}
+            <div className={`flex-shrink-0 ${isRTLMode ? 'text-right' : 'text-left'}`}>
+              <button 
+                className={`px-4 py-2 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2 transition-colors whitespace-nowrap ${isRTLMode ? 'flex-row-reverse' : ''}`}
+                onClick={handleShowFinancialIntelligence}
+              >
+                <FiDollarSign className="w-4 h-4 flex-shrink-0" /> 
+                <span className="hidden sm:inline">
+                  {isRTLMode ? 'الذكاء المالي' : 'Financial Intelligence'}
+                </span>
+                <span className="sm:hidden">
+                  {isRTLMode ? 'مالي' : 'Financial'}
+                </span>
+              </button>
+            </div>
+
+            {/* Filter Controls */}
+            <div className={`flex flex-wrap gap-2 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+              <select
+                value={selectedDepartment}
+                onChange={(e) => setSelectedDepartment(e.target.value)}
+                className="px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              >
+                <option value="All">{t('analyticsReports.allDepartments')}</option>
+                {admissionMetrics.programEnrollment.map((dept) => (
+                  <option key={dept.program} value={dept.program}>
+                    {dept.program}
+                  </option>
+                ))}
+              </select>
+              <select
+                value={timeRange}
+                onChange={(e) => setTimeRange(e.target.value)}
+                className="px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
+              >
+                <option value="1M">{t('analyticsReports.lastMonth')}</option>
+                <option value="3M">{t('analyticsReports.last3Months')}</option>
+                <option value="6M">{t('analyticsReports.last6Months')}</option>
+                <option value="1Y">{t('analyticsReports.lastYear')}</option>
+              </select>
+            </div>
           </div>
         </div>
 
+        {/* AI Financial Intelligence Section */}
+        {showFinancialIntelligence && (
+          <section 
+            ref={financialRef}
+            className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+            dir={isRTLMode ? 'rtl' : 'ltr'}
+          >
+            <div className={`flex items-center gap-2 mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+              <FiDollarSign className="text-green-500" />
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+                {isRTLMode ? 'الذكاء المالي والتحليل الاستراتيجي' : 'Financial Intelligence & Strategic Analysis'}
+              </h2>
+            </div>
+            <div className="mb-4">
+              <p className="text-sm text-gray-600 dark:text-gray-400">
+                {isRTLMode 
+                  ? 'تحليل مالي متقدم مدعوم بالذكاء الاصطناعي لاتخاذ قرارات استراتيجية مدروسة' 
+                  : 'Advanced AI-powered financial analysis for strategic decision making'
+                }
+              </p>
+            </div>
+            <DirectorFinancialIntelligence 
+              onAnalysisComplete={(analysis) => {
+                setFinancialAnalysis(analysis);
+                console.log('Financial analysis completed:', analysis);
+              }}
+            />
+          </section>
+        )}
+
         {/* Navigation Tabs */}
-        <div className="flex flex-wrap gap-2" data-tour="2">
+        <div className={`flex flex-wrap gap-2 ${isRTLMode ? 'flex-row-reverse' : ''}`} data-tour="2">
           {["admissions", "financial", "academic", "engagement", "placement", "compliance"].map((tab) => (
             <button
               key={tab}
@@ -1120,4 +1208,5 @@ export default function DirectorAnalyticsReports() {
       </main>
     </div>
   );
+
 } 

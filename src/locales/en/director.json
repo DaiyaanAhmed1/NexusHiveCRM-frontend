@@ -41,46 +41,78 @@
       "ncaaaAudit": "NCAAA Audit"
     }
   },
-  "support": {
-    "title": "Help & Support",
-    "subtitle": "Find answers to common questions or contact support.",
-    "helpTopics": "Help Topics",
-    "faqs": "FAQs",
-    "contactSupport": "Contact Support",
-    "comingSoon": "(Coming Soon)",
-    "topics": {
-      "userManagement": {
-        "title": "User Management",
-        "description": "Add, remove, or update user roles and permissions."
-      },
-      "dataSecurity": {
-        "title": "Data Security",
-        "description": "Best practices for securing institutional data."
-      },
-      "compliance": {
-        "title": "Compliance",
-        "description": "Guidelines for NCAAA, ETEC, MoE, and SCFHS compliance."
-      }
+"support": {
+  "title": "Help & Support",
+  "subtitle": "Find answers to common questions or contact support.",
+  "helpTopics": "Help Topics",
+  "faqs": "FAQs",
+  "contactSupport": "Contact Support",
+  "comingSoon": "(Coming Soon)",
+  "searchPlaceholder": "Search help articles and FAQs...",
+  "allCategories": "All Categories",
+  "categories": {
+    "account": "Account",
+    "technical": "Technical",
+    "compliance": "Compliance",
+    "data": "Data"
+  },
+  "downloadGuide": "Download Guide",
+  "viewArticles": "View Articles",
+  "contactNow": "Contact Now",
+  "helpArticles": "Help Articles",
+  "articles": "articles",
+  "priority": "priority",
+  "priorities": {
+    "high": "high",
+    "medium": "medium",
+    "low": "low"
+  },
+  "response": "Response",
+  "topics": {
+    "userManagement": {
+      "title": "User Management",
+      "description": "Add, remove, or update user roles and permissions."
     },
-    "faqItems": {
-      "passwordReset": {
-        "question": "How do I reset my password?",
-        "answer": "Go to Settings > Security and click 'Reset Password'."
-      },
-      "itSupport": {
-        "question": "How to contact IT support?",
-        "answer": "Email support@univ.edu or call extension 1234."
-      },
-      "complianceReports": {
-        "question": "Where can I find compliance reports?",
-        "answer": "Navigate to Audit & Compliance > Reports."
-      }
+    "dataSecurity": {
+      "title": "Data Security",
+      "description": "Best practices for securing institutional data."
     },
-    "contact": {
-      "email": "Email",
-      "phone": "Phone",
-      "liveChat": "Live Chat"
+    "compliance": {
+      "title": "Compliance",
+      "description": "Guidelines for NCAAA, ETEC, MoE, and SCFHS compliance."
+    },
+    "systemSettings": {
+      "title": "System Settings",
+      "description": "Configure system preferences and integrations"
     }
+  },
+  "faqItems": {
+    "passwordReset": {
+      "question": "How do I reset my password?",
+      "answer": "Click on 'Forgot Password' on the login page, enter your email, and follow the instructions sent to your inbox."
+    },
+    "itSupport": {
+      "question": "How do I contact IT support?",
+      "answer": "You can reach IT support via email at support@univ.edu or call +1 (555) 123-4567 during business hours."
+    },
+    "complianceReports": {
+      "question": "How do I generate compliance reports?",
+      "answer": "Navigate to Reports > Compliance in the main menu, select your criteria, and click 'Generate Report'."
+    },
+    "dataExport": {
+      "question": "How do I export my data?",
+      "answer": "Go to Settings > Data Management > Export, choose your data range, and select the export format."
+    },
+    "userPermissions": {
+      "question": "How do I manage user permissions?",
+      "answer": "As a director, you can manage permissions in User Management > Roles & Permissions section."
+    }
+  },
+  "contact": {
+    "email": "Email Support",
+    "phone": "Phone Support",
+    "liveChat": "Live Chat"
+  }
   },
   "settings": {
     "title": "Director Settings",
@@ -90,7 +122,12 @@
       "academic": "Academic Configuration",
       "access": "Access Permissions",
       "notifications": "Notifications",
-      "dataPrivacy": "Data & Privacy"
+      "dataPrivacy": "Data & Privacy",
+      "helpArticles": "Help Articles",
+      "faqs": "FAQs", 
+      "articles": "articles",
+      "priority": "priority",
+      "response": "Response"
     },
     "institutionalSettings": {
       "name": "Name",
@@ -175,9 +212,9 @@
       "riskManagement": {
         "title": "Risk Management",
         "items": {
-          "delayedExamResults": "Delayed exam result publication",
-          "placementTargets": "Underperformance in placement targets",
-          "dropoutTrend": "Increased dropout trend"
+          "riskAssessment": "Risk Assessment & Analysis",
+          "incidentReporting": "Incident Reporting System",
+          "auditTrail": "Audit Trail & Compliance"
         }
       }
     },
@@ -250,7 +287,9 @@
       "start": "Start",
       "view": "View",
       "upload": "Upload",
-      "download": "Download"
+      "download": "Download",
+      "assess": "Assess",
+      "report": "Report"
     }
   },
   "riskManagement": {

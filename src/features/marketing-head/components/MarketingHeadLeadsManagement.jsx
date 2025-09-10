@@ -1,9 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { FiUpload, FiUser, FiFilter, FiRefreshCw, FiMail, FiPhone, FiMessageCircle, FiUsers, FiStar, FiBarChart2, FiFileText, FiZap, FiEdit2, FiTrash2, FiMoreVertical, FiSearch, FiDownload, FiPlus, FiX, FiChevronRight, FiClock, FiTrendingUp, FiTrendingDown, FiDollarSign, FiCalendar, FiPaperclip, FiSend } from 'react-icons/fi';
 import Papa from 'papaparse';
 import * as XLSX from 'xlsx';
 import { useTranslation } from 'react-i18next';
+// Alternative path:
+import { useLocalization } from "/src/hooks/useLocalization";
+// Add after existing imports
+import MarketingAISearch from './ai/MarketingAISearch';
+import MarketingLeadRanking from './ai/MarketingLeadRanking';
+import MarketingReplySuggestions from './ai/MarketingReplySuggestions';
+import MarketingLeadBehaviorAnalysis from './ai/MarketingLeadBehaviorAnalysis';
+// Add useRef import at the top
+
+
+
+// AI Features State
 
 // Demo data for leads
 const leads = [
@@ -346,6 +358,7 @@ export function CommunicationModal({
 
 export default function MarketingHeadLeadsManagement() {
   const { t, ready, i18n } = useTranslation('marketing');
+  const { isRTLMode } = useLocalization();
   const [languageVersion, setLanguageVersion] = useState(0);
   
   useEffect(() => {
@@ -408,6 +421,33 @@ export default function MarketingHeadLeadsManagement() {
   ];
   const [selectedExportFields, setSelectedExportFields] = useState(allExportFields.map(f => f.key));
 
+  // AI Features State
+const [showAISearch, setShowAISearch] = useState(false);
+const [showLeadRanking, setShowLeadRanking] = useState(false);
+const [showReplySuggestions, setShowReplySuggestions] = useState(false);
+const [showLeadBehaviorAnalysis, setShowLeadBehaviorAnalysis] = useState(false);
+const [aiSearchResults, setAiSearchResults] = useState(null);
+const [leadRankings, setLeadRankings] = useState(null);
+const [selectedLeadForReply, setSelectedLeadForReply] = useState(null);
+const [behaviorAnalysis, setBehaviorAnalysis] = useState(null);
+const [showConfirmation, setShowConfirmation] = useState(false);
+const [confirmationMessage, setConfirmationMessage] = useState('');
+const [confirmationType, setConfirmationType] = useState('success');
+// Add these refs after your existing state variables
+const aiSearchRef = useRef(null);
+const aiRankingRef = useRef(null);
+const aiBehaviorRef = useRef(null);
+
+// Auto-scroll to AI section
+const scrollToAISection = (sectionRef) => {
+  if (sectionRef.current) {
+    sectionRef.current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest'
+    });
+  }
+};
   // When leadsList changes (add/delete), reset to first page if current page is out of range
   useEffect(() => {
     if (currentPage > totalPages) setCurrentPage(totalPages || 1);
@@ -907,6 +947,7 @@ export default function MarketingHeadLeadsManagement() {
 
   return (
     <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-10 animate-fade-in" data-tour="1" data-tour-title-en="Leads Overview" data-tour-title-ar="نظرة عامة على العملاء المحتملين" data-tour-content-en="Import, manage, and track leads across stages." data-tour-content-ar="استيراد وإدارة وتتبع العملاء عبر المراحل.">
+
       {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-gray-200 dark:border-gray-700">
         <div>
@@ -916,8 +957,79 @@ export default function MarketingHeadLeadsManagement() {
         <div className="flex gap-3">
           <button className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2" onClick={handleOpenImportModal}><FiUpload /> {t('leads.importLeads')}</button>
           <button className="px-4 py-2 text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600" onClick={() => setShowExportModal(true)}>{t('leads.exportLeads')}</button>
+          
+<button 
+  className="px-4 py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 flex items-center gap-2"
+  onClick={() => {
+    setShowAISearch(!showAISearch);
+    if (!showAISearch) {
+      setTimeout(() => scrollToAISection(aiSearchRef), 100);
+    }
+  }}
+>
+  <FiZap /> AI Search
+</button>
+
+<button 
+  className="px-4 py-2 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2"
+  onClick={() => {
+    setShowLeadRanking(!showLeadRanking);
+    if (!showLeadRanking) {
+      setTimeout(() => scrollToAISection(aiRankingRef), 100);
+    }
+  }}
+>
+  <FiStar /> AI Ranking
+</button>       
+
+<button 
+  className="px-4 py-2 text-sm bg-orange-600 text-white rounded-lg hover:bg-orange-700 flex items-center gap-2"
+  onClick={() => {
+    setShowLeadBehaviorAnalysis(!showLeadBehaviorAnalysis);
+    if (!showLeadBehaviorAnalysis) {
+      setTimeout(() => scrollToAISection(aiBehaviorRef), 100);
+    }
+  }}
+>
+  <FiBarChart2 /> AI Insights
+</button>
         </div>
       </div>
+
+{/* AI Search Section */}
+{showAISearch && (
+  <section ref={aiSearchRef} className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+    <MarketingAISearch 
+      onSearchResults={setAiSearchResults}
+      onSelectLead={handleLeadClick}
+      onSelectForAIReply={(lead) => {
+        setSelectedLeadForReply(lead);
+        setShowReplySuggestions(true);
+      }}
+    />
+  </section>
+)}
+
+{/* AI Lead Ranking Section */}
+{showLeadRanking && (
+  <section ref={aiRankingRef} className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+    <MarketingLeadRanking 
+      leads={leadsList}
+      onRankingComplete={setLeadRankings}
+    />
+  </section>
+)}
+
+{/* AI Lead Behavior Analysis Section */}
+{showLeadBehaviorAnalysis && (
+  <section ref={aiBehaviorRef} className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+    <MarketingLeadBehaviorAnalysis 
+      leads={leadsList}
+      onAnalysisComplete={setBehaviorAnalysis}
+    />
+  </section>
+)}
+
 
       {/* Lead Table Section */}
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6" data-tour="2" data-tour-title-en="Lead Table" data-tour-title-ar="جدول العملاء" data-tour-content-en="Search, filter, and take actions on leads." data-tour-content-ar="ابحث وفلتر واتخذ إجراءات على العملاء.">
@@ -1038,30 +1150,42 @@ export default function MarketingHeadLeadsManagement() {
                     </div>
                   </td>
                   <td className="px-3 py-2 text-xs text-gray-500 dark:text-gray-400">{lead.lastContact}</td>
+                  
                   <td className="px-3 py-2">
-                    <div className="flex items-center gap-1">
-                      <button
-                        onClick={() => handleSendEmail(lead)}
-                        className="p-1 rounded-full text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900"
-                        title={t('leads.actions.sendEmail')}
-                        style={{ border: 'none', background: 'none' }}
-                      >
-                        <FiMail />
-                      </button>
-                      <button
-                        onClick={() => handleSendSMS(lead)}
-                        className="p-1 rounded-full text-green-500 hover:bg-green-50 dark:hover:bg-green-900"
-                        title={t('leads.actions.sendSMS')}
-                        style={{ border: 'none', background: 'none' }}
-                      >
-                        <FiMessageCircle />
-                      </button>
-                      <span className="mx-1 text-gray-300">|</span>
-                      <button onClick={() => handleLeadClick(lead)} className="p-1 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300" title={t('leads.actions.viewDetails')}><FiUser /></button>
-                      <button onClick={() => openEditModal(lead)} className="p-1 text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300" title={t('leads.actions.edit')}><FiEdit2 /></button>
-                      <button onClick={() => handleDeleteLead(lead.id)} className="p-1 text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300" title={t('leads.actions.delete')}><FiTrash2 /></button>
-                    </div>
-                  </td>
+  <div className="flex items-center gap-1">
+    <button
+      onClick={() => handleSendEmail(lead)}
+      className="p-1 rounded-full text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900"
+      title={t('leads.actions.sendEmail')}
+      style={{ border: 'none', background: 'none' }}
+    >
+      <FiMail />
+    </button>
+    <button
+      onClick={() => handleSendSMS(lead)}
+      className="p-1 rounded-full text-green-500 hover:bg-green-50 dark:hover:bg-green-900"
+      title={t('leads.actions.sendSMS')}
+      style={{ border: 'none', background: 'none' }}
+    >
+      <FiMessageCircle />
+    </button>
+    <span className="mx-1 text-gray-300">|</span>
+    <button 
+      className="px-2 py-1 text-xs bg-purple-600 text-white rounded hover:bg-purple-700 flex items-center gap-1"
+      onClick={() => {
+        setSelectedLeadForReply(lead);
+        setShowReplySuggestions(true);
+      }}
+      title="AI Reply Suggestions"
+    >
+      <FiMessageCircle /> AI Reply
+    </button>
+    <span className="mx-1 text-gray-300">|</span>
+    <button onClick={() => handleLeadClick(lead)} className="p-1 text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300" title={t('leads.actions.viewDetails')}><FiUser /></button>
+    <button onClick={() => openEditModal(lead)} className="p-1 text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300" title={t('leads.actions.edit')}><FiEdit2 /></button>
+    <button onClick={() => handleDeleteLead(lead.id)} className="p-1 text-gray-600 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300" title={t('leads.actions.delete')}><FiTrash2 /></button>
+  </div>
+</td>
                 </tr>
               ))}
             </tbody>
@@ -1326,7 +1450,35 @@ export default function MarketingHeadLeadsManagement() {
           </div>
         </div>
       </section>
+{/* AI Search Section */}
+{/* {showAISearch && (
+  <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+    <MarketingAISearch 
+      onSearchResults={setAiSearchResults}
+      onSelectLead={handleLeadClick}
+    />
+  </section>
+)} */}
 
+{/* AI Lead Ranking Section */}
+{/* {showLeadRanking && (
+  <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+    <MarketingLeadRanking 
+      leads={leadsList}
+      onRankingComplete={setLeadRankings}
+    />
+  </section>
+)} */}
+
+{/* AI Lead Behavior Analysis Section */}
+{/* {showLeadBehaviorAnalysis && (
+  <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+    <MarketingLeadBehaviorAnalysis 
+      leads={leadsList}
+      onAnalysisComplete={setBehaviorAnalysis}
+    />
+  </section>
+)} */}
       {showModal && <LeadDetailsModal lead={selectedLead} onClose={handleCloseModal} />}
       {activeModal === 'analytics' && <AnalyticsModal onClose={handleCloseModal} />}
       {showCommunicationModal && (
@@ -1427,6 +1579,71 @@ export default function MarketingHeadLeadsManagement() {
           </form>
         </div>
       )}
+{/* AI Reply Suggestions Modal */}
+{showReplySuggestions && selectedLeadForReply && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowReplySuggestions(false)} />
+    <div className={`relative z-10 bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden ${isRTLMode ? 'rtl' : 'ltr'}`}>
+      {/* Modal Header */}
+      <div className={`flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+        <div className={isRTLMode ? 'text-right' : 'text-left'}>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+            {isRTLMode ? 'اقتراحات الرد بالذكاء الاصطناعي' : 'AI Reply Suggestions'}
+          </h2>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">
+            {isRTLMode ? `لـ ${selectedLeadForReply.name} • ${selectedLeadForReply.email}` : `For ${selectedLeadForReply.name} • ${selectedLeadForReply.email}`}
+          </p>
+        </div>
+        <button 
+          onClick={() => setShowReplySuggestions(false)} 
+          className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+        >
+          <FiX size={24} className="text-gray-500" />
+        </button>
+      </div>
+      
+      {/* Modal Content */}
+      <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+        <MarketingReplySuggestions 
+          lead={selectedLeadForReply}
+          onClose={() => setShowReplySuggestions(false)}
+          onShowConfirmation={(show) => {
+            setShowConfirmation(show);
+            setConfirmationMessage(isRTLMode ? `تم إرسال رسالة منشأة بالذكاء الاصطناعي إلى ${selectedLeadForReply.name}` : `AI-generated message sent to ${selectedLeadForReply.name}`);
+            setConfirmationType('success');
+          }}
+        />
+      </div>
+    </div>
+  </div>
+)}
+{/* Confirmation Modal */}
+{showConfirmation && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+    <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setShowConfirmation(false)} />
+    <div className={`relative z-10 bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-md w-full mx-4 ${isRTLMode ? 'rtl' : 'ltr'}`}>
+      <div className="p-6 text-center">
+        <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
+          </svg>
+        </div>
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+          {isRTLMode ? 'تم إرسال الرسالة بنجاح!' : 'Message Sent Successfully!'}
+        </h3>
+        <p className="text-gray-500 dark:text-gray-400 mb-6">
+          {confirmationMessage}
+        </p>
+        <button
+          onClick={() => setShowConfirmation(false)}
+          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+        >
+          {isRTLMode ? 'إغلاق' : 'Close'}
+        </button>
+      </div>
+    </div>
+  </div>
+)}
       {/* Import/Bulk Upload Modal */}
       {showImportModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">

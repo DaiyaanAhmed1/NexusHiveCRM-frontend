@@ -395,18 +395,28 @@
       "aiPoweredFeatures": "AI-Powered Features",
       "auditHistory": "Audit & History"
     },
+    
     "table": {
       "headers": {
         "recipient": "Recipient",
         "sender": "Sender",
         "type": "Type",
         "subject": "Subject",
+        "preview": "Preview",
         "dateTime": "Date/Time",
         "sentBy": "Sent By",
         "status": "Status",
         "action": "Action",
         "tags": "Tags"
       }
+    },
+    "ai": {
+      "replySuggestions": "AI Reply Suggestions",
+      "emailTemplates": "AI Email Templates",
+      "replySuggestionsTitle": "AI Reply Suggestions",
+      "emailTemplatesTitle": "AI Email Templates",
+      "aiReply": "AI Reply",
+      "emailSentSuccess": "Email sent successfully"
     },
     "buttons": {
       "bulkSend": "Bulk Send",

@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
   PieChart, Pie, Cell, BarChart, Bar, Legend
 } from "recharts";
 import { useTranslation } from 'react-i18next';
+import { useLocalization } from '/src/hooks/useLocalization.jsx';
+import { FiTarget, FiSearch, FiTrendingUp, FiZap } from 'react-icons/fi';
+import MarketingAISearch from '../components/ai/MarketingAISearch';
+import MarketingLeadBehaviorAnalysis from '../components/ai/MarketingLeadBehaviorAnalysis';
 
 // Demo data for KPI cards
 const getKPIs = (t) => [
@@ -37,6 +41,7 @@ const COLORS = ["#6366f1", "#22c55e", "#f59e42", "#eab308", "#a3a3a3"];
 
 export default function MarketingHeadDashboard() {
   const { t, ready, i18n } = useTranslation('dashboard');
+  const { isRTLMode } = useLocalization();
   const [languageVersion, setLanguageVersion] = useState(0);
   
   useEffect(() => {
@@ -50,6 +55,51 @@ export default function MarketingHeadDashboard() {
   const user = JSON.parse(localStorage.getItem('rbac_current_user'));
   const [showModal, setShowModal] = useState(false);
   const [modalContent, setModalContent] = useState(null);
+  
+  // AI Features State
+  const [showAISearch, setShowAISearch] = useState(false);
+  const [showAIInsights, setShowAIInsights] = useState(false);
+  const [showLeadBehaviorAnalysis, setShowLeadBehaviorAnalysis] = useState(false);
+  const [aiSearchResults, setAiSearchResults] = useState([]);
+  const [aiInsights, setAiInsights] = useState(null);
+  const [behaviorAnalysis, setBehaviorAnalysis] = useState(null);
+  
+  // Refs for auto-scroll functionality
+  const aiSearchRef = useRef(null);
+  const aiInsightsRef = useRef(null);
+  const leadBehaviorRef = useRef(null);
+
+  // Auto-scroll to AI sections
+  const scrollToAISection = (sectionRef) => {
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    }
+  };
+
+  // Handle AI button clicks with auto-scroll
+  const handleShowAISearch = () => {
+    setShowAISearch(!showAISearch);
+    if (!showAISearch) {
+      setTimeout(() => scrollToAISection(aiSearchRef), 100);
+    }
+  };
+
+  const handleShowAIInsights = () => {
+    setShowAIInsights(!showAIInsights);
+    if (!showAIInsights) {
+      setTimeout(() => scrollToAISection(aiInsightsRef), 100);
+    }
+  };
+
+  const handleShowLeadBehaviorAnalysis = () => {
+    setShowLeadBehaviorAnalysis(!showLeadBehaviorAnalysis);
+    if (!showLeadBehaviorAnalysis) {
+      setTimeout(() => scrollToAISection(leadBehaviorRef), 100);
+    }
+  };
 
   const handleCardClick = (content) => {
     setModalContent(content);
@@ -76,10 +126,10 @@ export default function MarketingHeadDashboard() {
   };
 
   return (
-    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-8">
+    <div key={`${i18n.language}-${languageVersion}`} className={`flex flex-col gap-8 ${isRTLMode ? 'rtl' : 'ltr'}`}>
       {/* Header Section */}
       <div
-        className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+        className={`flex flex-col md:flex-row justify-between items-start md:items-center gap-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}
         data-tour="1"
         data-tour-title-en="Marketing Dashboard Overview"
         data-tour-title-ar="نظرة عامة على لوحة تحكم التسويق"
@@ -87,12 +137,38 @@ export default function MarketingHeadDashboard() {
         data-tour-content-ar="ابدأ الحملات، صدّر التقارير، واعرض ملخصاً سريعاً."
         data-tour-position="bottom"
       >
-        <div>
+        <div className={isRTLMode ? 'text-right' : 'text-left'}>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('title')}</h1>
           <p className="text-sm text-gray-600 dark:text-gray-300">{t('welcome')}</p> 
-          {/* user?.displayName || */}
         </div>
-        <div className="flex gap-3">
+        
+        <div className={`flex gap-3 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+          {/* AI Features Buttons */}
+          <button 
+            className={`px-4 py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 flex items-center gap-2 ${isRTLMode ? 'flex-row-reverse' : ''}`}
+            onClick={handleShowAISearch}
+          >
+            <FiSearch /> 
+            {isRTLMode ? 'البحث بالذكاء الاصطناعي' : 'AI Search'}
+          </button>
+          
+          <button 
+            className={`px-4 py-2 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2 ${isRTLMode ? 'flex-row-reverse' : ''}`}
+            onClick={handleShowAIInsights}
+          >
+            <FiZap /> 
+            {isRTLMode ? 'رؤى الذكاء الاصطناعي' : 'AI Insights'}
+          </button>
+          
+          <button 
+            className={`px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2 ${isRTLMode ? 'flex-row-reverse' : ''}`}
+            onClick={handleShowLeadBehaviorAnalysis}
+          >
+            <FiTrendingUp /> 
+            {isRTLMode ? 'تحليل سلوك العملاء' : 'Lead Analysis'}
+          </button>
+          
+          {/* Original Buttons */}
           <button className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700">
             {t('newCampaignLaunch')}
           </button>
@@ -101,6 +177,108 @@ export default function MarketingHeadDashboard() {
           </button>
         </div>
       </div>
+
+      {/* AI Search Section */}
+      {showAISearch && (
+        <section 
+          ref={aiSearchRef}
+          className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+          dir={isRTLMode ? 'rtl' : 'ltr'}
+        >
+          <div className={`flex items-center gap-2 mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+            <FiSearch className="text-purple-500" />
+            <h2 className="text-lg font-semibold">
+              {isRTLMode ? 'البحث بالذكاء الاصطناعي' : 'AI Search'}
+            </h2>
+          </div>
+          <MarketingAISearch 
+            onSearchResults={(results) => {
+              setAiSearchResults(results);
+              console.log('AI Search results:', results);
+            }}
+            onSelectForAIReply={(lead) => {
+              console.log('Selected lead for AI reply:', lead);
+            }}
+          />
+        </section>
+      )}
+
+      {/* AI Insights Section */}
+      {showAIInsights && (
+        <section 
+          ref={aiInsightsRef}
+          className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+          dir={isRTLMode ? 'rtl' : 'ltr'}
+        >
+          <div className={`flex items-center gap-2 mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+            <FiZap className="text-green-500" />
+            <h2 className="text-lg font-semibold">
+              {isRTLMode ? 'رؤى الذكاء الاصطناعي' : 'AI Insights & Recommendations'}
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-4 bg-green-50 dark:bg-green-900/30 rounded-lg">
+              <h3 className="font-semibold mb-2">{isRTLMode ? 'توصيات الأداء' : 'Performance Recommendations'}</h3>
+              <p className="text-sm text-green-700 dark:text-green-300">
+                {isRTLMode ? 
+                  'حملة وسائل التواصل الاجتماعي تحقق أفضل أداء. اقترح زيادة الميزانية بنسبة 15%.' : 
+                  'Social media campaign performing best. Recommend increasing budget by 15%.'
+                }
+              </p>
+            </div>
+            <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
+              <h3 className="font-semibold mb-2">{isRTLMode ? 'تحذيرات مبكرة' : 'Early Warnings'}</h3>
+              <p className="text-sm text-blue-700 dark:text-blue-300">
+                {isRTLMode ? 
+                  'معدل التحويل في انخفاض. اقترح مراجعة استراتيجية التسويق.' : 
+                  'Conversion rate declining. Suggest reviewing marketing strategy.'
+                }
+              </p>
+            </div>
+            <div className="p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg">
+              <h3 className="font-semibold mb-2">{isRTLMode ? 'فرص جديدة' : 'New Opportunities'}</h3>
+              <p className="text-sm text-yellow-700 dark:text-yellow-300">
+                {isRTLMode ? 
+                  'سوق جديد مفتوح في المنطقة الشرقية. اقترح حملة مستهدفة.' : 
+                  'New market opening in Eastern Region. Suggest targeted campaign.'
+                }
+              </p>
+            </div>
+            <div className="p-4 bg-purple-50 dark:bg-purple-900/30 rounded-lg">
+              <h3 className="font-semibold mb-2">{isRTLMode ? 'تحسينات الفريق' : 'Team Improvements'}</h3>
+              <p className="text-sm text-purple-700 dark:text-purple-300">
+                {isRTLMode ? 
+                  'فريق التسويق يحتاج تدريب إضافي على أدوات الذكاء الاصطناعي.' : 
+                  'Marketing team needs additional training on AI tools.'
+                }
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Lead Behavior Analysis Section */}
+      {showLeadBehaviorAnalysis && (
+        <section 
+          ref={leadBehaviorRef}
+          className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+          dir={isRTLMode ? 'rtl' : 'ltr'}
+        >
+          <div className={`flex items-center gap-2 mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+            <FiTrendingUp className="text-blue-500" />
+            <h2 className="text-lg font-semibold">
+              {isRTLMode ? 'تحليل سلوك العملاء المحتملين' : 'Lead Behavior Analysis'}
+            </h2>
+          </div>
+          <MarketingLeadBehaviorAnalysis 
+            leads={[]} // Pass actual leads data here
+            onAnalysisComplete={(analysis) => {
+              setBehaviorAnalysis(analysis);
+              console.log('Lead behavior analysis completed:', analysis);
+            }}
+          />
+        </section>
+      )}
 
       {/* KPI Cards */}
       <div
@@ -236,4 +414,4 @@ export default function MarketingHeadDashboard() {
       {showModal && <Modal content={modalContent} onClose={() => setShowModal(false)} />}
     </div>
   );
-} 
+}

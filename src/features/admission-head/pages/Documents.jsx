@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FiFileText, FiCheckCircle, FiXCircle, FiUpload, FiDownload, FiSearch, FiFilter, FiUser, FiUsers, FiAlertCircle, FiZap, FiPlus, FiEdit2, FiTrash2, FiChevronDown, FiChevronUp, FiLock, FiKey, FiEye, FiEyeOff, FiClock, FiBarChart2, FiPieChart } from 'react-icons/fi';
+import { FiFileText, FiCheckCircle, FiXCircle, FiUpload, FiDownload, FiSearch, FiFilter, FiUser, FiUsers, FiAlertCircle, FiZap, FiPlus, FiEdit2, FiTrash2, FiChevronDown, FiChevronUp, FiLock, FiKey, FiEye, FiEyeOff, FiClock, FiBarChart2, FiPieChart, FiCpu, FiTarget } from 'react-icons/fi';
+import { useLocalization } from '../../../hooks/useLocalization';
+import AdmissionHeadDocumentVerification from '../components/ai/AdmissionHeadDocumentVerification';
 
 // Mock data
 const mockApplicants = [
@@ -29,6 +31,12 @@ export default function Documents() {
   const { t, i18n, ready } = useTranslation(['admission', 'common']);
   const [languageVersion, setLanguageVersion] = useState(0);
   
+  // AI State Variables
+  const { isRTLMode } = useLocalization();
+  const [showDocumentVerification, setShowDocumentVerification] = useState(false);
+  const [selectedDocumentForAI, setSelectedDocumentForAI] = useState(null);
+  const [aiVerificationResults, setAiVerificationResults] = useState(null);
+  
   // State
   const [docs, setDocs] = useState(mockDocs);
   const [templates, setTemplates] = useState(mockTemplates);
@@ -39,6 +47,18 @@ export default function Documents() {
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [showAuditModal, setShowAuditModal] = useState(false);
   const [toast, setToast] = useState(null);
+
+  // AI Functions
+  const handleDocumentVerification = (document) => {
+    setSelectedDocumentForAI(document);
+    setShowDocumentVerification(true);
+  };
+
+  const handleAIVerificationComplete = (results) => {
+    setAiVerificationResults(results);
+    console.log('AI Verification Results:', results);
+    setToast(isRTLMode ? 'تم تحليل الوثيقة بالذكاء الاصطناعي بنجاح' : 'Document analyzed by AI successfully');
+  };
 
   // Language change handler
   useEffect(() => {
@@ -118,7 +138,13 @@ export default function Documents() {
         <button className="flex items-center gap-2 px-4 py-2 rounded-full font-semibold shadow bg-blue-100 text-blue-700 hover:scale-105 transition-transform" onClick={() => setShowUploadModal(true)}><FiUpload />{t('documents.quickActions.uploadDocument')}</button>
         <button className="flex items-center gap-2 px-4 py-2 rounded-full font-semibold shadow bg-yellow-100 text-yellow-700 hover:scale-105 transition-transform" onClick={() => setShowRequestModal(true)}><FiAlertCircle />{t('documents.quickActions.requestMissing')}</button>
         <button className="flex items-center gap-2 px-4 py-2 rounded-full font-semibold shadow bg-green-100 text-green-700 hover:scale-105 transition-transform" onClick={() => setShowBulkModal(true)}><FiCheckCircle />{t('documents.quickActions.viewByStatus')}</button>
-        <span className="flex items-center gap-2 px-4 py-2 rounded-full font-semibold shadow bg-pink-100 text-pink-700"><FiZap />{t('documents.quickActions.aiCompletion')}</span>
+        <button 
+          className="flex items-center gap-2 px-4 py-2 rounded-full font-semibold shadow bg-purple-100 text-purple-700 hover:scale-105 transition-transform" 
+          onClick={() => setShowDocumentVerification(true)}
+        >
+          <FiCpu className="w-4 h-4" />
+          {isRTLMode ? 'التحقق الذكي من الوثائق' : 'AI Document Verification'}
+        </button>
       </div>
       
       {/* Applicant Document Repository */}
@@ -152,7 +178,14 @@ export default function Documents() {
                   <td className="px-4 py-2">
                     <button className="text-green-600 hover:underline font-semibold transition-colors mr-2">{t('documents.table.actions.approve')}</button>
                     <button className="text-red-600 hover:underline font-semibold transition-colors mr-2">{t('documents.table.actions.reject')}</button>
-                    <button className="text-yellow-600 hover:underline font-semibold transition-colors">{t('documents.table.actions.requestReupload')}</button>
+                    <button className="text-yellow-600 hover:underline font-semibold transition-colors mr-2">{t('documents.table.actions.requestReupload')}</button>
+                    <button 
+                      className="text-purple-600 hover:underline font-semibold transition-colors"
+                      onClick={() => handleDocumentVerification(d)}
+                    >
+                      <FiCpu className="inline w-3 h-3 mr-1" />
+                      {isRTLMode ? 'تحقق ذكي' : 'AI Verify'}
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -310,9 +343,31 @@ export default function Documents() {
           </div>
         </div>
       </div>
-      
+
+      {/* AI Document Verification Modal */}
+      {showDocumentVerification && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 w-full max-w-6xl max-h-[80vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                {isRTLMode ? 'التحقق الذكي من الوثائق' : 'AI Document Verification'}
+              </h3>
+              <button
+                onClick={() => setShowDocumentVerification(false)}
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              >
+                ✕
+              </button>
+            </div>
+            <AdmissionHeadDocumentVerification
+              onVerificationComplete={handleAIVerificationComplete}
+            />
+          </div>
+        </div>
+      )}
+
       {/* Toast */}
       {toast && <div className="fixed bottom-6 right-6 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-fade-in">{toast}</div>}
     </div>
   );
-} 
+}

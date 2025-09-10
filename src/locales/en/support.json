@@ -1,0 +1,44 @@
+{
+    "searchPlaceholder": "Search help articles and FAQs...",
+    "allCategories": "All Categories",
+    "categories": {
+      "account": "Account",
+      "technical": "Technical",
+      "compliance": "Compliance",
+      "data": "Data"
+    },
+    "downloadGuide": "Download Guide",
+    "viewArticles": "View Articles",
+    "contactNow": "Contact Now",
+    "helpArticles": "Help Articles",
+    "articles": "articles",
+    "priority": "priority",
+    "priorities": {
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "response": "Response",
+    "responseTime": {
+      "hours": "2-4 hours",
+      "immediate": "Immediate",
+      "realTime": "Real-time"
+    },
+    "comingSoon": "Coming Soon",
+    "topics": {
+      "systemSettings": {
+        "title": "System Settings",
+        "description": "System configuration and customization guides"
+      }
+    },
+    "faqItems": {
+      "dataExport": {
+        "question": "How can I export data?",
+        "answer": "You can export data from the export section in each page or use advanced export tools."
+      },
+      "userPermissions": {
+        "question": "How can I manage user permissions?",
+        "answer": "You can manage user permissions through the user management section and role customization."
+      }
+    }
+  }

@@ -413,6 +413,14 @@
         "tags": "العلامات"
       }
     },
+    "ai": {
+      "replySuggestions": "اقتراحات الرد الذكية",
+      "emailTemplates": "قوالب البريد الإلكتروني الذكية",
+      "replySuggestionsTitle": "اقتراحات الرد الذكية بالذكاء الاصطناعي",
+      "emailTemplatesTitle": "قوالب البريد الإلكتروني الذكية بالذكاء الاصطناعي",
+      "aiReply": "رد ذكي",
+      "emailSentSuccess": "تم إرسال البريد الإلكتروني بنجاح"
+    },
     "buttons": {
       "bulkSend": "إرسال جماعي",
       "addNote": "إضافة ملاحظة",

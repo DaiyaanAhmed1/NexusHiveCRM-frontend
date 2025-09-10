@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FiMail, FiMessageCircle, FiPhone, FiUsers, FiUser, FiCheckCircle, FiXCircle, FiAlertCircle, FiZap, FiDownload, FiEdit2, FiTrash2, FiChevronDown, FiChevronUp, FiSend, FiFilter, FiSearch, FiPlus, FiArrowRight, FiClock } from 'react-icons/fi';
+import { FiMail, FiMessageCircle, FiPhone, FiUsers, FiUser, FiCheckCircle, FiXCircle, FiAlertCircle, FiZap, FiDownload, FiEdit2, FiTrash2, FiChevronDown, FiChevronUp, FiSend, FiFilter, FiSearch, FiPlus, FiArrowRight, FiClock, FiCpu, FiTarget } from 'react-icons/fi';
+import ReplySuggestions from '../components/ai/ReplySuggestions';
+import EmailTemplates from '../components/ai/EmailTemplates';
 
 // Mock data for communications
 const mockRecipients = [
@@ -38,9 +40,67 @@ const mockChannels = [
   { name: 'In-app', icon: FiUsers, enabled: true },
 ];
 
+// Dummy curated email templates data
+const dummyEmailTemplates = [
+  {
+    id: 1,
+    emailType: 'follow-up',
+    subject: 'Follow-up: Computer Science Program at Our University',
+    greeting: 'Dear Abdullah,',
+    body: 'Thank you for your interest in our Computer Science program. We wanted to follow up and provide you with additional information that might be helpful in your decision-making process.\n\nOur university offers excellent opportunities in Computer Science, and we believe you would be a great fit for our program. We\'d love to schedule a personal consultation to discuss your goals and answer any questions you might have.',
+    callToAction: 'Schedule a consultation call with our admissions team',
+    closing: 'Best regards,',
+    signature: 'University Admissions Team',
+    personalization: 'Program interest and name',
+    tone: 'Professional',
+    wordCount: 45,
+    isPersonalized: true,
+    generatedAt: new Date().toISOString()
+  },
+  {
+    id: 2,
+    emailType: 'program-introduction',
+    subject: 'Discover Our Computer Science Program',
+    greeting: 'Dear Abdullah,',
+    body: 'We\'re excited to introduce you to our Computer Science program, which has been designed to provide students with comprehensive knowledge and practical skills in this field.\n\nOur program offers:\n• Expert faculty with industry experience\n• State-of-the-art facilities\n• Career placement assistance\n• Flexible scheduling options\n\nWe believe this program aligns perfectly with your interests and career goals.',
+    callToAction: 'Learn more about our program and application process',
+    closing: 'Warm regards,',
+    signature: 'Academic Programs Team',
+    personalization: 'Program interest and name',
+    tone: 'Warm',
+    wordCount: 52,
+    isPersonalized: true,
+    generatedAt: new Date().toISOString()
+  },
+  {
+    id: 3,
+    emailType: 'event-invitation',
+    subject: 'You\'re Invited: University Open House',
+    greeting: 'Dear Abdullah,',
+    body: 'We\'re delighted to invite you to our upcoming University Open House, where you can explore our campus, meet faculty, and learn more about our Computer Science program.\n\nThis is a great opportunity to:\n• Tour our facilities\n• Meet current students\n• Speak with faculty\n• Get your questions answered\n\nWe\'d love to see you there!',
+    callToAction: 'RSVP for the Open House event',
+    closing: 'Looking forward to seeing you,',
+    signature: 'Events Team',
+    personalization: 'Program interest and name',
+    tone: 'Welcoming',
+    wordCount: 48,
+    isPersonalized: true,
+    generatedAt: new Date().toISOString()
+  }
+];
+
 export default function Communication() {
   const { t: translate, i18n, ready } = useTranslation(['admission'], { useSuspense: false });
   const [languageVersion, setLanguageVersion] = useState(0);
+
+  // AI State Variables
+  const [showReplySuggestions, setShowReplySuggestions] = useState(false);
+  const [showEmailTemplates, setShowEmailTemplates] = useState(false);
+  const [selectedMessageForAI, setSelectedMessageForAI] = useState(null);
+  const [aiReplyResults, setAiReplyResults] = useState(null);
+  const [aiEmailResults, setAiEmailResults] = useState(dummyEmailTemplates); // Use dummy data
+  const replySuggestionsRef = useRef(null);
+  const emailTemplatesRef = useRef(null);
 
   // Debug logging
   console.log('i18n ready:', ready);
@@ -68,6 +128,43 @@ export default function Communication() {
       i18n.loadNamespaces(['admission']);
     }
   }, [ready, i18n.language, i18n]);
+
+  // AI Functions - Fixed to prevent flickering
+  const scrollToAISection = (ref) => {
+    if (ref.current) {
+      // Add a small delay to ensure the element is fully rendered
+      setTimeout(() => {
+        ref.current.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        });
+      }, 150);
+    }
+  };
+
+  const handleReplySuggestions = (message = null) => {
+    setSelectedMessageForAI(message);
+    setShowReplySuggestions(true);
+    // Remove the setTimeout here to prevent flickering
+    scrollToAISection(replySuggestionsRef);
+  };
+
+  const handleEmailTemplates = () => {
+    setShowEmailTemplates(true);
+    // Remove the setTimeout here to prevent flickering
+    scrollToAISection(emailTemplatesRef);
+  };
+
+  const handleAIReplyComplete = (results) => {
+    setAiReplyResults(results);
+    console.log('AI Reply Suggestions Results:', results);
+  };
+
+  const handleAIEmailComplete = (results) => {
+    // Use dummy data instead of real AI results
+    setAiEmailResults(dummyEmailTemplates);
+    console.log('AI Email Templates Results (Dummy):', dummyEmailTemplates);
+  };
 
   // State for filters, modals, etc.
   const [outgoing, setOutgoing] = useState(mockOutgoing);
@@ -111,7 +208,102 @@ export default function Communication() {
       data-tour-content-ar="المؤشرات، الصادر، سجلات الوارد، الأدوات، القوالب، الملاحظات، المكالمات، التكاملات، الذكاء والاطلاع."
       data-tour-position="bottom"
     >
-      <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white mb-8 tracking-tight" data-tour="2" data-tour-title-en="Page Title" data-tour-title-ar="عنوان الصفحة" data-tour-content-en="Communication & Logs module for admission team." data-tour-content-ar="وحدة التواصل والسجلات لفريق القبول.">{translate('communication.title')}</h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight" data-tour="2" data-tour-title-en="Page Title" data-tour-title-ar="عنوان الصفحة" data-tour-content-en="Communication & Logs module for admission team." data-tour-content-ar="وحدة التواصل والسجلات لفريق القبول.">
+          {translate('communication.title')}
+        </h1>
+        <div className="flex gap-3">
+          <button
+            onClick={() => handleReplySuggestions()}
+            className="flex items-center gap-2 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-semibold transition-all duration-200"
+          >
+            <FiCpu className="w-4 h-4" />
+            {i18n.language === 'ar' ? 'اقتراحات الرد الذكية' : 'AI Reply Suggestions'}
+          </button>
+          <button
+            onClick={handleEmailTemplates}
+            className="flex items-center gap-2 px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-semibold transition-all duration-200"
+          >
+            <FiTarget className="w-4 h-4" />
+            {i18n.language === 'ar' ? 'قوالب البريد الإلكتروني الذكية' : 'AI Email Templates'}
+          </button>
+        </div>
+      </div>
+
+      {/* AI Reply Suggestions Section - Fixed flickering */}
+      {showReplySuggestions && (
+        <div ref={replySuggestionsRef} className="mb-8">
+          <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 animate-fade-in min-h-[400px]">
+            <div className="flex justify-between items-center mb-6">
+              <div className="flex items-center gap-3">
+                <FiCpu className="text-purple-500 animate-pulse" size={24} />
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                  {i18n.language === 'ar' ? 'اقتراحات الرد الذكية بالذكاء الاصطناعي' : 'AI Reply Suggestions'}
+                </h2>
+              </div>
+              <button
+                onClick={() => setShowReplySuggestions(false)}
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-xl"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="min-h-[300px]">
+              <ReplySuggestions 
+                leadContext={selectedMessageForAI || {
+                  name: 'Abdullah Al-Rashid',
+                  program: 'Computer Science',
+                  status: 'Inquiry',
+                  lastContact: '2024-06-10',
+                  message: selectedMessageForAI?.preview || 'Thank you for the update on my application status.'
+                }}
+                onSelectSuggestion={handleAIReplyComplete}
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* AI Email Templates Section - Fixed flickering with dummy data */}
+      {showEmailTemplates && (
+        <div ref={emailTemplatesRef} className="mb-8">
+          <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 animate-fade-in min-h-[400px]">
+            <div className="flex justify-between items-center mb-6">
+              <div className="flex items-center gap-3">
+                <FiTarget className="text-indigo-500 animate-pulse" size={24} />
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                  {i18n.language === 'ar' ? 'قوالب البريد الإلكتروني الذكية بالذكاء الاصطناعي' : 'AI Email Templates'}
+                </h2>
+              </div>
+              <button
+                onClick={() => setShowEmailTemplates(false)}
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-xl"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="min-h-[300px]">
+              <EmailTemplates 
+                lead={{
+                  name: 'Abdullah Al-Rashid',
+                  program: 'Computer Science',
+                  applicationId: 'APP-2024-001',
+                  email: 'abdullah@email.com',
+                  status: 'Inquiry'
+                }}
+                onEmailGenerated={handleAIEmailComplete}
+                onEmailSent={(email) => {
+                  console.log('Email sent:', email);
+                  setToast(i18n.language === 'ar' ? 'تم إرسال البريد الإلكتروني بنجاح' : 'Email sent successfully');
+                }}
+                useDummyData={true} // Pass flag to use dummy data
+                dummyTemplates={dummyEmailTemplates} // Pass dummy templates
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Overview Dashboard */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8" data-tour="3" data-tour-title-en="KPIs" data-tour-title-ar="المؤشرات" data-tour-content-en="This week, month, channel-wise counts, and calls logged." data-tour-content-ar="هذا الأسبوع، هذا الشهر، حسب القناة، والمكالمات المسجلة.">
         <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-4 flex flex-col items-center gap-1">
@@ -145,6 +337,7 @@ export default function Communication() {
           <span className="text-2xl font-bold text-pink-700 dark:text-pink-300">{callsLogged}</span>
         </div>
       </div>
+
       {/* Outgoing Communications */}
       <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="4" data-tour-title-en="Outgoing" data-tour-title-ar="الصادر" data-tour-content-en="Bulk send, status tracking, and actions." data-tour-content-ar="إرسال جماعي وتتبع الحالة والإجراءات.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
@@ -158,8 +351,8 @@ export default function Communication() {
                 <th className="px-4 py-2 text-left font-semibold">{translate('communication.table.headers.recipient')}</th>
                 <th className="px-4 py-2 text-left font-semibold">{translate('communication.table.headers.type')}</th>
                 <th className="px-4 py-2 text-left font-semibold">{translate('communication.table.headers.subject')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{translate('communication.table.headers.preview')}</th>
                 <th className="px-4 py-2 text-left font-semibold">{translate('communication.table.headers.dateTime')}</th>
-                <th className="px-4 py-2 text-left font-semibold">{translate('communication.table.headers.sentBy')}</th>
                 <th className="px-4 py-2 text-left font-semibold">{translate('communication.table.headers.status')}</th>
                 <th className="px-4 py-2 text-left font-semibold">{translate('communication.table.headers.action')}</th>
               </tr>
@@ -168,15 +361,22 @@ export default function Communication() {
               {outgoing.map(m => (
                 <tr key={m.id} className="hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
                   <td className="px-4 py-2">{m.recipient.name} <span className="text-xs text-gray-400">({m.recipient.role})</span></td>
-                  <td className="px-4 py-2">{m.type}</td>
-                  <td className="px-4 py-2">{m.subject} <span className="text-xs text-gray-400">{m.preview}</span></td>
+                  <td className="px-4 py-2"><span className={`px-2 py-1 rounded-full text-xs font-semibold ${m.type === 'Email' ? 'bg-blue-100 text-blue-700' : m.type === 'SMS' ? 'bg-green-100 text-green-700' : 'bg-purple-100 text-purple-700'}`}>{m.type}</span></td>
+                  <td className="px-4 py-2">{m.subject}</td>
+                  <td className="px-4 py-2">{m.preview}</td>
                   <td className="px-4 py-2">{m.date} {m.time}</td>
-                  <td className="px-4 py-2">{m.sentBy}</td>
-                  <td className="px-4 py-2"><span className={`px-2 py-1 rounded-full text-xs font-semibold ${m.status === 'Delivered' ? 'bg-green-100 text-green-700' : m.status === 'Sent' ? 'bg-blue-100 text-blue-700' : m.status === 'Read' ? 'bg-yellow-100 text-yellow-700' : ''}`}>{m.status === 'Delivered' ? translate('communication.status.delivered') : m.status === 'Sent' ? translate('communication.status.sent') : m.status === 'Read' ? translate('communication.status.read') : m.status}</span></td>
+                  <td className="px-4 py-2"><span className={`px-2 py-1 rounded-full text-xs font-semibold ${m.status === 'Delivered' ? 'bg-green-100 text-green-700' : m.status === 'Sent' ? 'bg-blue-100 text-blue-700' : 'bg-yellow-100 text-yellow-700'}`}>{m.status}</span></td>
                   <td className="px-4 py-2">
                     <button className="text-blue-600 hover:underline font-semibold transition-colors mr-2">{translate('communication.buttons.resend')}</button>
                     <button className="text-indigo-600 hover:underline font-semibold transition-colors mr-2">{translate('communication.buttons.viewFull')}</button>
-                    <button className="text-green-600 hover:underline font-semibold transition-colors">{translate('communication.buttons.followUp')}</button>
+                    <button className="text-green-600 hover:underline font-semibold transition-colors mr-2">{translate('communication.buttons.followUp')}</button>
+                    <button 
+                      className="text-purple-600 hover:underline font-semibold transition-colors"
+                      onClick={() => handleReplySuggestions(m)}
+                    >
+                      <FiCpu className="inline w-3 h-3 mr-1" />
+                      {i18n.language === 'ar' ? 'رد ذكي' : 'AI Reply'}
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -184,6 +384,7 @@ export default function Communication() {
           </table>
         </div>
       </div>
+
       {/* Incoming Messages / Logs */}
       <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="5" data-tour-title-en="Incoming Logs" data-tour-title-ar="سجلات الوارد" data-tour-content-en="Inbox with statuses, tags, and follow-ups." data-tour-content-ar="الوارد بالحالات والوسوم والمتابعات.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
@@ -197,9 +398,9 @@ export default function Communication() {
                 <th className="px-4 py-2 text-left font-semibold">{translate('communication.table.headers.sender')}</th>
                 <th className="px-4 py-2 text-left font-semibold">{translate('communication.table.headers.type')}</th>
                 <th className="px-4 py-2 text-left font-semibold">{translate('communication.table.headers.subject')}</th>
+                <th className="px-4 py-2 text-left font-semibold">{translate('communication.table.headers.preview')}</th>
                 <th className="px-4 py-2 text-left font-semibold">{translate('communication.table.headers.dateTime')}</th>
                 <th className="px-4 py-2 text-left font-semibold">{translate('communication.table.headers.status')}</th>
-                <th className="px-4 py-2 text-left font-semibold">{translate('communication.table.headers.tags')}</th>
                 <th className="px-4 py-2 text-left font-semibold">{translate('communication.table.headers.action')}</th>
               </tr>
             </thead>
@@ -207,15 +408,22 @@ export default function Communication() {
               {incoming.map(m => (
                 <tr key={m.id} className="hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors">
                   <td className="px-4 py-2">{m.sender.name} <span className="text-xs text-gray-400">({m.sender.role})</span></td>
-                  <td className="px-4 py-2">{m.type}</td>
-                  <td className="px-4 py-2">{m.subject} <span className="text-xs text-gray-400">{m.preview}</span></td>
+                  <td className="px-4 py-2"><span className={`px-2 py-1 rounded-full text-xs font-semibold ${m.type === 'Email' ? 'bg-blue-100 text-blue-700' : m.type === 'SMS' ? 'bg-green-100 text-green-700' : 'bg-purple-100 text-purple-700'}`}>{m.type}</span></td>
+                  <td className="px-4 py-2">{m.subject}</td>
+                  <td className="px-4 py-2">{m.preview}</td>
                   <td className="px-4 py-2">{m.date} {m.time}</td>
-                  <td className="px-4 py-2"><span className={`px-2 py-1 rounded-full text-xs font-semibold ${m.status === 'Needs Follow-up' ? 'bg-yellow-100 text-yellow-700' : m.status === 'Escalated' ? 'bg-red-100 text-red-700' : m.status === 'Replied' ? 'bg-green-100 text-green-700' : ''}`}>{m.status === 'Needs Follow-up' ? translate('communication.status.needsFollowup') : m.status === 'Escalated' ? translate('communication.status.escalated') : m.status === 'Replied' ? translate('communication.status.replied') : m.status}</span></td>
-                  <td className="px-4 py-2">{m.tags.map(tag => <span key={tag} className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-xs mr-1">{tag}</span>)}</td>
+                  <td className="px-4 py-2"><span className={`px-2 py-1 rounded-full text-xs font-semibold ${m.status === 'Needs Follow-up' ? 'bg-yellow-100 text-yellow-700' : m.status === 'Escalated' ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>{m.status}</span></td>
                   <td className="px-4 py-2">
                     <button className="text-green-600 hover:underline font-semibold transition-colors mr-2">{translate('communication.buttons.reply')}</button>
                     <button className="text-yellow-600 hover:underline font-semibold transition-colors mr-2">{translate('communication.buttons.escalate')}</button>
-                    <button className="text-blue-600 hover:underline font-semibold transition-colors">{translate('communication.buttons.assign')}</button>
+                    <button className="text-blue-600 hover:underline font-semibold transition-colors mr-2">{translate('communication.buttons.assign')}</button>
+                    <button 
+                      className="text-purple-600 hover:underline font-semibold transition-colors"
+                      onClick={() => handleReplySuggestions(m)}
+                    >
+                      <FiCpu className="inline w-3 h-3 mr-1" />
+                      {i18n.language === 'ar' ? 'رد ذكي' : 'AI Reply'}
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -223,6 +431,7 @@ export default function Communication() {
           </table>
         </div>
       </div>
+
       {/* Bulk Communication Tools */}
       <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="6" data-tour-title-en="Bulk Tools" data-tour-title-ar="أدوات جماعية" data-tour-content-en="Targets, mode, templates, and scheduling." data-tour-content-ar="الأهداف، الوضع، القوالب والجدولة.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
@@ -241,6 +450,7 @@ export default function Communication() {
         </div>
         <div className="mt-4 text-xs text-gray-500">{translate('communication.bulkTools.openRate')}: 78% | {translate('communication.bulkTools.clickRate')}: 42% | {translate('communication.bulkTools.deliveryRate')}: 95%</div>
       </div>
+
       {/* Templates Manager */}
       <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="7" data-tour-title-en="Templates" data-tour-title-ar="القوالب" data-tour-content-en="Create and manage reusable templates." data-tour-content-ar="إنشاء وإدارة القوالب القابلة لإعادة الاستخدام.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
@@ -277,6 +487,7 @@ export default function Communication() {
           </table>
         </div>
       </div>
+
       {/* Internal Notes / Logbook */}
       <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="8" data-tour-title-en="Notes & Logbook" data-tour-title-ar="الملاحظات والسجل" data-tour-content-en="Add team or private notes tied to candidates." data-tour-content-ar="أضف ملاحظات للفريق أو خاصة مرتبطة بالمرشحين.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
@@ -294,6 +505,7 @@ export default function Communication() {
           ))}
         </div>
       </div>
+
       {/* Call Logs & Voice Notes */}
       <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="9" data-tour-title-en="Call Logs" data-tour-title-ar="سجلات المكالمات" data-tour-content-en="Log calls, durations, AI summaries, and statuses." data-tour-content-ar="سجّل المكالمات، المدد، ملخصات الذكاء والحالات.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
@@ -312,6 +524,7 @@ export default function Communication() {
           ))}
         </div>
       </div>
+
       {/* Integration & Channels */}
       <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="10" data-tour-title-en="Integrations" data-tour-title-ar="التكاملات" data-tour-content-en="Enable/disable channels: Email, SMS, WhatsApp, Chatbot, In-app." data-tour-content-ar="تفعيل/تعطيل القنوات: البريد، الرسائل، واتساب، chatbot، داخل التطبيق.">
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
@@ -325,6 +538,7 @@ export default function Communication() {
           ))}
         </div>
       </div>
+
       {/* AI-Powered Features */}
       <div className="bg-gradient-to-br from-yellow-50 to-pink-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-lg p-6 flex flex-col gap-4 mb-8 animate-fade-in" data-tour="11" data-tour-title-en="AI Features" data-tour-title-ar="ميزات الذكاء" data-tour-content-en="Urgency detection, reply suggestions, reminders, sentiment, bot logs." data-tour-content-ar="كشف الإلحاح، اقتراحات الرد، التذكيرات، المشاعر، سجلات الروبوت.">
         <div className="flex items-center gap-2 mb-2">
@@ -344,26 +558,30 @@ export default function Communication() {
             <FiClock className="text-yellow-500" />
             <span className="font-medium text-yellow-800 dark:text-yellow-200">{translate('communication.aiFeatures.smartReminder')}: {translate('communication.aiFeatures.followUpsSuggested')}</span>
           </div>
-          <div className="flex items-center gap-2 bg-green-100 dark:bg-green-900/30 px-3 py-2 rounded-lg">
-            <FiUsers className="text-green-500" />
-            <span className="font-medium text-green-800 dark:text-green-200">{translate('communication.aiFeatures.sentiment')}: "{translate('communication.aiFeatures.parentFrustrated')}"</span>
-          </div>
-          <div className="flex items-center gap-2 bg-purple-100 dark:bg-purple-900/30 px-3 py-2 rounded-lg">
-            <FiZap className="text-purple-500" />
-            <span className="font-medium text-purple-800 dark:text-purple-200">{translate('communication.aiFeatures.botLog')}: {translate('communication.aiFeatures.chatbotInteractions')}</span>
-          </div>
-        </div>
-      </div>
-      {/* Audit & History */}
-      <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="12" data-tour-title-en="Audit & History" data-tour-title-ar="التدقيق والسجل" data-tour-content-en="Export and review communication history." data-tour-content-ar="تصدير ومراجعة سجل الاتصالات.">
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
-          <h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{translate('communication.audit.title')}</h2>
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold" onClick={() => setShowAuditModal(true)}><FiDownload className="inline mr-1" />{translate('communication.audit.export')}</button>
-        </div>
-        <div className="text-xs text-gray-500">{translate('communication.audit.description')}</div>
-      </div>
-      {/* Toast */}
-      {toast && <div className="fixed bottom-6 right-6 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-fade-in">{toast}</div>}
-    </div>
-  );
-} 
+          
+
+<div className="flex items-center gap-2 bg-green-100 dark:bg-green-900/30 px-3 py-2 rounded-lg">
+  <FiUsers className="text-green-500" />
+  <span className="font-medium text-green-800 dark:text-green-200">{translate('communication.aiFeatures.sentiment')}: "{translate('communication.aiFeatures.parentFrustrated')}"</span>
+</div>
+<div className="flex items-center gap-2 bg-purple-100 dark:bg-purple-900/30 px-3 py-2 rounded-lg">
+  <FiZap className="text-purple-500" />
+  <span className="font-medium text-purple-800 dark:text-purple-200">{translate('communication.aiFeatures.botLog')}: {translate('communication.aiFeatures.chatbotInteractions')}</span>
+</div>
+</div>
+</div>
+
+{/* Audit & History */}
+<div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 mb-10 animate-fade-in" data-tour="12" data-tour-title-en="Audit & History" data-tour-title-ar="التدقيق والسجل" data-tour-content-en="Export and review communication history." data-tour-content-ar="تصدير ومراجعة سجل الاتصالات.">
+<div className="flex flex-col md:flex-row md:justify-between md:items-center mb-6 gap-4">
+<h2 className="text-xl font-bold text-gray-700 dark:text-gray-200">{translate('communication.audit.title')}</h2>
+<button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold" onClick={() => setShowAuditModal(true)}><FiDownload className="inline mr-1" />{translate('communication.audit.export')}</button>
+</div>
+<div className="text-xs text-gray-500">{translate('communication.audit.description')}</div>
+</div>
+
+{/* Toast */}
+{toast && <div className="fixed bottom-6 right-6 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-fade-in">{toast}</div>}
+</div>
+);
+}

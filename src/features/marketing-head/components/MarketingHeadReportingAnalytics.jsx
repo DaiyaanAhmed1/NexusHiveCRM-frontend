@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FiBarChart2, FiTrendingUp, FiTrendingDown, FiDollarSign, FiPieChart, FiUsers, FiMail, FiClock, FiZap, FiSearch, FiDownload, FiPlus, FiChevronRight, FiFileText, FiStar, FiMapPin, FiActivity, FiSettings } from 'react-icons/fi';
+import { FiBarChart2, FiTrendingUp, FiTrendingDown, FiDollarSign, FiPieChart, FiUsers, FiMail, FiClock, FiZap, FiSearch, FiDownload, FiPlus, FiChevronRight, FiFileText, FiStar, FiMapPin, FiActivity, FiSettings, FiTarget } from 'react-icons/fi';
 import { useTranslation } from 'react-i18next';
+import { useLocalization } from "/src/hooks/useLocalization";
+import MarketingLeadBehaviorAnalysis from './ai/MarketingLeadBehaviorAnalysis';
 
 // Demo data for each module
 const leadFunnel = {
@@ -60,10 +62,36 @@ const minROI = 1.0, maxROI = 2.0;
 export default function MarketingHeadReportingAnalytics() {
   const { t, ready, i18n } = useTranslation('marketing');
   const [languageVersion, setLanguageVersion] = useState(0);
+  const { isRTLMode } = useLocalization();
+  
+  // AI Features State
+  const [showLeadBehaviorAnalysis, setShowLeadBehaviorAnalysis] = useState(false);
+  const [selectedAnalyticsForAI, setSelectedAnalyticsForAI] = useState(null);
+  
+  // Refs for auto-scroll functionality
+  const leadBehaviorAnalysisRef = useRef(null);
   
   useEffect(() => {
     setLanguageVersion(prev => prev + 1);
   }, [i18n.language]);
+
+  // Auto-scroll to AI sections
+  const scrollToAISection = (sectionRef) => {
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    }
+  };
+
+  // Handle AI button clicks with auto-scroll
+  const handleShowLeadBehaviorAnalysis = () => {
+    setShowLeadBehaviorAnalysis(!showLeadBehaviorAnalysis);
+    if (!showLeadBehaviorAnalysis) {
+      setTimeout(() => scrollToAISection(leadBehaviorAnalysisRef), 100);
+    }
+  };
 
   // Show loading state while translations are loading
   if (!ready) {
@@ -83,27 +111,63 @@ export default function MarketingHeadReportingAnalytics() {
   ];
 
   return (
-    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-10 animate-fade-in" data-tour="1" data-tour-title-en="Analytics Overview" data-tour-title-ar="نظرة عامة على التحليلات" data-tour-content-en="Funnel, spend vs ROI, campaign, and engagement analytics." data-tour-content-ar="القُمع والإنفاق مقابل العائد وتحليلات الحملات والتفاعل." data-tour-position="bottom">
+    <div key={`${i18n.language}-${languageVersion}`} className={`flex flex-col gap-10 animate-fade-in ${isRTLMode ? 'rtl' : 'ltr'}`}>
       {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-gray-200 dark:border-gray-700">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">{t('analytics.title')} <FiBarChart2 className="text-blue-500" /></h1>
+      <div className={`flex flex-col md:flex-row justify-between items-start md:items-center gap-4 pb-2 border-b border-gray-200 dark:border-gray-700 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+        <div className={isRTLMode ? 'text-right' : 'text-left'}>
+          <h1 className={`text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+            {isRTLMode && <FiBarChart2 className="text-blue-500" />}
+            {t('analytics.title')}
+            {!isRTLMode && <FiBarChart2 className="text-blue-500" />}
+          </h1>
           <p className="text-sm text-gray-600 dark:text-gray-300">{t('analytics.subtitle')}</p>
         </div>
+        
+        {/* AI Features Button */}
+        <button 
+          className={`px-4 py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 flex items-center gap-2 ${isRTLMode ? 'flex-row-reverse' : ''}`}
+          onClick={handleShowLeadBehaviorAnalysis}
+        >
+          <FiTarget /> 
+          {isRTLMode ? 'تحليل سلوك العملاء المحتملين بالذكاء الاصطناعي' : 'AI Lead Behavior Analysis'}
+        </button>
       </div>
+
+      {/* AI Lead Behavior Analysis Section */}
+      {showLeadBehaviorAnalysis && (
+        <section 
+          ref={leadBehaviorAnalysisRef}
+          className="bg-white dark:bg-gray-800 rounded-xl shadow p-6"
+          dir={isRTLMode ? 'rtl' : 'ltr'}
+        >
+          <div className={`flex items-center gap-2 mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+            <FiTarget className="text-purple-500" />
+            <h2 className="text-lg font-semibold">
+              {isRTLMode ? 'تحليل سلوك العملاء المحتملين بالذكاء الاصطناعي' : 'AI Lead Behavior Analysis'}
+            </h2>
+          </div>
+          <MarketingLeadBehaviorAnalysis 
+            leads={[]} // Pass actual leads data here
+            onAnalysisComplete={(analysis) => {
+              console.log('Lead behavior analysis completed:', analysis);
+              // Handle analysis results
+            }}
+          />
+        </section>
+      )}
 
       {/* 1. Lead Funnel Analytics */}
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6" data-tour="2" data-tour-title-en="Lead Funnel" data-tour-title-ar="قُمع العملاء" data-tour-content-en="Track drop-offs and conversion rates." data-tour-content-ar="تتبع نقاط الانخفاض ومعدلات التحويل.">
-        <div className="flex items-center gap-2 mb-4">
+        <div className={`flex items-center gap-2 mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
           <FiTrendingUp className="text-blue-500" />
           <h2 className="text-lg font-semibold">{t('analytics.sections.leadFunnelAnalytics')}</h2>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.aiConversionScore')}</span>
-          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.funnelOptimization')}</span>
+          <span className={`text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse ${isRTLMode ? 'mr-2' : 'ml-2'}`}>{t('analytics.aiFeatures.aiConversionScore')}</span>
+          <span className={`text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse ${isRTLMode ? 'mr-2' : 'ml-2'}`}>{t('analytics.aiFeatures.funnelOptimization')}</span>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
           <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
             <h3 className="font-medium mb-2">{t('analytics.leadFunnel.inquiries')}</h3>
-            <div className="flex gap-4">
+            <div className={`flex gap-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
               <div>{t('analytics.leadFunnel.daily')}: <span className="font-bold">{leadFunnel.inquiries.daily}</span></div>
               <div>{t('analytics.leadFunnel.weekly')}: <span className="font-bold">{leadFunnel.inquiries.weekly}</span></div>
               <div>{t('analytics.leadFunnel.monthly')}: <span className="font-bold">{leadFunnel.inquiries.monthly}</span></div>
@@ -121,7 +185,7 @@ export default function MarketingHeadReportingAnalytics() {
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
-              <tr className="text-left border-b dark:border-gray-700">
+              <tr className={`border-b dark:border-gray-700 ${isRTLMode ? 'text-right' : 'text-left'}`}>
                 <th className="pb-3 font-medium">{t('analytics.leadFunnel.source')}</th>
                 <th className="pb-3 font-medium">{t('analytics.leadFunnel.leads')}</th>
                 <th className="pb-3 font-medium">{t('analytics.leadFunnel.conversion')}</th>
@@ -138,7 +202,7 @@ export default function MarketingHeadReportingAnalytics() {
             </tbody>
           </table>
         </div>
-        <div className="flex flex-col md:flex-row gap-4">
+        <div className={`flex flex-col md:flex-row gap-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
           <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg flex-1">
             <div className="font-medium mb-1">{t('analytics.leadFunnel.aiPredictiveLeadConversionScore')}</div>
             <div className="text-2xl font-bold text-blue-600">{(leadFunnel.ai.predictiveScore * 100).toFixed(0)}%</div>
@@ -152,16 +216,16 @@ export default function MarketingHeadReportingAnalytics() {
 
       {/* 2. Marketing Spend vs ROI */}
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6" data-tour="3" data-tour-title-en="Spend vs ROI" data-tour-title-ar="الإنفاق مقابل العائد" data-tour-content-en="Analyze budgets, CPA, ROI, and revenue." data-tour-content-ar="حلّل الميزانيات وتكلفة الاكتساب والعائد والإيراد.">
-        <div className="flex items-center gap-2 mb-4">
+        <div className={`flex items-center gap-2 mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
           <FiDollarSign className="text-green-500" />
           <h2 className="text-lg font-semibold">{t('analytics.sections.marketingSpendVsRoi')}</h2>
-          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.aiRoiEstimator')}</span>
-          <span className="ml-2 text-xs bg-red-100 text-red-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.overspendAlerts')}</span>
+          <span className={`text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse ${isRTLMode ? 'mr-2' : 'ml-2'}`}>{t('analytics.aiFeatures.aiRoiEstimator')}</span>
+          <span className={`text-xs bg-red-100 text-red-700 px-2 py-1 rounded animate-pulse ${isRTLMode ? 'mr-2' : 'ml-2'}`}>{t('analytics.aiFeatures.overspendAlerts')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
-              <tr className="text-left border-b dark:border-gray-700">
+              <tr className={`border-b dark:border-gray-700 ${isRTLMode ? 'text-right' : 'text-left'}`}>
                 <th className="pb-3 font-medium">{t('analytics.marketingSpend.campaign')}</th>
                 <th className="pb-3 font-medium">{t('analytics.marketingSpend.budgeted')}</th>
                 <th className="pb-3 font-medium">{t('analytics.marketingSpend.actual')}</th>
@@ -195,22 +259,24 @@ export default function MarketingHeadReportingAnalytics() {
         </div>
         <div className="p-4 bg-green-50 dark:bg-green-900/30 rounded-lg">
           <div className="font-medium mb-1">{t('analytics.marketingSpend.aiPoweredRoiEstimator')}</div>
-          <div className="text-sm text-green-700 dark:text-green-300">Predicted outcome: $18,000 revenue, 600 leads for next campaign.</div>
+          <div className="text-sm text-green-700 dark:text-green-300">
+            {isRTLMode ? 'النتيجة المتوقعة: 18,000 دولار إيرادات، 600 عميل محتمل للحملة القادمة.' : 'Predicted outcome: $18,000 revenue, 600 leads for next campaign.'}
+          </div>
         </div>
       </section>
 
       {/* 3. Campaign Performance Reports */}
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6" data-tour="4" data-tour-title-en="Campaign Reports" data-tour-title-ar="تقارير الحملات" data-tour-content-en="Compare performance and best times." data-tour-content-ar="قارن الأداء وأفضل الأوقات.">
-        <div className="flex items-center gap-2 mb-4">
+        <div className={`flex items-center gap-2 mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
           <FiPieChart className="text-purple-500" />
           <h2 className="text-lg font-semibold">{t('analytics.sections.campaignPerformanceReports')}</h2>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.aiBestTimePredictor')}</span>
-          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.autoRanking')}</span>
+          <span className={`text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse ${isRTLMode ? 'mr-2' : 'ml-2'}`}>{t('analytics.aiFeatures.aiBestTimePredictor')}</span>
+          <span className={`text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse ${isRTLMode ? 'mr-2' : 'ml-2'}`}>{t('analytics.aiFeatures.autoRanking')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
-              <tr className="text-left border-b dark:border-gray-700">
+              <tr className={`border-b dark:border-gray-700 ${isRTLMode ? 'text-right' : 'text-left'}`}>
                 <th className="pb-3 font-medium">{t('analytics.campaignPerformance.campaign')}</th>
                 <th className="pb-3 font-medium">{t('analytics.campaignPerformance.type')}</th>
                 <th className="pb-3 font-medium">{t('analytics.campaignPerformance.openCtr')}</th>
@@ -243,22 +309,24 @@ export default function MarketingHeadReportingAnalytics() {
         </div>
         <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
           <div className="font-medium mb-1">{t('analytics.campaignPerformance.aiCampaignInsights')}</div>
-          <div className="text-sm text-blue-700 dark:text-blue-300">Best time to post: Mon 9am. Top campaign: Summer Google Ads.</div>
+          <div className="text-sm text-blue-700 dark:text-blue-300">
+            {isRTLMode ? 'أفضل وقت للنشر: الاثنين 9 صباحاً. أفضل حملة: إعلانات جوجل الصيفية.' : 'Best time to post: Mon 9am. Top campaign: Summer Google Ads.'}
+          </div>
         </div>
       </section>
 
       {/* 4. Audience & Engagement Analytics */}
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6" data-tour="5" data-tour-title-en="Audience & Engagement" data-tour-title-ar="الجمهور والتفاعل" data-tour-content-en="Demographics, device, and engagement levels." data-tour-content-ar="الخصائص السكانية والجهاز ومستويات التفاعل.">
-        <div className="flex items-center gap-2 mb-4">
+        <div className={`flex items-center gap-2 mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
           <FiUsers className="text-pink-500" />
           <h2 className="text-lg font-semibold">{t('analytics.sections.audienceEngagementAnalytics')}</h2>
-          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.aiGeoTargeting')}</span>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.demographicModeling')}</span>
+          <span className={`text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse ${isRTLMode ? 'mr-2' : 'ml-2'}`}>{t('analytics.aiFeatures.aiGeoTargeting')}</span>
+          <span className={`text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse ${isRTLMode ? 'mr-2' : 'ml-2'}`}>{t('analytics.aiFeatures.demographicModeling')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
-              <tr className="text-left border-b dark:border-gray-700">
+              <tr className={`border-b dark:border-gray-700 ${isRTLMode ? 'text-right' : 'text-left'}`}>
                 <th className="pb-3 font-medium">{t('analytics.audienceEngagement.group')}</th>
                 <th className="pb-3 font-medium">{t('analytics.audienceEngagement.engagement')}</th>
                 <th className="pb-3 font-medium">{t('analytics.audienceEngagement.device')}</th>
@@ -281,22 +349,24 @@ export default function MarketingHeadReportingAnalytics() {
         </div>
         <div className="p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg">
           <div className="font-medium mb-1">{t('analytics.audienceEngagement.aiGeoDemographicInsights')}</div>
-          <div className="text-sm text-yellow-700 dark:text-yellow-300">Suggest targeting Dammam mobile users with video content for higher engagement.</div>
+          <div className="text-sm text-yellow-700 dark:text-yellow-300">
+            {isRTLMode ? 'اقترح استهداف مستخدمي الدمام على الهاتف المحمول بمحتوى فيديو لتفاعل أعلى.' : 'Suggest targeting Dammam mobile users with video content for higher engagement.'}
+          </div>
         </div>
       </section>
 
       {/* 5. Content Effectiveness */}
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-        <div className="flex items-center gap-2 mb-4">
+        <div className={`flex items-center gap-2 mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
           <FiFileText className="text-blue-400" />
           <h2 className="text-lg font-semibold">{t('analytics.sections.contentEffectiveness')}</h2>
-          <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.aiContentRecommendation')}</span>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.repurposeSuggestion')}</span>
+          <span className={`text-xs bg-green-100 text-green-700 px-2 py-1 rounded animate-pulse ${isRTLMode ? 'mr-2' : 'ml-2'}`}>{t('analytics.aiFeatures.aiContentRecommendation')}</span>
+          <span className={`text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse ${isRTLMode ? 'mr-2' : 'ml-2'}`}>{t('analytics.aiFeatures.repurposeSuggestion')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
-              <tr className="text-left border-b dark:border-gray-700">
+              <tr className={`border-b dark:border-gray-700 ${isRTLMode ? 'text-right' : 'text-left'}`}>
                 <th className="pb-3 font-medium">{t('analytics.contentEffectiveness.type')}</th>
                 <th className="pb-3 font-medium">{t('analytics.contentEffectiveness.views')}</th>
                 <th className="pb-3 font-medium">{t('analytics.contentEffectiveness.downloads')}</th>
@@ -317,30 +387,34 @@ export default function MarketingHeadReportingAnalytics() {
             </tbody>
           </table>
         </div>
-        <div className="flex flex-col md:flex-row gap-4">
+        <div className={`flex flex-col md:flex-row gap-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
           <div className="p-4 bg-green-50 dark:bg-green-900/30 rounded-lg flex-1">
             <div className="font-medium mb-1">{t('analytics.contentEffectiveness.aiContentRecommendation')}</div>
-            <div className="text-sm text-green-700 dark:text-green-300">Use more program videos for 18-24 age group in Riyadh.</div>
+            <div className="text-sm text-green-700 dark:text-green-300">
+              {isRTLMode ? 'استخدم المزيد من فيديوهات البرامج للفئة العمرية 18-24 في الرياض.' : 'Use more program videos for 18-24 age group in Riyadh.'}
+            </div>
           </div>
           <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg flex-1">
             <div className="font-medium mb-1">{t('analytics.contentEffectiveness.aiRepurposeSuggestion')}</div>
-            <div className="text-sm text-blue-700 dark:text-blue-300">Convert top-performing blog into a video for Facebook campaign.</div>
+            <div className="text-sm text-blue-700 dark:text-blue-300">
+              {isRTLMode ? 'حول المدونة الأفضل أداءً إلى فيديو لحملة فيسبوك.' : 'Convert top-performing blog into a video for Facebook campaign.'}
+            </div>
           </div>
         </div>
       </section>
 
       {/* 6. Team Productivity Reports */}
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-        <div className="flex items-center gap-2 mb-4">
+        <div className={`flex items-center gap-2 mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
           <FiActivity className="text-pink-500" />
           <h2 className="text-lg font-semibold">{t('analytics.sections.teamProductivityReports')}</h2>
-          <span className="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.aiProductivityInsights')}</span>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.followUpDelayPrediction')}</span>
+          <span className={`text-xs bg-yellow-100 text-yellow-700 px-2 py-1 rounded animate-pulse ${isRTLMode ? 'mr-2' : 'ml-2'}`}>{t('analytics.aiFeatures.aiProductivityInsights')}</span>
+          <span className={`text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse ${isRTLMode ? 'mr-2' : 'ml-2'}`}>{t('analytics.aiFeatures.followUpDelayPrediction')}</span>
         </div>
         <div className="overflow-x-auto mb-4">
           <table className="w-full">
             <thead>
-              <tr className="text-left border-b dark:border-gray-700">
+              <tr className={`border-b dark:border-gray-700 ${isRTLMode ? 'text-right' : 'text-left'}`}>
                 <th className="pb-3 font-medium">{t('analytics.teamProductivity.member')}</th>
                 <th className="pb-3 font-medium">{t('analytics.teamProductivity.calls')}</th>
                 <th className="pb-3 font-medium">{t('analytics.teamProductivity.emails')}</th>
@@ -372,21 +446,23 @@ export default function MarketingHeadReportingAnalytics() {
         </div>
         <div className="p-4 bg-yellow-50 dark:bg-yellow-900/30 rounded-lg">
           <div className="font-medium mb-1">{t('analytics.teamProductivity.aiProductivityInsights')}</div>
-          <div className="text-sm text-yellow-700 dark:text-yellow-300">Member USA is at risk of delay on follow-ups.</div>
+          <div className="text-sm text-yellow-700 dark:text-yellow-300">
+            {isRTLMode ? 'العضو USA معرض لخطر التأخير في المتابعات.' : 'Member USA is at risk of delay on follow-ups.'}
+          </div>
         </div>
       </section>
 
       {/* 7. Performance Dashboards */}
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-        <div className="flex items-center gap-2 mb-4">
+        <div className={`flex items-center gap-2 mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
           <FiBarChart2 className="text-blue-500" />
           <h2 className="text-lg font-semibold">{t('analytics.sections.performanceDashboards')}</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
           {dashboardKPIs.map((kpi, idx) => (
-            <div key={idx} className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg flex items-center gap-4">
+            <div key={idx} className={`p-4 bg-gray-50 dark:bg-gray-700 rounded-lg flex items-center gap-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
               {kpi.icon}
-              <div>
+              <div className={isRTLMode ? 'text-right' : 'text-left'}>
                 <div className="text-xs text-gray-500 dark:text-gray-400">{kpi.label}</div>
                 <div className="text-xl font-bold">{kpi.value}</div>
               </div>
@@ -402,12 +478,12 @@ export default function MarketingHeadReportingAnalytics() {
 
       {/* 8. Custom Report Builder */}
       <section className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
-        <div className="flex items-center gap-2 mb-4">
+        <div className={`flex items-center gap-2 mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
           <FiSettings className="text-purple-500" />
           <h2 className="text-lg font-semibold">{t('analytics.sections.customReportBuilder')}</h2>
-          <span className="ml-2 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse">{t('analytics.aiFeatures.aiGeneratedReports')}</span>
+          <span className={`text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded animate-pulse ${isRTLMode ? 'mr-2' : 'ml-2'}`}>{t('analytics.aiFeatures.aiGeneratedReports')}</span>
         </div>
-        <div className="flex flex-col md:flex-row gap-4 mb-4">
+        <div className={`flex flex-col md:flex-row gap-4 mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
           <div className="flex flex-col gap-2 flex-1">
             <label className="text-sm font-medium">{t('analytics.customReportBuilder.dateRange')}</label>
             <input type="date" className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white" />
@@ -443,14 +519,22 @@ export default function MarketingHeadReportingAnalytics() {
             </select>
           </div>
         </div>
-        <div className="flex gap-2 mb-4">
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"><FiSearch /> {t('analytics.customReportBuilder.generate')}</button>
-          <button className="px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center gap-2"><FiDownload /> {t('analytics.customReportBuilder.export')}</button>
-          <button className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2"><FiPlus /> {t('analytics.customReportBuilder.schedule')}</button>
+        <div className={`flex gap-2 mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+          <button className={`px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+            <FiSearch /> {t('analytics.customReportBuilder.generate')}
+          </button>
+          <button className={`px-4 py-2 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 flex items-center gap-2 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+            <FiDownload /> {t('analytics.customReportBuilder.export')}
+          </button>
+          <button className={`px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+            <FiPlus /> {t('analytics.customReportBuilder.schedule')}
+          </button>
         </div>
         <div className="p-4 bg-purple-50 dark:bg-purple-900/30 rounded-lg">
           <div className="font-medium mb-1">{t('analytics.customReportBuilder.aiGeneratedNarrativeReport')}</div>
-          <div className="text-sm text-purple-700 dark:text-purple-300">This week, your LinkedIn campaign brought in 20% more leads at 10% lower cost. Facebook campaign ROI dropped by 5% due to higher CPC.</div>
+          <div className="text-sm text-purple-700 dark:text-purple-300">
+            {isRTLMode ? 'هذا الأسبوع، حملة لينكد إن جلبت 20% عملاء محتملين أكثر بتكلفة أقل 10%. انخفض عائد الاستثمار لحملة فيسبوك بنسبة 5% بسبب ارتفاع تكلفة النقرة.' : 'This week, your LinkedIn campaign brought in 20% more leads at 10% lower cost. Facebook campaign ROI dropped by 5% due to higher CPC.'}
+          </div>
         </div>
       </section>
     </div>
@@ -515,8 +599,7 @@ function LeadSummaryChart() {
     </div>
   );
 }
-
-// --- ROI Trend Chart ---
+{/* // --- ROI Trend Chart --- */}
 function ROITrendChart() {
   // Animation for line/points
   const [animatedVals, setAnimatedVals] = useState(Array(roiTrendData.length).fill(1.0));
@@ -576,4 +659,4 @@ function ROITrendChart() {
       <div className="text-xs text-gray-500 w-full text-left mt-2">ROI Trend Over Last 7 Days</div>
     </div>
   );
-} 
+}

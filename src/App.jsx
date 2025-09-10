@@ -100,7 +100,10 @@ import DirectorWorkspace from './features/director/components/DirectorWorkspace'
 import DirectorSupport from './features/director/components/DirectorSupport';
 import { LocalizationProvider } from './hooks/useLocalization.jsx';
 import './utils/i18n'; // Initialize i18n
-
+// Add this line with other imports (around line 100)
+import TestAISearch from "./features/ai-enhanced/Tests/TestAISearch";
+import DirectorEnhanced from './features/ai-enhanced/director/pages/DirectorEnhanced';
+import AdmissionHeadEnhanced from './features/ai-enhanced/admission-head/pages/AdmissionHeadEnhanced';
 // AI Chat Components
 import DirectorAIChat from "./features/director/pages/DirectorAIChat";
 import MarketingHeadAIChat from "./features/marketing-head/pages/MarketingHeadAIChat";
@@ -136,6 +139,11 @@ export default function App() {
           <Route path="support" element={<MarketingHeadSupport />} />
           <Route path="ai-chat" element={<MarketingHeadAIChat />} />
         </Route>
+{/* ADD THE TEST ROUTE HERE */}
+<Route path="/test-ai-search" element={<TestAISearch />} />
+<Route path="/test-director-ai" element={<DirectorEnhanced />} />
+<Route path="/test-admission-head-ai" element={<AdmissionHeadEnhanced />} />
+{/* <Route path="/test-marketing-behavior" element={<MarketingHeadEnhanced />} /> */}
 
         <Route path="/rbac/marketing-manager" element={<MarketingManagerDashboard />} />
         <Route path="/rbac/admission-head" element={<AdmissionHeadLayout />}>

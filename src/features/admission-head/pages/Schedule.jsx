@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FiCalendar, FiUsers, FiUserCheck, FiAlertCircle, FiClock, FiMapPin, FiMail, FiPlus, FiChevronDown, FiChevronUp, FiCheckCircle, FiXCircle, FiZap, FiEdit2, FiTrash2, FiArrowRight, FiRepeat, FiDownload, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
+import { FiCalendar, FiUsers, FiUserCheck, FiAlertCircle, FiClock, FiMapPin, FiMail, FiPlus, FiChevronDown, FiChevronUp, FiCheckCircle, FiXCircle, FiZap, FiEdit2, FiTrash2, FiArrowRight, FiRepeat, FiDownload, FiChevronLeft, FiChevronRight, FiCpu, FiTarget } from 'react-icons/fi';
+import { useLocalization } from '../../../hooks/useLocalization';
+import AdmissionHeadInterviewScheduling from '../components/ai/AdmissionHeadInterviewScheduling';
 
 // Mock data for appointments
 const mockTypes = [
@@ -148,10 +150,10 @@ function AnalyticsWidgets({ appointments, staff }) {
         <span className="font-semibold mb-2 text-gray-700 dark:text-gray-200">Staff Leaderboard</span>
         <div className="flex flex-col gap-2 w-full">
           {staffCounts.map((s, i) => (
-            <div key={s.name} className="flex items-center gap-2 w-full">
-              <img src={s.avatar} alt={s.name} className="w-6 h-6 rounded-full border-2 border-blue-200" />
-              <span className="text-xs font-medium text-gray-700 dark:text-gray-200 flex-1">{s.name}</span>
-              <span className="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full text-xs">{s.count}</span>
+            <div key={s.name} className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div className={`w-6 h-6 rounded-full ${s.color} flex items-center justify-center text-xs font-bold text-white`}>{i + 1}</div>
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-200">{s.name}</span>
+              <span className="text-xs text-gray-500 dark:text-gray-400 ml-auto">{s.count}</span>
             </div>
           ))}
         </div>
@@ -161,32 +163,55 @@ function AnalyticsWidgets({ appointments, staff }) {
 }
 
 export default function Schedule() {
-  const { t } = useTranslation(['admission', 'common']);
-  // State for appointments, filters, modals, etc.
-  const [appointments, setAppointments] = useState(() => {
-    const ls = localStorage.getItem('appointments');
-    return ls ? JSON.parse(ls).map(a => ({ ...a, date: new Date(a.date) })) : mockAppointments;
-  });
-  useEffect(() => { localStorage.setItem('appointments', JSON.stringify(appointments)); }, [appointments]);
-  const [view, setView] = useState('month');
-  const [filterType, setFilterType] = useState('');
-  const [filterStaff, setFilterStaff] = useState('');
-  const [filterStatus, setFilterStatus] = useState('');
-  const [showAddModal, setShowAddModal] = useState(false);
-  const [addType, setAddType] = useState('Student Interview');
-  const [selectedEvent, setSelectedEvent] = useState(null);
-  const [showEventModal, setShowEventModal] = useState(false);
-  const [toast, setToast] = useState(null);
+  const { t, i18n, ready } = useTranslation(['admission', 'common']);
+  const [languageVersion, setLanguageVersion] = useState(0);
+  
+  // AI State Variables
+  const { isRTLMode } = useLocalization();
+  const [showInterviewScheduling, setShowInterviewScheduling] = useState(false);
+  const aiInterviewSchedulingRef = useRef(null);
+  
+  // State
+  const [appointments, setAppointments] = useState(mockAppointments);
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [view, setView] = useState('month');
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showEventModal, setShowEventModal] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const [addType, setAddType] = useState('');
+  const [toast, setToast] = useState(null);
+
+  // AI Functions
+  const scrollToAISection = () => {
+    if (aiInterviewSchedulingRef.current) {
+      aiInterviewSchedulingRef.current.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    }
+  };
+
+  const handleInterviewScheduling = () => {
+    setShowInterviewScheduling(true);
+    setTimeout(scrollToAISection, 100);
+  };
+
+  // Language change handler
+  useEffect(() => {
+    const handleLanguageChange = () => {
+      setLanguageVersion(prev => prev + 1);
+    };
+    i18n.on('languageChanged', handleLanguageChange);
+    return () => { i18n.off('languageChanged', handleLanguageChange); };
+  }, [i18n]);
+
+  if (!ready) {
+    return <div className="flex items-center justify-center h-64">{t('common.loading')}</div>;
+  }
 
   // Dashboard metrics
   const todayCount = appointments.filter(a => isToday(a.date)).length;
   const weekCount = appointments.filter(a => isThisWeek(a.date)).length;
-  const monthCount = appointments.filter(a => isThisMonth(a.date)).length;
-  const interviewCount = appointments.filter(a => a.type === 'Student Interview').length;
-  const outreachCount = appointments.filter(a => a.type === 'High School Outreach').length;
-  const noShowCount = appointments.filter(a => a.status === 'No-Show' && isThisMonth(a.date)).length;
-  const alertCount = appointments.filter(a => a.status === 'Rescheduled' || a.status === 'No-Show').length;
 
   // Add appointment
   function handleAddAppointment(app) {
@@ -250,7 +275,15 @@ export default function Schedule() {
   useEffect(() => { if (toast) { const t = setTimeout(() => setToast(null), 2000); return () => clearTimeout(t); } }, [toast]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 dark:from-gray-900 dark:to-gray-950 p-0 animate-fade-in" data-tour="1" data-tour-title-en="Schedule & Appointments" data-tour-title-ar="الجدولة والمواعيد" data-tour-content-en="Dashboard, AI suggestions, analytics, types, and calendar." data-tour-content-ar="لوحة المعلومات، اقتراحات الذكاء، التحليلات، الأنواع والتقويم.">
+    <div
+      key={`${i18n.language}-${languageVersion}`}
+      className={`min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 dark:from-gray-900 dark:to-gray-950 p-0 animate-fade-in ${isRTLMode ? 'rtl' : 'ltr'}`}
+      data-tour="1"
+      data-tour-title-en="Schedule & Appointments"
+      data-tour-title-ar="الجدولة والمواعيد"
+      data-tour-content-en="Dashboard, AI suggestions, analytics, types, and calendar."
+      data-tour-content-ar="لوحة المعلومات، اقتراحات الذكاء، التحليلات، الأنواع والتقويم."
+    >
       {/* Hero Header */}
       <div className="w-full bg-gradient-to-r from-blue-600 to-purple-500 py-10 px-6 md:px-12 flex flex-col md:flex-row items-center gap-6 mb-10 rounded-b-3xl shadow-lg animate-fade-in" data-tour="2" data-tour-title-en="Header" data-tour-title-ar="الرأس" data-tour-content-en="Page title and overview." data-tour-content-ar="عنوان الصفحة ونظرة عامة.">
         <div className="flex items-center gap-4">
@@ -259,6 +292,15 @@ export default function Schedule() {
             <h1 className="text-4xl font-extrabold text-white mb-2 tracking-tight">{t('schedule.title')}</h1>
             <p className="text-white/90 text-lg max-w-xl">{t('schedule.subtitle')}</p>
           </div>
+        </div>
+        <div className="flex gap-3 ml-auto">
+          <button 
+            className="flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg font-semibold transition-all duration-200 backdrop-blur-sm"
+            onClick={handleInterviewScheduling}
+          >
+            <FiCpu className="w-4 h-4" />
+            {isRTLMode ? 'جدولة المقابلات الذكية' : 'AI Interview Scheduling'}
+          </button>
         </div>
       </div>
 
@@ -295,13 +337,38 @@ export default function Schedule() {
           </div>
         </div>
       </div>
+      
       {/* AI & Analytics widgets */}
       <div data-tour="4" data-tour-title-en="AI & Analytics" data-tour-title-ar="الذكاء والتحليلات" data-tour-content-en="Smart suggestions and analytics widgets." data-tour-content-ar="اقتراحات ذكية وواجهات تحليلية.">
         <AISmartPanel appointments={appointments} staff={mockStaff} />
         <AnalyticsWidgets appointments={appointments} staff={mockStaff} />
       </div>
+
+      {/* AI Interview Scheduling Section */}
+      {showInterviewScheduling && (
+        <div ref={aiInterviewSchedulingRef} className="max-w-7xl mx-auto px-4 mb-8">
+          <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 animate-fade-in">
+            <div className="flex justify-between items-center mb-6">
+              <div className="flex items-center gap-3">
+                <FiCpu className="text-purple-500 animate-pulse" size={24} />
+                <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                  {isRTLMode ? 'جدولة المقابلات الذكية' : 'AI Interview Scheduling'}
+                </h2>
+              </div>
+              <button
+                onClick={() => setShowInterviewScheduling(false)}
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-xl"
+              >
+                ✕
+              </button>
+            </div>
+            <AdmissionHeadInterviewScheduling />
+          </div>
+        </div>
+      )}
+
       {/* Appointment Types */}
-      <div className="mb-8" data-tour="6" data-tour-title-en="Appointment Types" data-tour-title-ar="أنواع المواعيد" data-tour-content-en="Quick actions to add different appointment types." data-tour-content-ar="إجراءات سريعة لإضافة أنواع مختلفة من المواعيد.">
+      <div className="max-w-7xl mx-auto px-4 mb-8" data-tour="6" data-tour-title-en="Appointment Types" data-tour-title-ar="أنواع المواعيد" data-tour-content-en="Quick actions to add different appointment types." data-tour-content-ar="إجراءات سريعة لإضافة أنواع مختلفة من المواعيد.">
         <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">{t('schedule.types.title')}</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
           {mockTypes.map((type, index) => (
@@ -318,30 +385,34 @@ export default function Schedule() {
       </div>
 
       {/* Calendar Controls */}
-      <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 mb-8" data-tour="7" data-tour-title-en="Calendar Controls" data-tour-title-ar="عناصر التحكم في التقويم" data-tour-content-en="Navigate months and switch views." data-tour-content-ar="تنقل بين الشهور وغيّر طرق العرض.">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-          <div className="flex items-center gap-4">
-            <button onClick={() => setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() - 1))} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiChevronLeft className="text-gray-600 dark:text-gray-400" />
-            </button>
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
-              {currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
-            </h2>
-            <button onClick={() => setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() + 1))} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
-              <FiChevronRight className="text-gray-600 dark:text-gray-400" />
-            </button>
-          </div>
-          <div className="flex gap-2">
-            <button className={`px-4 py-2 rounded-lg font-medium transition ${view === 'month' ? 'bg-blue-600 text-white shadow' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200'}`} onClick={() => setView('month')}>{t('schedule.view.month')}</button>
-            <button className={`px-4 py-2 rounded-lg font-medium transition ${view === 'week' ? 'bg-blue-600 text-white shadow' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200'}`} onClick={() => setView('week')}>{t('schedule.view.week')}</button>
-            <button className={`px-4 py-2 rounded-lg font-medium transition ${view === 'day' ? 'bg-blue-600 text-white shadow' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200'}`} onClick={() => setView('day')}>{t('schedule.view.day')}</button>
+      <div className="max-w-7xl mx-auto px-4 mb-8">
+        <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 mb-8" data-tour="7" data-tour-title-en="Calendar Controls" data-tour-title-ar="عناصر التحكم في التقويم" data-tour-content-en="Navigate months and switch views." data-tour-content-ar="تنقل بين الشهور وغيّر طرق العرض.">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div className="flex items-center gap-4">
+              <button onClick={() => setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() - 1))} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                <FiChevronLeft className="text-gray-600 dark:text-gray-400" />
+              </button>
+              <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                {currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
+              </h2>
+              <button onClick={() => setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() + 1))} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+                <FiChevronRight className="text-gray-600 dark:text-gray-400" />
+              </button>
+            </div>
+            <div className="flex gap-2">
+              <button className={`px-4 py-2 rounded-lg font-medium transition ${view === 'month' ? 'bg-blue-600 text-white shadow' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200'}`} onClick={() => setView('month')}>{t('schedule.view.month')}</button>
+              <button className={`px-4 py-2 rounded-lg font-medium transition ${view === 'week' ? 'bg-blue-600 text-white shadow' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200'}`} onClick={() => setView('week')}>{t('schedule.view.week')}</button>
+              <button className={`px-4 py-2 rounded-lg font-medium transition ${view === 'day' ? 'bg-blue-600 text-white shadow' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200'}`} onClick={() => setView('day')}>{t('schedule.view.day')}</button>
+            </div>
           </div>
         </div>
+        {/* Calendar & Filters */}
+        <CalendarGrid />
       </div>
-      {/* Calendar & Filters */}
-      <CalendarGrid />
+      
       {/* Toast */}
       {toast && <div className="fixed bottom-6 right-6 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-fade-in">{toast}</div>}
+      
       {/* Add Appointment Modal */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 animate-fade-in">
@@ -361,6 +432,7 @@ export default function Schedule() {
           </div>
         </div>
       )}
+      
       {/* Event Modal */}
       {showEventModal && selectedEvent && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 animate-fade-in">
@@ -383,4 +455,4 @@ export default function Schedule() {
       )}
     </div>
   );
-} 
+}

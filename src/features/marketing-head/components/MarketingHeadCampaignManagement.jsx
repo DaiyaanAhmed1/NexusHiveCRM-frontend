@@ -1,6 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from 'react-i18next';
+import { useLocalization } from "/src/hooks/useLocalization";
+import { FiZap, FiMail, FiTrendingUp } from 'react-icons/fi';
+import MarketingEmailTemplates from './ai/MarketingEmailTemplates';
+import MarketingCampaignPrediction from './ai/MarketingCampaignPrediction';
 
 // Demo data for campaigns
 const campaigns = [
@@ -90,6 +94,7 @@ const channelPerformance = [
 
 export default function MarketingHeadCampaignManagement() {
   const { t, ready, i18n } = useTranslation('marketing');
+  const { isRTLMode } = useLocalization();
   const [languageVersion, setLanguageVersion] = useState(0);
   
   useEffect(() => {
@@ -119,6 +124,26 @@ export default function MarketingHeadCampaignManagement() {
   });
   const [expanded, setExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
+
+  // AI Features State
+  const [showEmailTemplates, setShowEmailTemplates] = useState(false);
+  const [showCampaignPrediction, setShowCampaignPrediction] = useState(false);
+  const [selectedCampaignForAI, setSelectedCampaignForAI] = useState(null);
+
+  // Add refs for auto-scroll functionality
+  const emailTemplatesRef = useRef(null);
+  const campaignPredictionRef = useRef(null);
+
+  // Auto-scroll to AI section
+  const scrollToAISection = (sectionRef) => {
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest'
+      });
+    }
+  };
 
   const handleCampaignClick = (campaign) => {
     setSelectedCampaign(campaign);
@@ -265,7 +290,7 @@ export default function MarketingHeadCampaignManagement() {
   };
 
   return (
-    <div key={`${i18n.language}-${languageVersion}`} className="flex flex-col gap-8" data-tour="1" data-tour-title-en="Campaigns Overview" data-tour-title-ar="نظرة عامة على الحملات" data-tour-content-en="Create, track, and analyze campaigns." data-tour-content-ar="أنشئ وتتبع وحلل الحملات." data-tour-position="bottom">
+    <div key={`${i18n.language}-${languageVersion}`} className={`flex flex-col gap-8 ${isRTLMode ? 'rtl' : 'ltr'}`} data-tour="1" data-tour-title-en="Campaigns Overview" data-tour-title-ar="نظرة عامة على الحملات" data-tour-content-en="Create, track, and analyze campaigns." data-tour-content-ar="أنشئ وتتبع وحلل الحملات." data-tour-position="bottom">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
@@ -278,6 +303,29 @@ export default function MarketingHeadCampaignManagement() {
           </button>
           <button className="px-4 py-2 text-sm bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600">
             {t('campaigns.exportReport')}
+          </button>
+          {/* AI Features Buttons with Auto-scroll */}
+          <button 
+            className="px-4 py-2 text-sm bg-purple-600 text-white rounded-lg hover:bg-purple-700 flex items-center gap-2"
+            onClick={() => {
+              setShowEmailTemplates(!showEmailTemplates);
+              if (!showEmailTemplates) {
+                setTimeout(() => scrollToAISection(emailTemplatesRef), 100);
+              }
+            }}
+          >
+            <FiMail /> AI Email Templates
+          </button>
+          <button 
+            className="px-4 py-2 text-sm bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2"
+            onClick={() => {
+              setShowCampaignPrediction(!showCampaignPrediction);
+              if (!showCampaignPrediction) {
+                setTimeout(() => scrollToAISection(campaignPredictionRef), 100);
+              }
+            }}
+          >
+            <FiTrendingUp /> AI Predictions
           </button>
         </div>
       </div>
@@ -334,6 +382,32 @@ export default function MarketingHeadCampaignManagement() {
           ))}
         </div>
       </div>
+
+      {/* AI Email Templates Section */}
+      {showEmailTemplates && (
+        <section ref={emailTemplatesRef} className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+          <MarketingEmailTemplates 
+            campaigns={campaignsList}
+            onTemplateGenerated={(template) => {
+              console.log('Email template generated:', template);
+              // Handle template generation
+            }}
+          />
+        </section>
+      )}
+
+      {/* AI Campaign Prediction Section */}
+      {showCampaignPrediction && (
+        <section ref={campaignPredictionRef} className="bg-white dark:bg-gray-800 rounded-xl shadow p-6">
+          <MarketingCampaignPrediction 
+            campaigns={campaignsList}
+            onPredictionComplete={(prediction) => {
+              console.log('Campaign prediction completed:', prediction);
+              // Handle prediction results
+            }}
+          />
+        </section>
+      )}
 
       {/* Campaigns List */}
       <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm overflow-hidden" data-tour="4" data-tour-title-en="Campaigns List" data-tour-title-ar="قائمة الحملات" data-tour-content-en="Browse and manage individual campaigns." data-tour-content-ar="تصفح وأدر الحملات الفردية.">

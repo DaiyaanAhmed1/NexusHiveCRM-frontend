@@ -1,12 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
+import { useLocalization } from "../../../hooks/useLocalization";
 import { directorFeatures } from '../../../components/directorFeatures';
+import DirectorStrategicInsights from './ai/DirectorStrategicInsights';
+// ... existing code ...
+
+import { 
+  FiTarget, 
+  FiCheckCircle, 
+  FiXCircle, 
+  FiEdit3,
+  FiFilter,
+  FiDownload,
+  FiEye,
+  FiClock,
+  FiAlertTriangle,
+  FiTrendingUp,
+  FiUsers,
+  FiDollarSign,
+  FiShield,
+  FiAward,
+  FiBarChart2,
+  FiZap,
+  FiPlus,
+  FiSearch,
+  FiCalendar,
+  FiChevronLeft,
+  FiChevronRight, // Added missing import
+  FiMinus,
+  FiArrowUp,
+  FiArrowDown,
+  FiStar,
+  FiFlag,
+  FiUser,
+  FiHome,
+  FiTag,
+  FiBookOpen,
+  FiFileText,
+  FiMessageSquare // Added missing import
+} from 'react-icons/fi';
+
+// ... existing code ...
 
 // Demo data will be generated dynamically with translations
 
 export default function DirectorApprovalCenter() {
   const { t, ready } = useTranslation('director');
+  const { isRTLMode } = useLocalization();
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedStatus, setSelectedStatus] = useState("All");
   const [selectedPriority, setSelectedPriority] = useState("All");
@@ -15,6 +56,31 @@ export default function DirectorApprovalCenter() {
   const [comment, setComment] = useState("");
   const [requests, setRequests] = useState([]);
   const user = JSON.parse(localStorage.getItem('rbac_current_user'));
+
+  // AI Features State
+  const [showStrategicInsights, setShowStrategicInsights] = useState(false);
+  const [strategicInsights, setStrategicInsights] = useState(null);
+
+  // Refs for auto-scroll functionality
+  const strategicRef = useRef(null);
+
+  // Auto-scroll to AI sections
+  const scrollToAISection = (sectionRef) => {
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    }
+  };
+
+  // Handle AI button clicks with auto-scroll
+  const handleShowStrategicInsights = () => {
+    setShowStrategicInsights(!showStrategicInsights);
+    if (!showStrategicInsights) {
+      setTimeout(() => scrollToAISection(strategicRef), 100);
+    }
+  };
 
   // Function to get translated demo data
   const getTranslatedApprovalRequests = () => [
@@ -35,7 +101,12 @@ export default function DirectorApprovalCenter() {
       comments: [
         { user: t('approvalCenter.faculty.drNoura'), text: t('approvalCenter.comments.courseAligned'), date: "2024-03-15" },
         { user: t('approvalCenter.teams.academicCommittee'), text: t('approvalCenter.comments.underReview'), date: "2024-03-16" }
-      ]
+      ],
+      trend: "up",
+      urgency: "high",
+      daysPending: 3,
+      categoryIcon: FiBookOpen,
+      categoryColor: "blue"
     },
     {
       id: 2,
@@ -52,7 +123,12 @@ export default function DirectorApprovalCenter() {
       attachments: [t('approvalCenter.attachments.curriculumChanges'), t('approvalCenter.attachments.industryFeedback')],
       comments: [
         { user: t('approvalCenter.faculty.drKhalid'), text: t('approvalCenter.comments.updatedRequirements'), date: "2024-03-14" }
-      ]
+      ],
+      trend: "stable",
+      urgency: "medium",
+      daysPending: 4,
+      categoryIcon: FiBookOpen,
+      categoryColor: "blue"
     },
     // Faculty & HR Approvals
     {
@@ -70,7 +146,12 @@ export default function DirectorApprovalCenter() {
       attachments: [t('approvalCenter.attachments.jobDescription'), t('approvalCenter.attachments.candidateProfile')],
       comments: [
         { user: t('approvalCenter.teams.hrTeam'), text: t('approvalCenter.comments.positionReviewed'), date: "2024-03-13" }
-      ]
+      ],
+      trend: "up",
+      urgency: "high",
+      daysPending: 5,
+      categoryIcon: FiUsers,
+      categoryColor: "green"
     },
     // Financial Approvals
     {
@@ -88,7 +169,12 @@ export default function DirectorApprovalCenter() {
       attachments: [t('approvalCenter.attachments.projectProposal'), t('approvalCenter.attachments.budgetBreakdown')],
       comments: [
         { user: t('approvalCenter.teams.financeTeam'), text: t('approvalCenter.comments.budgetReview'), date: "2024-03-12" }
-      ]
+      ],
+      trend: "up",
+      urgency: "high",
+      daysPending: 6,
+      categoryIcon: FiDollarSign,
+      categoryColor: "green"
     },
     // Administrative Approvals
     {
@@ -106,7 +192,12 @@ export default function DirectorApprovalCenter() {
       attachments: [t('approvalCenter.attachments.eventPlan'), t('approvalCenter.attachments.budgetProposal')],
       comments: [
         { user: t('approvalCenter.teams.eventCommittee'), text: t('approvalCenter.comments.venueSpeakers'), date: "2024-03-11" }
-      ]
+      ],
+      trend: "down",
+      urgency: "low",
+      daysPending: 7,
+      categoryIcon: FiCalendar,
+      categoryColor: "purple"
     },
     // Compliance Approvals
     {
@@ -124,7 +215,12 @@ export default function DirectorApprovalCenter() {
       attachments: [t('approvalCenter.attachments.etecReport'), t('approvalCenter.attachments.supportingDocs')],
       comments: [
         { user: t('approvalCenter.teams.qaTeam'), text: t('approvalCenter.comments.documentsCompiled'), date: "2024-03-10" }
-      ]
+      ],
+      trend: "up",
+      urgency: "high",
+      daysPending: 8,
+      categoryIcon: FiShield,
+      categoryColor: "orange"
     }
   ];
 
@@ -181,6 +277,47 @@ export default function DirectorApprovalCenter() {
     }
   };
 
+  const getUrgencyColor = (urgency) => {
+    switch (urgency) {
+      case "high":
+        return "bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300";
+      case "medium":
+        return "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300";
+      case "low":
+        return "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300";
+      default:
+        return "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300";
+    }
+  };
+
+  const getTrendIcon = (trend) => {
+    switch (trend) {
+      case 'up': return <FiArrowUp className="w-4 h-4 text-red-500" />;
+      case 'down': return <FiArrowDown className="w-4 h-4 text-green-500" />;
+      default: return <FiMinus className="w-4 h-4 text-gray-500" />;
+    }
+  };
+
+  const getCategoryColor = (color) => {
+    switch (color) {
+      case 'blue': return 'text-blue-600 dark:text-blue-400';
+      case 'green': return 'text-green-600 dark:text-green-400';
+      case 'purple': return 'text-purple-600 dark:text-purple-400';
+      case 'orange': return 'text-orange-600 dark:text-orange-400';
+      default: return 'text-gray-600 dark:text-gray-400';
+    }
+  };
+
+  const getCategoryBgColor = (color) => {
+    switch (color) {
+      case 'blue': return 'bg-blue-100 dark:bg-blue-900/30';
+      case 'green': return 'bg-green-100 dark:bg-green-900/30';
+      case 'purple': return 'bg-purple-100 dark:bg-purple-900/30';
+      case 'orange': return 'bg-orange-100 dark:bg-orange-900/30';
+      default: return 'bg-gray-100 dark:bg-gray-700';
+    }
+  };
+
   const handleBulkAction = (action) => {
     // Handle bulk approve/reject
     console.log(`Bulk ${action} for:`, selectedRequests);
@@ -198,55 +335,103 @@ export default function DirectorApprovalCenter() {
             key={request.id}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow"
+            className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 group cursor-pointer"
+            onClick={() => setSelectedRequest(request)}
           >
-            <div className="flex items-start gap-4">
+            <div className={`flex items-start gap-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
               <input
                 type="checkbox"
                 checked={selectedRequests.includes(request.id)}
                 onChange={(e) => {
+                  e.stopPropagation();
                   if (e.target.checked) {
                     setSelectedRequests([...selectedRequests, request.id]);
                   } else {
                     setSelectedRequests(selectedRequests.filter(id => id !== request.id));
                   }
                 }}
-                className="mt-1"
+                className="mt-1 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
               />
-              <div 
-                className="flex-1 cursor-pointer"
-                onClick={() => setSelectedRequest(request)}
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(request.status)}`}>
+              
+              <div className="flex-1">
+                {/* Header with category and status badges */}
+                <div className={`flex items-center justify-between mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+                  <div className={`flex items-center gap-3 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+                    <div className={`p-2 rounded-lg ${getCategoryBgColor(request.categoryColor)}`}>
+                      <request.categoryIcon className={`w-4 h-4 ${getCategoryColor(request.categoryColor)}`} />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        {request.title}
+                      </h3>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                        {request.department} • {t('approvalCenter.requestDetails.requestedBy')} {request.requestedBy}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  <div className={`flex items-center gap-2 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+                    {request.amount > 0 && (
+                      <div className="text-right">
+                        <p className="text-lg font-bold text-gray-900 dark:text-white">
+                          ${request.amount.toLocaleString()}
+                        </p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">Amount</p>
+                      </div>
+                    )}
+                    <div className="text-right">
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                        {new Date(request.date).toLocaleDateString()}
+                      </p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                        {request.daysPending} days pending
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Status and priority badges */}
+                <div className={`flex items-center gap-2 mb-3 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(request.status)}`}>
                     {request.status === "Revision Requested" ? t('approvalCenter.statuses.revision') : request.status}
                   </span>
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(request.priority)}`}>
+                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${getPriorityColor(request.priority)}`}>
                     {request.priority}
+                  </span>
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${getUrgencyColor(request.urgency)}`}>
+                    {request.urgency}
                   </span>
                   <span className="text-sm text-gray-600 dark:text-gray-300">
                     {request.category} • {request.type}
                   </span>
+                  <div className="flex items-center gap-1">
+                    {getTrendIcon(request.trend)}
+                  </div>
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
-                  {request.title}
-                </h3>
-                <p className="text-sm text-gray-600 dark:text-gray-300 mb-2">
-                  {request.department} • {t('approvalCenter.requestDetails.requestedBy')} {request.requestedBy}
-                </p>
-                <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2">
+
+                {/* Description */}
+                <p className="text-sm text-gray-600 dark:text-gray-300 line-clamp-2 mb-4">
                   {request.description}
                 </p>
-              </div>
-              <div className="flex flex-col items-end gap-2">
-                {request.amount > 0 && (
-                  <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                    ${request.amount.toLocaleString()}
-                  </p>
-                )}
-                <p className="text-sm text-gray-600 dark:text-gray-300">
-                  {new Date(request.date).toLocaleDateString()}
-                </p>
+
+                {/* Footer with attachments and comments count */}
+                <div className={`flex items-center justify-between ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+                  <div className={`flex items-center gap-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+                    <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+                      <FiFileText className="w-3 h-3" />
+                      <span>{request.attachments.length} attachments</span>
+                    </div>
+                    <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+                      <FiMessageSquare className="w-3 h-3" />
+                      <span>{request.comments.length} comments</span>
+                    </div>
+                  </div>
+                  
+                  <div className={`flex items-center gap-1 text-gray-400 group-hover:text-blue-500 transition-colors ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+                    <span className="text-sm">View Details</span>
+                    {isRTLMode ? <FiChevronLeft className="w-4 h-4" /> : <FiChevronRight className="w-4 h-4" />}
+                  </div>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -261,31 +446,44 @@ export default function DirectorApprovalCenter() {
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
-        className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg"
+        className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700"
       >
-        <div className="flex justify-between items-start mb-6">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(selectedRequest.status)}`}>
+        {/* Header */}
+        <div className={`flex justify-between items-start mb-8 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+          <div className="flex-1">
+            <div className={`flex items-center gap-3 mb-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+              <div className={`p-3 rounded-xl ${getCategoryBgColor(selectedRequest.categoryColor)}`}>
+                <selectedRequest.categoryIcon className={`w-6 h-6 ${getCategoryColor(selectedRequest.categoryColor)}`} />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  {selectedRequest.title}
+                </h2>
+                <p className="text-gray-600 dark:text-gray-300">
+                  {selectedRequest.department} • {t('approvalCenter.requestDetails.requestedBy')} {selectedRequest.requestedBy}
+                </p>
+              </div>
+            </div>
+            
+            <div className={`flex items-center gap-3 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+              <span className={`px-4 py-2 rounded-full text-sm font-medium ${getStatusColor(selectedRequest.status)}`}>
                 {selectedRequest.status === "Revision Requested" ? t('approvalCenter.statuses.revision') : selectedRequest.status}
               </span>
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(selectedRequest.priority)}`}>
+              <span className={`px-4 py-2 rounded-full text-sm font-medium ${getPriorityColor(selectedRequest.priority)}`}>
                 {selectedRequest.priority}
+              </span>
+              <span className={`px-3 py-2 rounded-full text-sm font-medium ${getUrgencyColor(selectedRequest.urgency)}`}>
+                {selectedRequest.urgency}
               </span>
               <span className="text-sm text-gray-600 dark:text-gray-300">
                 {selectedRequest.category} • {selectedRequest.type}
               </span>
             </div>
-            <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-1">
-              {selectedRequest.title}
-            </h2>
-            <p className="text-sm text-gray-600 dark:text-gray-300">
-              {selectedRequest.department} • {t('approvalCenter.requestDetails.requestedBy')} {selectedRequest.requestedBy}
-            </p>
           </div>
+          
           <button
             onClick={() => setSelectedRequest(null)}
-            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+            className="p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -293,104 +491,159 @@ export default function DirectorApprovalCenter() {
           </button>
         </div>
 
-        <div className="space-y-6">
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{t('approvalCenter.requestDetails.description')}</h3>
-            <p className="text-gray-600 dark:text-gray-300">{selectedRequest.description}</p>
-          </div>
+        {/* Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main Content */}
+          <div className="lg:col-span-2 space-y-8">
+            {/* Description */}
+            <div className="bg-gray-50 dark:bg-gray-700/50 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                <FiFileText className="w-5 h-5 text-blue-500" />
+                {t('approvalCenter.requestDetails.description')}
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{selectedRequest.description}</p>
+            </div>
 
-          {selectedRequest.amount > 0 && (
+            {/* Amount */}
+            {selectedRequest.amount > 0 && (
+              <div className="bg-green-50 dark:bg-green-900/20 rounded-xl p-6">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                  <FiDollarSign className="w-5 h-5 text-green-500" />
+                  {t('approvalCenter.requestDetails.amount')}
+                </h3>
+                <p className="text-3xl font-bold text-green-600 dark:text-green-400">
+                  ${selectedRequest.amount.toLocaleString()}
+                </p>
+              </div>
+            )}
+
+            {/* Attachments */}
             <div>
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{t('approvalCenter.requestDetails.amount')}</h3>
-              <p className="text-2xl font-bold text-gray-900 dark:text-white">
-                ${selectedRequest.amount.toLocaleString()}
-              </p>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                <FiDownload className="w-5 h-5 text-purple-500" />
+                {t('approvalCenter.requestDetails.attachments')}
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                {selectedRequest.attachments.map((file, index) => (
+                  <a
+                    key={index}
+                    href="#"
+                    className="flex items-center gap-3 p-4 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  >
+                    <FiFileText className="w-5 h-5 text-gray-500 dark:text-gray-400" />
+                    <span className="text-sm font-medium text-gray-900 dark:text-white">{file}</span>
+                  </a>
+                ))}
+              </div>
             </div>
-          )}
 
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{t('approvalCenter.requestDetails.attachments')}</h3>
-            <div className="flex flex-wrap gap-2">
-              {selectedRequest.attachments.map((file, index) => (
-                <a
-                  key={index}
-                  href="#"
-                  className="px-3 py-1.5 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded-lg text-sm hover:bg-gray-200 dark:hover:bg-gray-600"
-                >
-                  {file}
-                </a>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{t('approvalCenter.requestDetails.comments')}</h3>
-            <div className="space-y-4">
-              {selectedRequest.comments.map((comment, index) => (
-                <div key={index} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
-                  <div className="flex justify-between items-start mb-2">
-                    <p className="font-medium text-gray-900 dark:text-white">{comment.user}</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">{comment.date}</p>
+            {/* Comments */}
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                <FiMessageSquare className="w-5 h-5 text-orange-500" />
+                {t('approvalCenter.requestDetails.comments')}
+              </h3>
+              <div className="space-y-4">
+                {selectedRequest.comments.map((comment, index) => (
+                  <div key={index} className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+                    <div className={`flex justify-between items-start mb-2 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+                      <div className="flex items-center gap-2">
+                        <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+                          <FiUser className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                        </div>
+                        <p className="font-medium text-gray-900 dark:text-white">{comment.user}</p>
+                      </div>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">{comment.date}</p>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-300">{comment.text}</p>
                   </div>
-                  <p className="text-gray-600 dark:text-gray-300">{comment.text}</p>
-                </div>
-              ))}
+                ))}
+              </div>
+            </div>
+
+            {/* Add Comment */}
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                <FiEdit3 className="w-5 h-5 text-indigo-500" />
+                {t('approvalCenter.requestDetails.addComment')}
+              </h3>
+              <textarea
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                className="w-full p-4 rounded-xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
+                rows="4"
+                placeholder={t('approvalCenter.requestDetails.commentPlaceholder')}
+              />
             </div>
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{t('approvalCenter.requestDetails.addComment')}</h3>
-            <textarea
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-              className="w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-              rows="3"
-              placeholder={t('approvalCenter.requestDetails.commentPlaceholder')}
-            />
-          </div>
+          {/* Sidebar */}
+          <div className="space-y-6">
+            {/* Quick Stats */}
+            <div className="bg-blue-50 dark:bg-blue-900/20 rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Quick Stats</h3>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600 dark:text-gray-300">Days Pending</span>
+                  <span className="font-semibold text-gray-900 dark:text-white">{selectedRequest.daysPending}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600 dark:text-gray-300">Attachments</span>
+                  <span className="font-semibold text-gray-900 dark:text-white">{selectedRequest.attachments.length}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm text-gray-600 dark:text-gray-300">Comments</span>
+                  <span className="font-semibold text-gray-900 dark:text-white">{selectedRequest.comments.length}</span>
+                </div>
+              </div>
+            </div>
 
-          <div className="flex justify-end gap-4">
-            <button 
-              className="px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700"
-              onClick={() => {
-                if (!comment.trim()) {
-                  alert(t('approvalCenter.alerts.revisionCommentRequired'));
-                  return;
-                }
-                // Update status to 'Revision Requested' in local state
-                setRequests(prev => prev.map(r => r.id === selectedRequest.id ? { ...r, status: "Revision Requested" } : r));
-                setComment("");
-                setSelectedRequest(null);
-              }}
-            >
-              {t('approvalCenter.actions.requestRevision')}
-            </button>
-            <button 
-              className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
-              onClick={() => {
-                if (!comment.trim()) {
-                  alert(t('approvalCenter.alerts.rejectionCommentRequired'));
-                  return;
-                }
-                // Update status to 'Rejected' in local state
-                setRequests(prev => prev.map(r => r.id === selectedRequest.id ? { ...r, status: "Rejected" } : r));
-                setComment("");
-                setSelectedRequest(null);
-              }}
-            >
-              {t('approvalCenter.actions.reject')}
-            </button>
-            <button 
-              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
-              onClick={() => {
-                // Update status to 'Approved' in local state
-                setRequests(prev => prev.map(r => r.id === selectedRequest.id ? { ...r, status: "Approved" } : r));
-                setComment("");
-                setSelectedRequest(null);
-              }}
-            >
-              {t('approvalCenter.actions.approve')}
-            </button>
+            {/* Action Buttons */}
+            <div className="space-y-3">
+              <button 
+                className="w-full px-6 py-3 bg-green-600 text-white rounded-xl hover:bg-green-700 flex items-center justify-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
+                onClick={() => {
+                  setRequests(prev => prev.map(r => r.id === selectedRequest.id ? { ...r, status: "Approved" } : r));
+                  setComment("");
+                  setSelectedRequest(null);
+                }}
+              >
+                <FiCheckCircle className="w-5 h-5" />
+                {t('approvalCenter.actions.approve')}
+              </button>
+              
+              <button 
+                className="w-full px-6 py-3 bg-yellow-600 text-white rounded-xl hover:bg-yellow-700 flex items-center justify-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
+                onClick={() => {
+                  if (!comment.trim()) {
+                    alert(t('approvalCenter.alerts.revisionCommentRequired'));
+                    return;
+                  }
+                  setRequests(prev => prev.map(r => r.id === selectedRequest.id ? { ...r, status: "Revision Requested" } : r));
+                  setComment("");
+                  setSelectedRequest(null);
+                }}
+              >
+                <FiEdit3 className="w-5 h-5" />
+                {t('approvalCenter.actions.requestRevision')}
+              </button>
+              
+              <button 
+                className="w-full px-6 py-3 bg-red-600 text-white rounded-xl hover:bg-red-700 flex items-center justify-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
+                onClick={() => {
+                  if (!comment.trim()) {
+                    alert(t('approvalCenter.alerts.rejectionCommentRequired'));
+                    return;
+                  }
+                  setRequests(prev => prev.map(r => r.id === selectedRequest.id ? { ...r, status: "Rejected" } : r));
+                  setComment("");
+                  setSelectedRequest(null);
+                }}
+              >
+                <FiXCircle className="w-5 h-5" />
+                {t('approvalCenter.actions.reject')}
+              </button>
+            </div>
           </div>
         </div>
       </motion.div>
@@ -398,112 +651,154 @@ export default function DirectorApprovalCenter() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
-      <main className="flex-1 p-4 md:p-6 flex flex-col gap-4 overflow-x-auto">
+    <div className={`flex min-h-screen bg-[#F6F7FA] dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 ${isRTLMode ? 'rtl' : 'ltr'}`}>
+      <main className="flex-1 p-4 md:p-6 flex flex-col gap-6 overflow-x-auto">
         {/* Header Section */}
-        <div
-          className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
-          data-tour="1"
-          data-tour-title-en="Approval Center Filters"
-          data-tour-title-ar="مرشحات مركز الموافقات"
-          data-tour-content-en="Filter by category, status, and priority to focus on relevant requests."
-          data-tour-content-ar="قم بالتصفية حسب الفئة والحالة والأولوية للتركيز على الطلبات ذات الصلة."
-          data-tour-position="bottom"
-        >
-          <div>
-            <h1 className="text-xl font-bold text-gray-900 dark:text-white">{t('approvalCenter.title')}</h1>
-            <p className="text-sm text-gray-600 dark:text-gray-300">{t('approvalCenter.subtitle')}</p>
+        <div className={`flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+          <div className={`flex-1 min-w-0 ${isRTLMode ? 'text-right' : 'text-left'}`}>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">
+              {t('approvalCenter.title')}
+            </h1>
+            <p className="text-gray-600 dark:text-gray-300 text-lg">
+              {t('approvalCenter.subtitle')}
+            </p>
           </div>
-          <div className="flex flex-wrap gap-2">
-            <select
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(e.target.value)}
-              className="px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-            >
-              {categories.map(category => (
-                <option key={category.id} value={category.id}>{category.label}</option>
-              ))}
-            </select>
-            <select
-              value={selectedStatus}
-              onChange={(e) => setSelectedStatus(e.target.value)}
-              className="px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-            >
-              <option value="All">{t('approvalCenter.statuses.allStatus')}</option>
-              <option value="Pending">{t('approvalCenter.statuses.pending')}</option>
-              <option value="Approved">{t('approvalCenter.statuses.approved')}</option>
-              <option value="Rejected">{t('approvalCenter.statuses.rejected')}</option>
-              <option value="Escalated">{t('approvalCenter.statuses.escalated')}</option>
-              <option value="Revision Requested">{t('approvalCenter.statuses.revisionRequested')}</option>
-            </select>
-            <select
-              value={selectedPriority}
-              onChange={(e) => setSelectedPriority(e.target.value)}
-              className="px-3 py-1.5 text-sm rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white"
-            >
-              <option value="All">{t('approvalCenter.priorities.allPriorities')}</option>
-              <option value="High">{t('approvalCenter.priorities.high')}</option>
-              <option value="Medium">{t('approvalCenter.priorities.medium')}</option>
-              <option value="Low">{t('approvalCenter.priorities.low')}</option>
-            </select>
+          
+          <div className={`flex flex-col sm:flex-row gap-4 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+            {/* AI Features Button */}
+            <div className={`flex-shrink-0 ${isRTLMode ? 'text-right' : 'text-left'}`}>
+              <button 
+                className={`px-6 py-3 text-sm bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 flex items-center gap-3 transition-all duration-200 shadow-lg hover:shadow-xl whitespace-nowrap ${isRTLMode ? 'flex-row-reverse' : ''}`}
+                onClick={handleShowStrategicInsights}
+              >
+                <FiTarget className="w-5 h-5 flex-shrink-0" /> 
+                <span className="hidden sm:inline font-medium">
+                  {isRTLMode ? 'الرؤى الاستراتيجية' : 'Strategic Insights'}
+                </span>
+                <span className="sm:hidden font-medium">
+                  {isRTLMode ? 'استراتيجي' : 'Strategic'}
+                </span>
+              </button>
+            </div>
+
+            {/* Filter Controls */}
+            <div className={`flex flex-wrap gap-3 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+              <select
+                value={selectedCategory}
+                onChange={(e) => setSelectedCategory(e.target.value)}
+                className="px-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              >
+                {categories.map(category => (
+                  <option key={category.id} value={category.id}>{category.label}</option>
+                ))}
+              </select>
+              <select
+                value={selectedStatus}
+                onChange={(e) => setSelectedStatus(e.target.value)}
+                className="px-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              >
+                <option value="All">{t('approvalCenter.statuses.allStatus')}</option>
+                <option value="Pending">{t('approvalCenter.statuses.pending')}</option>
+                <option value="Approved">{t('approvalCenter.statuses.approved')}</option>
+                <option value="Rejected">{t('approvalCenter.statuses.rejected')}</option>
+                <option value="Escalated">{t('approvalCenter.statuses.escalated')}</option>
+                <option value="Revision Requested">{t('approvalCenter.statuses.revisionRequested')}</option>
+              </select>
+              <select
+                value={selectedPriority}
+                onChange={(e) => setSelectedPriority(e.target.value)}
+                className="px-4 py-2.5 text-sm rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              >
+                <option value="All">{t('approvalCenter.priorities.allPriorities')}</option>
+                <option value="High">{t('approvalCenter.priorities.high')}</option>
+                <option value="Medium">{t('approvalCenter.priorities.medium')}</option>
+                <option value="Low">{t('approvalCenter.priorities.low')}</option>
+              </select>
+            </div>
           </div>
         </div>
 
+        {/* AI Strategic Insights Section */}
+        {showStrategicInsights && (
+          <section 
+            ref={strategicRef}
+            className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8 border border-gray-200 dark:border-gray-700"
+            dir={isRTLMode ? 'rtl' : 'ltr'}
+          >
+            <div className={`flex items-center gap-3 mb-6 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+              <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                <FiTarget className="text-blue-600 dark:text-blue-400 w-6 h-6" />
+              </div>
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                {isRTLMode ? 'الرؤى الاستراتيجية والتخطيط الذكي' : 'Strategic Insights & Intelligent Planning'}
+              </h2>
+            </div>
+            <div className="mb-6">
+              <p className="text-gray-600 dark:text-gray-400 text-lg">
+                {isRTLMode 
+                  ? 'رؤى استراتيجية مدعومة بالذكاء الاصطناعي لتحسين عملية الموافقات واتخاذ القرارات' 
+                  : 'AI-powered strategic insights for enhanced approval processes and decision making'
+                }
+              </p>
+            </div>
+            <DirectorStrategicInsights 
+              onInsightsGenerated={(insights) => {
+                setStrategicInsights(insights);
+                console.log('Strategic insights generated:', insights);
+              }}
+            />
+          </section>
+        )}
+
         {/* Bulk Actions */}
         {selectedRequests.length > 0 && (
-          <div
-            className="bg-white dark:bg-gray-800 rounded-xl p-4 shadow-lg"
-            data-tour="2"
-            data-tour-title-en="Bulk Actions"
-            data-tour-title-ar="إجراءات جماعية"
-            data-tour-content-en="Approve or reject multiple requests at once when selected."
-            data-tour-content-ar="قم بالموافقة على عدة طلبات أو رفضها دفعة واحدة عند تحديدها."
-            data-tour-position="bottom"
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-gray-100 dark:border-gray-700"
           >
-            <div className="flex items-center justify-between">
-              <p className="text-sm text-gray-600 dark:text-gray-300">
-                {selectedRequests.length} {t('approvalCenter.bulkActions.requestsSelected')}
-              </p>
-              <div className="flex gap-2">
+            <div className={`flex items-center justify-between ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+              <div className={`flex items-center gap-3 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
+                <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                  <FiCheckCircle className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-gray-900 dark:text-white">
+                    {selectedRequests.length} {t('approvalCenter.bulkActions.requestsSelected')}
+                  </p>
+                  <p className="text-xs text-gray-600 dark:text-gray-300">
+                    Select actions to apply to all selected requests
+                  </p>
+                </div>
+              </div>
+              <div className={`flex gap-3 ${isRTLMode ? 'flex-row-reverse' : ''}`}>
                 <button
                   onClick={() => handleBulkAction("approve")}
-                  className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                  className="px-6 py-2.5 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
                 >
+                  <FiCheckCircle className="w-4 h-4" />
                   {t('approvalCenter.bulkActions.approveSelected')}
                 </button>
                 <button
                   onClick={() => handleBulkAction("reject")}
-                  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                  className="px-6 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 flex items-center gap-2 transition-all duration-200 shadow-md hover:shadow-lg"
                 >
+                  <FiXCircle className="w-4 h-4" />
                   {t('approvalCenter.bulkActions.rejectSelected')}
                 </button>
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
 
         {/* Content Section */}
         <div className="flex-1">
           {selectedRequest ? (
-            <div
-              data-tour="4"
-              data-tour-title-en="Request Details"
-              data-tour-title-ar="تفاصيل الطلب"
-              data-tour-content-en="Review status, amount, attachments, and comments. Approve, reject, or request revision."
-              data-tour-content-ar="راجع الحالة والمبلغ والمرفقات والتعليقات. قم بالاعتماد أو الرفض أو طلب التعديل."
-              data-tour-position="left"
-            >
+            <div>
               {renderApprovalDetails()}
             </div>
           ) : (
-            <div
-              data-tour="3"
-              data-tour-title-en="Approval Requests List"
-              data-tour-title-ar="قائمة طلبات الموافقات"
-              data-tour-content-en="Browse and select requests. Click to view details and take action."
-              data-tour-content-ar="تصفح واختر الطلبات. انقر لعرض التفاصيل واتخاذ الإجراء."
-              data-tour-position="bottom"
-            >
+            <div>
               {renderApprovalList()}
             </div>
           )}
@@ -511,4 +806,4 @@ export default function DirectorApprovalCenter() {
       </main>
     </div>
   );
-} 
+}

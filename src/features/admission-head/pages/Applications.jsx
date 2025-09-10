@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FiFileText, FiCheckCircle, FiXCircle, FiClock, FiDollarSign, FiSend, FiUserCheck, FiFilter, FiSearch, FiUser, FiZap, FiAlertTriangle, FiUsers, FiCalendar, FiMail, FiDownload } from 'react-icons/fi';
+import { FiFileText, FiCheckCircle, FiXCircle, FiClock, FiDollarSign, FiSend, FiUserCheck, FiFilter, FiSearch, FiUser, FiZap, FiAlertTriangle, FiUsers, FiCalendar, FiMail, FiDownload, FiCpu, FiTarget } from 'react-icons/fi';
+import { useLocalization } from '../../../hooks/useLocalization';
+import AISearchComponent from '../components/ai/AISearchComponent';
+import AdmissionHeadApplicationProcessing from '../components/ai/AdmissionHeadApplicationProcessing';
 
 // Mock data for applications
 const mockApplications = [
@@ -147,6 +150,37 @@ export default function Applications() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState('');
   const [languageVersion, setLanguageVersion] = useState(0);
+  
+  // AI State Variables
+  const { isRTLMode } = useLocalization();
+  const [showAISearch, setShowAISearch] = useState(false);
+  const [showApplicationProcessing, setShowApplicationProcessing] = useState(false);
+  const [selectedApplicationForAI, setSelectedApplicationForAI] = useState(null);
+  const [aiSearchResults, setAiSearchResults] = useState([]);
+  const [aiProcessingResults, setAiProcessingResults] = useState(null);
+
+  // AI Functions
+  const handleAISearch = (searchQuery) => {
+    console.log('AI Search:', searchQuery);
+    // Filter applications based on AI search
+    const filtered = mockApplications.filter(app => 
+      app.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      app.program.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      app.applicationId.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setAiSearchResults(filtered);
+    setShowAISearch(true);
+  };
+
+  const handleApplicationProcessing = (application) => {
+    setSelectedApplicationForAI(application);
+    setShowApplicationProcessing(true);
+  };
+
+  const handleAIProcessingComplete = (results) => {
+    setAiProcessingResults(results);
+    console.log('AI Processing Results:', results);
+  };
 
   useEffect(() => {
     const handleLanguageChange = () => {
@@ -367,6 +401,25 @@ export default function Applications() {
             <button onClick={() => setView('card')} className={`px-4 py-2 rounded-lg font-semibold transition-colors duration-200 ${view === 'card' ? 'bg-blue-600 text-white shadow' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200'}`}>{t('applications.tracker.cardView')}</button>
           </div>
         </div>
+        
+        {/* AI Buttons */}
+        <div className="flex gap-2 mb-6 flex-wrap">
+        <button
+  onClick={() => setShowAISearch(true)}
+  className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 flex items-center gap-2 transition-colors"
+>
+  <FiCpu className="w-4 h-4" />
+  {isRTLMode ? 'البحث الذكي' : 'AI Search'}
+</button>
+          <button
+            onClick={() => setShowApplicationProcessing(true)}
+            className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2 transition-colors"
+          >
+            <FiTarget className="w-4 h-4" />
+            {isRTLMode ? 'معالجة الطلبات بالذكاء الاصطناعي' : 'AI Application Processing'}
+          </button>
+        </div>
+
         <div className="flex gap-2 mb-6 flex-wrap">
           <div className="relative flex-1 min-w-[200px]">
             <FiSearch className="absolute left-3 top-3 text-gray-400" />
@@ -585,6 +638,76 @@ export default function Applications() {
         </div>
         <button className="mt-2 px-4 py-2 bg-green-200 text-green-800 rounded-lg font-semibold" onClick={() => setBulkOffer(true)}>{t('applications.sections.bulkAssign')}</button>
       </div>
+
+      {/* AI Search Modal */}
+      {showAISearch && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 animate-fade-in">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 w-full max-w-4xl max-h-[80vh] overflow-y-auto mx-4">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                {isRTLMode ? 'البحث الذكي في الطلبات' : 'AI Search Applications'}
+              </h3>
+              <button
+                onClick={() => setShowAISearch(false)}
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-2xl font-bold"
+              >
+                ×
+              </button>
+            </div>
+            <AISearchComponent
+              onSearch={handleAISearch}
+              placeholder={isRTLMode ? 'ابحث في الطلبات أو اسأل الذكاء الاصطناعي...' : 'Search applications or ask AI anything...'}
+              className="mb-4"
+              useDummyData={true}
+            />
+            {aiSearchResults.length > 0 && (
+              <div className="mt-4">
+                <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+                  {isRTLMode ? 'نتائج البحث' : 'Search Results'}
+                </h4>
+                <div className="grid gap-2">
+                  {aiSearchResults.map((app) => (
+                    <div key={app.id} className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <p className="font-medium text-gray-900 dark:text-white">{app.name}</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">{app.program} - {app.applicationId}</p>
+                        </div>
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[getTranslatedStatus(app.statusKey)]}`}>
+                          {getTranslatedStatus(app.statusKey)}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* AI Application Processing Modal */}
+      {showApplicationProcessing && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-6 w-full max-w-6xl max-h-[80vh] overflow-y-auto">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                {isRTLMode ? 'معالجة الطلبات بالذكاء الاصطناعي' : 'AI Application Processing'}
+              </h3>
+              <button
+                onClick={() => setShowApplicationProcessing(false)}
+                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+              >
+                ✕
+              </button>
+            </div>
+            <AdmissionHeadApplicationProcessing
+              onProcessingComplete={handleAIProcessingComplete}
+            />
+          </div>
+        </div>
+      )}
+
       {/* Modals and Toasts */}
       <Modal open={showDocModal} onClose={() => setShowDocModal(false)} title={`${t('applications.documentVerification.title')}: ${docModalApplicant?.name}`}>{docModalApplicant && (
         <div>
@@ -627,4 +750,4 @@ export default function Applications() {
       {toast && <Toast message={toast} onClose={() => setToast(null)} />}
     </div>
   );
-} 
+}
