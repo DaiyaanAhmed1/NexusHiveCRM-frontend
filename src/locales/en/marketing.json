@@ -1256,5 +1256,48 @@
       "budgetPlanningMeeting": "Budget Planning Meeting",
       "dueDate": "{{date}}"
     }
+  },
+  "aiSearch": {
+    "results": {
+      "title": "Search Results",
+      "sortedBy": "Sorted by relevance",
+      "match": "Match",
+      "engagement": "Engagement",
+      "aiExplanation": "AI Explanation",
+      "explanationText": "This lead matches your search criteria and shows high engagement potential.",
+      "leadsFromRiyadh": "Here are your leads from Riyadh (Demo Data)",
+      "highEngagementProspects": "Here are your high-engagement prospects (Demo Data)",
+      "lowConversionCampaigns": "Here are campaigns with low conversion rates (Demo Data)",
+      "engineeringLeads": "Here are leads interested in engineering (Demo Data)",
+      "recentInquiriesJeddah": "Here are recent inquiries from Jeddah (Demo Data)",
+      "highPriorityFollowUps": "Here are high-priority follow-ups needed (Demo Data)"
+    },
+    "buttons": {
+      "aiReply": "AI Reply",
+      "contact": "Contact"
+    },
+    "modal": {
+      "title": "AI Reply Suggestions for"
+    },
+    "suggestions": {
+      "recentSearches": "Recent Searches",
+      "tryTheseQueries": "Try these queries",
+      "leadsFromRiyadh": "Try: \"Show me leads from Riyadh\"",
+      "highEngagementProspects": "Try: \"Find high-engagement prospects\"",
+      "lowConversionCampaigns": "Try: \"Campaigns with low conversion\"",
+      "engineeringLeads": "Try: \"Leads interested in engineering\"",
+      "recentInquiriesJeddah": "Try: \"Recent inquiries from Jeddah\"",
+      "highPriorityFollowUps": "Try: \"High-priority follow-ups needed\""
+    },
+    "errors": {
+      "serverBusy": "Server is busy. Please try again later or use one of the suggested queries."
+    },
+    "confirmation": {
+      "title": "Confirm Reply",
+      "message": "Are you sure you want to send this reply to",
+      "cancel": "Cancel",
+      "send": "Send Reply"
+    }
   }
+
 } 

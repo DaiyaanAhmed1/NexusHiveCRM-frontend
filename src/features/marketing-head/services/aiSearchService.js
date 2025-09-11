@@ -47,11 +47,8 @@ class AISearchService {
 
     } catch (error) {
       console.error('AI Search Error:', error);
-      return {
-        results: [],
-        suggestions: this.suggestions,
-        error: error.message
-      };
+      // Instead of returning empty results, throw the error so the component can handle it
+      throw error;
     }
   }
 

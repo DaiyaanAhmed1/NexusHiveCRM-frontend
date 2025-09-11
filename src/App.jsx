@@ -114,7 +114,8 @@ export default function App() {
     <LocalizationProvider>
       <Router basename="/NexusHiveCRM-frontend">
         <Routes>
-        <Route path="/" element={<LandingPage />} />
+        {/* <Route path="/" element={<LandingPage />} /> */}
+        <Route path="/" element={<LoginPage />} />
         <Route path="/cookie-policy" element={<CookiePolicy />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/university-info" element={<UniversityInfo />} />
