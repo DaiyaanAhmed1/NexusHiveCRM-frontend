@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocalization } from "../../../../hooks/useLocalization";
 import {
   UserPlusIcon,
   CalendarIcon,
@@ -43,12 +45,43 @@ const initialPrograms = [
 ];
 
 const OnboardingPrograms = () => {
+  const { t } = useTranslation(['admission', 'common']);
+  const { isRTL } = useLocalization();
   const [programs, setPrograms] = useState(initialPrograms);
   const [showAddModal, setShowAddModal] = useState(false);
   const [selectedProgram, setSelectedProgram] = useState(null);
+  const [newProgram, setNewProgram] = useState({
+    title: '',
+    duration: '',
+    startDate: '',
+    participants: '',
+    modules: []
+  });
 
   const handleDeleteProgram = (id) => {
     setPrograms(programs.filter(program => program.id !== id));
+  };
+
+  const handleAddProgram = (e) => {
+    e.preventDefault();
+    if (newProgram.title && newProgram.duration && newProgram.startDate && newProgram.participants) {
+      setPrograms([...programs, { 
+        ...newProgram, 
+        id: Date.now(),
+        participants: parseInt(newProgram.participants),
+        completed: 0,
+        status: 'In Progress',
+        modules: []
+      }]);
+      setNewProgram({
+        title: '',
+        duration: '',
+        startDate: '',
+        participants: '',
+        modules: []
+      });
+      setShowAddModal(false);
+    }
   };
 
   return (
@@ -61,7 +94,7 @@ const OnboardingPrograms = () => {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-primary text-white dark:text-white rounded-lg hover:bg-primary-dark dark:hover:bg-primary-dark transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-primary text-white dark:text-white rounded-lg hover:bg-primary-dark dark:hover:bg-primary-dark transition-colors dark:bg-blue-600 dark:hover:bg-blue-700"
         >
           <PlusIcon className="w-5 h-5" />
           Add Program
@@ -88,19 +121,19 @@ const OnboardingPrograms = () => {
               </div>
               <div className="flex items-center gap-2">
                 <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  program.status === 'Completed' ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' : 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200'
+                  program.status === 'Completed' ? 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-400' : 'bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-400'
                 }`}>
                   {program.status}
                 </span>
                 <button
                   onClick={() => setSelectedProgram(program)}
-                  className="p-1 text-gray-500 dark:text-gray-400 hover:text-primary"
+                  className="p-1 text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-blue-500"
                 >
                   <PencilIcon className="w-5 h-5" />
                 </button>
                 <button
                   onClick={() => handleDeleteProgram(program.id)}
-                  className="p-1 text-gray-500 dark:text-gray-400 hover:text-red-600"
+                  className="p-1 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400"
                 >
                   <TrashIcon className="w-5 h-5" />
                 </button>
@@ -115,7 +148,7 @@ const OnboardingPrograms = () => {
               </div>
               <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
                 <div
-                  className="bg-primary h-2 rounded-full"
+                  className="bg-primary h-2 rounded-full dark:bg-blue-500"
                   style={{ width: `${(program.completed / program.participants) * 100}%` }}
                 ></div>
               </div>
@@ -129,8 +162,8 @@ const OnboardingPrograms = () => {
                   <div key={index} className="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-700 rounded">
                     <span className="text-sm text-gray-900 dark:text-white">{module.name}</span>
                     <span className={`text-xs px-2 py-1 rounded-full ${
-                      module.status === 'Completed' ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' :
-                      module.status === 'In Progress' ? 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200' :
+                      module.status === 'Completed' ? 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-400' :
+                      module.status === 'In Progress' ? 'bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-400' :
                       'bg-gray-100 dark:bg-gray-600 text-gray-800 dark:text-gray-200'
                     }`}>
                       {module.status}
@@ -145,39 +178,51 @@ const OnboardingPrograms = () => {
 
       {/* Add/Edit Program Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md">
+        <div className="fixed inset-0 bg-black bg-opacity-30 dark:bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md mx-4">
             <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Create Onboarding Program</h3>
-            <form className="space-y-4">
+            <form onSubmit={handleAddProgram} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Program Title</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary"
+                  value={newProgram.title}
+                  onChange={(e) => setNewProgram({...newProgram, title: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Enter program title"
+                  required
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Duration</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary"
+                  value={newProgram.duration}
+                  onChange={(e) => setNewProgram({...newProgram, duration: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="e.g., 2 weeks"
+                  required
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Start Date</label>
                 <input
                   type="date"
-                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary"
+                  value={newProgram.startDate}
+                  onChange={(e) => setNewProgram({...newProgram, startDate: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                  required
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Max Participants</label>
                 <input
                   type="number"
-                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary"
+                  value={newProgram.participants}
+                  onChange={(e) => setNewProgram({...newProgram, participants: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Enter max participants"
+                  required
                 />
               </div>
               <div className="flex justify-end gap-3">
@@ -190,7 +235,7 @@ const OnboardingPrograms = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark"
+                  className="px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark dark:bg-blue-600 dark:hover:bg-blue-700"
                 >
                   Create Program
                 </button>
@@ -203,4 +248,4 @@ const OnboardingPrograms = () => {
   );
 };
 
-export default OnboardingPrograms; 
+export default OnboardingPrograms;

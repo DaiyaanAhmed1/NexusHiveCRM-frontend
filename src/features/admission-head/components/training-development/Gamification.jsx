@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocalization } from "../../../../hooks/useLocalization";
 import {
   TrophyIcon,
   StarIcon,
@@ -8,7 +10,8 @@ import {
   PlusIcon,
   PencilIcon,
   TrashIcon,
-  SparklesIcon
+  SparklesIcon,
+  XMarkIcon
 } from "@heroicons/react/24/outline";
 
 const initialLeaderboard = [
@@ -61,19 +64,35 @@ const initialLeaderboard = [
 ];
 
 const levelThresholds = [
-  { name: "Bronze", points: 500, color: "bg-yellow-100 text-yellow-800" },
-  { name: "Silver", points: 1000, color: "bg-gray-100 text-gray-800" },
-  { name: "Gold", points: 2000, color: "bg-yellow-100 text-yellow-800" },
-  { name: "Platinum", points: 5000, color: "bg-blue-100 text-blue-800" }
+  { name: "Bronze", points: 500, color: "bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-300" },
+  { name: "Silver", points: 1000, color: "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-200" },
+  { name: "Gold", points: 2000, color: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/20 dark:text-yellow-300" },
+  { name: "Platinum", points: 5000, color: "bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300" }
 ];
 
 const Gamification = () => {
+  const { t } = useTranslation(['admission']);
+  const { isRTL } = useLocalization();
   const [leaderboard, setLeaderboard] = useState(initialLeaderboard);
   const [showAddModal, setShowAddModal] = useState(false);
   const [selectedAchievement, setSelectedAchievement] = useState(null);
+  const [newAchievement, setNewAchievement] = useState({
+    name: '',
+    points: '',
+    description: ''
+  });
 
   const handleDeleteAchievement = (id) => {
     setLeaderboard(leaderboard.filter(item => item.id !== id));
+  };
+
+  const handleAddAchievement = (e) => {
+    e.preventDefault();
+    if (newAchievement.name && newAchievement.points) {
+      // Add logic to create new achievement
+      setNewAchievement({ name: '', points: '', description: '' });
+      setShowAddModal(false);
+    }
   };
 
   return (
@@ -86,7 +105,7 @@ const Gamification = () => {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-primary text-white dark:text-white rounded-lg hover:bg-primary-dark dark:hover:bg-primary-dark transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 transition-colors"
         >
           <PlusIcon className="w-5 h-5" />
           Add Achievement
@@ -96,7 +115,7 @@ const Gamification = () => {
       {/* Level Thresholds */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {levelThresholds.map((level) => (
-          <div key={level.name} className={`p-4 rounded-lg ${level.color} dark:bg-opacity-20 flex items-center gap-3 border border-gray-200 dark:border-gray-600`}>
+          <div key={level.name} className={`p-4 rounded-lg ${level.color} flex items-center gap-3 border border-gray-200 dark:border-gray-600`}>
             <TrophyIcon className="w-6 h-6" />
             <div>
               <div className="font-semibold text-gray-900 dark:text-white">{level.name}</div>
@@ -120,23 +139,23 @@ const Gamification = () => {
                   <h4 className="text-lg font-semibold text-gray-900 dark:text-white">{member.name}</h4>
                   <p className="text-sm text-gray-600 dark:text-gray-300">{member.role}</p>
                   <div className="flex items-center gap-2 mt-2">
-                    <span className="text-lg font-bold text-primary">{member.points}</span>
+                    <span className="text-lg font-bold text-blue-600 dark:text-blue-400">{member.points}</span>
                     <span className="text-sm text-gray-600 dark:text-gray-400">points</span>
                   </div>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                  member.level === 'Gold' ? 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200' :
+                  member.level === 'Gold' ? 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-300' :
                   member.level === 'Silver' ? 'bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200' :
-                  member.level === 'Bronze' ? 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200' :
-                  'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200'
+                  member.level === 'Bronze' ? 'bg-orange-100 dark:bg-orange-900/20 text-orange-800 dark:text-orange-300' :
+                  'bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300'
                 }`}>
                   {member.level}
                 </span>
                 <button
                   onClick={() => setSelectedAchievement(member)}
-                  className="p-1 text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary"
+                  className="p-1 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
                 >
                   <PencilIcon className="w-5 h-5" />
                 </button>
@@ -154,7 +173,7 @@ const Gamification = () => {
               <h5 className="font-medium mb-3 text-gray-900 dark:text-white">Achievements</h5>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {member.achievements.map((achievement, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600">
+                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
                     <div className="flex items-center gap-2">
                       <SparklesIcon className="w-5 h-5 text-yellow-400" />
                       <span className="text-sm font-medium text-gray-900 dark:text-white">{achievement.name}</span>
@@ -170,12 +189,12 @@ const Gamification = () => {
               <h5 className="font-medium mb-3 text-gray-900 dark:text-white">Recent Activity</h5>
               <div className="space-y-3">
                 {member.recentActivity.map((activity, index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600">
+                  <div key={index} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600">
                     <div>
                       <div className="flex items-center gap-2">
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          activity.type === 'Completed' ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' :
-                          'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200'
+                          activity.type === 'Completed' ? 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300' :
+                          'bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300'
                         }`}>
                           {activity.type}
                         </span>
@@ -183,7 +202,7 @@ const Gamification = () => {
                       </div>
                       <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">{activity.date}</div>
                     </div>
-                    <span className="text-sm font-medium text-primary">+{activity.points}</span>
+                    <span className="text-sm font-medium text-blue-600 dark:text-blue-400">+{activity.points}</span>
                   </div>
                 ))}
               </div>
@@ -194,45 +213,75 @@ const Gamification = () => {
 
       {/* Add Achievement Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md border border-gray-200 dark:border-gray-700">
-            <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Add New Achievement</h3>
-            <form className="space-y-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-md mx-4 border border-gray-200 dark:border-gray-700">
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Achievement Name</label>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Add New Achievement</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">Create a new achievement for the team</p>
+              </div>
+              <button
+                onClick={() => setShowAddModal(false)}
+                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+              >
+                <XMarkIcon className="w-6 h-6" />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <form onSubmit={handleAddAchievement} className="p-6 space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Achievement Name *
+                </label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white"
+                  value={newAchievement.name}
+                  onChange={(e) => setNewAchievement({...newAchievement, name: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
                   placeholder="Enter achievement name"
+                  required
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Points</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Points *
+                </label>
                 <input
                   type="number"
-                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white"
+                  value={newAchievement.points}
+                  onChange={(e) => setNewAchievement({...newAchievement, points: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
                   placeholder="Enter points value"
+                  required
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  Description
+                </label>
                 <textarea
                   rows={3}
-                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white"
+                  value={newAchievement.description}
+                  onChange={(e) => setNewAchievement({...newAchievement, description: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
                   placeholder="Enter achievement description"
                 />
               </div>
-              <div className="flex justify-end gap-2 mt-6">
+
+              {/* Modal Footer */}
+              <div className="flex justify-end gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary-dark"
+                  className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 transition-colors"
                 >
                   Add Achievement
                 </button>
@@ -245,4 +294,4 @@ const Gamification = () => {
   );
 };
 
-export default Gamification; 
+export default Gamification;

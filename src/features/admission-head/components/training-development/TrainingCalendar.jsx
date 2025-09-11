@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocalization } from "../../../../hooks/useLocalization";
 import {
   CalendarIcon,
   ClockIcon,
@@ -50,20 +52,50 @@ const initialSessions = [
 ];
 
 const sessionTypes = [
-  { name: "System Walkthrough", icon: VideoCameraIcon, color: "bg-blue-100 text-blue-800" },
-  { name: "Technical Training", icon: DocumentTextIcon, color: "bg-purple-100 text-purple-800" },
-  { name: "Soft Skills", icon: UserGroupIcon, color: "bg-green-100 text-green-800" },
-  { name: "Compliance", icon: ShieldCheckIcon, color: "bg-red-100 text-red-800" }
+  { name: "System Walkthrough", icon: VideoCameraIcon, color: "bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-400" },
+  { name: "Technical Training", icon: DocumentTextIcon, color: "bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-400" },
+  { name: "Soft Skills", icon: UserGroupIcon, color: "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400" },
+  { name: "Compliance", icon: ShieldCheckIcon, color: "bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400" }
 ];
 
 const TrainingCalendar = () => {
+  const { t } = useTranslation(['admission', 'common']);
+  const { isRTL } = useLocalization();
   const [sessions, setSessions] = useState(initialSessions);
   const [showAddModal, setShowAddModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [newSession, setNewSession] = useState({
+    title: '',
+    date: '',
+    time: '',
+    type: 'Soft Skills',
+    trainer: '',
+    format: 'Virtual',
+    mandatory: false,
+    attendees: ''
+  });
 
-  const handleAddSession = (newSession) => {
-    setSessions([...sessions, { ...newSession, id: Date.now() }]);
-    setShowAddModal(false);
+  const handleAddSession = (e) => {
+    e.preventDefault();
+    if (newSession.title && newSession.date && newSession.time && newSession.trainer) {
+      setSessions([...sessions, { 
+        ...newSession, 
+        id: Date.now(),
+        attendees: newSession.attendees.split(',').map(a => a.trim()),
+        status: 'Upcoming'
+      }]);
+      setNewSession({
+        title: '',
+        date: '',
+        time: '',
+        type: 'Soft Skills',
+        trainer: '',
+        format: 'Virtual',
+        mandatory: false,
+        attendees: ''
+      });
+      setShowAddModal(false);
+    }
   };
 
   return (
@@ -76,7 +108,7 @@ const TrainingCalendar = () => {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-primary text-white dark:text-white rounded-lg hover:bg-primary-dark dark:hover:bg-primary-dark transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-primary text-white dark:text-white rounded-lg hover:bg-primary-dark dark:hover:bg-primary-dark transition-colors dark:bg-blue-600 dark:hover:bg-blue-700"
         >
           <PlusIcon className="w-5 h-5" />
           Schedule Session
@@ -86,7 +118,7 @@ const TrainingCalendar = () => {
       {/* Session Types */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {sessionTypes.map((type) => (
-          <div key={type.name} className={`p-4 rounded-lg ${type.color} dark:bg-opacity-20 flex items-center gap-3`}>
+          <div key={type.name} className={`p-4 rounded-lg ${type.color} flex items-center gap-3`}>
             <type.icon className="w-6 h-6" />
             <span className="font-medium">{type.name}</span>
           </div>
@@ -145,16 +177,19 @@ const TrainingCalendar = () => {
 
       {/* Add Session Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md">
+        <div className="fixed inset-0 bg-black bg-opacity-30 dark:bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md mx-4">
             <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Schedule New Training Session</h3>
-            <form className="space-y-4">
+            <form onSubmit={handleAddSession} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Title</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary"
+                  value={newSession.title}
+                  onChange={(e) => setNewSession({...newSession, title: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Enter session title"
+                  required
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
@@ -162,20 +197,30 @@ const TrainingCalendar = () => {
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Date</label>
                   <input
                     type="date"
-                    className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary"
+                    value={newSession.date}
+                    onChange={(e) => setNewSession({...newSession, date: e.target.value})}
+                    className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                    required
                   />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Time</label>
                   <input
                     type="time"
-                    className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary"
+                    value={newSession.time}
+                    onChange={(e) => setNewSession({...newSession, time: e.target.value})}
+                    className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                    required
                   />
                 </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Type</label>
-                <select className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary">
+                <select 
+                  value={newSession.type}
+                  onChange={(e) => setNewSession({...newSession, type: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                >
                   {sessionTypes.map(type => (
                     <option key={type.name} value={type.name}>{type.name}</option>
                   ))}
@@ -185,23 +230,42 @@ const TrainingCalendar = () => {
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Trainer</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary"
+                  value={newSession.trainer}
+                  onChange={(e) => setNewSession({...newSession, trainer: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Enter trainer name"
+                  required
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Format</label>
-                <select className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary">
+                <select 
+                  value={newSession.format}
+                  onChange={(e) => setNewSession({...newSession, format: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                >
                   <option value="Virtual">Virtual</option>
                   <option value="In-Person">In-Person</option>
                   <option value="Hybrid">Hybrid</option>
                 </select>
               </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Attendees</label>
+                <input
+                  type="text"
+                  value={newSession.attendees}
+                  onChange={(e) => setNewSession({...newSession, attendees: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white shadow-sm focus:border-primary focus:ring-primary dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                  placeholder="Enter attendees (comma separated)"
+                />
+              </div>
               <div className="flex items-center">
                 <input
                   type="checkbox"
                   id="mandatory"
-                  className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                  checked={newSession.mandatory}
+                  onChange={(e) => setNewSession({...newSession, mandatory: e.target.checked})}
+                  className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded dark:border-gray-600 dark:bg-gray-700 dark:focus:ring-blue-500"
                 />
                 <label htmlFor="mandatory" className="ml-2 block text-sm text-gray-700 dark:text-gray-300">
                   Mandatory Session
@@ -217,7 +281,7 @@ const TrainingCalendar = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary-dark"
+                  className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary-dark dark:bg-blue-600 dark:hover:bg-blue-700"
                 >
                   Schedule
                 </button>
@@ -230,4 +294,4 @@ const TrainingCalendar = () => {
   );
 };
 
-export default TrainingCalendar; 
+export default TrainingCalendar;

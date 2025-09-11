@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { FiCalendar, FiUsers, FiUserCheck, FiAlertCircle, FiClock, FiMapPin, FiMail, FiPlus, FiChevronDown, FiChevronUp, FiCheckCircle, FiXCircle, FiZap, FiEdit2, FiTrash2, FiArrowRight, FiRepeat, FiDownload, FiChevronLeft, FiChevronRight, FiCpu, FiTarget } from 'react-icons/fi';
 import { useLocalization } from '../../../hooks/useLocalization';
+import { FiCalendar, FiUsers, FiUserCheck, FiAlertCircle, FiClock, FiMapPin, FiMail, FiPlus, FiChevronDown, FiChevronUp, FiCheckCircle, FiXCircle, FiZap, FiEdit2, FiTrash2, FiArrowRight, FiRepeat, FiDownload, FiChevronLeft, FiChevronRight, FiCpu, FiTarget } from 'react-icons/fi';
 import AdmissionHeadInterviewScheduling from '../components/ai/AdmissionHeadInterviewScheduling';
 
 // Mock data for appointments
 const mockTypes = [
-  { label: 'Student Interview', color: 'bg-blue-100 text-blue-700', icon: <FiUserCheck /> },
-  { label: 'Parent Counseling', color: 'bg-green-100 text-green-700', icon: <FiUsers /> },
-  { label: 'Agent Meeting', color: 'bg-purple-100 text-purple-700', icon: <FiMail /> },
-  { label: 'High School Outreach', color: 'bg-pink-100 text-pink-700', icon: <FiMapPin /> },
-  { label: 'Campus Visit', color: 'bg-yellow-100 text-yellow-700', icon: <FiMapPin /> },
-  { label: 'Team Sync', color: 'bg-indigo-100 text-indigo-700', icon: <FiUsers /> },
-  { label: 'Walk-In', color: 'bg-gray-100 text-gray-700', icon: <FiUserCheck /> },
+  { label: 'Student Interview', color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400', icon: <FiUserCheck /> },
+  { label: 'Parent Counseling', color: 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400', icon: <FiUsers /> },
+  { label: 'Agent Meeting', color: 'bg-purple-100 text-purple-700 dark:bg-purple-900/20 dark:text-purple-400', icon: <FiMail /> },
+  { label: 'High School Outreach', color: 'bg-pink-100 text-pink-700 dark:bg-pink-900/20 dark:text-pink-400', icon: <FiMapPin /> },
+  { label: 'Campus Visit', color: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400', icon: <FiMapPin /> },
+  { label: 'Team Sync', color: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/20 dark:text-indigo-400', icon: <FiUsers /> },
+  { label: 'Walk-In', color: 'bg-gray-100 text-gray-700 dark:bg-gray-900/20 dark:text-gray-400', icon: <FiUserCheck /> },
 ];
 const mockStaff = [
   { name: 'Noura Al-Zahra', avatar: 'https://randomuser.me/api/portraits/women/8.jpg', color: 'bg-blue-200' },
@@ -23,13 +23,13 @@ const mockStaff = [
 const today = new Date();
 function addDays(date, days) { const d = new Date(date); d.setDate(d.getDate() + days); return d; }
 const mockAppointments = [
-  { id: 1, title: 'Interview: Abdullah Al-Rashid', type: 'Student Interview', staff: mockStaff[0], date: today, time: '10:00 AM', status: 'Confirmed', mode: 'Online', applicant: 'Abdullah Al-Rashid', color: 'bg-blue-100 text-blue-700' },
-  { id: 2, title: 'Parent Counseling: Layla Al-Mansour', type: 'Parent Counseling', staff: mockStaff[1], date: addDays(today, 1), time: '2:00 PM', status: 'Pending', mode: 'Offline', applicant: 'Layla Al-Mansour', color: 'bg-green-100 text-green-700' },
-  { id: 3, title: 'Agent Meeting: EduWorld', type: 'Agent Meeting', staff: mockStaff[2], date: addDays(today, 2), time: '4:00 PM', status: 'Confirmed', mode: 'Online', applicant: 'EduWorld', color: 'bg-purple-100 text-purple-700' },
-  { id: 4, title: 'Outreach: St. Xavier School', type: 'High School Outreach', staff: mockStaff[3], date: addDays(today, 3), time: '11:00 AM', status: 'Confirmed', mode: 'Offline', applicant: 'St. Xavier School', color: 'bg-pink-100 text-pink-700' },
-  { id: 5, title: 'Campus Visit: Omar Al-Mutairi', type: 'Campus Visit', staff: mockStaff[0], date: addDays(today, 4), time: '9:00 AM', status: 'Pending', mode: 'Offline', applicant: 'Omar Al-Mutairi', color: 'bg-yellow-100 text-yellow-700' },
-  { id: 6, title: 'Team Sync', type: 'Team Sync', staff: mockStaff[1], date: addDays(today, 5), time: '3:00 PM', status: 'Confirmed', mode: 'Offline', applicant: '', color: 'bg-indigo-100 text-indigo-700' },
-  { id: 7, title: 'Walk-In: Fatima Al-Rashid', type: 'Walk-In', staff: mockStaff[2], date: addDays(today, 6), time: '1:00 PM', status: 'Pending', mode: 'Offline', applicant: 'Fatima Al-Rashid', color: 'bg-gray-100 text-gray-700' },
+  { id: 1, title: 'Interview: Abdullah Al-Rashid', type: 'Student Interview', staff: mockStaff[0], date: today, time: '10:00 AM', status: 'Confirmed', mode: 'Online', applicant: 'Abdullah Al-Rashid', color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400' },
+  { id: 2, title: 'Parent Counseling: Layla Al-Mansour', type: 'Parent Counseling', staff: mockStaff[1], date: addDays(today, 1), time: '2:00 PM', status: 'Pending', mode: 'Offline', applicant: 'Layla Al-Mansour', color: 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400' },
+  { id: 3, title: 'Agent Meeting: EduWorld', type: 'Agent Meeting', staff: mockStaff[2], date: addDays(today, 2), time: '4:00 PM', status: 'Confirmed', mode: 'Online', applicant: 'EduWorld', color: 'bg-purple-100 text-purple-700 dark:bg-purple-900/20 dark:text-purple-400' },
+  { id: 4, title: 'Outreach: St. Xavier School', type: 'High School Outreach', staff: mockStaff[3], date: addDays(today, 3), time: '11:00 AM', status: 'Confirmed', mode: 'Offline', applicant: 'St. Xavier School', color: 'bg-pink-100 text-pink-700 dark:bg-pink-900/20 dark:text-pink-400' },
+  { id: 5, title: 'Campus Visit: Omar Al-Mutairi', type: 'Campus Visit', staff: mockStaff[0], date: addDays(today, 4), time: '9:00 AM', status: 'Pending', mode: 'Offline', applicant: 'Omar Al-Mutairi', color: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400' },
+  { id: 6, title: 'Team Sync', type: 'Team Sync', staff: mockStaff[1], date: addDays(today, 5), time: '3:00 PM', status: 'Confirmed', mode: 'Offline', applicant: '', color: 'bg-indigo-100 text-indigo-700 dark:bg-indigo-900/20 dark:text-indigo-400' },
+  { id: 7, title: 'Walk-In: Fatima Al-Rashid', type: 'Walk-In', staff: mockStaff[2], date: addDays(today, 6), time: '1:00 PM', status: 'Pending', mode: 'Offline', applicant: 'Fatima Al-Rashid', color: 'bg-gray-100 text-gray-700 dark:bg-gray-900/20 dark:text-gray-400' },
 ];
 
 function formatDate(date) {
@@ -57,23 +57,28 @@ function AISmartPanel({ appointments, staff }) {
   const noShowRisk = appointments.filter(a => a.status === 'No-Show').length > 2 ? 'High' : 'Low';
   const overloaded = staff.find(s => appointments.filter(a => a.staff.name === s.name && isToday(a.date)).length > 3);
   return (
-    <div className="bg-gradient-to-br from-blue-50 to-purple-100 dark:from-gray-800 dark:to-gray-900 rounded-2xl shadow-lg p-6 flex flex-col gap-4 mb-8 animate-fade-in" data-tour="4" data-tour-title-en="AI Smart Suggestions" data-tour-title-ar="اقتراحات ذكية" data-tour-content-en="Smart suggestions for best slot, no-show risk, and load balancing." data-tour-content-ar="اقتراحات ذكية للوقت الأفضل، خطر الإلغاء، وتوزيع الحمل.">
-      <div className="flex items-center gap-2 mb-2">
-        <FiZap className="text-purple-500 animate-pulse" size={22} />
-        <span className="font-semibold text-lg text-gray-800 dark:text-gray-100">AI Smart Suggestions</span>
+    <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-gray-800 dark:to-gray-900 rounded-xl shadow-lg p-6 border border-purple-200 dark:border-purple-800" 
+         data-tour="4" 
+         data-tour-title-en="AI Smart Suggestions" 
+         data-tour-title-ar="اقتراحات ذكية" 
+         data-tour-content-en="Smart suggestions for best slot, no-show risk, and load balancing." 
+         data-tour-content-ar="اقتراحات ذكية للوقت الأفضل، خطر الإلغاء، وتوزيع الحمل.">
+      <div className="flex items-center gap-3 mb-4">
+        <FiZap className="text-purple-500 animate-pulse w-6 h-6" />
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">AI Smart Suggestions</h2>
       </div>
-      <div className="flex flex-wrap gap-4">
-        <div className="flex items-center gap-2 bg-blue-100 dark:bg-blue-900/30 px-3 py-2 rounded-lg">
-          <FiClock className="text-blue-500" />
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="flex items-center gap-3 bg-blue-100 dark:bg-blue-900/20 px-4 py-3 rounded-lg">
+          <FiClock className="text-blue-500 w-5 h-5" />
           <span className="font-medium text-blue-800 dark:text-blue-200">Best Slot: {bestSlot}</span>
         </div>
-        <div className="flex items-center gap-2 bg-yellow-100 dark:bg-yellow-900/30 px-3 py-2 rounded-lg">
-          <FiAlertCircle className="text-yellow-500" />
+        <div className="flex items-center gap-3 bg-yellow-100 dark:bg-yellow-900/20 px-4 py-3 rounded-lg">
+          <FiAlertCircle className="text-yellow-500 w-5 h-5" />
           <span className="font-medium text-yellow-800 dark:text-yellow-200">No-Show Risk: {noShowRisk}</span>
         </div>
         {overloaded && (
-          <div className="flex items-center gap-2 bg-red-100 dark:bg-red-900/30 px-3 py-2 rounded-lg animate-bounce-in">
-            <FiUsers className="text-red-500" />
+          <div className="flex items-center gap-3 bg-red-100 dark:bg-red-900/20 px-4 py-3 rounded-lg">
+            <FiUsers className="text-red-500 w-5 h-5" />
             <span className="font-medium text-red-800 dark:text-red-200">Load Balancer: {overloaded.name} is overbooked today!</span>
           </div>
         )}
@@ -93,67 +98,148 @@ function AnalyticsWidgets({ appointments, staff }) {
   // Leaderboard: staff with most appointments
   const staffCounts = staff.map(s => ({ ...s, count: appointments.filter(a => a.staff.name === s.name && isThisMonth(a.date)).length }));
   staffCounts.sort((a, b) => b.count - a.count);
+  
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" data-tour="3" data-tour-title-en="Analytics Widgets" data-tour-title-ar="واجهات تحليلية" data-tour-content-en="Bar chart for appointment types and pie chart for status breakdown." data-tour-content-ar="رسم بياني لأنواع المواعيد ودائرة لتفصيل الحالة.">
-      {/* Bar Chart */}
-      <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-4 flex flex-col items-center">
-        <span className="font-semibold mb-2 text-gray-700 dark:text-gray-200">Appointments by Type</span>
-        <svg width="180" height="80">
-          {typeCounts.map((count, i) => (
-            <rect key={types[i]} x={20 + i * 25} y={70 - count * 10} width="18" height={count * 10} fill="#6366f1" rx="4" />
-          ))}
-          {typeCounts.map((count, i) => (
-            <text key={types[i]} x={29 + i * 25} y={75} fontSize="8" textAnchor="middle" fill="#64748b">{types[i].split(' ')[0]}</text>
-          ))}
-        </svg>
-      </div>
-      {/* Pie Chart */}
-      <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-4 flex flex-col items-center">
-        <span className="font-semibold mb-2 text-gray-700 dark:text-gray-200">Status Breakdown</span>
-        <svg width="80" height="80" viewBox="0 0 32 32">
-          {(() => {
-            let acc = 0;
-            const total = statusCounts.reduce((a, b) => a + b, 0) || 1;
-            const colors = ['#22c55e', '#facc15', '#6366f1', '#ef4444', '#f87171', '#0ea5e9'];
-            return statusCounts.map((count, i) => {
-              const val = (count / total) * 100;
-              const r = 12;
-              const circ = 2 * Math.PI * r;
-              const len = circ * (val / 100);
-              const dasharray = `${len} ${circ - len}`;
-              const offset = circ * (1 - acc / 100);
-              acc += val;
-              return (
-                <circle
-                  key={statuses[i]}
-                  r={r}
-                  cx="16"
-                  cy="16"
-                  fill="transparent"
-                  stroke={colors[i % colors.length]}
-                  strokeWidth="6"
-                  strokeDasharray={dasharray}
-                  strokeDashoffset={offset}
-                />
-              );
-            });
-          })()}
-        </svg>
-        <div className="flex flex-wrap gap-1 mt-2 justify-center">
-          {statuses.map((s, i) => statusCounts[i] > 0 && (
-            <span key={s} className="text-xs px-2 py-0.5 rounded-full font-medium" style={{ background: '#f3f4f6', color: '#334155' }}>{s}: {statusCounts[i]}</span>
-          ))}
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8" 
+         data-tour="3" 
+         data-tour-title-en="Analytics Widgets" 
+         data-tour-title-ar="واجهات تحليلية" 
+         data-tour-content-en="Bar chart for appointment types and pie chart for status breakdown." 
+         data-tour-content-ar="رسم بياني لأنواع المواعيد ودائرة لتفصيل الحالة.">
+      
+      {/* Bar Chart - Appointments by Type */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <h3 className="font-semibold mb-4 text-gray-900 dark:text-white">Appointments by Type</h3>
+        <div className="space-y-3">
+          {types.map((type, i) => {
+            const count = typeCounts[i];
+            const maxCount = Math.max(...typeCounts);
+            const percentage = maxCount > 0 ? (count / maxCount) * 100 : 0;
+            
+            return (
+              <div key={type} className="flex items-center gap-3">
+                <div className="w-20 text-xs font-medium text-gray-600 dark:text-gray-400 truncate">
+                  {type}
+                </div>
+                <div className="flex-1 bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                  <div 
+                    className="bg-gradient-to-r from-cyan-500 to-blue-500 h-2 rounded-full transition-all duration-500"
+                    style={{ width: `${percentage}%` }}
+                  ></div>
+                </div>
+                <div className="w-8 text-sm font-bold text-gray-900 dark:text-white text-right">
+                  {count}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
-      {/* Leaderboard */}
-      <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-4 flex flex-col items-center">
-        <span className="font-semibold mb-2 text-gray-700 dark:text-gray-200">Staff Leaderboard</span>
-        <div className="flex flex-col gap-2 w-full">
+
+      {/* Status Breakdown with Pie Chart */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <h3 className="font-semibold mb-4 text-gray-900 dark:text-white">Status Breakdown</h3>
+        
+        {/* Pie Chart */}
+        <div className="flex justify-center mb-4">
+          <div className="relative w-32 h-32">
+            <svg width="128" height="128" viewBox="0 0 32 32" className="transform -rotate-90">
+              {(() => {
+                let acc = 0;
+                const total = statusCounts.reduce((a, b) => a + b, 0) || 1;
+                const colors = ['#10b981', '#f59e0b', '#3b82f6', '#ef4444', '#6b7280', '#8b5cf6'];
+                return statusCounts.map((count, i) => {
+                  if (count === 0) return null;
+                  const val = (count / total) * 100;
+                  const r = 12;
+                  const circ = 2 * Math.PI * r;
+                  const len = circ * (val / 100);
+                  const dasharray = `${len} ${circ - len}`;
+                  const offset = circ * (1 - acc / 100);
+                  acc += val;
+                  return (
+                    <circle
+                      key={statuses[i]}
+                      r={r}
+                      cx="16"
+                      cy="16"
+                      fill="transparent"
+                      stroke={colors[i % colors.length]}
+                      strokeWidth="6"
+                      strokeDasharray={dasharray}
+                      strokeDashoffset={offset}
+                      className="transition-all duration-500"
+                    />
+                  );
+                });
+              })()}
+            </svg>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="text-center">
+                <div className="text-lg font-bold text-gray-900 dark:text-white">
+                  {statusCounts.reduce((a, b) => a + b, 0)}
+                </div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">Total</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        {/* Legend */}
+        <div className="space-y-2">
+          {statuses.map((status, i) => {
+            const count = statusCounts[i];
+            const total = statusCounts.reduce((a, b) => a + b, 0);
+            const percentage = total > 0 ? Math.round((count / total) * 100) : 0;
+            
+            const statusColors = {
+              'Confirmed': 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400',
+              'Pending': 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400',
+              'Rescheduled': 'bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400',
+              'Cancelled': 'bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400',
+              'No-Show': 'bg-gray-100 text-gray-700 dark:bg-gray-900/20 dark:text-gray-400',
+              'Attended': 'bg-purple-100 text-purple-700 dark:bg-purple-900/20 dark:text-purple-400'
+            };
+            
+            const pieColors = ['#10b981', '#f59e0b', '#3b82f6', '#ef4444', '#6b7280', '#8b5cf6'];
+            
+            if (count === 0) return null;
+            
+            return (
+              <div key={status} className="flex items-center justify-between p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <div className="flex items-center gap-2">
+                  <div 
+                    className="w-3 h-3 rounded-full" 
+                    style={{ backgroundColor: pieColors[i % pieColors.length] }}
+                  ></div>
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{status}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-sm font-bold text-gray-900 dark:text-white">{count}</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400">({percentage}%)</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Staff Leaderboard */}
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+        <h3 className="font-semibold mb-4 text-gray-900 dark:text-white">Staff Leaderboard</h3>
+        <div className="space-y-3">
           {staffCounts.map((s, i) => (
-            <div key={s.name} className="flex items-center gap-2 p-2 bg-gray-50 dark:bg-gray-700 rounded-lg">
-              <div className={`w-6 h-6 rounded-full ${s.color} flex items-center justify-center text-xs font-bold text-white`}>{i + 1}</div>
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-200">{s.name}</span>
-              <span className="text-xs text-gray-500 dark:text-gray-400 ml-auto">{s.count}</span>
+            <div key={s.name} className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div className={`w-8 h-8 rounded-full ${s.color} flex items-center justify-center text-sm font-bold text-white`}>
+                {i + 1}
+              </div>
+              <div className="flex-1">
+                <div className="text-sm font-medium text-gray-700 dark:text-gray-300">{s.name}</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400">{s.count} appointments</div>
+              </div>
+              <div className="text-lg font-bold text-gray-900 dark:text-white">
+                {s.count}
+              </div>
             </div>
           ))}
         </div>
@@ -164,10 +250,10 @@ function AnalyticsWidgets({ appointments, staff }) {
 
 export default function Schedule() {
   const { t, i18n, ready } = useTranslation(['admission', 'common']);
+  const { isRTL, isRTLMode } = useLocalization();
   const [languageVersion, setLanguageVersion] = useState(0);
   
   // AI State Variables
-  const { isRTLMode } = useLocalization();
   const [showInterviewScheduling, setShowInterviewScheduling] = useState(false);
   const aiInterviewSchedulingRef = useRef(null);
   
@@ -258,12 +344,27 @@ export default function Schedule() {
       days.push(new Date(now.getFullYear(), now.getMonth(), d));
     }
     return (
-      <div className="grid grid-cols-7 gap-2" data-tour="5" data-tour-title-en="Calendar Grid" data-tour-title-ar="شبكة التقويم" data-tour-content-en="Monthly view with scheduled items." data-tour-content-ar="عرض شهري بالعناصر المجدولة.">
+      <div className="grid grid-cols-7 gap-2" 
+           data-tour="5" 
+           data-tour-title-en="Calendar Grid" 
+           data-tour-title-ar="شبكة التقويم" 
+           data-tour-content-en="Monthly view with scheduled items." 
+           data-tour-content-ar="عرض شهري بالعناصر المجدولة.">
         {days.map(day => (
-          <div key={day.toISOString()} className={`rounded-xl p-2 min-h-[80px] border ${isToday(day) ? 'border-blue-400 bg-blue-50 dark:bg-blue-900/20' : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800/80'} flex flex-col gap-1 relative`}>
+          <div key={day.toISOString()} className={`rounded-xl p-2 min-h-[80px] border ${
+            isToday(day) 
+              ? 'border-blue-400 bg-blue-50 dark:bg-blue-900/20' 
+              : 'border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800'
+          } flex flex-col gap-1 relative`}>
             <span className="text-xs font-bold text-gray-500 dark:text-gray-400">{day.getDate()}</span>
             {appointments.filter(a => a.date.getDate() === day.getDate() && a.date.getMonth() === day.getMonth()).map(a => (
-              <button key={a.id} className={`w-full text-xs rounded px-1 py-0.5 mt-1 truncate ${a.color} hover:scale-105 transition-transform`} onClick={() => { setSelectedEvent(a); setShowEventModal(true); }}>{a.title}</button>
+              <button 
+                key={a.id} 
+                className={`w-full text-xs rounded px-1 py-0.5 mt-1 truncate ${a.color} hover:scale-105 transition-transform`} 
+                onClick={() => { setSelectedEvent(a); setShowEventModal(true); }}
+              >
+                {a.title}
+              </button>
             ))}
           </div>
         ))}
@@ -277,182 +378,347 @@ export default function Schedule() {
   return (
     <div
       key={`${i18n.language}-${languageVersion}`}
-      className={`min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 dark:from-gray-900 dark:to-gray-950 p-0 animate-fade-in ${isRTLMode ? 'rtl' : 'ltr'}`}
+      className="min-h-screen bg-gray-50 dark:bg-gray-900"
       data-tour="1"
       data-tour-title-en="Schedule & Appointments"
       data-tour-title-ar="الجدولة والمواعيد"
       data-tour-content-en="Dashboard, AI suggestions, analytics, types, and calendar."
       data-tour-content-ar="لوحة المعلومات، اقتراحات الذكاء، التحليلات، الأنواع والتقويم."
     >
-      {/* Hero Header */}
-      <div className="w-full bg-gradient-to-r from-blue-600 to-purple-500 py-10 px-6 md:px-12 flex flex-col md:flex-row items-center gap-6 mb-10 rounded-b-3xl shadow-lg animate-fade-in" data-tour="2" data-tour-title-en="Header" data-tour-title-ar="الرأس" data-tour-content-en="Page title and overview." data-tour-content-ar="عنوان الصفحة ونظرة عامة.">
-        <div className="flex items-center gap-4">
-          <div className="bg-white/20 rounded-full p-4"><FiCalendar className="text-white" size={40} /></div>
-          <div>
-            <h1 className="text-4xl font-extrabold text-white mb-2 tracking-tight">{t('schedule.title')}</h1>
-            <p className="text-white/90 text-lg max-w-xl">{t('schedule.subtitle')}</p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Header */}
+        <div className="mb-8" 
+             data-tour="2" 
+             data-tour-title-en="Header" 
+             data-tour-title-ar="الرأس" 
+             data-tour-content-en="Page title and overview." 
+             data-tour-content-ar="عنوان الصفحة ونظرة عامة.">
+          <div className="bg-gradient-to-r from-cyan-600 to-blue-600 rounded-xl p-8 text-white">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                <FiCalendar className="w-6 h-6 text-white" />
+              </div>
+              <h1 className="text-3xl font-bold">
+                {t('schedule.title')}
+              </h1>
+            </div>
+            <p className="text-cyan-100 text-lg">
+              {t('schedule.subtitle')}
+            </p>
+            <div className="mt-4">
+              <button 
+                className="flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg font-semibold transition-all duration-200 backdrop-blur-sm"
+                onClick={handleInterviewScheduling}
+              >
+                <FiCpu className="w-4 h-4" />
+                {isRTLMode ? 'جدولة المقابلات الذكية' : 'AI Interview Scheduling'}
+              </button>
+            </div>
           </div>
         </div>
-        <div className="flex gap-3 ml-auto">
-          <button 
-            className="flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg font-semibold transition-all duration-200 backdrop-blur-sm"
-            onClick={handleInterviewScheduling}
-          >
-            <FiCpu className="w-4 h-4" />
-            {isRTLMode ? 'جدولة المقابلات الذكية' : 'AI Interview Scheduling'}
-          </button>
-        </div>
-      </div>
 
-      {/* Dashboard */}
-      <div className="max-w-7xl mx-auto px-4 mb-8" data-tour="3" data-tour-title-en="KPIs" data-tour-title-ar="المؤشرات" data-tour-content-en="Today, this week, pending and confirmed counts." data-tour-content-ar="أعداد اليوم وهذا الأسبوع والمعلّقة والمؤكدة.">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 flex items-center gap-4">
-            <div className="bg-blue-100 rounded-full p-3"><FiCalendar className="text-blue-600" size={24} /></div>
+        {/* Dashboard */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8" 
+             data-tour="3" 
+             data-tour-title-en="KPIs" 
+             data-tour-title-ar="المؤشرات" 
+             data-tour-content-en="Today, this week, pending and confirmed counts." 
+             data-tour-content-ar="أعداد اليوم وهذا الأسبوع والمعلّقة والمؤكدة.">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 flex items-center gap-4 border border-gray-200 dark:border-gray-700">
+            <div className="bg-blue-100 dark:bg-blue-900/20 rounded-full p-3">
+              <FiCalendar className="text-blue-600 dark:text-blue-400" size={24} />
+            </div>
             <div>
               <div className="text-2xl font-bold text-gray-800 dark:text-gray-100">{todayCount}</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">{t('schedule.dashboard.today')}</div>
             </div>
           </div>
-          <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 flex items-center gap-4">
-            <div className="bg-green-100 rounded-full p-3"><FiClock className="text-green-600" size={24} /></div>
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 flex items-center gap-4 border border-gray-200 dark:border-gray-700">
+            <div className="bg-green-100 dark:bg-green-900/20 rounded-full p-3">
+              <FiClock className="text-green-600 dark:text-green-400" size={24} />
+            </div>
             <div>
               <div className="text-2xl font-bold text-gray-800 dark:text-gray-100">{weekCount}</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">{t('schedule.dashboard.thisWeek')}</div>
             </div>
           </div>
-          <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 flex items-center gap-4">
-            <div className="bg-purple-100 rounded-full p-3"><FiUsers className="text-purple-600" size={24} /></div>
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 flex items-center gap-4 border border-gray-200 dark:border-gray-700">
+            <div className="bg-purple-100 dark:bg-purple-900/20 rounded-full p-3">
+              <FiUsers className="text-purple-600 dark:text-purple-400" size={24} />
+            </div>
             <div>
               <div className="text-2xl font-bold text-gray-800 dark:text-gray-100">{appointments.filter(a => a.status === 'Pending').length}</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">{t('schedule.dashboard.pending')}</div>
             </div>
           </div>
-          <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 flex items-center gap-4">
-            <div className="bg-yellow-100 rounded-full p-3"><FiAlertCircle className="text-yellow-600" size={24} /></div>
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 flex items-center gap-4 border border-gray-200 dark:border-gray-700">
+            <div className="bg-yellow-100 dark:bg-yellow-900/20 rounded-full p-3">
+              <FiAlertCircle className="text-yellow-600 dark:text-yellow-400" size={24} />
+            </div>
             <div>
               <div className="text-2xl font-bold text-gray-800 dark:text-gray-100">{appointments.filter(a => a.status === 'Confirmed').length}</div>
               <div className="text-sm text-gray-600 dark:text-gray-400">{t('schedule.dashboard.confirmed')}</div>
             </div>
           </div>
         </div>
-      </div>
-      
-      {/* AI & Analytics widgets */}
-      <div data-tour="4" data-tour-title-en="AI & Analytics" data-tour-title-ar="الذكاء والتحليلات" data-tour-content-en="Smart suggestions and analytics widgets." data-tour-content-ar="اقتراحات ذكية وواجهات تحليلية.">
-        <AISmartPanel appointments={appointments} staff={mockStaff} />
-        <AnalyticsWidgets appointments={appointments} staff={mockStaff} />
-      </div>
+        
+        {/* AI & Analytics widgets */}
+        <div data-tour="4" 
+             data-tour-title-en="AI & Analytics" 
+             data-tour-title-ar="الذكاء والتحليلات" 
+             data-tour-content-en="Smart suggestions and analytics widgets." 
+             data-tour-content-ar="اقتراحات ذكية وواجهات تحليلية.">
+          <AISmartPanel appointments={appointments} staff={mockStaff} />
+          <AnalyticsWidgets appointments={appointments} staff={mockStaff} />
+        </div>
 
-      {/* AI Interview Scheduling Section */}
-      {showInterviewScheduling && (
-        <div ref={aiInterviewSchedulingRef} className="max-w-7xl mx-auto px-4 mb-8">
-          <div className="bg-white/90 dark:bg-gray-800/90 rounded-2xl shadow-xl p-6 animate-fade-in">
-            <div className="flex justify-between items-center mb-6">
-              <div className="flex items-center gap-3">
-                <FiCpu className="text-purple-500 animate-pulse" size={24} />
-                <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
-                  {isRTLMode ? 'جدولة المقابلات الذكية' : 'AI Interview Scheduling'}
-                </h2>
+        {/* AI Interview Scheduling Section */}
+        {showInterviewScheduling && (
+          <div ref={aiInterviewSchedulingRef} className="mb-8">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
+              <div className="flex justify-between items-center mb-6">
+                <div className="flex items-center gap-3">
+                  <FiCpu className="text-purple-500 animate-pulse w-6 h-6" />
+                  <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
+                    {isRTLMode ? 'جدولة المقابلات الذكية' : 'AI Interview Scheduling'}
+                  </h2>
+                </div>
+                <button
+                  onClick={() => setShowInterviewScheduling(false)}
+                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                >
+                  <FiXCircle className="w-6 h-6" />
+                </button>
               </div>
-              <button
-                onClick={() => setShowInterviewScheduling(false)}
-                className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-xl"
-              >
-                ✕
-              </button>
+              <AdmissionHeadInterviewScheduling />
             </div>
-            <AdmissionHeadInterviewScheduling />
+          </div>
+        )}
+
+        {/* Appointment Types */}
+        <div className="mb-8" 
+             data-tour="6" 
+             data-tour-title-en="Appointment Types" 
+             data-tour-title-ar="أنواع المواعيد" 
+             data-tour-content-en="Quick actions to add different appointment types." 
+             data-tour-content-ar="إجراءات سريعة لإضافة أنواع مختلفة من المواعيد.">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">
+            {t('schedule.types.title')}
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
+            {mockTypes.map((type, index) => (
+              <button
+                key={index}
+                onClick={() => { setAddType(type.label); setShowAddModal(true); }}
+                className={`${type.color} rounded-xl p-4 flex flex-col items-center gap-2 hover:scale-105 transition-transform`}
+              >
+                {type.icon}
+                <span className="text-sm font-medium text-center">{type.label}</span>
+              </button>
+            ))}
           </div>
         </div>
-      )}
 
-      {/* Appointment Types */}
-      <div className="max-w-7xl mx-auto px-4 mb-8" data-tour="6" data-tour-title-en="Appointment Types" data-tour-title-ar="أنواع المواعيد" data-tour-content-en="Quick actions to add different appointment types." data-tour-content-ar="إجراءات سريعة لإضافة أنواع مختلفة من المواعيد.">
-        <h2 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">{t('schedule.types.title')}</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
-          {mockTypes.map((type, index) => (
-            <button
-              key={index}
-              onClick={() => { setAddType(type.label); setShowAddModal(true); }}
-              className={`${type.color} rounded-xl p-4 flex flex-col items-center gap-2 hover:scale-105 transition-transform`}
-            >
-              {type.icon}
-              <span className="text-sm font-medium text-center">{type.label}</span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Calendar Controls */}
-      <div className="max-w-7xl mx-auto px-4 mb-8">
-        <div className="bg-white/80 dark:bg-gray-800/80 rounded-2xl shadow-xl p-6 mb-8" data-tour="7" data-tour-title-en="Calendar Controls" data-tour-title-ar="عناصر التحكم في التقويم" data-tour-content-en="Navigate months and switch views." data-tour-content-ar="تنقل بين الشهور وغيّر طرق العرض.">
+        {/* Calendar Controls */}
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-8 border border-gray-200 dark:border-gray-700" 
+             data-tour="7" 
+             data-tour-title-en="Calendar Controls" 
+             data-tour-title-ar="عناصر التحكم في التقويم" 
+             data-tour-content-en="Navigate months and switch views." 
+             data-tour-content-ar="تنقل بين الشهور وغيّر طرق العرض.">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div className="flex items-center gap-4">
-              <button onClick={() => setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() - 1))} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+              <button 
+                onClick={() => setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() - 1))} 
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              >
                 <FiChevronLeft className="text-gray-600 dark:text-gray-400" />
               </button>
               <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
                 {currentDate.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
               </h2>
-              <button onClick={() => setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() + 1))} className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg">
+              <button 
+                onClick={() => setCurrentDate(prev => new Date(prev.getFullYear(), prev.getMonth() + 1))} 
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              >
                 <FiChevronRight className="text-gray-600 dark:text-gray-400" />
               </button>
             </div>
             <div className="flex gap-2">
-              <button className={`px-4 py-2 rounded-lg font-medium transition ${view === 'month' ? 'bg-blue-600 text-white shadow' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200'}`} onClick={() => setView('month')}>{t('schedule.view.month')}</button>
-              <button className={`px-4 py-2 rounded-lg font-medium transition ${view === 'week' ? 'bg-blue-600 text-white shadow' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200'}`} onClick={() => setView('week')}>{t('schedule.view.week')}</button>
-              <button className={`px-4 py-2 rounded-lg font-medium transition ${view === 'day' ? 'bg-blue-600 text-white shadow' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200'}`} onClick={() => setView('day')}>{t('schedule.view.day')}</button>
+              <button 
+                className={`px-4 py-2 rounded-lg font-medium transition ${
+                  view === 'month' 
+                    ? 'bg-cyan-600 text-white shadow' 
+                    : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
+                }`} 
+                onClick={() => setView('month')}
+              >
+                {t('schedule.view.month')}
+              </button>
+              <button 
+                className={`px-4 py-2 rounded-lg font-medium transition ${
+                  view === 'week' 
+                    ? 'bg-cyan-600 text-white shadow' 
+                    : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
+                }`} 
+                onClick={() => setView('week')}
+              >
+                {t('schedule.view.week')}
+              </button>
+              <button 
+                className={`px-4 py-2 rounded-lg font-medium transition ${
+                  view === 'day' 
+                    ? 'bg-cyan-600 text-white shadow' 
+                    : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600'
+                }`} 
+                onClick={() => setView('day')}
+              >
+                {t('schedule.view.day')}
+              </button>
             </div>
           </div>
         </div>
+        
         {/* Calendar & Filters */}
         <CalendarGrid />
-      </div>
-      
-      {/* Toast */}
-      {toast && <div className="fixed bottom-6 right-6 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-fade-in">{toast}</div>}
-      
-      {/* Add Appointment Modal */}
-      {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 animate-fade-in">
-          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-6 min-w-[320px] max-w-[90vw] relative">
-            <button className="absolute top-2 right-2 text-gray-400 hover:text-gray-700" onClick={() => setShowAddModal(false)}>&times;</button>
-            <h2 className="text-lg font-bold mb-4 text-gray-800 dark:text-gray-100">{t('schedule.actions.addAppointment')} {addType}</h2>
-            <form onSubmit={e => { e.preventDefault(); handleAddAppointment({ id: Date.now(), title: `${addType}: ${e.target.applicant.value}`, type: addType, staff: mockStaff[0], date: new Date(e.target.date.value), time: e.target.time.value, status: 'Pending', mode: e.target.mode.value, applicant: e.target.applicant.value, color: mockTypes.find(t => t.label === addType)?.color || 'bg-blue-100 text-blue-700' }); }} className="flex flex-col gap-3">
-              <input name="applicant" placeholder={t('schedule.form.applicantName')} className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900" required />
-              <input name="date" type="date" className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900" required />
-              <input name="time" type="time" className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900" required />
-              <select name="mode" className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900">
-                <option>{t('schedule.modes.online')}</option>
-                <option>{t('schedule.modes.offline')}</option>
-              </select>
-              <button type="submit" className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold">{t('schedule.actions.addAppointment')}</button>
-            </form>
+        
+        {/* Toast */}
+        {toast && (
+          <div className="fixed bottom-6 right-6 bg-cyan-600 text-white px-4 py-2 rounded-lg shadow-lg z-50 animate-fade-in">
+            {toast}
           </div>
-        </div>
-      )}
-      
-      {/* Event Modal */}
-      {showEventModal && selectedEvent && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 animate-fade-in">
-          <div className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl p-6 min-w-[320px] max-w-[90vw] relative">
-            <button className="absolute top-2 right-2 text-gray-400 hover:text-gray-700" onClick={() => setShowEventModal(false)}>&times;</button>
-            <h2 className="text-lg font-bold mb-4 text-gray-800 dark:text-gray-100">{selectedEvent.title}</h2>
-            <div className="mb-2 text-xs text-gray-500">{formatDate(selectedEvent.date)} at {selectedEvent.time} ({selectedEvent.mode})</div>
-            <div className="mb-2 flex items-center gap-2"><FiUsers className="text-blue-400" /> <span className="text-xs">{selectedEvent.staff.name}</span></div>
-            <div className="mb-2 flex items-center gap-2"><FiUserCheck className="text-green-400" /> <span className="text-xs">{selectedEvent.applicant}</span></div>
-            <div className="mb-2 flex items-center gap-2"><span className={`px-2 py-0.5 rounded-full text-xs ${selectedEvent.color}`}>{selectedEvent.type}</span></div>
-            <div className="flex flex-wrap gap-2 mt-4">
-              <button className="px-3 py-1 bg-yellow-100 text-yellow-700 rounded font-semibold" onClick={() => handleReschedule(selectedEvent, addDays(selectedEvent.date, 1), selectedEvent.time)}><FiRepeat className="inline mr-1" />{t('schedule.actions.reschedule')}</button>
-              <button className="px-3 py-1 bg-indigo-100 text-indigo-700 rounded font-semibold" onClick={() => handleAssignStaff(selectedEvent, mockStaff[1])}><FiUsers className="inline mr-1" />{t('schedule.actions.assignStaff')}</button>
-              <button className="px-3 py-1 bg-green-100 text-green-700 rounded font-semibold" onClick={() => handleAttend(selectedEvent)}><FiCheckCircle className="inline mr-1" />{t('schedule.actions.markAttended')}</button>
-              <button className="px-3 py-1 bg-blue-100 text-blue-700 rounded font-semibold" onClick={() => handleReminder(selectedEvent)}><FiMail className="inline mr-1" />{t('schedule.actions.sendReminder')}</button>
-              <button className="px-3 py-1 bg-red-100 text-red-700 rounded font-semibold" onClick={() => handleCancel(selectedEvent)}><FiXCircle className="inline mr-1" />{t('schedule.actions.cancel')}</button>
+        )}
+        
+        {/* Add Appointment Modal */}
+        {showAddModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-6 min-w-[320px] max-w-[90vw] relative border border-gray-200 dark:border-gray-700">
+              <button 
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 dark:hover:text-gray-300" 
+                onClick={() => setShowAddModal(false)}
+              >
+                <FiXCircle className="w-6 h-6" />
+              </button>
+              <h2 className="text-lg font-bold mb-4 text-gray-800 dark:text-gray-100">
+                {t('schedule.actions.addAppointment')} {addType}
+              </h2>
+              <form onSubmit={e => { 
+                e.preventDefault(); 
+                handleAddAppointment({ 
+                  id: Date.now(), 
+                  title: `${addType}: ${e.target.applicant.value}`, 
+                  type: addType, 
+                  staff: mockStaff[0], 
+                  date: new Date(e.target.date.value), 
+                  time: e.target.time.value, 
+                  status: 'Pending', 
+                  mode: e.target.mode.value, 
+                  applicant: e.target.applicant.value, 
+                  color: mockTypes.find(t => t.label === addType)?.color || 'bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400' 
+                }); 
+              }} className="flex flex-col gap-3">
+                <input 
+                  name="applicant" 
+                  placeholder={t('schedule.form.applicantName')} 
+                  className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-cyan-500 focus:border-transparent" 
+                  required 
+                />
+                <input 
+                  name="date" 
+                  type="date" 
+                  className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-cyan-500 focus:border-transparent" 
+                  required 
+                />
+                <input 
+                  name="time" 
+                  type="time" 
+                  className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-cyan-500 focus:border-transparent" 
+                  required 
+                />
+                <select 
+                  name="mode" 
+                  className="px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-cyan-500 focus:border-transparent"
+                >
+                  <option>{t('schedule.modes.online')}</option>
+                  <option>{t('schedule.modes.offline')}</option>
+                </select>
+                <button 
+                  type="submit" 
+                  className="mt-2 px-4 py-2 bg-cyan-600 text-white rounded-lg font-semibold hover:bg-cyan-700 transition-colors"
+                >
+                  {t('schedule.actions.addAppointment')}
+                </button>
+              </form>
             </div>
           </div>
-        </div>
-      )}
+        )}
+        
+        {/* Event Modal */}
+        {showEventModal && selectedEvent && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl p-6 min-w-[320px] max-w-[90vw] relative border border-gray-200 dark:border-gray-700">
+              <button 
+                className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 dark:hover:text-gray-300" 
+                onClick={() => setShowEventModal(false)}
+              >
+                <FiXCircle className="w-6 h-6" />
+              </button>
+              <h2 className="text-lg font-bold mb-4 text-gray-800 dark:text-gray-100">{selectedEvent.title}</h2>
+              <div className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                {formatDate(selectedEvent.date)} at {selectedEvent.time} ({selectedEvent.mode})
+              </div>
+              <div className="mb-2 flex items-center gap-2">
+                <FiUsers className="text-blue-400 w-4 h-4" />
+                <span className="text-sm text-gray-700 dark:text-gray-300">{selectedEvent.staff.name}</span>
+              </div>
+              <div className="mb-2 flex items-center gap-2">
+                <FiUserCheck className="text-green-400 w-4 h-4" />
+                <span className="text-sm text-gray-700 dark:text-gray-300">{selectedEvent.applicant}</span>
+              </div>
+              <div className="mb-4 flex items-center gap-2">
+                <span className={`px-2 py-0.5 rounded-full text-xs ${selectedEvent.color}`}>{selectedEvent.type}</span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <button 
+                  className="px-3 py-1 bg-yellow-100 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400 rounded font-semibold hover:bg-yellow-200 dark:hover:bg-yellow-900/30 transition-colors" 
+                  onClick={() => handleReschedule(selectedEvent, addDays(selectedEvent.date, 1), selectedEvent.time)}
+                >
+                  <FiRepeat className="inline mr-1" />
+                  {t('schedule.actions.reschedule')}
+                </button>
+                <button 
+                  className="px-3 py-1 bg-indigo-100 text-indigo-700 dark:bg-indigo-900/20 dark:text-indigo-400 rounded font-semibold hover:bg-indigo-200 dark:hover:bg-indigo-900/30 transition-colors" 
+                  onClick={() => handleAssignStaff(selectedEvent, mockStaff[1])}
+                >
+                  <FiUsers className="inline mr-1" />
+                  {t('schedule.actions.assignStaff')}
+                </button>
+                <button 
+                  className="px-3 py-1 bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400 rounded font-semibold hover:bg-green-200 dark:hover:bg-green-900/30 transition-colors" 
+                  onClick={() => handleAttend(selectedEvent)}
+                >
+                  <FiCheckCircle className="inline mr-1" />
+                  {t('schedule.actions.markAttended')}
+                </button>
+                <button 
+                  className="px-3 py-1 bg-blue-100 text-blue-700 dark:bg-blue-900/20 dark:text-blue-400 rounded font-semibold hover:bg-blue-200 dark:hover:bg-blue-900/30 transition-colors" 
+                  onClick={() => handleReminder(selectedEvent)}
+                >
+                  <FiMail className="inline mr-1" />
+                  {t('schedule.actions.sendReminder')}
+                </button>
+                <button 
+                  className="px-3 py-1 bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400 rounded font-semibold hover:bg-red-200 dark:hover:bg-red-900/30 transition-colors" 
+                  onClick={() => handleCancel(selectedEvent)}
+                >
+                  <FiXCircle className="inline mr-1" />
+                  {t('schedule.actions.cancel')}
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

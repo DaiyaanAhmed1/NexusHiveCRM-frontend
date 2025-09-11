@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocalization } from "../../../../hooks/useLocalization";
 import {
   BookOpenIcon,
   DocumentTextIcon,
@@ -10,7 +12,8 @@ import {
   TrashIcon,
   ArrowDownTrayIcon,
   EyeIcon,
-  UserIcon
+  UserIcon,
+  XMarkIcon
 } from "@heroicons/react/24/outline";
 
 const initialResources = [
@@ -62,20 +65,53 @@ const initialResources = [
 ];
 
 const resourceTypes = [
-  { name: "Document", icon: DocumentTextIcon, color: "bg-blue-100 text-blue-800" },
-  { name: "Video", icon: VideoCameraIcon, color: "bg-red-100 text-red-800" },
-  { name: "Presentation", icon: PresentationChartLineIcon, color: "bg-purple-100 text-purple-800" },
-  { name: "Guide", icon: BookOpenIcon, color: "bg-green-100 text-green-800" }
+  { name: "Document", icon: DocumentTextIcon, color: "bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300" },
+  { name: "Video", icon: VideoCameraIcon, color: "bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-300" },
+  { name: "Presentation", icon: PresentationChartLineIcon, color: "bg-purple-100 text-purple-800 dark:bg-purple-900/20 dark:text-purple-300" },
+  { name: "Guide", icon: BookOpenIcon, color: "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300" }
 ];
 
 const KnowledgeHub = () => {
+  const { t } = useTranslation(['admission']);
+  const { isRTL } = useLocalization();
   const [resources, setResources] = useState(initialResources);
   const [showAddModal, setShowAddModal] = useState(false);
   const [selectedResource, setSelectedResource] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const [newResource, setNewResource] = useState({
+    title: '',
+    description: '',
+    category: '',
+    tags: '',
+    file: null
+  });
 
   const handleDeleteResource = (id) => {
     setResources(resources.filter(resource => resource.id !== id));
+  };
+
+  const handleAddResource = (e) => {
+    e.preventDefault();
+    if (newResource.title && newResource.category) {
+      const resource = {
+        id: resources.length + 1,
+        title: newResource.title,
+        description: newResource.description,
+        category: newResource.category,
+        type: "Document",
+        format: "PDF",
+        size: "2.4 MB",
+        uploadDate: new Date().toISOString().split('T')[0],
+        downloads: 0,
+        views: 0,
+        tags: newResource.tags.split(',').map(tag => tag.trim()).filter(tag => tag),
+        status: "Published",
+        author: "Admin"
+      };
+      setResources([...resources, resource]);
+      setNewResource({ title: '', description: '', category: '', tags: '', file: null });
+      setShowAddModal(false);
+    }
   };
 
   const filteredResources = resources.filter(resource =>
@@ -93,7 +129,7 @@ const KnowledgeHub = () => {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-primary text-white dark:text-white rounded-lg hover:bg-primary-dark dark:hover:bg-primary-dark transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 transition-colors"
         >
           <PlusIcon className="w-5 h-5" />
           Add Resource
@@ -108,7 +144,7 @@ const KnowledgeHub = () => {
           placeholder="Search resources..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-gray-700 dark:text-white"
+          className="w-full pl-10 pr-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
         />
       </div>
 
@@ -132,7 +168,7 @@ const KnowledgeHub = () => {
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setSelectedResource(resource)}
-                  className="p-1 text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary"
+                  className="p-1 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400"
                 >
                   <PencilIcon className="w-5 h-5" />
                 </button>
@@ -148,7 +184,7 @@ const KnowledgeHub = () => {
             <div className="mt-4 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 {resourceTypes.find(type => type.name === resource.type)?.icon && (
-                  <div className={`p-2 rounded-lg ${resourceTypes.find(type => type.name === resource.type)?.color} dark:bg-opacity-20`}>
+                  <div className={`p-2 rounded-lg ${resourceTypes.find(type => type.name === resource.type)?.color}`}>
                     {React.createElement(resourceTypes.find(type => type.name === resource.type)?.icon, { className: "w-5 h-5" })}
                   </div>
                 )}
@@ -182,76 +218,131 @@ const KnowledgeHub = () => {
 
       {/* Add/Edit Resource Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md border border-gray-200 dark:border-gray-700">
-            <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Upload Resource</h3>
-            <form className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Resource Title</label>
-                <input
-                  type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white"
-                  placeholder="Enter resource title"
-                />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto border border-gray-200 dark:border-gray-700">
+            {/* Modal Header */}
+            <div className="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 rounded-t-xl">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Upload Resource</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">Add a new training resource to the knowledge hub</p>
+                </div>
+                <button
+                  onClick={() => setShowAddModal(false)}
+                  className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors p-1"
+                >
+                  <XMarkIcon className="w-6 h-6" />
+                </button>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Description</label>
-                <textarea
-                  rows={3}
-                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white"
-                  placeholder="Enter resource description"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Category</label>
-                <select className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white">
-                  <option value="">Select category</option>
-                  <option value="Technical">Technical</option>
-                  <option value="Process">Process</option>
-                  <option value="Policy">Policy</option>
-                  <option value="Training">Training</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Tags</label>
-                <input
-                  type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white"
-                  placeholder="Enter tags separated by commas"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">File Upload</label>
-                <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-md dark:bg-gray-700">
-                  <div className="space-y-1 text-center">
-                    <DocumentTextIcon className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" />
-                    <div className="flex text-sm text-gray-600 dark:text-gray-400">
-                      <label className="relative cursor-pointer bg-white dark:bg-gray-600 rounded-md font-medium text-primary hover:text-primary-dark dark:text-primary-light">
-                        <span>Upload a file</span>
-                        <input type="file" className="sr-only" />
-                      </label>
-                      <p className="pl-1">or drag and drop</p>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-6">
+              <form onSubmit={handleAddResource} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Resource Title *
+                    </label>
+                    <input
+                      type="text"
+                      value={newResource.title}
+                      onChange={(e) => setNewResource({...newResource, title: e.target.value})}
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      placeholder="Enter resource title"
+                      required
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Description
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={newResource.description}
+                      onChange={(e) => setNewResource({...newResource, description: e.target.value})}
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      placeholder="Enter resource description"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Category *
+                    </label>
+                    <select 
+                      value={newResource.category}
+                      onChange={(e) => setNewResource({...newResource, category: e.target.value})}
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      required
+                    >
+                      <option value="">Select category</option>
+                      <option value="Technical">Technical</option>
+                      <option value="Process">Process</option>
+                      <option value="Policy">Policy</option>
+                      <option value="Training">Training</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      Tags
+                    </label>
+                    <input
+                      type="text"
+                      value={newResource.tags}
+                      onChange={(e) => setNewResource({...newResource, tags: e.target.value})}
+                      className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
+                      placeholder="Enter tags separated by commas"
+                    />
+                  </div>
+
+                  <div className="md:col-span-2">
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                      File Upload
+                    </label>
+                    <div className="mt-1 flex justify-center px-6 pt-8 pb-8 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-lg dark:bg-gray-700 hover:border-gray-400 dark:hover:border-gray-500 transition-colors">
+                      <div className="space-y-2 text-center">
+                        <DocumentTextIcon className="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" />
+                        <div className="flex text-sm text-gray-600 dark:text-gray-400">
+                          <label className="relative cursor-pointer bg-white dark:bg-gray-600 rounded-md font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 px-3 py-1">
+                            <span>Upload a file</span>
+                            <input 
+                              type="file" 
+                              className="sr-only" 
+                              onChange={(e) => setNewResource({...newResource, file: e.target.files[0]})}
+                            />
+                          </label>
+                          <p className="pl-2">or drag and drop</p>
+                        </div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">PDF, MP4, PPTX up to 10MB</p>
+                      </div>
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">PDF, MP4, PPTX up to 10MB</p>
                   </div>
                 </div>
-              </div>
-              <div className="flex justify-end gap-2 mt-6">
+              </form>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="sticky bottom-0 bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 px-6 py-4 rounded-b-xl">
+              <div className="flex justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setShowAddModal(false)}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-md hover:bg-gray-200 dark:hover:bg-gray-600"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary-dark"
+                  onClick={handleAddResource}
+                  className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 transition-colors"
                 >
                   Upload Resource
                 </button>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       )}
@@ -259,4 +350,4 @@ const KnowledgeHub = () => {
   );
 };
 
-export default KnowledgeHub; 
+export default KnowledgeHub;

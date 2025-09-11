@@ -518,6 +518,7 @@
   },
   "documents": {
     "title": "Documents",
+    "subtitle": "Manage applicant documents, verification, and compliance tracking",
     "dashboard": {
       "totalUploaded": "Total Uploaded",
       "pendingVerification": "Pending Verification",
@@ -616,6 +617,11 @@
   "leadTransfer": {
     "title": "Lead Transfer Management",
     "subtitle": "Manage and transfer leads between counselors efficiently",
+    "overviewDescription": "Filter and select leads for transfer between counselors and departments.",
+    "bulkTransferDescription": "Transfer multiple leads at once and assign them to specific counselors.",
+    "historyDescription": "Review past lead transfers, track status changes, and monitor transfer patterns.",
+    "conflictsDescription": "Resolve ownership conflicts and workload distribution issues between counselors.",
+    "kpiDescription": "Analyze transfer metrics, counselor workload, and performance indicators.",
     "tabs": {
       "overview": "Lead Overview",
       "bulkTransfer": "Bulk Transfer",
@@ -1181,13 +1187,41 @@
       "courseFee": "Course Fee",
       "additionalFees": "Additional Fees",
       "scholarship": "Scholarship",
-      "paymentPlan": "Payment Plan"
+      "paymentPlan": "Payment Plan",
+      "addCourse": "Add Course",
+      "addNewCourse": "Add New Course",
+      "courseName": "Course Name",
+      "courseCode": "Course Code",
+      "actions": "Actions",
+      "totalCourses": "Total Courses",
+      "totalFees": "Total Fees",
+      "scholarshipCourses": "Scholarship Courses"
     },
     "documentRequirements": {
       "title": "Document Requirements",
       "subtitle": "Manage required documents for course applications",
-      "required": "Required",
+      "addDocument": "Add Document",
+      "addNewDocument": "Add New Document",
+      "courseName": "Course Name",
+      "documentName": "Document Name",
+      "documentType": "Document Type",
+      "status": "Status",
+      "actions": "Actions",
+      "mandatoryDocuments": "Mandatory Documents",
+      "optionalDocuments": "Optional Documents",
+      "activeDocuments": "Active Documents",
+      "totalDocuments": "Total Documents",
+      "courseNamePlaceholder": "Enter course name",
+      "documentNamePlaceholder": "Enter document name",
+      "mandatory": "Mandatory",
       "optional": "Optional",
+      "active": "Active",
+      "inactive": "Inactive",
+      "edit": "Edit",
+      "delete": "Delete",
+      "save": "Save",
+      "cancel": "Cancel",
+      "required": "Required",
       "conditional": "Conditional"
     },
     "academicMetrics": {
@@ -1267,12 +1301,13 @@
   "helpSupport": {
     "title": "Help & Support",
     "subtitle": "Get help, submit tickets, and access knowledge base",
+    "my_tickets": "My Tickets",
     "tabs": {
       "supportTickets": "Support Tickets",
       "knowledgeBase": "Knowledge Base"
     },
     "actions": {
-      "raiseTicket": "+ Raise Ticket",
+      "raiseTicket": "Raise Ticket",
       "submitTicket": "Submit Ticket"
     },
     "ticketForm": {

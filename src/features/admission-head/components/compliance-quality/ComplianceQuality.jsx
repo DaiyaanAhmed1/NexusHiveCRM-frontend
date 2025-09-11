@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocalization } from "../../../../hooks/useLocalization";
 import { Tab } from '@headlessui/react';
 import {
   ClipboardDocumentCheckIcon,
@@ -30,6 +31,7 @@ function classNames(...classes) {
 
 const ComplianceQuality = () => {
   const { t } = useTranslation(['admission', 'common']);
+  const { isRTL } = useLocalization();
   
   const tabs = [
     {
@@ -100,38 +102,68 @@ const ComplianceQuality = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900" data-tour="1" data-tour-title-en="Compliance & Quality Overview" data-tour-title-ar="نظرة عامة على الامتثال والجودة" data-tour-content-en="Header, tabs, regulatory, document compliance, audit, quality, policies, feedback, risks, alerts, and reports." data-tour-content-ar="الرأس، علامات التبويب، الجهات التنظيمية، امتثال المستندات، التدقيق، الجودة، السياسات، التغذية، المخاطر، التنبيهات والتقارير.">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900" 
+         data-tour="1" 
+         data-tour-title-en="Compliance & Quality Overview" 
+         data-tour-title-ar="نظرة عامة على الامتثال والجودة" 
+         data-tour-content-en="Header, tabs, regulatory, document compliance, audit, quality, policies, feedback, risks, alerts, and reports." 
+         data-tour-content-ar="الرأس، علامات التبويب، الجهات التنظيمية، امتثال المستندات، التدقيق، الجودة، السياسات، التغذية، المخاطر، التنبيهات والتقارير.">
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8" data-tour="2" data-tour-title-en="Header" data-tour-title-ar="الرأس" data-tour-content-en="Module title and description." data-tour-content-ar="عنوان الوحدة والوصف.">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-            {t('complianceQuality.title')}
-          </h1>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            {t('complianceQuality.subtitle')}
-          </p>
+        {/* Header */}
+        <div className="mb-8" 
+             data-tour="2" 
+             data-tour-title-en="Header" 
+             data-tour-title-ar="الرأس" 
+             data-tour-content-en="Module title and description." 
+             data-tour-content-ar="عنوان الوحدة والوصف.">
+          <div className="bg-gradient-to-r from-green-600 to-blue-600 rounded-xl p-8 text-white">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                <ClipboardDocumentCheckIcon className="w-6 h-6 text-white" />
+              </div>
+              <h1 className="text-3xl font-bold">
+                {t('complianceQuality.title')}
+              </h1>
+            </div>
+            <p className="text-green-100 text-lg">
+              {t('complianceQuality.subtitle')}
+            </p>
+          </div>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow">
+        {/* Main Content */}
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
           <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
-            <Tab.List className="flex flex-wrap gap-2 border-b border-gray-200 dark:border-gray-700 p-4" data-tour="3" data-tour-title-en="Tabs" data-tour-title-ar="علامات التبويب" data-tour-content-en="Navigate through compliance sections." data-tour-content-ar="التنقل بين أقسام الامتثال.">
-              {tabs.map((tab) => (
-                <Tab
-                  key={tab.name}
-                  className={({ selected }) =>
-                    classNames(
-                      'flex items-center space-x-2 px-4 py-2 text-sm font-medium rounded-md transition-colors duration-200',
-                      selected
-                        ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200'
-                        : 'text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700'
-                    )
-                  }
-                >
-                  <tab.icon className="h-5 w-5" />
-                  <span>{tab.name}</span>
-                </Tab>
-              ))}
-            </Tab.List>
-            <Tab.Panels className="p-4">
+            {/* Tab Navigation */}
+            <div className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50" 
+                 data-tour="3" 
+                 data-tour-title-en="Tabs" 
+                 data-tour-title-ar="علامات التبويب" 
+                 data-tour-content-en="Navigate through compliance sections." 
+                 data-tour-content-ar="التنقل بين أقسام الامتثال.">
+              <Tab.List className="flex flex-wrap gap-2 p-4 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-gray-100 dark:scrollbar-track-gray-700">
+                {tabs.map((tab) => (
+                  <Tab
+                    key={tab.name}
+                    className={({ selected }) =>
+                      classNames(
+                        'flex items-center gap-2 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 whitespace-nowrap flex-shrink-0',
+                        selected
+                          ? 'bg-green-600 text-white shadow-lg transform scale-105'
+                          : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-900 dark:hover:text-white'
+                      )
+                    }
+                  >
+                    <tab.icon className="h-5 w-5" />
+                    <span>{tab.name}</span>
+                  </Tab>
+                ))}
+              </Tab.List>
+            </div>
+            
+            {/* Tab Content */}
+            <Tab.Panels className="p-6">
               {tabs.map((tab) => (
                 <Tab.Panel
                   key={tab.name}
@@ -142,11 +174,16 @@ const ComplianceQuality = () => {
                   data-tour-content-en={tab.tour.contentEn}
                   data-tour-content-ar={tab.tour.contentAr}
                 >
-                  <div className="mb-4">
-                    <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-                      {tab.name}
-                    </h2>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <div className="mb-6">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className="w-8 h-8 bg-green-100 dark:bg-green-900/20 rounded-lg flex items-center justify-center">
+                        <tab.icon className="w-5 h-5 text-green-600 dark:text-green-400" />
+                      </div>
+                      <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                        {tab.name}
+                      </h2>
+                    </div>
+                    <p className="text-gray-600 dark:text-gray-300">
                       {tab.description}
                     </p>
                   </div>
@@ -161,4 +198,4 @@ const ComplianceQuality = () => {
   );
 };
 
-export default ComplianceQuality; 
+export default ComplianceQuality;

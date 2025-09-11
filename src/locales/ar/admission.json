@@ -521,6 +521,7 @@
   },
   "documents": {
     "title": "المستندات",
+    "subtitle": "إدارة المستندات المتقدم، التحقق، وتتبع الامتثال",
     "dashboard": {
       "totalUploaded": "إجمالي المرفوع",
       "pendingVerification": "في انتظار التحقق",
@@ -619,6 +620,11 @@
   "leadTransfer": {
     "title": "إدارة نقل العملاء المحتملين",
     "subtitle": "إدارة ونقل العملاء المحتملين بين المستشارين بكفاءة",
+    "overviewDescription": "تصفية واختيار العملاء المحتملين للنقل بين المستشارين والأقسام.",
+    "bulkTransferDescription": "نقل عدة عملاء محتملين في وقت واحد وتعيينهم لمستشارين محددين.",
+    "historyDescription": "مراجعة تحويلات العملاء المحتملين السابقة وتتبع تغييرات الحالة ومراقبة أنماط النقل.",
+    "conflictsDescription": "حل تعارضات الملكية ومشاكل توزيع عبء العمل بين المستشارين.",
+    "kpiDescription": "تحليل مقاييس النقل وعبء عمل المستشارين ومؤشرات الأداء.",
     "tabs": {
       "overview": "نظرة عامة على العملاء المحتملين",
       "bulkTransfer": "نقل جماعي",
@@ -1068,13 +1074,39 @@
       "courseFee": "رسوم الدورة",
       "additionalFees": "رسوم إضافية",
       "scholarship": "المنحة الدراسية",
-      "paymentPlan": "خطة الدفع"
+      "paymentPlan": "خطة الدفع",
+      "addCourse": "إضافة دورة",
+      "addNewCourse": "إضافة دورة جديدة",
+      "courseName": "اسم الدورة",
+      "courseCode": "رمز الدورة",
+      "actions": "الإجراءات",
+      "totalCourses": "إجمالي الدورات",
+      "totalFees": "إجمالي الرسوم",
+      "scholarshipCourses": "دورات المنحة الدراسية"
     },
     "documentRequirements": {
       "title": "متطلبات المستندات",
       "subtitle": "إدارة المستندات المطلوبة لطلبات الدورات",
-      "required": "مطلوب",
+      "courseName": "اسم الدورة",
+      "documentName": "اسم المستند",
+      "documentType": "نوع المستند",
+      "status": "الحالة",
+      "actions": "الإجراءات",
+      "mandatoryDocuments": "المستندات المطلوبة",
+      "optionalDocuments": "المستندات الاختيارية",
+      "activeDocuments": "المستندات النشطة",
+      "totalDocuments": "إجمالي المستندات",
+      "courseNamePlaceholder": "أدخل اسم الدورة",
+      "documentNamePlaceholder": "أدخل اسم المستند",
+      "mandatory": "مطلوب",
       "optional": "اختياري",
+      "active": "نشط",
+      "inactive": "غير نشط",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "save": "حفظ",
+      "cancel": "إلغاء",
+      "required": "مطلوب",
       "conditional": "مشروط"
     },
     "academicMetrics": {
@@ -1154,12 +1186,13 @@
   "helpSupport": {
     "title": "المساعدة والدعم",
     "subtitle": "احصل على المساعدة، أرسل التذاكر، واذهب إلى قاعدة المعرفة",
+    "my_tickets": "تذاكري",
     "tabs": {
       "supportTickets": "تذاكر الدعم",
       "knowledgeBase": "قاعدة المعرفة"
     },
     "actions": {
-      "raiseTicket": "+ إرسال تذكرة",
+      "raiseTicket": "إرسال تذكرة",
       "submitTicket": "إرسال التذكرة"
     },
     "ticketForm": {

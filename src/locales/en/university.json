@@ -152,5 +152,137 @@
         "emergencyNote": "For urgent matters outside office hours, please contact our emergency hotline."
       }
     }
+  },
+  "marlnCrm": {
+    "title": "MARLN Corp CRM",
+    "subtitle": "Transform Your Educational Institution with AI-Powered Management",
+    "watchDemo": "Watch Demo",
+    "downloadBrochure": "Download Brochure",
+    "trustedBy": "Trusted by 500+ Educational Institutions",
+    "aiPowered": "AI-Powered • Cloud-Based • Secure",
+    "globalPresence": "Global Presence",
+    "industryLeader": "Industry Leader",
+    "tabs": {
+      "overview": "Overview",
+      "features": "Features",
+      "testimonials": "Testimonials",
+      "pricing": "Pricing",
+      "contact": "Contact"
+    },
+    "stats": {
+      "activeUsers": "Active Users",
+      "dataProcessed": "Data Processed",
+      "successRate": "Success Rate",
+      "responseTime": "Response Time",
+      "uptime": "Uptime",
+      "clientSatisfaction": "Client Satisfaction"
+    },
+    "overview": {
+      "title": "Why Choose Marln Corp CRM?",
+      "description1": "Our comprehensive CRM solution is designed specifically for educational institutions, providing everything you need to manage students, faculty, and administrative processes in one unified platform.",
+      "description2": "With advanced AI capabilities, real-time analytics, and seamless integration options, we help institutions streamline operations and enhance student success.",
+      "platformType": "Platform Type",
+      "deployment": "Deployment",
+      "security": "Security",
+      "support": "Support",
+      "platformTypeValue": "Cloud-Based SaaS",
+      "deploymentValue": "Global Cloud Infrastructure",
+      "securityValue": "Enterprise-Grade",
+      "supportValue": "24/7 Expert Support"
+    },
+    "features": {
+      "title": "Powerful Features for Modern Education",
+      "studentManagement": {
+        "title": "Student Management",
+        "description": "Comprehensive student lifecycle management from admission to graduation",
+        "benefits": ["Admission Tracking", "Academic Records", "Progress Monitoring", "Communication Hub"]
+      },
+      "academicAnalytics": {
+        "title": "Academic Analytics",
+        "description": "Real-time insights and reporting for data-driven decisions",
+        "benefits": ["Performance Metrics", "Trend Analysis", "Custom Reports", "Predictive Analytics"]
+      },
+      "financialManagement": {
+        "title": "Financial Management",
+        "description": "Complete financial tracking and fee management system",
+        "benefits": ["Fee Collection", "Payment Tracking", "Financial Reports", "Budget Planning"]
+      },
+      "communicationHub": {
+        "title": "Communication Hub",
+        "description": "Multi-channel communication platform for all stakeholders",
+        "benefits": ["Email Integration", "SMS Notifications", "Push Alerts", "Bulk Messaging"]
+      },
+      "documentManagement": {
+        "title": "Document Management",
+        "description": "Secure document storage and verification system",
+        "benefits": ["Digital Storage", "Version Control", "Access Control", "Audit Trail"]
+      },
+      "aiInsights": {
+        "title": "AI-Powered Insights",
+        "description": "Advanced AI features for predictive analytics and automation",
+        "benefits": ["Predictive Analytics", "Automated Workflows", "Smart Recommendations", "Chat Support"]
+      }
+    },
+    "testimonials": {
+      "title": "What Our Clients Say",
+      "client1": {
+        "name": "Dr. Sarah Johnson",
+        "role": "University Director",
+        "company": "Tech University",
+        "content": "Marln Corp's CRM has revolutionized our student management process. The AI insights help us make better decisions."
+      },
+      "client2": {
+        "name": "Michael Chen",
+        "role": "IT Director",
+        "company": "Global Institute",
+        "content": "The system is incredibly user-friendly and the support team is outstanding. Highly recommended!"
+      },
+      "client3": {
+        "name": "Dr. Emily Rodriguez",
+        "role": "Academic Dean",
+        "company": "Innovation College",
+        "content": "The analytics dashboard gives us insights we never had before. It's a game-changer for our institution."
+      }
+    },
+    "pricing": {
+      "title": "Flexible Pricing Plans",
+      "starter": {
+        "name": "Starter",
+        "price": "$99",
+        "period": "/month",
+        "features": ["Up to 1,000 students", "Basic analytics", "Email support"],
+        "button": "Get Started"
+      },
+      "professional": {
+        "name": "Professional",
+        "price": "$299",
+        "period": "/month",
+        "badge": "Most Popular",
+        "features": ["Up to 5,000 students", "Advanced analytics", "AI insights", "Priority support"],
+        "button": "Get Started"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "Custom",
+        "features": ["Unlimited students", "Custom integrations", "Dedicated support", "On-premise option"],
+        "button": "Contact Sales"
+      }
+    },
+    "contact": {
+      "title": "Get in Touch",
+      "contactInfo": "Contact Information",
+      "requestDemo": "Request a Demo",
+      "email": "Email",
+      "phone": "Phone",
+      "website": "Website",
+      "address": "Address",
+      "form": {
+        "name": "Your Name",
+        "email": "Email Address",
+        "institution": "Institution Name",
+        "message": "Tell us about your needs",
+        "submit": "Request Demo"
+      }
+    }
   }
 } 

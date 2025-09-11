@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocalization } from '../../../hooks/useLocalization';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   FiFilter, FiSearch, FiDownload, FiUpload, FiUsers, FiMessageSquare, 
@@ -119,6 +120,7 @@ const demoLeads = [
 
 export default function LeadsManagement() {
   const { t, i18n, ready } = useTranslation(['admission', 'common']);
+  const { isRTL, isRTLMode } = useLocalization();
   const [selectedLead, setSelectedLead] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
   const [activeTab, setActiveTab] = useState('pipeline');
@@ -162,47 +164,59 @@ export default function LeadsManagement() {
 
   return (
     <div key={`${i18n.language}-${languageVersion}`} className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      {/* Header Section */}
-      <div className="bg-white dark:bg-gray-800 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{t('leads.title')}</h1>
-              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                {t('leads.subtitle')}
-              </p>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Header */}
+        <div className="mb-8" 
+             data-tour="1" 
+             data-tour-title-en="Header" 
+             data-tour-title-ar="الرأس" 
+             data-tour-content-en="Page title and action buttons." 
+             data-tour-content-ar="عنوان الصفحة وأزرار الإجراءات.">
+          <div className="bg-gradient-to-r from-orange-600 to-red-600 rounded-xl p-8 text-white">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 bg-white/20 rounded-lg flex items-center justify-center">
+                <FiUsers className="w-6 h-6 text-white" />
+              </div>
+              <h1 className="text-3xl font-bold">
+                {t('leads.title')}
+              </h1>
             </div>
-            <div className="flex items-center space-x-4">
+            <p className="text-orange-100 text-lg mb-6">
+              {t('leads.subtitle')}
+            </p>
+            <div className="flex flex-wrap gap-3">
               <button
                 onClick={() => setShowAIInsights(true)}
-                className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700"
+                className="flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg font-semibold transition-all duration-200 backdrop-blur-sm"
               >
-                <FiZap className="mr-2" />
+                <FiZap className="w-4 h-4" />
                 {t('leads.actions.aiInsights')}
               </button>
               <button
                 onClick={() => setShowBulkActions(true)}
-                className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+                className="flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg font-semibold transition-all duration-200 backdrop-blur-sm"
               >
-                <FiUpload className="mr-2" />
+                <FiUpload className="w-4 h-4" />
                 {t('leads.actions.bulkActions')}
               </button>
               <button
                 onClick={() => setShowCommunicationModal(true)}
-                className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                className="flex items-center gap-2 px-4 py-2 bg-white/20 hover:bg-white/30 text-white rounded-lg font-semibold transition-all duration-200 backdrop-blur-sm"
               >
-                <FiMessageSquare className="mr-2" />
+                <FiMessageSquare className="w-4 h-4" />
                 {t('leads.actions.communication')}
               </button>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <div className="w-full px-4 sm:px-8 lg:px-16 py-10">
         {/* Search and Filters */}
-        <div className="mb-8 flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
+        <div className="mb-8 flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center" 
+             data-tour="2" 
+             data-tour-title-en="Search & Filters" 
+             data-tour-title-ar="البحث والمرشحات" 
+             data-tour-content-en="Search leads and apply filters." 
+             data-tour-content-ar="البحث في العملاء وتطبيق المرشحات.">
           <div className="flex-1 max-w-md">
             <div className="relative">
               <FiSearch className="absolute left-3 top-3 text-gray-400" />
@@ -211,39 +225,48 @@ export default function LeadsManagement() {
                 placeholder={t('leads.search.placeholder')}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                className="w-full px-4 py-2 pl-10 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:ring-2 focus:ring-orange-500 focus:border-transparent"
               />
             </div>
           </div>
           <div className="flex gap-2">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="inline-flex items-center px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+              className="flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
             >
-              <FiFilter className="mr-2" />
+              <FiFilter className="w-4 h-4" />
               {t('leads.tabs.filters')}
             </button>
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="mb-10 border-b border-gray-200 dark:border-gray-700">
-          <nav className="flex space-x-8">
-            {tabs.map(tab => (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center px-1 py-4 text-sm font-medium border-b-2 ${
-                  activeTab === tab.id
-                    ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
-                }`}
-              >
-                <tab.icon className="mr-2" />
-                {tab.label}
-              </button>
-            ))}
-          </nav>
+        <div className="mb-8" 
+             data-tour="3" 
+             data-tour-title-en="Tabs" 
+             data-tour-title-ar="علامات التبويب" 
+             data-tour-content-en="Navigate between different lead management sections." 
+             data-tour-content-ar="التنقل بين أقسام إدارة العملاء المختلفة.">
+          <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 overflow-hidden">
+            <div className="border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50">
+              <nav className="flex flex-wrap gap-2 p-4 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-gray-600 scrollbar-track-gray-100 dark:scrollbar-track-gray-700">
+                {tabs.map(tab => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`flex items-center gap-2 px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 whitespace-nowrap flex-shrink-0 ${
+                      activeTab === tab.id
+                        ? 'bg-orange-600 text-white shadow-lg transform scale-105'
+                        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-600 hover:text-gray-900 dark:hover:text-white'
+                    }`}
+                  >
+                    <tab.icon className="w-4 h-4" />
+                    {tab.label}
+                  </button>
+                ))}
+              </nav>
+            </div>
+          </div>
         </div>
 
         {/* Main Content Area */}
@@ -256,25 +279,38 @@ export default function LeadsManagement() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 className="space-y-6"
-              >
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{t('leads.tabs.pipeline')}</h2>
+                data-tour="4" 
+                data-tour-title-en="Lead Pipeline" 
+                data-tour-title-ar="خط أنابيب العملاء" 
+                data-tour-content-en="View and manage lead cards with contact information." 
+                data-tour-content-ar="عرض وإدارة بطاقات العملاء مع معلومات الاتصال.">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 bg-orange-100 dark:bg-orange-900/20 rounded-lg flex items-center justify-center">
+                    <FiBarChart2 className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                  </div>
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    {t('leads.tabs.pipeline')}
+                  </h2>
+                </div>
                 
                 {/* Lead Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {filteredLeads.map(lead => (
                     <div
                       key={lead.id}
-                      className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow cursor-pointer"
+                      className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 hover:shadow-xl transition-all duration-200 cursor-pointer border border-gray-200 dark:border-gray-700"
                       onClick={() => setSelectedLead(lead)}
                     >
                       <div className="flex items-center justify-between mb-4">
-                        <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-indigo-200 to-indigo-400 dark:from-indigo-900 dark:to-indigo-700 flex items-center justify-center text-indigo-700 dark:text-indigo-200 text-lg font-bold">
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-orange-200 to-red-400 dark:from-orange-900 dark:to-red-700 flex items-center justify-center text-orange-700 dark:text-orange-200 text-lg font-bold">
                           {lead.name.charAt(0)}
                         </div>
                         <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                          lead.conversionScore === 'High' ? 'bg-green-100 text-green-800' :
-                          lead.conversionScore === 'Medium' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-red-100 text-red-800'
+                          lead.conversionScore === 'High' 
+                            ? 'bg-green-100 text-green-700 dark:bg-green-900/20 dark:text-green-400' 
+                            : lead.conversionScore === 'Medium' 
+                            ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400' 
+                            : 'bg-red-100 text-red-700 dark:bg-red-900/20 dark:text-red-400'
                         }`}>
                           {lead.conversionScore}
                         </span>
@@ -285,15 +321,15 @@ export default function LeadsManagement() {
                       
                       <div className="space-y-2 text-sm text-gray-500 dark:text-gray-400">
                         <div className="flex items-center">
-                          <FiMail className="mr-2" />
+                          <FiMail className="mr-2 w-4 h-4" />
                           <span className="truncate">{lead.contact.email}</span>
                         </div>
                         <div className="flex items-center">
-                          <FiPhone className="mr-2" />
+                          <FiPhone className="mr-2 w-4 h-4" />
                           <span>{lead.contact.phone}</span>
                         </div>
                         <div className="flex items-center">
-                          <FiUserCheck className="mr-2" />
+                          <FiUserCheck className="mr-2 w-4 h-4" />
                           <span>{lead.assignedTo}</span>
                         </div>
                       </div>
@@ -317,9 +353,20 @@ export default function LeadsManagement() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 className="space-y-6"
-              >
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{t('leads.tabs.applications')}</h2>
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                data-tour="5" 
+                data-tour-title-en="Applications" 
+                data-tour-title-ar="الطلبات" 
+                data-tour-content-en="Manage application status and progress." 
+                data-tour-content-ar="إدارة حالة التطبيق والتقدم.">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 bg-orange-100 dark:bg-orange-900/20 rounded-lg flex items-center justify-center">
+                    <FiFileText className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                  </div>
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    {t('leads.tabs.applications')}
+                  </h2>
+                </div>
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
                   <p className="text-gray-600 dark:text-gray-300">{t('leads.tabs.applications')} content will be implemented here.</p>
                 </div>
               </motion.div>
@@ -332,9 +379,20 @@ export default function LeadsManagement() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 className="space-y-6"
-              >
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{t('leads.tabs.workload')}</h2>
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                data-tour="6" 
+                data-tour-title-en="Team Workload" 
+                data-tour-title-ar="عبء عمل الفريق" 
+                data-tour-content-en="View team workload and assignments." 
+                data-tour-content-ar="عرض عبء عمل الفريق والمهام.">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 bg-orange-100 dark:bg-orange-900/20 rounded-lg flex items-center justify-center">
+                    <FiUsers className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                  </div>
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    {t('leads.tabs.workload')}
+                  </h2>
+                </div>
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
                   <p className="text-gray-600 dark:text-gray-300">{t('leads.tabs.workload')} content will be implemented here.</p>
                 </div>
               </motion.div>
@@ -347,9 +405,20 @@ export default function LeadsManagement() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 className="space-y-6"
-              >
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{t('leads.tabs.performance')}</h2>
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                data-tour="7" 
+                data-tour-title-en="Performance" 
+                data-tour-title-ar="الأداء" 
+                data-tour-content-en="View performance metrics and analytics." 
+                data-tour-content-ar="عرض مقاييس الأداء والتحليلات.">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 bg-orange-100 dark:bg-orange-900/20 rounded-lg flex items-center justify-center">
+                    <FiTrendingUp className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                  </div>
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    {t('leads.tabs.performance')}
+                  </h2>
+                </div>
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
                   <p className="text-gray-600 dark:text-gray-300">{t('leads.tabs.performance')} content will be implemented here.</p>
                 </div>
               </motion.div>
@@ -362,9 +431,20 @@ export default function LeadsManagement() {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 className="space-y-6"
-              >
-                <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{t('leads.tabs.insights')}</h2>
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6">
+                data-tour="8" 
+                data-tour-title-en="AI Insights" 
+                data-tour-title-ar="رؤى الذكاء" 
+                data-tour-content-en="View AI-powered insights and recommendations." 
+                data-tour-content-ar="عرض الرؤى والتوصيات المدعومة بالذكاء.">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 bg-orange-100 dark:bg-orange-900/20 rounded-lg flex items-center justify-center">
+                    <FiZap className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                  </div>
+                  <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+                    {t('leads.tabs.insights')}
+                  </h2>
+                </div>
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700">
                   <p className="text-gray-600 dark:text-gray-300">{t('leads.tabs.insights')} content will be implemented here.</p>
                 </div>
               </motion.div>
@@ -379,10 +459,10 @@ export default function LeadsManagement() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
               >
                 <div className="absolute inset-0" onClick={() => setSelectedLead(null)} />
-                <div className="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-2xl w-full mx-4 p-6">
+                <div className="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-2xl w-full mx-4 p-6 border border-gray-200 dark:border-gray-700">
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{selectedLead.name}</h2>
                     <button
@@ -429,7 +509,7 @@ export default function LeadsManagement() {
                 <div className="fixed inset-0 transition-opacity" aria-hidden="true">
                   <div className="absolute inset-0 bg-gray-500 dark:bg-gray-900 opacity-75"></div>
                 </div>
-                <div className="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-2xl w-full mx-4 p-6">
+                <div className="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-2xl w-full mx-4 p-6 border border-gray-200 dark:border-gray-700">
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t('leads.actions.aiInsights')}</h2>
                     <button
@@ -456,7 +536,7 @@ export default function LeadsManagement() {
                 <div className="fixed inset-0 transition-opacity" aria-hidden="true">
                   <div className="absolute inset-0 bg-gray-500 dark:bg-gray-900 opacity-75"></div>
                 </div>
-                <div className="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-2xl w-full mx-4 p-6">
+                <div className="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-2xl w-full mx-4 p-6 border border-gray-200 dark:border-gray-700">
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t('leads.actions.communication')}</h2>
                     <button
@@ -483,7 +563,7 @@ export default function LeadsManagement() {
                 <div className="fixed inset-0 transition-opacity" aria-hidden="true">
                   <div className="absolute inset-0 bg-gray-500 dark:bg-gray-900 opacity-75"></div>
                 </div>
-                <div className="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-2xl w-full mx-4 p-6">
+                <div className="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-2xl w-full mx-4 p-6 border border-gray-200 dark:border-gray-700">
                   <div className="flex items-center justify-between mb-6">
                     <h2 className="text-2xl font-bold text-gray-900 dark:text-white">{t('leads.actions.bulkActions')}</h2>
                     <button
@@ -502,4 +582,4 @@ export default function LeadsManagement() {
       </div>
     </div>
   );
-} 
+}

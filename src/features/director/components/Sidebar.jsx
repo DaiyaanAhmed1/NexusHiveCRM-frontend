@@ -57,7 +57,7 @@ export default function Sidebar({ features, userLabel, expanded, setExpanded }) 
           className={`flex items-center hover:opacity-80 transition-opacity ${isRTLMode ? 'space-x-reverse space-x-3' : 'space-x-3'}`}
         >
           <img
-            src="https://lms-frontend-resources.s3.ap-south-1.amazonaws.com/college1/collage1.png"
+            src="https://lms-frontend-resources.s3.ap-south-1.amazonaws.com/marlnlogopng.png"
             alt={t('sidebar.mbscLogo')}
             className={`transition-all duration-300 ${expanded ? 'w-12 h-12' : 'w-10 h-10'}`}
           />

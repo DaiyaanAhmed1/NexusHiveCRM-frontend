@@ -24,7 +24,7 @@
       },
       "status": {
         "open": "Open",
-        "inProgress": "In Progress",
+        "inprogress": "In Progress",
         "resolved": "Resolved",
         "pending": "Pending"
       },
@@ -1142,11 +1142,13 @@
     "sections": {
       "teamStructure": {
         "title": "Team Structure & Hierarchy",
+        "performanceOverview": "Performance Overview",
         "aiSuggestion": "AI Suggestion",
         "byRole": "By Role",
         "reportingHierarchy": "Reporting Hierarchy",
         "aiWorkloadSuggestion": "AI: Suggests moving Noura Al-Zahra to Digital for better workload balance"
       },
+      
       "roleAccess": {
         "title": "Role-based Access & Permissions",
         "member": "Member",

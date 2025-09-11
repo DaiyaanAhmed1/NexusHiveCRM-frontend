@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useLocalization } from "../../../../hooks/useLocalization";
 import {
   UserGroupIcon,
   AcademicCapIcon,
@@ -11,7 +13,8 @@ import {
   EnvelopeIcon,
   PhoneIcon,
   ChatBubbleLeftRightIcon,
-  DocumentTextIcon
+  DocumentTextIcon,
+  XMarkIcon
 } from "@heroicons/react/24/outline";
 
 const initialTrainers = [
@@ -113,11 +116,22 @@ const initialTrainers = [
 ];
 
 const TrainerManagement = () => {
+  const { t } = useTranslation(['admission', 'common']);
+  const { isRTL } = useLocalization();
   const [trainers, setTrainers] = useState(initialTrainers);
   const [showAddModal, setShowAddModal] = useState(false);
   const [selectedTrainer, setSelectedTrainer] = useState(null);
   const [showFeedbackModal, setShowFeedbackModal] = useState(false);
   const [selectedTrainerForFeedback, setSelectedTrainerForFeedback] = useState(null);
+  const [newTrainer, setNewTrainer] = useState({
+    name: '',
+    role: '',
+    expertise: [],
+    availability: 'Full-time',
+    email: '',
+    phone: ''
+  });
+  const [newExpertise, setNewExpertise] = useState('');
 
   const handleDeleteTrainer = (id) => {
     setTrainers(trainers.filter(trainer => trainer.id !== id));
@@ -126,6 +140,47 @@ const TrainerManagement = () => {
   const handleViewFeedback = (trainer) => {
     setSelectedTrainerForFeedback(trainer);
     setShowFeedbackModal(true);
+  };
+
+  const handleAddExpertise = () => {
+    if (newExpertise.trim()) {
+      setNewTrainer({
+        ...newTrainer,
+        expertise: [...newTrainer.expertise, newExpertise.trim()]
+      });
+      setNewExpertise('');
+    }
+  };
+
+  const handleRemoveExpertise = (index) => {
+    setNewTrainer({
+      ...newTrainer,
+      expertise: newTrainer.expertise.filter((_, i) => i !== index)
+    });
+  };
+
+  const handleAddTrainer = (e) => {
+    e.preventDefault();
+    if (newTrainer.name && newTrainer.role && newTrainer.email) {
+      setTrainers([...trainers, { 
+        ...newTrainer, 
+        id: Date.now(),
+        rating: 0,
+        sessions: 0,
+        upcomingSessions: [],
+        feedback: [],
+        evaluations: []
+      }]);
+      setNewTrainer({
+        name: '',
+        role: '',
+        expertise: [],
+        availability: 'Full-time',
+        email: '',
+        phone: ''
+      });
+      setShowAddModal(false);
+    }
   };
 
   return (
@@ -138,7 +193,7 @@ const TrainerManagement = () => {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="flex items-center gap-2 px-4 py-2 bg-primary text-white dark:text-white rounded-lg hover:bg-primary-dark dark:hover:bg-primary-dark transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-primary text-white dark:text-white rounded-lg hover:bg-primary-dark dark:hover:bg-primary-dark transition-colors dark:bg-blue-600 dark:hover:bg-blue-700"
         >
           <PlusIcon className="w-5 h-5" />
           Add Trainer
@@ -171,7 +226,7 @@ const TrainerManagement = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                    trainer.availability === 'Full-time' ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200' : 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200'
+                    trainer.availability === 'Full-time' ? 'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-400' : 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-400'
                   }`}>
                     {trainer.availability}
                   </span>
@@ -184,13 +239,13 @@ const TrainerManagement = () => {
                   </button>
                   <button
                     onClick={() => setSelectedTrainer(trainer)}
-                    className="p-1 text-gray-500 dark:text-gray-400 hover:text-primary"
+                    className="p-1 text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-blue-500"
                   >
                     <PencilIcon className="w-5 h-5" />
                   </button>
                   <button
                     onClick={() => handleDeleteTrainer(trainer.id)}
-                    className="p-1 text-gray-500 dark:text-gray-400 hover:text-red-600"
+                    className="p-1 text-gray-500 dark:text-gray-400 hover:text-red-600 dark:hover:text-red-400"
                   >
                     <TrashIcon className="w-5 h-5" />
                   </button>
@@ -202,7 +257,7 @@ const TrainerManagement = () => {
                 <h5 className="font-medium text-gray-900 dark:text-white mb-2">Skills</h5>
                 <div className="flex flex-wrap gap-2">
                   {trainer.expertise.map((skill, index) => (
-                    <span key={index} className="px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs rounded-full">
+                    <span key={index} className="px-2 py-1 bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-400 text-xs rounded-full">
                       {skill}
                     </span>
                   ))}
@@ -236,24 +291,30 @@ const TrainerManagement = () => {
 
       {/* Add/Edit Trainer Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md">
+        <div className="fixed inset-0 bg-black bg-opacity-30 dark:bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-md mx-4">
             <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Add New Trainer</h3>
-            <form className="space-y-4">
+            <form onSubmit={handleAddTrainer} className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white"
+                  value={newTrainer.name}
+                  onChange={(e) => setNewTrainer({...newTrainer, name: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Enter trainer name"
+                  required
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Role</label>
                 <input
                   type="text"
-                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white"
+                  value={newTrainer.role}
+                  onChange={(e) => setNewTrainer({...newTrainer, role: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Enter trainer role"
+                  required
                 />
               </div>
               <div>
@@ -262,21 +323,44 @@ const TrainerManagement = () => {
                   <div className="flex gap-2">
                     <input
                       type="text"
-                      className="flex-1 rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white"
+                      value={newExpertise}
+                      onChange={(e) => setNewExpertise(e.target.value)}
+                      className="flex-1 rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500"
                       placeholder="Add expertise"
                     />
                     <button
                       type="button"
-                      className="p-2 text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-primary"
+                      onClick={handleAddExpertise}
+                      className="p-2 text-gray-500 dark:text-gray-400 hover:text-primary dark:hover:text-blue-500"
                     >
                       <PlusIcon className="w-5 h-5" />
                     </button>
                   </div>
+                  {newTrainer.expertise.length > 0 && (
+                    <div className="flex flex-wrap gap-2">
+                      {newTrainer.expertise.map((expertise, index) => (
+                        <span key={index} className="inline-flex items-center gap-1 px-2 py-1 bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-400 text-xs rounded-full">
+                          {expertise}
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveExpertise(index)}
+                            className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300"
+                          >
+                            <XMarkIcon className="w-3 h-3" />
+                          </button>
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Availability</label>
-                <select className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white">
+                <select 
+                  value={newTrainer.availability}
+                  onChange={(e) => setNewTrainer({...newTrainer, availability: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                >
                   <option value="Full-time">Full-time</option>
                   <option value="Part-time">Part-time</option>
                   <option value="Contract">Contract</option>
@@ -286,15 +370,20 @@ const TrainerManagement = () => {
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
                 <input
                   type="email"
-                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white"
+                  value={newTrainer.email}
+                  onChange={(e) => setNewTrainer({...newTrainer, email: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Enter email address"
+                  required
                 />
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Phone</label>
                 <input
                   type="tel"
-                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white"
+                  value={newTrainer.phone}
+                  onChange={(e) => setNewTrainer({...newTrainer, phone: e.target.value})}
+                  className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 shadow-sm focus:border-primary focus:ring-primary dark:bg-gray-700 dark:text-white dark:focus:border-blue-500 dark:focus:ring-blue-500"
                   placeholder="Enter phone number"
                 />
               </div>
@@ -308,7 +397,7 @@ const TrainerManagement = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary-dark"
+                  className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-md hover:bg-primary-dark dark:bg-blue-600 dark:hover:bg-blue-700"
                 >
                   Add Trainer
                 </button>
@@ -320,8 +409,8 @@ const TrainerManagement = () => {
 
       {/* Feedback & Evaluation Modal */}
       {showFeedbackModal && selectedTrainerForFeedback && (
-        <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50">
-          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 bg-black bg-opacity-30 dark:bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto mx-4">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
                 Feedback & Evaluations - {selectedTrainerForFeedback.name}
@@ -330,10 +419,7 @@ const TrainerManagement = () => {
                 onClick={() => setShowFeedbackModal(false)}
                 className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
               >
-                <span className="sr-only">Close</span>
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <XMarkIcon className="w-6 h-6" />
               </button>
             </div>
 
@@ -374,21 +460,21 @@ const TrainerManagement = () => {
                   Performance Evaluations
                 </h4>
                 <div className="space-y-4">
-                                      {selectedTrainerForFeedback.evaluations.map((evaluation) => (
-                      <div key={evaluation.id} className="bg-white dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-600">
-                        <div className="flex justify-between items-center mb-2">
-                          <span className="font-medium text-gray-900 dark:text-white">{evaluation.type}</span>
-                          <span className="text-lg font-bold text-primary">{evaluation.score}%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
-                          <div
-                            className="bg-primary h-2 rounded-full"
-                            style={{ width: `${evaluation.score}%` }}
-                          ></div>
-                        </div>
-                        <span className="text-xs text-gray-500 dark:text-gray-400 mt-1 block">{evaluation.date}</span>
+                  {selectedTrainerForFeedback.evaluations.map((evaluation) => (
+                    <div key={evaluation.id} className="bg-white dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-600">
+                      <div className="flex justify-between items-center mb-2">
+                        <span className="font-medium text-gray-900 dark:text-white">{evaluation.type}</span>
+                        <span className="text-lg font-bold text-primary dark:text-blue-500">{evaluation.score}%</span>
                       </div>
-                    ))}
+                      <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
+                        <div
+                          className="bg-primary dark:bg-blue-500 h-2 rounded-full"
+                          style={{ width: `${evaluation.score}%` }}
+                        ></div>
+                      </div>
+                      <span className="text-xs text-gray-500 dark:text-gray-400 mt-1 block">{evaluation.date}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
@@ -398,15 +484,15 @@ const TrainerManagement = () => {
               <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Summary Statistics</h4>
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
-                  <div className="text-2xl font-bold text-primary">{selectedTrainerForFeedback.rating}</div>
+                  <div className="text-2xl font-bold text-primary dark:text-blue-500">{selectedTrainerForFeedback.rating}</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Average Rating</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-green-600">{selectedTrainerForFeedback.sessions}</div>
+                  <div className="text-2xl font-bold text-green-600 dark:text-green-400">{selectedTrainerForFeedback.sessions}</div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">Total Sessions</div>
                 </div>
                 <div>
-                  <div className="text-2xl font-bold text-blue-600">
+                  <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                     {selectedTrainerForFeedback.evaluations.length > 0 
                       ? Math.round(selectedTrainerForFeedback.evaluations.reduce((sum, evaluation) => sum + evaluation.score, 0) / selectedTrainerForFeedback.evaluations.length)
                       : 'N/A'
@@ -423,4 +509,4 @@ const TrainerManagement = () => {
   );
 };
 
-export default TrainerManagement; 
+export default TrainerManagement;

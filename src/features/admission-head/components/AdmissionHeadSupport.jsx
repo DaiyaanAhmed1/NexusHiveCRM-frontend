@@ -1,7 +1,23 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-
+import { useLocalization } from "../../../hooks/useLocalization";
+import { 
+  FiHelpCircle, 
+  FiMessageSquare, 
+  FiBookOpen, 
+  FiPlus, 
+  FiX, 
+  FiEye, 
+  FiMessageCircle,
+  FiClock,
+  FiUser,
+  FiAlertCircle,
+  FiCheckCircle,
+  FiSearch,
+  FiFilter,
+  FiDownload
+} from 'react-icons/fi';
 // Demo data for support tickets
 const DEMO_TICKETS = [
   {
@@ -72,6 +88,7 @@ const CATEGORY_OPTIONS = [
   { value: "Payments", label: "Payments" },
   { value: "Facilities", label: "Facilities" },
 ];
+
 const SUBCATEGORY_MAP = {
   IT: ["System issue", "Email issue", "Printer issue"],
   ERP: ["Login issue", "Data error", "Feature request"],
@@ -80,10 +97,12 @@ const SUBCATEGORY_MAP = {
   Payments: ["Payment link", "Refund", "Status update"],
   Facilities: ["Room issue", "Maintenance", "Cleaning"],
 };
+
 const PRIORITY_OPTIONS = ["Low", "Medium", "High", "Urgent"];
 
 export default function AdmissionHeadSupport() {
   const { t } = useTranslation(['admission', 'common']);
+  const { isRTL } = useLocalization();
   const user = JSON.parse(localStorage.getItem('rbac_current_user'));
   const [expanded, setExpanded] = useState(false);
   const [activeFaq, setActiveFaq] = useState(null);
@@ -142,68 +161,84 @@ export default function AdmissionHeadSupport() {
   const Modal = ({ ticket, onClose }) => {
     if (!ticket) return null;
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm" data-tour="5" data-tour-title-en="Ticket Details" data-tour-title-ar="تفاصيل التذكرة" data-tour-content-en="View ticket details, status, and comments." data-tour-content-ar="عرض تفاصيل التذكرة والحالة والتعليقات.">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" 
+           data-tour="5" 
+           data-tour-title-en="Ticket Details" 
+           data-tour-title-ar="تفاصيل التذكرة" 
+           data-tour-content-en="View ticket details, status, and comments." 
+           data-tour-content-ar="عرض تفاصيل التذكرة والحالة والتعليقات.">
         <div className="absolute inset-0" onClick={onClose} />
-        <div className="relative z-10 bg-white dark:bg-gray-800 rounded-xl p-6 max-w-2xl w-full mx-4">
-          <button
-            onClick={onClose}
-            className="absolute top-2 right-4 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-3xl font-bold"
-            aria-label="Close"
-          >
-            &times;
-          </button>
-          <div className="mb-6">
-            <h2 className="text-xl font-bold mb-2">{ticket.subject}</h2>
+        <div className="relative z-10 bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-2xl w-full mx-4 border border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">{ticket.subject}</h2>
+            <button
+              onClick={onClose}
+              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+              aria-label="Close"
+            >
+              <FiX className="w-6 h-6" />
+            </button>
+          </div>
+          
+          <div className="p-6 space-y-6">
             <div className="flex gap-2">
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                ticket.priority === 'High' ? 'bg-red-100 text-red-700' :
-                ticket.priority === 'Medium' ? 'bg-yellow-100 text-yellow-700' :
-                'bg-green-100 text-green-700'
+              <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                ticket.priority === 'High' ? 'bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-300' :
+                ticket.priority === 'Medium' ? 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-300' :
+                'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300'
               }`}>
                 {ticket.priority}
               </span>
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                ticket.status === 'Open' ? 'bg-blue-100 text-blue-700' :
-                ticket.status === 'In Progress' ? 'bg-yellow-100 text-yellow-700' :
-                'bg-green-100 text-green-700'
+              <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                ticket.status === 'Open' ? 'bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300' :
+                ticket.status === 'In Progress' ? 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-300' :
+                'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300'
               }`}>
                 {ticket.status}
               </span>
             </div>
-          </div>
-          <div className="space-y-4">
+
             <div>
-              <h3 className="font-semibold mb-2">{t('helpSupport.ticketDetails.title')}</h3>
+              <h3 className="font-semibold mb-4 text-gray-900 dark:text-white">{t('helpSupport.ticketDetails.title')}</h3>
               <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <p className="text-sm text-gray-500">{t('helpSupport.ticketDetails.category')}</p>
-                  <p className="font-medium">{ticket.category} / {ticket.subcategory}</p>
+                <div className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{t('helpSupport.ticketDetails.category')}</p>
+                  <p className="font-medium text-gray-900 dark:text-white">{ticket.category} / {ticket.subcategory}</p>
                 </div>
-                <div>
-                  <p className="text-sm text-gray-500">{t('helpSupport.ticketDetails.location')}</p>
-                  <p className="font-medium">{ticket.location}</p>
+                <div className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{t('helpSupport.ticketDetails.location')}</p>
+                  <p className="font-medium text-gray-900 dark:text-white">{ticket.location}</p>
                 </div>
-                <div>
-                  <p className="text-sm text-gray-500">{t('helpSupport.ticketDetails.assignedTo')}</p>
-                  <p className="font-medium">{ticket.assignedTo}</p>
+                <div className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{t('helpSupport.ticketDetails.assignedTo')}</p>
+                  <p className="font-medium text-gray-900 dark:text-white">{ticket.assignedTo}</p>
                 </div>
-                <div>
-                  <p className="text-sm text-gray-500">{t('helpSupport.ticketDetails.expectedResolution')}</p>
-                  <p className="font-medium">{ticket.expectedResolution}</p>
+                <div className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{t('helpSupport.ticketDetails.expectedResolution')}</p>
+                  <p className="font-medium text-gray-900 dark:text-white">{ticket.expectedResolution}</p>
                 </div>
               </div>
             </div>
+
             <div>
-              <h3 className="font-semibold mb-2">{t('helpSupport.ticketDetails.description')}</h3>
-              <p className="text-gray-700 dark:text-gray-200">{ticket.description}</p>
+              <h3 className="font-semibold mb-3 text-gray-900 dark:text-white">{t('helpSupport.ticketDetails.description')}</h3>
+              <p className="text-gray-700 dark:text-gray-200 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">{ticket.description}</p>
             </div>
+
             <div>
-              <h3 className="font-semibold mb-2">{t('helpSupport.ticketDetails.comments')}</h3>
-              <ul className="space-y-2">
+              <h3 className="font-semibold mb-3 text-gray-900 dark:text-white">{t('helpSupport.ticketDetails.comments')}</h3>
+              <div className="space-y-3">
                 {ticket.comments.map((c, i) => (
-                  <li key={i} className="text-sm"><span className="font-semibold">{c.user}:</span> {c.text} <span className="text-xs text-gray-400">({c.date})</span></li>
+                  <div key={i} className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                    <div className="flex items-center gap-2 mb-1">
+                      <FiUser className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+                      <span className="font-semibold text-gray-900 dark:text-white">{c.user}</span>
+                      <span className="text-xs text-gray-400 dark:text-gray-500">({c.date})</span>
+                    </div>
+                    <p className="text-sm text-gray-700 dark:text-gray-200">{c.text}</p>
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -212,55 +247,121 @@ export default function AdmissionHeadSupport() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6 animate-fade-in" data-tour="1" data-tour-title-en="Help & Support Overview" data-tour-title-ar="نظرة عامة على المساعدة والدعم" data-tour-content-en="Manage support tickets or browse the knowledge base." data-tour-content-ar="إدارة تذاكر الدعم أو تصفح قاعدة المعرفة.">
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">{t('helpSupport.title')}</h1>
-      <div className="flex gap-4 mb-6 items-center" data-tour="2" data-tour-title-en="Tabs" data-tour-title-ar="علامات التبويب" data-tour-content-en="Switch between Support Tickets and Knowledge Base." data-tour-content-ar="التبديل بين تذاكر الدعم وقاعدة المعرفة.">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-6" 
+         data-tour="1" 
+         data-tour-title-en="Help & Support Overview" 
+         data-tour-title-ar="نظرة عامة على المساعدة والدعم" 
+         data-tour-content-en="Manage support tickets or browse the knowledge base." 
+         data-tour-content-ar="إدارة تذاكر الدعم أو تصفح قاعدة المعرفة.">
+      
+      {/* Header */}
+      <div className="mb-8">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center">
+            <FiHelpCircle className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+          </div>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{t('helpSupport.title')}</h1>
+        </div>
+        <p className="text-gray-600 dark:text-gray-300">Get help and support for your admission management needs</p>
+      </div>
+
+      {/* Tabs */}
+      <div className="flex gap-4 mb-8 items-center" 
+           data-tour="2" 
+           data-tour-title-en="Tabs" 
+           data-tour-title-ar="علامات التبويب" 
+           data-tour-content-en="Switch between Support Tickets and Knowledge Base." 
+           data-tour-content-ar="التبديل بين تذاكر الدعم وقاعدة المعرفة.">
+<button
+  className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-colors ${
+    activeTab === 'tickets' 
+      ? 'bg-blue-600 text-white shadow-lg' 
+      : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700'
+  }`}
+  onClick={() => setActiveTab('tickets')}
+>
+  <FiMessageSquare className="w-5 h-5" />
+  {t('helpSupport.tabs.supportTickets')}
+</button>
         <button
-          className={`px-4 py-2 rounded-lg font-semibold ${activeTab === 'tickets' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-700'}`}
-          onClick={() => setActiveTab('tickets')}
-        >
-          {t('helpSupport.tabs.supportTickets')}
-        </button>
-        <button
-          className={`px-4 py-2 rounded-lg font-semibold ${activeTab === 'kb' ? 'bg-blue-600 text-white' : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-700'}`}
+          className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-colors ${
+            activeTab === 'kb' 
+              ? 'bg-blue-600 text-white shadow-lg' 
+              : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700'
+          }`}
           onClick={() => setActiveTab('kb')}
         >
+          <FiBookOpen className="w-5 h-5" />
           {t('helpSupport.tabs.knowledgeBase')}
         </button>
+        
         {/* Raise Ticket Button */}
         {activeTab === 'tickets' && (
           <button
-            className="ml-auto px-4 py-2 bg-green-600 text-white rounded-lg font-semibold shadow hover:bg-green-700 transition"
+            className="ml-auto flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg font-semibold shadow-lg hover:bg-green-700 transition-colors dark:bg-green-700 dark:hover:bg-green-800"
             onClick={() => setShowNewTicketModal(true)}
-            data-tour="3" data-tour-title-en="Raise Ticket" data-tour-title-ar="رفع تذكرة" data-tour-content-en="Create a new support ticket here." data-tour-content-ar="أنشئ تذكرة دعم جديدة من هنا."
+            data-tour="3" 
+            data-tour-title-en="Raise Ticket" 
+            data-tour-title-ar="رفع تذكرة" 
+            data-tour-content-en="Create a new support ticket here." 
+            data-tour-content-ar="أنشئ تذكرة دعم جديدة من هنا."
           >
+            <FiPlus className="w-5 h-5" />
             {t('helpSupport.actions.raiseTicket')}
           </button>
         )}
       </div>
+
+      {/* Tickets Tab */}
       {activeTab === 'tickets' && (
-        <div data-tour="4" data-tour-title-en="Tickets" data-tour-title-ar="التذاكر" data-tour-content-en="Browse and open your support tickets." data-tour-content-ar="تصفح وافتح تذاكر الدعم الخاصة بك.">
+        <div data-tour="4" 
+             data-tour-title-en="Tickets" 
+             data-tour-title-ar="التذاكر" 
+             data-tour-content-en="Browse and open your support tickets." 
+             data-tour-content-ar="تصفح وافتح تذاكر الدعم الخاصة بك.">
           <div className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">{t('my_tickets')}</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">{t('helpSupport.my_tickets')}</h2>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {tickets.map(ticket => (
-                <div key={ticket.id} className="bg-white dark:bg-gray-800 rounded-xl shadow p-4 cursor-pointer hover:shadow-lg transition" onClick={() => handleTicketClick(ticket)}>
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="font-bold text-blue-700 dark:text-blue-300">{ticket.subject}</span>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                      ticket.status === 'Open' ? 'bg-blue-100 text-blue-700' :
-                      ticket.status === 'In Progress' ? 'bg-yellow-100 text-yellow-700' :
-                      'bg-green-100 text-green-700'
+                <div key={ticket.id} 
+                     className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 cursor-pointer hover:shadow-xl transition-all duration-200" 
+                     onClick={() => handleTicketClick(ticket)}>
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="font-bold text-lg text-gray-900 dark:text-white">{ticket.subject}</h3>
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                      ticket.status === 'Open' ? 'bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-300' :
+                      ticket.status === 'In Progress' ? 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-300' :
+                      'bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300'
                     }`}>
                       {ticket.status}
                     </span>
                   </div>
-                  <div className="flex gap-2 text-xs mb-1">
-                    <span className="bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">{ticket.category}</span>
-                    <span className="bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">{ticket.priority}</span>
+                  
+                  <div className="flex gap-2 mb-3">
+                    <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded-full">
+                      {ticket.category}
+                    </span>
+                    <span className={`px-2 py-1 text-xs rounded-full ${
+                      ticket.priority === 'High' ? 'bg-red-100 dark:bg-red-900/20 text-red-700 dark:text-red-300' :
+                      ticket.priority === 'Medium' ? 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-300' :
+                      'bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-green-300'
+                    }`}>
+                      {ticket.priority}
+                    </span>
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">{ticket.description}</div>
-                  <div className="text-xs text-gray-400 mt-2">{t('submitted_on')}: {ticket.submittedOn}</div>
+                  
+                  <p className="text-gray-600 dark:text-gray-300 mb-4 line-clamp-2">{ticket.description}</p>
+                  
+                  <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                    <div className="flex items-center gap-1">
+                      <FiClock className="w-4 h-4" />
+                      {t('submitted_on')}: {ticket.submittedOn}
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <FiEye className="w-4 h-4" />
+                      View Details
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
@@ -269,81 +370,154 @@ export default function AdmissionHeadSupport() {
           {showModal && <Modal ticket={selectedTicket} onClose={() => setShowModal(false)} />}
         </div>
       )}
+
+      {/* Knowledge Base Tab */}
       {activeTab === 'kb' && (
-        <div data-tour="4" data-tour-title-en="Knowledge Base" data-tour-title-ar="قاعدة المعرفة" data-tour-content-en="Browse helpful articles and guides." data-tour-content-ar="تصفح المقالات والأدلة المفيدة.">
-          <h2 className="text-xl font-semibold mb-2">{t('helpSupport.knowledgeBase.title')}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div data-tour="4" 
+             data-tour-title-en="Knowledge Base" 
+             data-tour-title-ar="قاعدة المعرفة" 
+             data-tour-content-en="Browse helpful articles and guides." 
+             data-tour-content-ar="تصفح المقالات والأدلة المفيدة.">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">{t('helpSupport.knowledgeBase.title')}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {knowledgeBaseArticles.map(article => (
-              <div key={article.id} className="bg-white dark:bg-gray-800 rounded-xl shadow p-4">
-                <div className="font-bold text-blue-700 dark:text-blue-300 mb-1">{article.title}</div>
-                <div className="flex gap-2 text-xs mb-1">
-                  <span className="bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">{article.category}</span>
-                  <span className="bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded">{article.views} {t('helpSupport.knowledgeBase.views')}</span>
+              <div key={article.id} className="bg-white dark:bg-gray-800 rounded-xl shadow-lg border border-gray-200 dark:border-gray-700 p-6 hover:shadow-xl transition-all duration-200">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center">
+                    <FiBookOpen className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <h3 className="font-bold text-lg text-gray-900 dark:text-white">{article.title}</h3>
                 </div>
-                <div className="text-xs text-gray-400">{t('helpSupport.knowledgeBase.lastUpdated')}: {article.lastUpdated}</div>
+                
+                <div className="flex gap-2 mb-3">
+                  <span className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-xs rounded-full">
+                    {article.category}
+                  </span>
+                  <span className="px-2 py-1 bg-blue-100 dark:bg-blue-900/20 text-blue-700 dark:text-blue-300 text-xs rounded-full">
+                    {article.views} {t('helpSupport.knowledgeBase.views')}
+                  </span>
+                </div>
+                
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  {t('helpSupport.knowledgeBase.lastUpdated')}: {article.lastUpdated}
+                </div>
               </div>
             ))}
           </div>
         </div>
       )}
+
       {/* New Ticket Modal */}
       {showNewTicketModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
           <div className="absolute inset-0" onClick={() => setShowNewTicketModal(false)} />
           <form
-            className="relative z-10 bg-white dark:bg-gray-800 rounded-xl p-6 max-w-lg w-full mx-4"
+            className="relative z-10 bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-2xl w-full mx-4 border border-gray-200 dark:border-gray-700"
             onSubmit={handleNewTicketSubmit}
           >
-            <button
-              type="button"
-              onClick={() => setShowNewTicketModal(false)}
-              className="absolute top-2 right-4 text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 text-3xl font-bold"
-              aria-label="Close"
-            >
-              &times;
-            </button>
-            <h2 className="text-xl font-bold mb-4">{t('helpSupport.ticketForm.title')}</h2>
-            <div className="mb-3">
-              <label className="block text-sm font-medium mb-1">{t('helpSupport.ticketForm.subject')}</label>
-              <input className="w-full rounded border px-3 py-2" value={newSubject} onChange={e => setNewSubject(e.target.value)} required />
+            <div className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">{t('helpSupport.ticketForm.title')}</h2>
+              <button
+                type="button"
+                onClick={() => setShowNewTicketModal(false)}
+                className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+                aria-label="Close"
+              >
+                <FiX className="w-6 h-6" />
+              </button>
             </div>
-            <div className="mb-3 grid grid-cols-2 gap-3">
+            
+            <div className="p-6 space-y-6">
               <div>
-                <label className="block text-sm font-medium mb-1">{t('helpSupport.ticketForm.category')}</label>
-                <select className="w-full rounded border px-3 py-2" value={newCategory} onChange={e => setNewCategory(e.target.value)} required>
-                  <option value="">{t('helpSupport.ticketForm.select')}</option>
-                  {CATEGORY_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
-                </select>
+                <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">{t('helpSupport.ticketForm.subject')}</label>
+                <input 
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white" 
+                  value={newSubject} 
+                  onChange={e => setNewSubject(e.target.value)} 
+                  required 
+                />
               </div>
-              <div>
-                <label className="block text-sm font-medium mb-1">{t('helpSupport.ticketForm.subcategory')}</label>
-                <select className="w-full rounded border px-3 py-2" value={newSubcategory} onChange={e => setNewSubcategory(e.target.value)} required>
-                  <option value="">{t('helpSupport.ticketForm.select')}</option>
-                  {(SUBCATEGORY_MAP[newCategory] || []).map(sub => <option key={sub} value={sub}>{sub}</option>)}
-                </select>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">{t('helpSupport.ticketForm.category')}</label>
+                  <select 
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white" 
+                    value={newCategory} 
+                    onChange={e => setNewCategory(e.target.value)} 
+                    required
+                  >
+                    <option value="">{t('helpSupport.ticketForm.select')}</option>
+                    {CATEGORY_OPTIONS.map(opt => <option key={opt.value} value={opt.value}>{opt.label}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">{t('helpSupport.ticketForm.subcategory')}</label>
+                  <select 
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white" 
+                    value={newSubcategory} 
+                    onChange={e => setNewSubcategory(e.target.value)} 
+                    required
+                  >
+                    <option value="">{t('helpSupport.ticketForm.select')}</option>
+                    {(SUBCATEGORY_MAP[newCategory] || []).map(sub => <option key={sub} value={sub}>{sub}</option>)}
+                  </select>
+                </div>
               </div>
-            </div>
-            <div className="mb-3">
-              <label className="block text-sm font-medium mb-1">{t('helpSupport.ticketForm.location')}</label>
-              <input className="w-full rounded border px-3 py-2" value={newLocation} onChange={e => setNewLocation(e.target.value)} required />
-            </div>
-            <div className="mb-3 grid grid-cols-2 gap-3">
+              
               <div>
-                <label className="block text-sm font-medium mb-1">{t('helpSupport.ticketForm.priority')}</label>
-                <select className="w-full rounded border px-3 py-2" value={newPriority} onChange={e => setNewPriority(e.target.value)} required>
+                <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">{t('helpSupport.ticketForm.location')}</label>
+                <input 
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white" 
+                  value={newLocation} 
+                  onChange={e => setNewLocation(e.target.value)} 
+                  required 
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">{t('helpSupport.ticketForm.priority')}</label>
+                <select 
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white" 
+                  value={newPriority} 
+                  onChange={e => setNewPriority(e.target.value)} 
+                  required
+                >
                   <option value="">{t('helpSupport.ticketForm.select')}</option>
                   {PRIORITY_OPTIONS.map(opt => <option key={opt} value={opt}>{opt}</option>)}
                 </select>
               </div>
+              
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-900 dark:text-white">{t('helpSupport.ticketForm.description')}</label>
+                <textarea 
+                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-gray-700 dark:text-white" 
+                  rows={4} 
+                  value={newDescription} 
+                  onChange={e => setNewDescription(e.target.value)} 
+                  required 
+                />
+              </div>
+              
+              <div className="flex justify-end gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+                <button 
+                  type="button" 
+                  onClick={() => setShowNewTicketModal(false)}
+                  className="px-4 py-2 text-gray-700 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button 
+                  type="submit" 
+                  className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 transition-colors"
+                >
+                  {t('helpSupport.actions.submitTicket')}
+                </button>
+              </div>
             </div>
-            <div className="mb-3">
-              <label className="block text-sm font-medium mb-1">{t('helpSupport.ticketForm.description')}</label>
-              <textarea className="w-full rounded border px-3 py-2" rows={3} value={newDescription} onChange={e => setNewDescription(e.target.value)} required />
-            </div>
-            <button type="submit" className="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold">{t('helpSupport.actions.submitTicket')}</button>
           </form>
         </div>
       )}
     </div>
   );
-} 
+}

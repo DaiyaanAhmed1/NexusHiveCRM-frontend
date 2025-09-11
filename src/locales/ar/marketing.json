@@ -24,7 +24,7 @@
       },
       "status": {
         "open": "مفتوح",
-        "inProgress": "قيد التنفيذ",
+        "inprogress": "قيد التنفيذ",
         "resolved": "محلول",
         "pending": "في الانتظار"
       },
@@ -1172,6 +1172,7 @@
     "sections": {
       "teamStructure": {
         "title": "هيكل الفريق والتسلسل الهرمي",
+        "performanceOverview":"نظرة عامة على الأداء",
         "aiSuggestion": "اقتراح الذكاء الاصطناعي",
         "byRole": "حسب الدور",
         "reportingHierarchy": "التسلسل الهرمي للإبلاغ",
