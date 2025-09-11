@@ -60,19 +60,6 @@
     "terser": "^5.44.0",
     "vite": "^6.3.5"
   },
-  "overrides": {
-    "react-beautiful-dnd": {
-      "react": "$react",
-      "react-dom": "$react-dom"
-    },
-    "react-joyride": {
-      "react": "$react",
-      "react-dom": "$react-dom"
-    },
-    "react-floater": {
-      "react": "$react",
-      "react-dom": "$react-dom"
-    }
-  },
+
   "homepage": "https://NexusHiveCRM.github.io/NexusHiveCRM-frontend"
 }
